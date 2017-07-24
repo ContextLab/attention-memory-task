@@ -2,7 +2,7 @@ from psychopy import visual, event, core, data, gui, logging
 
 vers = '2'
 #modified 1.3
-#removed gaussian probe, replaced with text on either side
+#removed gaussian probe, replaced with text/images on either side
 
 #clocks
 globalClock = core.Clock()
@@ -14,7 +14,7 @@ logging.setDefaultClock(globalClock)
 #objects sizes
 fixationSize = 0.5
 cueVertices = [[-1.5,-1], [-1.5,1], [1.5,0]]
-probeSize = 2
+probeSize = 7
 
 #dictionary
 info = {} 
@@ -53,12 +53,17 @@ logDat = logging.LogFile (logFileName, filemode='w', level = logging.DATA)
 # create window
 win = visual.Window([1024,768], fullscr = fullscr, monitor = 'testMonitor', units='deg')
 
+# images
+img1 = 'OddballLocStims/Faces/26656_Sarah.jpg'
+img2 = 'OddballLocStims/Faces/julien_closeup.jpg'
 
 #create objects
 fixation = visual.Circle(win, size = fixationSize, lineColor = 'white', fillColor = 'lightGrey')
 cue = visual.ShapeStim(win, vertices = cueVertices, lineColor = 'red', fillColor = 'salmon')
-probe1 = visual.TextStim(win, text='test1', pos =(5, 0), color='black') # text on either side
-probe2 = visual.TextStim(win, text='test2', pos =(-5, 0), color='black')
+#probe1 = visual.TextStim(win, text='test1', pos =(5, 0), color='black') # text on either side
+#probe2 = visual.TextStim(win, text='test2', pos =(-5, 0), color='black')
+probe1 = visual.ImageStim(win, img1, pos=(5, 0), size=probeSize)
+probe2 = visual.ImageStim(win, img2, pos=(-5, 0), size=probeSize)
 instruction = visual.TextStim(win)
 
 
