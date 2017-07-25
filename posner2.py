@@ -1,4 +1,6 @@
 from psychopy import visual, event, core, data, gui, logging
+import random
+import os
 
 vers = '2'
 #modified 1.3
@@ -54,16 +56,21 @@ logDat = logging.LogFile (logFileName, filemode='w', level = logging.DATA)
 win = visual.Window([1024,768], fullscr = fullscr, monitor = 'testMonitor', units='deg')
 
 # images
-img1 = 'OddballLocStims/Faces/26656_Sarah.jpg'
-img2 = 'OddballLocStims/Faces/julien_closeup.jpg'
+#img1 = 'OddballLocStims/Faces/26656_Sarah.jpg'
+#img2 = 'OddballLocStims/Faces/julien_closeup.jpg'
+
+
 
 #create objects
 fixation = visual.Circle(win, size = fixationSize, lineColor = 'white', fillColor = 'lightGrey')
 cue = visual.ShapeStim(win, vertices = cueVertices, lineColor = 'red', fillColor = 'salmon')
+
+#for text version
 #probe1 = visual.TextStim(win, text='test1', pos =(5, 0), color='black') # text on either side
 #probe2 = visual.TextStim(win, text='test2', pos =(-5, 0), color='black')
-probe1 = visual.ImageStim(win, img1, pos=(5, 0), size=probeSize)
-probe2 = visual.ImageStim(win, img2, pos=(-5, 0), size=probeSize)
+
+#probe1 = visual.ImageStim(win, img1, pos=(5, 0), size=probeSize)
+#probe2 = visual.ImageStim(win, img2, pos=(-5, 0), size=probeSize)
 instruction = visual.TextStim(win)
 
 
@@ -81,8 +88,9 @@ def showInstructions(text, acceptedKeys = None):
     if response == 'escape':
         core.quit()
 
-conditions = data.importConditions('conditions.csv') #import conditions from file 
-trials = data.TrialHandler(trialList = conditions, nReps = 1)
+conditions = data.importConditions('conditions.csv')
+#Conditions('conditions.csv') #import conditions from file 
+trials = data.TrialHandler(trialList = conditions, nReps = 4)
 
 conditionsPractice = data.importConditions('conditions.csv')
 practice = data.TrialHandler(trialList = conditionsPractice, nReps = 1)
@@ -94,10 +102,22 @@ thisExp = data.ExperimentHandler(name='Posner', version= vers, #not needed, just
 thisExp.addLoop(trials)
 thisExp.addLoop(practice)
 
+
+
 respClock = core.Clock()
 def runBlock(loop = object, saveData = True):
     """Runs a loop for an experimental block and saves reposnes if requested"""
     for thisTrial in loop:
+            
+        else:
+            img1_file = random.choice(os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Houses"))
+            img2_file = random.choice(os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Houses"))
+        
+            img1 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Houses/'+img1_file
+            img2 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Houses/'+img2_file
+        
+        probe1 = visual.ImageStim(win, img1, pos=(5, 0), size=probeSize)
+        probe2 = visual.ImageStim(win, img2, pos=(-5, 0), size=probeSize)
         
         resp = None
         rt = None
