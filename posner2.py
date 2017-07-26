@@ -25,7 +25,7 @@ if not dlg.OK:
     core.quit()
 info['fixFrames'] = 40
 info['cueFrames'] = 40
-info['probeFrames'] = 150
+info['probeFrames'] = 200
 info['dateStr'] = data.getDateStr()
 
 
@@ -80,7 +80,7 @@ conditions = data.importConditions('conditions.csv')
 trials = data.TrialHandler(trialList = conditions, nReps = 4)
 
 conditionsPractice = data.importConditions('conditions.csv')
-practice = data.TrialHandler(trialList = conditionsPractice, nReps = 1)
+practice = data.TrialHandler(trialList = conditionsPractice, nReps = 0)
 
 thisExp = data.ExperimentHandler(name='Posner', version= vers, #not needed, just handy
     extraInfo = info, #the info we created earlier
@@ -115,24 +115,49 @@ def runBlock(loop = object, saveData = True):
             if frameN == 0:
                 respClock.reset()
                 
-            #only change the images every third frame (to slow presentation)
+            #only change image1 every third frame (to slow presentation)
             if ((frameN %3)==0):
                 
                 #for every fifth frame, select one House and one Face
-                if ((frameN %15)==0):
-                    img1_file = random.choice(os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/ScrObjects"))
-                    img1 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/ScrObjects/'+img1_file
+                if ((frameN %12)==0):
+                    img1_file = random.choice(os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Faces"))
+                    img1 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Faces/'+img1_file
                     
-                    img2_file = random.choice(os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Houses"))
-                    img2 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Houses/'+img2_file
+#                    img2_file = random.choice(os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects"))
+#                    img2 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects/'+img2_file
+                    
+                elif ((frameN % 21)==0):
+                    if ((frameN %12)==0):
+                       img1_file = random.choice(os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Faces"))
+                       img1 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Faces/'+img1_file
+                    else:
+                        img1_file = random.choice(os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects"))
+                        img1 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects/'+img1_file
+                    
+#                    img2_file = random.choice(os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects_target"))
+#                    img2 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects_target/'+img2_file
                 
                 #otherwise, selet both images as houses
                 else:
-                    img1_file = random.choice(os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Houses"))
-                    img1 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Houses/'+img1_file
+                    img1_file = random.choice(os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects"))
+                    img1 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects/'+img1_file
                     
-                    img2_file = random.choice(os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Houses"))
-                    img2 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Houses/'+img2_file
+#                    img2_file = random.choice(os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects"))
+#                    img2 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects/'+img2_file
+
+# IMAGE 2 change at different rate (if this doesn't work, delete this section and uncomment chunks in previous
+            if ((frameN %4==0)):
+                #for every fifth frame, select one House and one Face
+                if ((frameN %20)==0):
+#                    img1_file = random.choice(os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Faces"))
+#                    img1 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Faces/'+img1_file
+                    
+                    img2_file = random.choice(os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects_target"))
+                    img2 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects_target/'+img2_file
+                else:
+                    img2_file = random.choice(os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects"))
+                    img2 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects/'+img2_file
+                
                 
             probe1 = visual.ImageStim(win, img1, pos=(5, 0), size=probeSize)
             probe2 = visual.ImageStim(win, img2, pos=(-5, 0), size=probeSize)
