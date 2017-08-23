@@ -2,8 +2,10 @@ from psychopy import visual, event, core, data, gui, logging
 import random
 import os
 
-vers = '3'
+vers = '2.0'
+#modified 1.3
 #removed gaussian probe, replaced with text/images on either side
+
 
 #clocks
 globalClock = core.Clock()
@@ -14,30 +16,28 @@ logging.setDefaultClock(globalClock)
 
 #objects sizes
 fixationSize = 0.5
-cueVertices = [[-1.5,-1], [-1.5,1], [1.5,0]]
 probeSize = 7
+cueSize = 1
 
 #dictionary
-info = {} 
+info = {}
 info['participant'] = ''
 dlg = gui.DlgFromDict(info)
 if not dlg.OK:
     core.quit()
-info['fixFrames'] = 40
-info['cueFrames'] = 40
-info['probeFrames'] = 200
+info['fixFrames'] = 60
+info['cueFrames'] = 60
+info['probeFrames'] = 60
 info['dateStr'] = data.getDateStr()
-
 
 #filenames
 filename = "data/" + info['participant'] + "_" + info['dateStr'] 
 logFileName = "data/" + info['participant'] + "_" + info['dateStr'] + '.log'
 
-
 #instructions
 instructPractice = 'Practice about to start. Press RETURN when ready'
 instructExp = 'Experiment about to start. Press RETURN when ready'
-instructThanks = 'Thank you and goodbye. We hope you enjoyed!'
+instructThanks = 'Thank you for your participation!'
 
 #logging\debugging preferences
 DEBUG = True
@@ -56,9 +56,11 @@ win = visual.Window([1024,768], fullscr = fullscr, monitor = 'testMonitor', unit
 
 #create objects
 fixation = visual.Circle(win, size = fixationSize, lineColor = 'white', fillColor = 'lightGrey')
-cue = visual.ShapeStim(win, vertices = cueVertices, lineColor = 'red', fillColor = 'salmon')
-
+cue = visual.Circle(win, size = cueSize, lineColor = 'white', fillColor = 'lightGrey')
 instruction = visual.TextStim(win)
+
+#cue = visual.ShapeStim(win, vertices = cueVertices, lineColor = 'red', fillColor = 'black')
+
 
 
 def showInstructions(text, acceptedKeys = None):
@@ -75,12 +77,13 @@ def showInstructions(text, acceptedKeys = None):
     if response == 'escape':
         core.quit()
 
-conditions = data.importConditions('conditions.csv')
-#Conditions('conditions.csv') #import conditions from file 
-trials = data.TrialHandler(trialList = conditions, nReps = 4)
+#import conditions from csv
+conditions = data.importConditions('conditions.csv') 
+trials = data.TrialHandler(trialList = conditions, nReps = 1)
 
+#practice run (same length as full run
 conditionsPractice = data.importConditions('conditions.csv')
-practice = data.TrialHandler(trialList = conditionsPractice, nReps = 0)
+practice = data.TrialHandler(trialList = conditionsPractice, nReps = 1)
 
 thisExp = data.ExperimentHandler(name='Posner', version= vers, #not needed, just handy
     extraInfo = info, #the info we created earlier
@@ -89,15 +92,38 @@ thisExp = data.ExperimentHandler(name='Posner', version= vers, #not needed, just
 thisExp.addLoop(trials)
 thisExp.addLoop(practice)
 
-
-
 respClock = core.Clock()
 def runBlock(loop = object, saveData = True):
     """Runs a loop for an experimental block and saves reposnes if requested"""
     for thisTrial in loop:
+        #generate csv file
+        #filename = "data/" + info['participant'] + "_" + info['dateStr'] + "conds" + trial#
+            #populate csv with desired params
+            #add number of the trial to the filename
+            #CHRISTINA
+        
+        
+        img1_file = random.choice(os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Faces"))
+        img1 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Faces/'+img1_file
+        
+        img2_file = random.choice(os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects"))
+        img2 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects/'+img2_file
+        
+        probe1 = visual.ImageStim(win, img1, size=probeSize) #pos=(5, 0), size=probeSize)
+        probe2 = visual.ImageStim(win, img2, size=probeSize) #pos=(-5, 0), size=probeSize)
         
         resp = None
         rt = None
+        
+        probe1.setPos( [thisTrial['probeX'], 0] )
+        probe2.setPos( [-thisTrial['probeX'], 0] )
+        
+        #trandomize side of cue
+        #random boolean --> if True, cue right
+        if bool(random.getrandbits(1)) == True:
+            cue.setPos(5)
+        else:
+            cue.setPos(-5)
         
         fixation.setAutoDraw(True)
         for frameN in range(info['fixFrames']):
@@ -108,67 +134,13 @@ def runBlock(loop = object, saveData = True):
             win.flip()
         cue.setAutoDraw(False)
         
+        probe1.setAutoDraw(True)
+        probe2.setAutoDraw(True)
         win.callOnFlip(respClock.reset)
         event.clearEvents()
-        
         for frameN in range(info['probeFrames']):
             if frameN == 0:
                 respClock.reset()
-                
-            #only change image1 every third frame (to slow presentation)
-            if ((frameN %3)==0):
-                
-                #for every fifth frame, select one House and one Face
-                if ((frameN %12)==0):
-                    img1_file = random.choice(os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Faces"))
-                    img1 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Faces/'+img1_file
-                    
-#                    img2_file = random.choice(os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects"))
-#                    img2 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects/'+img2_file
-                    
-                elif ((frameN % 21)==0):
-                    if ((frameN %12)==0):
-                       img1_file = random.choice(os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Faces"))
-                       img1 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Faces/'+img1_file
-                    else:
-                        img1_file = random.choice(os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects"))
-                        img1 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects/'+img1_file
-                    
-#                    img2_file = random.choice(os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects_target"))
-#                    img2 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects_target/'+img2_file
-                
-                #otherwise, selet both images as houses
-                else:
-                    img1_file = random.choice(os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects"))
-                    img1 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects/'+img1_file
-                    
-#                    img2_file = random.choice(os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects"))
-#                    img2 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects/'+img2_file
-
-# IMAGE 2 change at different rate (if this doesn't work, delete this section and uncomment chunks in previous
-            if ((frameN %4==0)):
-                #for every fifth frame, select one House and one Face
-                if ((frameN %20)==0):
-#                    img1_file = random.choice(os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Faces"))
-#                    img1 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Faces/'+img1_file
-                    
-                    img2_file = random.choice(os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects_target"))
-                    img2 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects_target/'+img2_file
-                else:
-                    img2_file = random.choice(os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects"))
-                    img2 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects/'+img2_file
-                
-                
-            probe1 = visual.ImageStim(win, img1, pos=(5, 0), size=probeSize)
-            probe2 = visual.ImageStim(win, img2, pos=(-5, 0), size=probeSize)
-            
-            probe1.setPos( [thisTrial['probeX'], 0] )
-            probe2.setPos( [-thisTrial['probeX'], 0] )
-            cue.setOri( thisTrial['cueOri'] )
-            
-            probe1.setAutoDraw(True)
-            probe2.setAutoDraw(True)
-            
             keys = event.getKeys(keyList = ['left','right','escape'])
             if len(keys) > 0:
                 resp = keys[0]
@@ -182,11 +154,11 @@ def runBlock(loop = object, saveData = True):
         #clear screen
         win.flip()
     
-        if resp == None:
-            
-            keys = event.waitKeys(keyList = ['left','right','escape'])
-            resp = keys[0]
-            rt = respClock.getTime()
+#        if resp == None:
+#            
+#            keys = event.waitKeys(keyList = ['left','right','escape'])
+#            resp = keys[0]
+#            rt = respClock.getTime()
         
         if saveData == True:
             if thisTrial['probeX']>0 and resp=='right':
