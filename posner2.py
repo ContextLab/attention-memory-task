@@ -25,7 +25,11 @@ info['fixFrames'] = 60
 info['cueFrames'] = 10
 info['cuePauseFrames'] = 10
 info['probeFrames'] = 60
+info['cuePos'] = 10
+info['probePos'] = 10
+
 info['dateStr'] = data.getDateStr()
+
 
 #filenames
 filename = "data/" + info['participant'] + "_" + info['dateStr'] 
@@ -54,6 +58,7 @@ win = visual.Window([1024,768], fullscr = fullscr, monitor = 'testMonitor', unit
 
 #create objects
 fixation = visual.Circle(win, size = fixationSize, lineColor = 'white', fillColor = 'lightGrey')
+#cue = visual.Polygon(win, edges = 4, lineColor = 'white', ori = 40, size  = [5, 5] )
 cue = visual.Circle(win, size = cueSize, lineColor = 'white', fillColor = 'lightGrey')
 instruction = visual.TextStim(win)
 
@@ -103,16 +108,16 @@ def runBlock(loop = object, saveData = True):
 
 
 ####### RUN EXPERIMENT #########
-    """Runs a loop for an experimental block and saves reposnes if requested"""
+    """Runs a loop for an experimental block and saves reponses if requested"""
     for thisTrial in loop:
         
         # [1] CUE ONE SIDE
         
         #randomize side
         if bool(random.getrandbits(1)) == True:
-            cue.setPos(5)
+            cue.setPos( [info['cuePos'], 0] )
         else:
-            cue.setPos(-5)
+            cue.setPos( [-info['cuePos'], 0] )
         
         #show fixation
         fixation.setAutoDraw(True)
@@ -191,19 +196,21 @@ def runBlock(loop = object, saveData = True):
             resp = None
             rt = None
             
+            
             #assign probe (circle), with position
-            probe = visual.Circle(win, size = cueSize, lineColor = 'white', fillColor = 'lightGrey')
-            position = random.choice( [-8,8] )
+            #probe = visual.Circle(win, size = cueSize, lineColor = 'white', fillColor = 'lightGrey')
+            probe = visual.TextStim(win=win, ori=0, name='fixation', text='+', font='Arial', height = 5.5, color='black', colorSpace='rgb', opacity=1, depth=0.0)
+            position = random.choice( [-10,10] )
             probe.setPos( [position, 0] )
             
             #display probe, break is response recorded
-            fixation.setAutoDraw(False)
+            fixation.setAutoDraw(True)
             probe.setAutoDraw(True)
             win.callOnFlip(respClock.reset)
             event.clearEvents()
             for frameN in range(info['probeFrames']):
-                fixation.setAutoDraw(True)
-                probe.setAutoDraw(True)
+                #fixation.setAutoDraw(True)
+                #probe.setAutoDraw(True)
                 if frameN == 0:
                     respClock.reset()
                 keys = event.getKeys(keyList = ['left','right','escape'])
@@ -219,7 +226,6 @@ def runBlock(loop = object, saveData = True):
 
             #if no response, wait w/ blank screen until response
             if resp == None:
-                
                 keys = event.waitKeys(keyList = ['left','right','escape'])
                 resp = keys[0]
                 rt = respClock.getTime()
