@@ -1,6 +1,7 @@
 from psychopy import visual, event, core, data, gui, logging
 import random
 import os
+import pickle
 
 vers = '2.0'
 
@@ -18,6 +19,7 @@ cueSize = 1
 #dictionary
 info = {}
 info['participant'] = ''
+info['run'] = ''
 dlg = gui.DlgFromDict(info)
 if not dlg.OK:
     core.quit()
@@ -27,6 +29,7 @@ info['cuePauseFrames'] = 10
 info['probeFrames'] = 60
 info['cuePos'] = 10
 info['probePos'] = 10
+info['memFrames'] = 60
 
 info['dateStr'] = data.getDateStr()
 
@@ -38,6 +41,7 @@ logFileName = "data/" + info['participant'] + "_" + info['dateStr'] + '.log'
 #instructions
 instructPractice = 'Practice about to start. Press RETURN when ready'
 instructExp = 'Experiment about to start. Press RETURN when ready'
+instructMem = 'Memory task about to start. Press RETURN when ready'
 instructThanks = 'Thank you for your participation!'
 
 #logging\debugging preferences
@@ -68,7 +72,7 @@ instruction = visual.TextStim(win)
 ### KZ : eliminate need for csv or auto generate here ######
 
 #import conditions from csv
-conditions = data.importConditions('conditions.csv') 
+conditions = data.importConditions('/Users/kirstenziman/Documents/GitHub/P4N2016/conditions.csv') 
 trials = data.TrialHandler(trialList = conditions, nReps = 1)
 
 ##########################################################
@@ -104,11 +108,14 @@ def showInstructions(text, acceptedKeys = None):
     if response == 'escape':
         core.quit()
 
-def runBlock(loop = object, saveData = True):
+
+
+def presBlock( previous_itmes, run, loop = object, saveData = True ):
 
 
 ####### RUN EXPERIMENT #########
     """Runs a loop for an experimental block and saves reponses if requested"""
+    
     for thisTrial in loop:
         
         # [1] CUE ONE SIDE
@@ -141,11 +148,17 @@ def runBlock(loop = object, saveData = True):
         # [3] RUN TRIAL
         if trialType == 2: #image trial (70% chance)
             
-            #select and load image stimuli at random
-            img1_file = random.choice(os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Faces"))
-            img1 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Faces/'+img1_file
+            all_items = os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects")
+            available_items = [x for x in all_items if x not in previous_items[int(info['run'])]]
             
-            img2_file = random.choice(os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects"))
+            #select and load image stimuli at random
+            img1_file = random.choice(available_items)
+            img1 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects/'+img1_file
+            img2_file = img1_file
+           
+            while (img2_file == img1_file):
+                img2_file = random.choice(available_items)
+            
             img2 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects/'+img2_file
             
             #assign images as probes (w/ sizes, locations, etc.)
@@ -190,7 +203,12 @@ def runBlock(loop = object, saveData = True):
                 trials.addData('resp', resp)
                 trials.addData('rt', rt)
                 trials.addData('corr', corr)
+                trials.addData('img1', img1_file)
+                trials.addData('img2', img2_file)
                 thisExp.nextEntry()
+                
+            previous_items[int(info['run'])].append(img1_file)
+            previous_items[int(info['run'])].append(img2_file)
                 
         else: #catch trial (30% chance)
             resp = None
@@ -250,13 +268,88 @@ def runBlock(loop = object, saveData = True):
                 trials.addData('rt', rt)
                 trials.addData('corr', corr)
                 thisExp.nextEntry()
+                
+        win.flip()
+    
+    with open('data/previous_items.pkl', 'wb') as f:
+        pickle.dump(previous_items, f)
+
+
+def memBlock( conds, previous_items ):
+    
+    with open(previous_items,'rb') as fp:
+        previous_items = pickle.load(fp)
+        previous_items_full = [val for sublist in previous_items for val in sublist]
+    
+    previous_mem = []
+    
+    for each in conds:
+        
+        all_items = os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects")
+        available_items = [x for x in previous_items[int(info['run'])] if x not in previous_mem]
+        available_random = [x for x in all_items if (x not in previous_mem and x not in previous_items_full)]
+        
+        
+        #select and load image stimuli 
+        
+        options = [ 1, 1, 1, 2, 2, 2] #, 3, 3, 3]
+        type = random.choice(options)
+        
+        if (type == 1):
+            mem_file = random.choice(available_items)
+            mem = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects/'+mem_file
+        
+        else:
+            mem_file = random.choice(available_random)
+        
+        memProbe = visual.ImageStim( win, mem, size=probeSize )
+        memProbe.setPos( [0, 0] )
+
+        win.callOnFlip(respClock.reset)
+        event.clearEvents()
+        memProbe.setAutoDraw(True)
+        for frameN in range(info['probeFrames']):
+            if frameN == 0:
+                respClock.reset()
+            win.flip()
+        memProbe.setAutoDraw(False)
+        win.flip()
+        
+#        for frameN in range(info['memFrames']):
+#            memProbe.setAutodraw(True)
+#        win.flip()
+        
+        ratingScale = visual.RatingScale( win, low = 1, high = 5, markerStart = 3, leftKeys = '1', rightKeys = '2', acceptKeys = 'return', labels = ['viewed before','new image'], scale = None)
+        
+        #item = "maybe this will display?"
+        
+        while ratingScale.noResponse:
+            #item.draw()
+            ratingScale.draw()
+            win.flip()
+        rating = ratingScale.getRating()
+        decisionTime = ratingScale.getRT()
+        choiceHistory = ratingScale.getHistory()
+        
+        previous_mem.append(mem_file)
 
 #RUN PRACTICE TRIAL               
 #show instructions and run practice and experimental trials
 #showInstructions(text = instructPractice, acceptedKeys = ['return', 'escape'])
 #runBlock(practice, saveData = False)
 
-#RUN TRIAL
+
+#########RUN EXPERIMENT###########
+
+previous_items = [[],[],[],[],[],[],[],[],[],[]]
+
+#presentation task
 showInstructions(text = instructExp, acceptedKeys = ['return', 'escape'])
-runBlock(trials)
+presBlock(previous_items, info['run'], trials)
+
+#memory task
+showInstructions(text = instructMem, acceptedKeys = ['return'])
+memBlock(range(0,len(conditions)), 'data/previous_items.pkl')
+
+#closing message
 showInstructions(text = instructThanks, acceptedKeys = ['return'])
