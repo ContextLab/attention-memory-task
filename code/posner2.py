@@ -3,7 +3,6 @@ import random
 import os
 import pickle
 
-
 vers = '2.0'
 
 #change pickle saving ( multiple runs )
