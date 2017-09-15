@@ -161,70 +161,73 @@ def presBlock( run, loop = object, saveData = True ):
         for frameN in range(info['cuePauseFrames']):
             win.flip()
         
-        # [2] DETERMINE TRIAL TYPE (IMAGE vs CATCH)
-        trialType = random.choice([1, 1, 1, 2, 2, 2, 2, 2, 2, 2])
+        # [2] DETERMINE TRIAL TYPE (STANDARD vs CATCH)
+        trialType = random.choice([1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2])
 
         # [3] RUN TRIAL
-        if trialType == 2: #image trial (70% chance)
+        all_items = os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/Faces")+os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/Houses")
+        available_items = [x for x in all_items if (x not in cued and x not in uncued)]
             
-            all_items = os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/Objects")
-            available_items = [x for x in all_items if (x not in cued and x not in uncued)]
-            
-            #select and load image stimuli at random
-            img1_file = random.choice(available_items)
-            img1 = '/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/Objects/'+img1_file
-            img2_file = img1_file
+        #select and load image stimuli at random
+        img1_file = random.choice([x for x in available_items if x in os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/Faces")])
+        img1 = '/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/Faces/'+img1_file
+        img2_file = img1_file
            
-            while (img2_file == img1_file):
-                img2_file = random.choice(available_items)
+        while (img2_file == img1_file):
+            img2_file = random.choice([x for x in available_items if x in os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/Houses")])
             
-            img2 = '/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/Objects/'+img2_file
-            
-            #assign images as probes (w/ sizes, locations, etc.)
+        img2 = '/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/Houses/'+img2_file
+        
+        #assign images as probes (w/ sizes, locations, etc.)
+        if random.choice([0,1])==True:
             probe1 = visual.ImageStim(win, img1, size=probeSize) #pos=(5, 0), size=probeSize)
             probe2 = visual.ImageStim(win, img2, size=probeSize) #pos=(-5, 0), size=probeSize)
-            
-            probePos = random.choice([1,2])
-            
-            if probePos == 1:
-                pos1 = info['probePos']
-                pos2 = -info['probePos']
-                
-            else:
-                pos1 = -info['probePos']
-                pos2 = info['probePos']
-             
-            probe1.setPos([pos1, 0])
-            probe2.setPos([pos2, 0])
-             
-            if pos1 == cue_position :
-                cued.append(img1_file)
-                uncued.append(img2_file)
-            else:
-                cued.append(img2_file)
-                uncued.append(img1_file)
-            
-            #response and reaction time variables
-            resp = None
-            rt = None
-            
-            #display probes simultaneously
-            probe1.setAutoDraw(True)
-            probe2.setAutoDraw(True)
-            win.callOnFlip(respClock.reset)
-            event.clearEvents()
-            for frameN in range(info['probeFrames']):
-                if frameN == 0:
-                    respClock.reset()
-                win.flip()
-            probe1.setAutoDraw(False)
-            probe2.setAutoDraw(False)
-            fixation.setAutoDraw(False)
+        else:
+            probe2 = visual.ImageStim(win, img1, size=probeSize) #pos=(5, 0), size=probeSize)
+            probe1 = visual.ImageStim(win, img2, size=probeSize) #pos=(-5, 0), size=probeSize)
         
-            #clear screen
-            win.flip()
+        probePos = random.choice([1,2])
+        
+        if probePos == 1:
+            pos1 = info['probePos']
+            pos2 = -info['probePos']
             
-            #save data
+        else:
+            pos1 = -info['probePos']
+            pos2 = info['probePos']
+         
+        probe1.setPos([pos1, 0])
+        probe2.setPos([pos2, 0])
+         
+        if pos1 == cue_position :
+            cued.append(img1_file)
+            uncued.append(img2_file)
+        else:
+            cued.append(img2_file)
+            uncued.append(img1_file)
+        
+        #response and reaction time variables
+        resp = None
+        rt = None
+        
+        #display probes simultaneously
+        probe1.setAutoDraw(True)
+        probe2.setAutoDraw(True)
+        win.callOnFlip(respClock.reset)
+        event.clearEvents()
+        for frameN in range(info['probeFrames']):
+            if frameN == 0:
+                respClock.reset()
+            win.flip()
+        probe1.setAutoDraw(False)
+        probe2.setAutoDraw(False)
+        fixation.setAutoDraw(False)
+    
+        #clear screen
+        win.flip()
+        
+
+        #save data
 #            if saveData == True:
 #                if thisTrial['probeX']>0 and resp=='right':
 #                    corr = 1
@@ -235,7 +238,7 @@ def presBlock( run, loop = object, saveData = True ):
 #                    trials.finished = True
 #                else:
 #                    corr = 0
-            
+        
 #                trials.addData('resp', resp)
 #                trials.addData('rt', rt)
 #                trials.addData('corr', corr)
@@ -245,7 +248,7 @@ def presBlock( run, loop = object, saveData = True ):
                 
              
             
-        else: #catch trial (30% chance)
+        if trialType == 1: #if catch trial (30% chance):
             resp = None
             rt = None
             
@@ -280,7 +283,7 @@ def presBlock( run, loop = object, saveData = True ):
 
             #if no response, wait w/ blank screen until response
             if resp == None:
-                keys = event.waitKeys(keyList = ['left','right','escape'])
+                keys = event.waitKeys(keyList = ['1','2', '3','4','escape'])
                 resp = keys[0]
                 rt = respClock.getTime()
                 
@@ -288,6 +291,11 @@ def presBlock( run, loop = object, saveData = True ):
             win.flip()
             
 
+
+
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             #save data
 #            if saveData == True: 
 #                if thisTrial['probeX']>0 and resp=='right':
@@ -326,7 +334,7 @@ def memBlock( conds, previous_items ):
     
     for each in conds:
         
-        all_items = os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/Objects")
+        all_items = os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/Faces")+os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/Houses")
         available_attended = [x for x in previous_items['cued'] if x not in previous_mem]
         available_unattended = [x for x in previous_items['uncued'] if x not in previous_mem]
         available_random = [x for x in all_items if (x not in previous_mem and (x not in previous_items['cued'] and x not in previous_items['uncued']))]
@@ -342,10 +350,19 @@ def memBlock( conds, previous_items ):
             mem_file = random.choice(available_unattended)
         else:
             mem_file = random.choice(available_random)
+        
+        try:
+            Type = 'Faces'
+            mem = '/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/'+Type+'/'+mem_file
+            memProbe = visual.ImageStim( win, mem, size=probeSize )
+            memProbe.setPos( [0, 0] )
             
-        mem = '/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/Objects/'+mem_file
-        memProbe = visual.ImageStim( win, mem, size=probeSize )
-        memProbe.setPos( [0, 0] )
+        except:
+            Type = 'Houses'
+            mem = '/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/'+Type+'/'+mem_file
+            memProbe = visual.ImageStim( win, mem, size=probeSize )
+            memProbe.setPos( [0, 0] )
+
 
         win.callOnFlip(respClock.reset)
         event.clearEvents()
@@ -362,7 +379,7 @@ def memBlock( conds, previous_items ):
 #        win.flip()
         
         
-        ratingScale = visual.RatingScale( win, low = 1, high = 5, markerStart = 3, leftKeys = 'left', rightKeys = 'right', acceptKeys = 'return', labels = ['viewed before','new image'], scale = None, pos = [0,0])
+        ratingScale = visual.RatingScale( win, low = 1, high = 4, leftKeys = 'left', rightKeys = 'right', acceptKeys = 'return', labels = ['viewed before','new image'], scale = None, pos = [0,0],acceptPreText='')
         
         #item = "maybe this will display?"
         
