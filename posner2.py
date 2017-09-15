@@ -26,13 +26,6 @@ info['run'] = ''
 dlg = gui.DlgFromDict(info)
 if not dlg.OK:
     core.quit()
-info['fixFrames'] = 60
-info['cueFrames'] = 10
-info['cuePauseFrames'] = 10
-info['probeFrames'] = 60
-info['cuePos'] = 10
-info['probePos'] = 10
-info['memFrames'] = 60
 
 info['dateStr'] = data.getDateStr()
 
@@ -62,7 +55,21 @@ logDat = logging.LogFile (logFileName, filemode='w', level = logging.DATA)
 
 
 # create window
-win = visual.Window([1024,768], fullscr = fullscr, monitor = 'testMonitor', units='deg')
+win = visual.Window([1024,768], fullscr = fullscr, monitor = 'testMonitor', units='deg', color = 'black')
+
+# obtain frame rate
+fRate_secs = win.getActualFrameRate()
+#print(fRate_secs)
+
+# set stim display durations
+
+info['fixFrames'] = int(2 * fRate_secs)
+info['cueFrames'] = int(.1 * fRate_secs)
+info['cuePauseFrames'] = int(.05 * fRate_secs)
+info['probeFrames'] = int(.2 * fRate_secs)
+info['cuePos'] = 10
+info['probePos'] = 10
+info['memFrames'] = int(1 * fRate_secs)
 
 #create objects
 fixation = visual.Circle(win, size = fixationSize, lineColor = 'white', fillColor = 'lightGrey')
@@ -74,16 +81,15 @@ repetitions = 40
 
 # KZ : Eliminate csv? #########
 #import conditions from csv
-conditions = data.importConditions('/Users/kirstenziman/Documents/GitHub/P4N2016/conditions_short.csv') 
+conditions = data.importConditions('/Users/kirstenziman/Documents/GitHub/P4N2016/code/conditions_short.csv') 
 #conditions = [[0]]*repetitions
-
 
 trials = data.TrialHandler(trialList = conditions, nReps = 1)
 
 ##########################################################
 
 #define practice run (same length as full run)
-conditionsPractice = data.importConditions('conditions.csv')
+conditionsPractice = data.importConditions('code/conditions.csv')
 practice = data.TrialHandler(trialList = conditionsPractice, nReps = 1)
 
 thisExp = data.ExperimentHandler(name='Posner', version= vers, #not needed, just handy
@@ -161,18 +167,18 @@ def presBlock( run, loop = object, saveData = True ):
         # [3] RUN TRIAL
         if trialType == 2: #image trial (70% chance)
             
-            all_items = os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects")
+            all_items = os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/Objects")
             available_items = [x for x in all_items if (x not in cued and x not in uncued)]
             
             #select and load image stimuli at random
             img1_file = random.choice(available_items)
-            img1 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects/'+img1_file
+            img1 = '/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/Objects/'+img1_file
             img2_file = img1_file
            
             while (img2_file == img1_file):
                 img2_file = random.choice(available_items)
             
-            img2 = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects/'+img2_file
+            img2 = '/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/Objects/'+img2_file
             
             #assign images as probes (w/ sizes, locations, etc.)
             probe1 = visual.ImageStim(win, img1, size=probeSize) #pos=(5, 0), size=probeSize)
@@ -243,7 +249,7 @@ def presBlock( run, loop = object, saveData = True ):
             resp = None
             rt = None
             
-            probe = visual.TextStim(win=win, ori=0, name='fixation', text='+', font='Arial', height = 5.5, color='black', colorSpace='rgb', opacity=1, depth=0.0)
+            probe = visual.TextStim(win=win, ori=0, name='fixation', text='+', font='Arial', height = 5.5, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0)
             position = random.choice( [-10,10] )
             probe.setPos( [position, 0] )
             
@@ -320,7 +326,7 @@ def memBlock( conds, previous_items ):
     
     for each in conds:
         
-        all_items = os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects")
+        all_items = os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/Objects")
         available_attended = [x for x in previous_items['cued'] if x not in previous_mem]
         available_unattended = [x for x in previous_items['uncued'] if x not in previous_mem]
         available_random = [x for x in all_items if (x not in previous_mem and (x not in previous_items['cued'] and x not in previous_items['uncued']))]
@@ -337,14 +343,14 @@ def memBlock( conds, previous_items ):
         else:
             mem_file = random.choice(available_random)
             
-        mem = '/Users/kirstenziman/Documents/GitHub/P4N2016/OddballLocStims/Objects/'+mem_file
+        mem = '/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/Objects/'+mem_file
         memProbe = visual.ImageStim( win, mem, size=probeSize )
         memProbe.setPos( [0, 0] )
 
         win.callOnFlip(respClock.reset)
         event.clearEvents()
         memProbe.setAutoDraw(True)
-        for frameN in range(info['probeFrames']):
+        for frameN in range(info['memFrames']):
             if frameN == 0:
                 respClock.reset()
             win.flip()
