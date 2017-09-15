@@ -5,7 +5,7 @@ import pickle
 
 vers = '2.0'
 
-#need to change saving out attended and unattended stim info in case of multiple trials
+#change pickle saving ( multiple runs )
 
 ####### PARAMS + SUB INFO #########
 
@@ -37,8 +37,8 @@ info['dateStr'] = data.getDateStr()
 
 
 #filenames
-filename = "data/" + info['participant'] + "_" + info['run'] + '_' + info['dateStr'] 
-logFileName = "data/" + info['participant'] + "_" + info['run'] + '_' + info['dateStr'] + '.log'
+filename = "data/" + info['participant'] + '_' + info['run'] + '_' + info['dateStr'] 
+logFileName = "data/" + info['participant'] + '_' + info['run'] + '_' + info['dateStr'] + '.log'
 pickle_name = 'data/' + info['participant'] + '_' + info['run'] + '_' + info['dateStr'] + 'previous_items.pkl'
 
 #instructions
@@ -65,17 +65,18 @@ win = visual.Window([1024,768], fullscr = fullscr, monitor = 'testMonitor', unit
 
 #create objects
 fixation = visual.Circle(win, size = fixationSize, lineColor = 'white', fillColor = 'lightGrey')
-#cue = visual.Polygon(win, edges = 4, lineColor = 'white', ori = 40, size  = [5, 5] )
 cue = visual.Circle(win, size = cueSize, lineColor = 'white', fillColor = 'lightGrey')
 instruction = visual.TextStim(win)
 
-#exogenous cue (red arrow)
-#cue = visual.ShapeStim(win, vertices = cueVertices, lineColor = 'red', fillColor = 'black')
+#nuber of stimulus presentations
+repetitions = 40
 
-### KZ : eliminate need for csv or auto generate here ######
-
+# KZ : Eliminate csv? #########
 #import conditions from csv
-conditions = data.importConditions('/Users/kirstenziman/Documents/GitHub/P4N2016/conditions.csv') 
+conditions = data.importConditions('/Users/kirstenziman/Documents/GitHub/P4N2016/conditions_short.csv') 
+#conditions = [[0]]*repetitions
+
+
 trials = data.TrialHandler(trialList = conditions, nReps = 1)
 
 ##########################################################
@@ -122,6 +123,10 @@ def presBlock( run, loop = object, saveData = True ):
     cued = []
     uncued = []
     
+    reaction_time={}
+    cued_RT = []
+    uncued_RT = []
+    
     for thisTrial in loop:
         
         # [1] CUE ONE SIDE
@@ -148,7 +153,6 @@ def presBlock( run, loop = object, saveData = True ):
         #pause
         for frameN in range(info['cuePauseFrames']):
             win.flip()
-        
         
         # [2] DETERMINE TRIAL TYPE (IMAGE vs CATCH)
         trialType = random.choice([1, 1, 1, 2, 2, 2, 2, 2, 2, 2])
@@ -238,9 +242,6 @@ def presBlock( run, loop = object, saveData = True ):
             resp = None
             rt = None
             
-            
-            #assign probe (circle), with position
-            #probe = visual.Circle(win, size = cueSize, lineColor = 'white', fillColor = 'lightGrey')
             probe = visual.TextStim(win=win, ori=0, name='fixation', text='+', font='Arial', height = 5.5, color='black', colorSpace='rgb', opacity=1, depth=0.0)
             position = random.choice( [-10,10] )
             probe.setPos( [position, 0] )
@@ -255,12 +256,16 @@ def presBlock( run, loop = object, saveData = True ):
                 #probe.setAutoDraw(True)
                 if frameN == 0:
                     respClock.reset()
-                keys = event.getKeys(keyList = ['left','right','escape'])
+                keys = event.getKeys(keyList = ['enter'])
                 if len(keys) > 0:
                     resp = keys[0]
                     rt = respClock.getTime()
                     break
-        
+            if position == cue_position:
+                cued_RT.append(rt)
+            else:
+                uncued_RT.append(rt)
+
             #clear screen
             win.flip()
             probe.setAutoDraw(False)
@@ -277,26 +282,28 @@ def presBlock( run, loop = object, saveData = True ):
             
 
             #save data
-            if saveData == True: 
-                if thisTrial['probeX']>0 and resp=='right':
-                    corr = 1
-                elif thisTrial['probeX']<0 and resp=='left':
-                    corr = 1
-                elif resp=='escape':
-                    corr = None
-                    trials.finished = True
-                else:
-                    corr = 0
-            
-                trials.addData('resp', resp)
-                trials.addData('rt', rt)
-                trials.addData('corr', corr)
-                thisExp.nextEntry()
+#            if saveData == True: 
+#                if thisTrial['probeX']>0 and resp=='right':
+#                    corr = 1
+#                elif thisTrial['probeX']<0 and resp=='left':
+#                    corr = 1
+#                elif resp=='escape':
+#                    corr = None
+#                    trials.finished = True
+#                else:
+#                    corr = 0
+#            
+#                trials.addData('resp', resp)
+#                trials.addData('rt', rt)
+#                trials.addData('corr', corr)
+#                thisExp.nextEntry()
                 
         win.flip()
     
     previous_items['cued'] = cued
     previous_items['uncued'] = uncued
+    reaction_time['uncued_RT'] = uncued_RT
+    reaction_time['cued_RT'] = cued_RT
     
     with open(pickle_name, 'wb') as f:
         pickle.dump(previous_items, f)
@@ -347,7 +354,8 @@ def memBlock( conds, previous_items ):
 #            memProbe.setAutodraw(True)
 #        win.flip()
         
-        ratingScale = visual.RatingScale( win, low = 1, high = 5, markerStart = 3, leftKeys = '1', rightKeys = '2', acceptKeys = 'return', labels = ['viewed before','new image'], scale = None, pos = [0,0])
+        
+        ratingScale = visual.RatingScale( win, low = 1, high = 5, markerStart = 3, leftKeys = 'left', rightKeys = 'right', acceptKeys = 'return', labels = ['viewed before','new image'], scale = None, pos = [0,0])
         
         #item = "maybe this will display?"
         
@@ -360,15 +368,14 @@ def memBlock( conds, previous_items ):
         choiceHistory = ratingScale.getHistory()
         
         previous_mem.append(mem_file)
+        
+        
+######### RUN EXPERIMENT ###########
 
 #RUN PRACTICE TRIAL               
 #show instructions and run practice and experimental trials
 #showInstructions(text = instructPractice, acceptedKeys = ['return', 'escape'])
 #runBlock(practice, saveData = False)
-
-
-######### RUN EXPERIMENT ###########
-
 
 #presentation task
 showInstructions(text = instructExp, acceptedKeys = ['return', 'escape'])
