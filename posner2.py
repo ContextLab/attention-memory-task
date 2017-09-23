@@ -79,10 +79,11 @@ instruction = visual.TextStim(win)
 #nuber of stimulus presentations
 repetitions = 40
 
-# KZ : Eliminate csv? #########
 #import conditions from csv
 conditions = data.importConditions('/Users/kirstenziman/Documents/GitHub/P4N2016/code/conditions_short.csv') 
-#conditions = [[0]]*repetitions
+
+# KZ : ^ideally run independent of csv file (low priority)
+#      currently, csv gives us only # of trials
 
 trials = data.TrialHandler(trialList = conditions, nReps = 1)
 
@@ -226,25 +227,14 @@ def presBlock( run, loop = object, saveData = True ):
         #clear screen
         win.flip()
         
-
-        #save data
-#            if saveData == True:
-#                if thisTrial['probeX']>0 and resp=='right':
-#                    corr = 1
-#                elif thisTrial['probeX']<0 and resp=='left':
-#                    corr = 1
-#                elif resp=='escape':
-#                    corr = None
-#                    trials.finished = True
-#                else:
-#                    corr = 0
-        
+            #KZ : code below from the original repo
+            #     maybe useful format for saving
+            #####################################
 #                trials.addData('resp', resp)
 #                trials.addData('rt', rt)
 #                trials.addData('corr', corr)
-#                trials.addData('img1', img1_file)
-#                trials.addData('img2', img2_file)
 #                thisExp.nextEntry()
+            #####################################
                 
              
             
@@ -271,11 +261,7 @@ def presBlock( run, loop = object, saveData = True ):
                     resp = keys[0]
                     rt = respClock.getTime()
                     break
-            if position == cue_position:
-                cued_RT.append(rt)
-            else:
-                uncued_RT.append(rt)
-
+                    
             #clear screen
             win.flip()
             probe.setAutoDraw(False)
@@ -287,31 +273,28 @@ def presBlock( run, loop = object, saveData = True ):
                 resp = keys[0]
                 rt = respClock.getTime()
                 
+            # KZ : reaction times saved below
+            #      currently saves two groups: cued/uncued
+            #      change to save into four:
+            #           2 (cued/uncued) * 2 (right/left) = 4
+            
+            if position == cue_position:
+                cued_RT.append(rt)
+            else:
+                uncued_RT.append(rt)
+                
             #clear screen upon response
             win.flip()
             
 
-
-
-
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            #save data
-#            if saveData == True: 
-#                if thisTrial['probeX']>0 and resp=='right':
-#                    corr = 1
-#                elif thisTrial['probeX']<0 and resp=='left':
-#                    corr = 1
-#                elif resp=='escape':
-#                    corr = None
-#                    trials.finished = True
-#                else:
-#                    corr = 0
-#            
+            #KZ : code below from the original repo
+            #     maybe useful format for saving
+            #####################################
 #                trials.addData('resp', resp)
 #                trials.addData('rt', rt)
 #                trials.addData('corr', corr)
 #                thisExp.nextEntry()
+            #####################################
                 
         win.flip()
     
@@ -320,12 +303,19 @@ def presBlock( run, loop = object, saveData = True ):
     reaction_time['uncued_RT'] = uncued_RT
     reaction_time['cued_RT'] = cued_RT
     
+    # KZ : code below saves data in pickle format
+    #      if we save data per trial (we should, even if not needed; want a record of everything subject saw at each moment) 
+    #      we will need to incorporate trial # and subject # into filenames
+    
+    #      should set up experiment so that if subject is on run 1, it makes new directory for subject
+    #      other runs --> check for directory --> if exists, save out to subj dir --> if not exist..warning? create subject direcotry?
+    
     with open(pickle_name, 'wb') as f:
         pickle.dump(previous_items, f)
 
 
 def memBlock( conds, previous_items ):
-    
+    #KZ : reads in the pickle file
     with open(previous_items,'rb') as fp:
         previous_items = pickle.load(fp)
         #previous_items_full = [val for sublist in previous_items for val in sublist]
@@ -341,7 +331,7 @@ def memBlock( conds, previous_items ):
         
         #select and load image stimuli 
         
-        options = [ 1, 1, 1, 2, 2, 2, 3, 3, 3]
+        options = [ 1, 2, 3, 3]
         type = random.choice(options)
         
         if type == 1:
@@ -390,6 +380,9 @@ def memBlock( conds, previous_items ):
         rating = ratingScale.getRating()
         decisionTime = ratingScale.getRT()
         choiceHistory = ratingScale.getHistory()
+        # KZ : need to save decisionTime and choiceHistory
+        #      need to save decisionTime grouped by type of image subj is responding to
+        #      10 image types : 1 (seen) * 2 (attended/unattended) * 2 (displayed right/left) * 2 (face/house)  +  1 (unseen) * 2 (face/house)
         
         previous_mem.append(mem_file)
         
@@ -402,13 +395,13 @@ def memBlock( conds, previous_items ):
 #runBlock(practice, saveData = False)
 
 #presentation task
-showInstructions(text = instructExp, acceptedKeys = ['return', 'escape'])
+showInstructions(text = instructExp, acceptedKeys = ['1','2','3','4','return', 'escape'])
 presBlock(info['run'], trials)
 
 #memory task
-showInstructions(text = instructMem, acceptedKeys = ['return'])
+showInstructions(text = instructMem, acceptedKeys = ['1','2','3','4','return'])
 memBlock(range(0,len(conditions)), pickle_name)
 #pickle_name = 'data/' + info['participant'] + '_' + info['run'] + '_' + info['dateStr'] + 'previous_items.pkl'
 
 #closing message
-showInstructions(text = instructThanks, acceptedKeys = ['return'])
+showInstructions(text = instructThanks, acceptedKeys = ['1','2','3','4','return'])
