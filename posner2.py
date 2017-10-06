@@ -29,11 +29,19 @@ if not dlg.OK:
 
 info['dateStr'] = data.getDateStr()
 
+# subject directory
+dir_name = info['participant'] + info['dateStr']
+dir_check = 'data/' + dir_name
 
-#filenames
-filename = "data/" + info['participant'] + '_' + info['run'] + '_' + info['dateStr'] 
-logFileName = "data/" + info['participant'] + '_' + info['run'] + '_' + info['dateStr'] + '.log'
-pickle_name = 'data/' + info['participant'] + '_' + info['run'] + '_' + info['dateStr'] + 'previous_items.pkl'
+# if subject directory does not exist, create it
+if not os.path.exists(dir_check):
+    os.makedirs(dir_check)
+
+# filenames 
+filename = "data/" + dir_name + '/'+ info['participant'] + '_' + info['run'] + '_' + info['dateStr'] 
+logFileName = "data/" + dir_name + '/' + info['participant'] + '_' + info['run'] + '_' + info['dateStr'] + '.log'
+pickle_name = "data/" + dir_name + '/' + info['participant'] + '_' + info['run'] + '_' + info['dateStr'] + 'previous_items.pkl'
+
 
 #instructions
 instructPractice = 'Practice about to start. Press RETURN when ready'
@@ -55,25 +63,30 @@ logDat = logging.LogFile (logFileName, filemode='w', level = logging.DATA)
 
 
 # create window
-win = visual.Window([1024,768], fullscr = fullscr, monitor = 'testMonitor', units='deg', color = 'black')
+win = visual.Window([1024,768], fullscr = True, monitor = 'testMonitor', units='deg', color = 'black')
 
 # obtain frame rate
 fRate_secs = win.getActualFrameRate()
-#print(fRate_secs)
+print(fRate_secs)
 
 # set stim display durations
 
-info['fixFrames'] = int(2 * fRate_secs)
-info['cueFrames'] = int(.1 * fRate_secs)
-info['cuePauseFrames'] = int(.05 * fRate_secs)
-info['probeFrames'] = int(.2 * fRate_secs)
+info['fixFrames'] = int(round(1.5 * fRate_secs))
+info['cueFrames'] = int(round(.5 * fRate_secs))
+info['cuePauseFrames'] = int(round(.2* fRate_secs))
+info['probeFrames'] = int(round(.2 * fRate_secs))
 info['cuePos'] = 10
 info['probePos'] = 10
-info['memFrames'] = int(1 * fRate_secs)
+info['memFrames'] = int(round(1 * fRate_secs))
+info['ratingFrames'] = int(round(1 *  fRate_secs))
 
 #create objects
 fixation = visual.Circle(win, size = fixationSize, lineColor = 'white', fillColor = 'lightGrey')
-cue = visual.Circle(win, size = cueSize, lineColor = 'white', fillColor = 'lightGrey')
+cueVerticesR = [[-.8,-.5], [-.8,.5], [.8,0]]
+cueRight = visual.ShapeStim(win, vertices = cueVerticesR, lineColor = 'white', fillColor = 'lightGrey')
+cueVerticesL = [[.8,-.5], [.8,.5], [-.8,0]]
+cueLeft = visual.ShapeStim(win, vertices = cueVerticesL, lineColor = 'white', fillColor = 'lightGrey')
+#cue = visual.Circle(win, size = cueSize, lineColor = 'white', fillColor = 'lightGrey')
 instruction = visual.TextStim(win)
 
 #nuber of stimulus presentations
@@ -102,6 +115,7 @@ thisExp.addLoop(trials)
 thisExp.addLoop(practice)
 
 respClock = core.Clock()
+
 
 
 ####### EXP FUNCTIONS #########
@@ -141,11 +155,11 @@ def presBlock( run, loop = object, saveData = True ):
         
         #randomize side
         if bool(random.getrandbits(1)) == True:
-            cue_position = info['cuePos']
+            cue = cueRight
         else:
-            cue_position = -info['cuePos']
+            cue = cueLeft
             
-        cue.setPos( [cue_position, 0] )
+        cue.setPos( [0, 0] )
         
         #show fixation
         fixation.setAutoDraw(True)
@@ -163,7 +177,7 @@ def presBlock( run, loop = object, saveData = True ):
             win.flip()
         
         # [2] DETERMINE TRIAL TYPE (STANDARD vs CATCH)
-        trialType = random.choice([1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2])
+        #trialType = random.choice([1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2])
 
         # [3] RUN TRIAL
         all_items = os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/Faces")+os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/Houses")
@@ -200,7 +214,7 @@ def presBlock( run, loop = object, saveData = True ):
         probe1.setPos([pos1, 0])
         probe2.setPos([pos2, 0])
          
-        if pos1 == cue_position :
+        if (cue == cueRight and pos1 > 0) :
             cued.append(img1_file)
             uncued.append(img2_file)
         else:
@@ -238,24 +252,29 @@ def presBlock( run, loop = object, saveData = True ):
                 
              
             
-        if trialType == 1: #if catch trial (30% chance):
-            resp = None
-            rt = None
+        #if trialType == 1: #if catch trial (30% chance):
+                #pause
+                
+        for frameN in range(info['cuePauseFrames']):
+            win.flip()
+
+        resp = None
+        rt = None
+        
+        probe = visual.TextStim(win=win, ori=0, name='fixation', text='+', font='Arial', height = 5.5, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0)
+        position = random.choice( [-10,10] )
+        probe.setPos( [position, 0] )
             
-            probe = visual.TextStim(win=win, ori=0, name='fixation', text='+', font='Arial', height = 5.5, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0)
-            position = random.choice( [-10,10] )
-            probe.setPos( [position, 0] )
-            
-            #display probe, break is response recorded
-            fixation.setAutoDraw(True)
-            probe.setAutoDraw(True)
-            win.callOnFlip(respClock.reset)
-            event.clearEvents()
-            for frameN in range(info['probeFrames']):
-                #fixation.setAutoDraw(True)
-                #probe.setAutoDraw(True)
-                if frameN == 0:
-                    respClock.reset()
+        #display probe, break is response recorded
+        fixation.setAutoDraw(True)
+        probe.setAutoDraw(True)
+        win.callOnFlip(respClock.reset)
+        event.clearEvents()
+        for frameN in range(info['probeFrames']):
+            #fixation.setAutoDraw(True)
+            #probe.setAutoDraw(True)
+            if frameN == 0:
+                respClock.reset()
                 keys = event.getKeys(keyList = ['enter'])
                 if len(keys) > 0:
                     resp = keys[0]
@@ -269,7 +288,7 @@ def presBlock( run, loop = object, saveData = True ):
 
             #if no response, wait w/ blank screen until response
             if resp == None:
-                keys = event.waitKeys(keyList = ['1','2', '3','4','escape'])
+                keys = event.waitKeys(keyList = ['1', '3'])
                 resp = keys[0]
                 rt = respClock.getTime()
                 
@@ -278,10 +297,10 @@ def presBlock( run, loop = object, saveData = True ):
             #      change to save into four:
             #           2 (cued/uncued) * 2 (right/left) = 4
             
-            if position == cue_position:
-                cued_RT.append(rt)
-            else:
-                uncued_RT.append(rt)
+        if ( cue == cueRight and position > 1 ):
+            cued_RT.append(rt)
+        else:
+            uncued_RT.append(rt)
                 
             #clear screen upon response
             win.flip()
@@ -300,8 +319,8 @@ def presBlock( run, loop = object, saveData = True ):
     
     previous_items['cued'] = cued
     previous_items['uncued'] = uncued
-    reaction_time['uncued_RT'] = uncued_RT
-    reaction_time['cued_RT'] = cued_RT
+    previous_items['uncued_RT'] = uncued_RT
+    previous_items['cued_RT'] = cued_RT
     
     # KZ : code below saves data in pickle format
     #      if we save data per trial (we should, even if not needed; want a record of everything subject saw at each moment) 
@@ -315,14 +334,26 @@ def presBlock( run, loop = object, saveData = True ):
 
 
 def memBlock( conds, previous_items ):
+
+    # start dictionary to store data
+    mem_task = {}
+    
+    # filename for saved output
+    pickle_name_mem = "data/" + dir_name + '/' + info['participant'] + '_' + info['run'] + '_' + info['dateStr'] + 'mem_items.pkl'
+    
     #KZ : reads in the pickle file
     with open(previous_items,'rb') as fp:
         previous_items = pickle.load(fp)
         #previous_items_full = [val for sublist in previous_items for val in sublist]
     
+    
+    # empty list to store items used in memory task
     previous_mem = []
+    all_ratings = []
+    
     
     for each in conds:
+        
         
         all_items = os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/Faces")+os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/Houses")
         available_attended = [x for x in previous_items['cued'] if x not in previous_mem]
@@ -331,7 +362,8 @@ def memBlock( conds, previous_items ):
         
         #select and load image stimuli 
         
-        options = [ 1, 2, 3, 3]
+        options = [ 1, 2, 3]
+        # will need to change when we track more stimulus parameters
         type = random.choice(options)
         
         if type == 1:
@@ -368,23 +400,32 @@ def memBlock( conds, previous_items ):
 #            memProbe.setAutodraw(True)
 #        win.flip()
         
+        ratingScale = visual.RatingScale( win, low = 1, high = 4, labels = ['viewed before','new image'], scale = None, pos = [0,0],acceptPreText='', maxTime=1.0)
         
-        ratingScale = visual.RatingScale( win, low = 1, high = 4, leftKeys = 'left', rightKeys = 'right', acceptKeys = 'return', labels = ['viewed before','new image'], scale = None, pos = [0,0],acceptPreText='')
-        
-        #item = "maybe this will display?"
-        
+        ##################
+#        
         while ratingScale.noResponse:
             #item.draw()
             ratingScale.draw()
             win.flip()
-        rating = ratingScale.getRating()
-        decisionTime = ratingScale.getRT()
         choiceHistory = ratingScale.getHistory()
+
+
         # KZ : need to save decisionTime and choiceHistory
         #      need to save decisionTime grouped by type of image subj is responding to
         #      10 image types : 1 (seen) * 2 (attended/unattended) * 2 (displayed right/left) * 2 (face/house)  +  1 (unseen) * 2 (face/house)
         
         previous_mem.append(mem_file)
+        all_ratings.append(choiceHistory)
+    
+    mem_task['ratings'] = all_ratings
+    mem_task['images'] = previous_mem
+    #mem_task['choiceHist']=all_ratings
+
+    with open(pickle_name_mem, 'wb') as f:
+        pickle.dump(mem_task, f)
+
+
         
         
 ######### RUN EXPERIMENT ###########
