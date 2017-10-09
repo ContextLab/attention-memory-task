@@ -9,6 +9,7 @@ vers = '2.0'
 #change pickle saving ( multiple runs )
 
 ####### PARAMS + SUB INFO #########
+####### PARAMS + SUB INFO #########
 
 #clocks
 globalClock = core.Clock()
@@ -27,10 +28,10 @@ dlg = gui.DlgFromDict(info)
 if not dlg.OK:
     core.quit()
 
-info['dateStr'] = data.getDateStr()
+info['dateStr']= data.getDateStr()
 
 # subject directory
-dir_name = info['participant'] + info['dateStr']
+dir_name = info['participant'] + '_' + info['dateStr'][0:14] 
 dir_check = 'data/' + dir_name
 
 # if subject directory does not exist, create it
@@ -78,7 +79,7 @@ info['probeFrames'] = int(round(.2 * fRate_secs))
 info['cuePos'] = 10
 info['probePos'] = 10
 info['memFrames'] = int(round(1 * fRate_secs))
-info['ratingFrames'] = int(round(1 *  fRate_secs))
+info['ratingFrames'] = int(round(2 *  fRate_secs))
 
 #create objects
 fixation = visual.Circle(win, size = fixationSize, lineColor = 'white', fillColor = 'lightGrey')
@@ -183,6 +184,7 @@ def presBlock( run, loop = object, saveData = True ):
         all_items = os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/Faces")+os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/Houses")
         available_items = [x for x in all_items if (x not in cued and x not in uncued)]
             
+        #select and load image stimuli at random
         #select and load image stimuli at random
         img1_file = random.choice([x for x in available_items if x in os.listdir("/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/Faces")])
         img1 = '/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/Faces/'+img1_file
@@ -400,7 +402,9 @@ def memBlock( conds, previous_items ):
 #            memProbe.setAutodraw(True)
 #        win.flip()
         
-        ratingScale = visual.RatingScale( win, low = 1, high = 4, labels = ['viewed before','new image'], scale = None, pos = [0,0],acceptPreText='', maxTime=1.0)
+        ratingScale = visual.RatingScale( win, low = 1, high = 4, labels = ['viewed before','new image'], scale = None, pos = [0,0],acceptPreText='', maxTime=1.0, singleClick=True)
+        
+        
         
         ##################
 #        
