@@ -1,6 +1,8 @@
 import seaborn
 import os
 import pickle
+import statistics
+
 
 
 # SINGLE SUBJECT ANALYSIS
@@ -30,9 +32,27 @@ def make_run_dict(files):
     return runs
 
 # in: run is the name of mem_items.pkl, runs[run] is the name of corresponding previous_items.pkl
-# out: boolean
-def is_outlier(run, runs):
-    pass 
+#     mass is the aggregate data
+# out: none, prints if outlier
+def is_outlier(mass, runs):
+
+    cued_avg = sum(mass['cued_RT']) / len(mass['cued_RT'])
+    uncued_avg = sum(mass['uncued_RT']) / len(mass['uncued_RT'])
+    cued_sd = 3 * statistics.stdev(mass['cued_RT'])
+    uncued_sd = 3 * statistics.stdev(mass['uncued_RT'])
+
+    for run in runs:
+        with open(run, 'rb') as fp:
+            prev = pickle.load(fp)
+            cued = sum(prev['cued_RT']) / len(prev['cued_RT'])
+            uncued = sum(prev['uncued_RT']) / len(prev['uncued_RT'])
+            if cued > cued_avg + cued_sd or cued < cued_avg - cued_sd or uncued > uncued_avg + uncued_sd or uncued < uncued_avg - uncued_sd:
+                print("Outlier in " + runs[run])
+
+        fp.close()
+
+
+
 
 # in: dict of runs mem_items: previous_items
 # out: none, modifies mass dictionary
@@ -58,11 +78,52 @@ def aggregate(run, runs, mass):
 def plot_rl(mass):
     pass
 
-def plot_accuracy(mass):
-    pass
+def plot_response(mass):
+    images = mass['images']
+    ratings = mass['ratings']
+    cued = mass['cued']
+    uncued = mass['uncued']
 
-def plot_memtime(mass):
-    pass
+
+    cued_count = 0
+    cued_actual = 0
+    uncued_count = 0
+    uncued_actual = 0
+    unseen_count = 0
+    unseen_actual = 0
+
+    cued_rt = []
+    uncued_rt = []
+    unseen_rt = []
+
+    for i in range(len(ratings)):
+        image = images[i]
+        rt = ratings[i][-1][1]
+        score = ratings[i][-1][0]
+
+        if image in cued:
+            if score <= 2:
+                cued_count += 1
+            cued_actual += 1
+            cued_rt.append(rt)
+        elif image in uncued:
+            if score <= 2:
+                uncued_count += 1
+            uncued_actual += 1
+            uncued_rt.append(rt)
+        else:
+            if score >= 3:
+                unseen_count +1
+            unseen_actual += 1
+            unseen_rt.append(rt)
+
+    cued_acc = cued_count / float(cued_actual)
+    uncued_acc = uncued_count / float(uncued_actual)
+    unseen_acc = unseen_count / float(unseen_actual)
+
+
+    # graph
+
 
 # main function
 def graph_data(folder):
@@ -75,15 +136,12 @@ def graph_data(folder):
         # change outliers
 
         for run in runs:
-            if is_outlier(run, runs):
-                print("Outlier: " + run)
-                runs.pop(run)
-            else:
-                aggregate(run, runs, mass)
+            aggregate(run, runs, mass)
+
+        is_outlier(mass, runs)
         print(mass)
         #plot_rl(mass)
-        #plot_accuracy(mass)
-        #plot_memtime(mass)
+        #plot_response(mass)
                 
         
 graph_data('../data')
