@@ -44,6 +44,7 @@ def is_outlier(mass, runs):
     for run in runs:
         with open(run, 'rb') as fp:
             prev = pickle.load(fp)
+            print(prev)
             cued = sum(prev['cued_RT']) / len(prev['cued_RT'])
             uncued = sum(prev['uncued_RT']) / len(prev['uncued_RT'])
             if cued > cued_avg + cued_sd or cued < cued_avg - cued_sd or uncued > uncued_avg + uncued_sd or uncued < uncued_avg - uncued_sd:
@@ -125,6 +126,62 @@ def plot_response(mass):
     # graph
 
 
+def calc_roc(mass):
+    targets = {}
+    lures = {}
+    for i in range(len(mass['images'])):
+        image =  mass['images'][i]
+        if image in mass['cued'] or image in mass['uncued']:
+            if mass['ratings'][i][-1][0]:
+                targets[image] = mass['ratings'][i][-1][0]
+        else:
+            if mass['ratings'][i][-1][0]:
+                lures[image] = mass['ratings'][i][-1][0]
+    t_count = len(targets)
+    l_count = len(lures)
+
+    t_one = 0
+    t_two = 0
+    t_three = 0
+    t_four = 0
+    for key in targets:
+        if targets[key]:
+            score = int(targets[key])
+            if score == 1:
+                t_one += 1
+            if score <= 2:
+                t_two += 1
+            if score <= 3:
+                t_three += 1
+            if score <= 4:
+                t_four += 1
+
+    l_one = 0
+    l_two = 0
+    l_three = 0
+    l_four = 0
+    for key in lures:
+        if lures[key]:
+            score = int(lures[key])
+            if score == 1:
+                l_one += 1
+            if score <= 2:
+                l_two += 1
+            if score <= 3:
+                l_three += 1
+            if score <= 4:
+                l_four += 1
+
+    points = []
+    points.append((0, 0))
+    points.append((t_one / float(t_count), l_one / float(l_count)))
+    points.append((t_two / float(t_count), l_two / float(l_count)))
+    points.append((t_three / float(t_count), l_three / float(l_count)))
+    points.append((t_four / float(t_count), l_four / float(l_count)))
+
+    print(points)
+
+
 # main function
 def graph_data(folder):
     dirs = get_subdirectories(folder)
@@ -138,8 +195,10 @@ def graph_data(folder):
         for run in runs:
             aggregate(run, runs, mass)
 
-        is_outlier(mass, runs)
-        print(mass)
+        #is_outlier(mass, runs)
+
+        calc_roc(mass)
+
         #plot_rl(mass)
         #plot_response(mass)
                 
