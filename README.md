@@ -1,6 +1,10 @@
 # Overview
 
-Add description of the task
+This repository contains various adaptations of the classic Posner covert attention task, aimed at exploring the effects of covert attention on the processing and subsequent storage of information into memory.
+
+The task is programmed in v1.85.1 of Psychopy.
+
+More detailed description pending..
 
 # Installation
 
@@ -16,4 +20,4 @@ Provide sample data, code, and instructions
 
 # Acknowledgements
 
-Link to original repo
+This code is adapted from the Posner code provided by Github user CypressA.
