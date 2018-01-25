@@ -2,6 +2,7 @@ import seaborn
 import os
 import pickle
 import statistics
+import pandas as pd
 
 
 
@@ -77,9 +78,13 @@ def aggregate(run, runs, mass):
     fp2.close()
     
 def plot_rl(mass):
-    pass
+    df = pd.DataFrame.from_dict(mass, orient='index')
+    df = df.T
+    df_new = df.replace('None', 'Nan')
+    
+    return(df_new)
 
-def plot_response(mass):
+def plot_response(mass, category=False):
     images = mass['images']
     ratings = mass['ratings']
     cued = mass['cued']
@@ -88,39 +93,120 @@ def plot_response(mass):
 
     cued_count = 0
     cued_actual = 0
+    
+    cued_count_face = 0
+    cued_actual_face = 0
+    
+    cued_count_house = 0
+    cued_actual_house = 0
+    
     uncued_count = 0
     uncued_actual = 0
-    unseen_count = 0
-    unseen_actual = 0
+    
+    uncued_count_face = 0
+    uncued_actual_face = 0
+    
+    uncued_count_house = 0
+    uncued_actual_house = 0
+    
+    unseen_count_face = 0
+    unseen_actual_face = 0
+    
+    unseen_count_house = 0
+    unseen_actual_house = 0
 
     cued_rt = []
     uncued_rt = []
-    unseen_rt = []
+    unseen_rt_face = []
+    unseen_rt_house = []
+    uncued_rt_face = []
+    uncued_rt_house = []    
+    cued_rt_face = []
+    cued_rt_house = []
 
     for i in range(len(ratings)):
         image = images[i]
-        rt = ratings[i][-1][1]
-        score = ratings[i][-1][0]
+        rt = ratings[i][-1][1]  # this gives reaction time (float)
+        score = ratings[i][-1][0]    # this gives rating (int)
 
         if image in cued:
-            if score <= 2:
-                cued_count += 1
-            cued_actual += 1
-            cued_rt.append(rt)
+            if "CFD" in image:
+                if (score==2 or score==1) :
+                    cued_count_face += 1
+                if (score==1 or score==2 or score==3 or score==4):
+                    cued_actual_face += 1
+                    cued_rt_face.append(rt)
+            else:
+                if (score==2 or score==1) :
+                    cued_count_house += 1
+                if (score==1 or score==2 or score==3 or score==4):
+                    cued_actual_house += 1
+                    cued_rt_house.append(rt)
+            
         elif image in uncued:
-            if score <= 2:
-                uncued_count += 1
-            uncued_actual += 1
-            uncued_rt.append(rt)
+            if "CFD" in image:
+                if (score==2 or score==1) :
+                    uncued_count_face += 1
+                if (score==1 or score==2 or score==3 or score==4):
+                    uncued_actual_face += 1 
+                    uncued_rt_face.append(rt)
+            else:
+                if (score==2 or score==1) :
+                    uncued_count_house += 1
+                if (score==1 or score==2 or score==3 or score==4):
+                    uncued_actual_house += 1
+                    uncued_rt_house.append(rt)
         else:
-            if score >= 3:
-                unseen_count +1
-            unseen_actual += 1
-            unseen_rt.append(rt)
+            if "CFD" in image:
+                if (score==2 or score==1) :
+                    unseen_count_face += 1
+                if (score==1 or score==2 or score==3 or score==4):
+                    unseen_actual_face += 1 
+                    unseen_rt_face.append(rt)
+            else:
+                if (score==2 or score==1) :
+                    unseen_count_house += 1
+                if (score==1 or score==2 or score==3 or score==4):
+                    unseen_actual_house += 1
+                    unseen_rt_house.append(rt)
+#             if (score==1 or score==2):
+#                 unseen_count= +1
+#             #unseen_count += 1
+#             unseen_actual += 1
+#             unseen_rt.append(rt)
+    if category==True:
+        #PLOT HOUSES AND FACES SEPARATELY
+    
+        cued_acc_house = cued_count_house / float(cued_actual_house)
+        cued_acc_face = cued_count_face / float(cued_actual_face)
+        uncued_acc_face = uncued_count_face / float(uncued_actual_face)
+        uncued_acc_house = uncued_count_house / float(uncued_actual_house)
+        
+        unseen_inacc_house = unseen_count_house / float(unseen_actual_house)
+        unseen_inacc_face = unseen_count_face / float(unseen_actual_face)
+        
+    
+        mydict = {'uncued_F':[uncued_acc_face], 'uncued_H':[uncued_acc_house], 'cued_H':[cued_acc_house], 'cued_F': [cued_acc_face], 'novel_H':[unseen_inacc_house], 'novel_F':[unseen_inacc_face]}
+        to_plot = pd.DataFrame(mydict)
+    
+        #sns.barplot(data=[[uncued_acc_face], [uncued_acc_house], [cued_acc_face], [cued_acc_house]])
+        #sns.barplot(data=to_plot)
+    
+    # graph
+    
+    else:
+        #PLOT ALL TOGETHER
+        cued_acc = (cued_count_house + cued_count_face)/(cued_actual_house + cued_actual_face)
+        uncued_acc = (uncued_count_face+uncued_count_house) / float(uncued_actual_face+uncued_actual_house)
+        unseen_acc = (unseen_count_house+unseen_count_face) / float(unseen_actual_house+unseen_actual_face)
+        
+        mydict = {'uncued':[uncued_acc], 'cued_acc':[cued_acc], 'unseen_acc': [unseen_acc]}
+        to_plot = pd.DataFrame(mydict)
+    
+        #sns.barplot(data=to_plot)
+        
+    return(to_plot)
 
-    cued_acc = cued_count / float(cued_actual)
-    uncued_acc = uncued_count / float(uncued_actual)
-    unseen_acc = unseen_count / float(unseen_actual)
 
 
     # graph
@@ -201,9 +287,26 @@ def graph_data(folder):
 
         #plot_rl(mass)
         #plot_response(mass)
+
+
+def mass_data(folder):
+    mass_list = []
+    dirs = get_subdirectories(folder)
+
+    for dir_name in dirs:
+        runs = make_run_dict(get_files(dir_name))
+        mass = {'images':[], 'ratings':[], 'cued':[], 'cued_RT':[], 'uncued':[], 'uncued_RT':[]}
+
+        for run in runs:
+            aggregate(run, runs, mass)
+            
+           
+        mass_list.append(mass)   
+
+    return(mass_list)
                 
         
-graph_data('../data')
+#graph_data('../data')
         
     
 

@@ -4,7 +4,7 @@ import os
 import pickle
 
 vers = '2.0'
-
+DEBUG = False
 
 ####### PARAMS + SUB INFO #########
 
@@ -29,7 +29,6 @@ if not dlg.OK:
     core.quit()
 info['dateStr']= data.getDateStr()[0:11]
 
-
 # subject directory
 dir_name = info['participant'] + '_' + info['dateStr']
 dir_check = 'data/' + dir_name
@@ -42,10 +41,8 @@ if not os.path.exists(dir_check):
 filename = "data/" + dir_name + '/'+ info['participant'] + '_' + info['run'] + '_' + info['dateStr'] 
 logFileName = "data/" + dir_name + '/' + info['participant'] + '_' + info['run'] + '_' + info['dateStr']
 
-
 # stim dirs
-dir1 = 'selected_images/'
-dir2 = 'gray_scene/'
+dir1 = '../../stim/composites'
 
 #instructions 
 instructPractice = 'Practice about to start. Press RETURN when ready'
@@ -54,8 +51,6 @@ instructMem = 'Memory task about to start. Press RETURN when ready'
 instructThanks = 'Thank you for your participation!'
 
 #logging\debugging preferences
-DEBUG = False
-
 if DEBUG:
     fullscr = False
     logging.console.setLevel(logging.DEBUG)
