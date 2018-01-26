@@ -44,6 +44,8 @@ logFileName = "data/" + dir_name + '/' + info['participant'] + '_' + info['run']
 
 # stim dirs
 dir1 = '../../stim/comp_test/composites/'
+stim_dir1 = '../../stim/comp_test/test1/'
+stim_dir2 = '../../stim/comp_test/test2/'
 
 #instructions 
 instructPractice = 'Practice about to start. Press RETURN when ready'
@@ -228,6 +230,12 @@ def presBlock( pickle_name, prev_stim, run, loop = object, saveData = True, test
         for frameN in range(info['cueFrames']):
             win.flip()
         cue.setAutoDraw(False) 
+        
+        # EDIT
+        # add place or face cue 
+        # record place or face cue
+        # need half place half face
+        # need half right half left 
         
         #pause
         for frameN in range(info['cuePauseFrames']):
@@ -424,16 +432,20 @@ def memBlock( conds, current_pickle, prev_stim ):
     
     for each in conds:
         
-        all_items0 = os.listdir(dir1)
+        all_items0 = os.listdir(stim_dir1) + os.listdir(stim_dir2)
         all_items = []
-
+        
         for entry in all_items0:
             if fnmatch.fnmatch(entry,'*.jpg'):
                 all_items.append(entry)
 
-        available_attended = [x for x in current_list['cued'] if x not in previous_mem]
-        available_unattended = [x for x in current_list['uncued'] if x not in previous_mem]
-        available_random = [x for x in all_items if (x not in previous_mem and x not in current_list['cued'] and x not in current_list['uncued'] and x not in prev_stim)]
+        # EDIT
+        # first, parse the previous_mem cued and uncued into separate image file names
+        # additionally split into attended cat, attended side, cue Left, cue Right, etc
+        
+#        available_attended = [x for x in current_list['cued'] if x not in previous_mem]
+#        available_unattended = [x for x in current_list['uncued'] if x not in previous_mem]
+#        available_random = [x for x in all_items if (x not in previous_mem and x not in current_list['cued'] and x not in current_list['uncued'] and x not in prev_stim)]
         
         #select and load image stimuli 
         #options = [ 1, 2, 3]
@@ -454,7 +466,7 @@ def memBlock( conds, current_pickle, prev_stim ):
             mem_file = random.choice(available_unattended)
         else:
             mem_file = random.choice(available_random)
-
+        
         
         #change to if statement to get rid of pesky errors
         #try:
@@ -463,11 +475,11 @@ def memBlock( conds, current_pickle, prev_stim ):
         mem = dir1 + mem_file
         memProbe = visual.ImageStim( win, mem, size=probeSize )
         memProbe.setPos( [0, 0] )
-
+        
         
         win.callOnFlip(respClock.reset)
         event.clearEvents()
-
+        
         for frameN in range(info['memFrames']):
             memProbe.setAutoDraw(True)
             if frameN == 0:
@@ -485,31 +497,32 @@ def memBlock( conds, current_pickle, prev_stim ):
         
         ##KIRSTEN ORIGINAL##
         ratingScale = visual.RatingScale( win, low = 1, high = 4, labels = ['viewed before','new image'], singleClick=True, scale = None, pos = [0,0], acceptPreText='-', maxTime=2.0, disappear=False)
-
+        
+        event.getKeys(keyList=None)
         while ratingScale.noResponse == True:
             ratingScale.setAutoDraw(True)
             win.flip()
         ratingScale.setAutoDraw(False)
         choiceHistory = ratingScale.getHistory()
-
+        
         for frameN in range(info['memPauseFrames']):
             fixation.setAutoDraw(True)
             win.flip()
         fixation.setAutoDraw(False)
-
+        
         # KZ : need to save decisionTime and choiceHistory
         #      need to save decisionTime grouped by type of image subj is responding to
         #      10 image types : 1 (seen) * 2 (attended/unattended) * 2 (displayed right/left) * 2 (face/house)  +  1 (unseen) * 2 (face/house)
         
         previous_mem.append(mem_file)
         all_ratings.append(choiceHistory)
-    
+        
     mem_task['ratings'] = all_ratings
     mem_task['images'] = previous_mem
     mem_task['run_time'] = trialClock.getTime()
     mem_task['total_iters'] = conds
     #mem_task['choiceHist']=all_ratings
-
+    
     with open(pickle_name_mem, 'wb') as f:
         pickle.dump(mem_task, f)
         
@@ -536,9 +549,9 @@ for rep in range(0,repetitions):
         prev_stim = [val for sublist in prev_stim for val in sublist]
     else:
         prev_stim = []
-
+    
     #prev_stim list of all images shown BEFORE THIS TRIAL
-        
+    
     # load trials
     conditions = data.importConditions('conditions_short.csv') 
     trials = data.TrialHandler(trialList = [{},{}], nReps = 1)
@@ -553,6 +566,6 @@ for rep in range(0,repetitions):
     memBlock(range(0,len(conditions)*3), pickle_name, prev_stim)
     
     info['run'] = str(int(info['run'])+1)
-
+    
 #closing message
 showInstructions(text = instructThanks, acceptedKeys = ['1','2','3','4','return'])
