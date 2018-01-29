@@ -5,9 +5,30 @@ import pickle
 import fnmatch
 
 vers = '2.0'
-DEBUG = False
 
-####### PARAMS + SUB INFO #########
+####### PARAMS + SUB INFO ########################
+
+# edit the parameters in this section ~~~~~~~~~~~~
+
+# runs
+repetitions = 1
+
+# pres trials per run (tL%4==0)
+tL = 8
+
+# catch trials per run
+catch = tL/4
+
+# stim dirs
+dir1 = '../../stim/comp_test/composites/' # Overlays
+stim_dir1 = '../../stim/comp_test/test1/' # Face
+stim_dir2 = '../../stim/comp_test/test2/' # House
+
+# code uses first letter of this string as the category cue
+cat1 = 'Face'
+cat2 = 'House'
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # clocks
 globalClock = core.Clock()
@@ -17,9 +38,6 @@ logging.setDefaultClock(globalClock)
 fixationSize = 0.5
 probeSize = 7
 cueSize = 1
-
-# nuber of runs
-repetitions = 1
 
 # info dictionary
 info = {}
@@ -42,11 +60,6 @@ if not os.path.exists(dir_check):
 filename = "data/" + dir_name + '/'+ info['participant'] + '_' + info['run'] + '_' + info['dateStr'] 
 logFileName = "data/" + dir_name + '/' + info['participant'] + '_' + info['run'] + '_' + info['dateStr']
 
-# stim dirs
-dir1 = '../../stim/comp_test/composites/'
-stim_dir1 = '../../stim/comp_test/test1/'
-stim_dir2 = '../../stim/comp_test/test2/'
-
 #instructions 
 instructPractice = 'Practice about to start. Press RETURN when ready'
 instructExp = 'In this task, you will be cued to attend to either a face or place image on the right or left of the screen while maintaining fixation at the center of the screen. After each image presentation period, a small cross will display. You will press a button to indicate if the cross is on the left or right of the screen as soon as it appears. Press RETURN when ready'
@@ -54,12 +67,7 @@ instructMem = 'Memory task about to start. Press RETURN when ready'
 instructThanks = 'Thank you for your participation!'
 
 #logging\debugging preferences
-if DEBUG:
-    fullscr = False
-    logging.console.setLevel(logging.DEBUG)
-else:
-    fullscr = True
-    logging.console.setLevel(logging.WARNING)
+fullscr = True
 
 logDat = logging.LogFile (logFileName+'_log', filemode='w', level = logging.DATA)
 logDat = logging.LogFile (logFileName+'_2.log', filemode='w', level = logging.EXP)
@@ -78,54 +86,51 @@ info['fixFrames'] = int(round(1.5 * fRate_secs))
 
 # R/L cue 
 info['cueFrames'] = int(round(.5 * fRate_secs))
-
 info['cuePauseFrames'] = int(round(.2* fRate_secs))
 
 # probeFrames == composite images
-info['probeFrames'] = int(round(.2 * fRate_secs))
-info['cuePos'] = 10
-info['probePos'] = 10
+info['probeFrames'] = int(round(3.0 * fRate_secs))
+info['probePos'] = 8
+info['cuePos'] = info['probePos']
 info['memFrames'] = int(round(2 * fRate_secs))
 info['memPauseFrames'] = int(round(2 *fRate_secs))
 
 #create objects
-fixation = visual.Circle(win, size = fixationSize, lineColor = 'white', fillColor = 'lightGrey')
+fixation = visual.TextStim(win=win, ori=0, name='fixation', text='+', font='Arial', height = 2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0)
+probe = visual.Circle(win, size = fixationSize, lineColor = 'white', fillColor = 'lightGrey')
+
 cueVerticesR = [[-.8,-.5], [-.8,.5], [.8,0]]
 cueRight = visual.ShapeStim(win, vertices = cueVerticesR, lineColor = 'white', fillColor = 'lightGrey')
+
 cueVerticesL = [[.8,-.5], [.8,.5], [-.8,0]]
 cueLeft = visual.ShapeStim(win, vertices = cueVerticesL, lineColor = 'white', fillColor = 'lightGrey')
+
+cueCat1 = visual.TextStim(win=win, ori=0, name='fixation', text=cat1[0], font='Arial', height = 2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0, pos = [0,2])
+cueCat2 = visual.TextStim(win=win, ori=0, name='fixation', text=cat2[0], font='Arial', height = 2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0, pos = [0,2])
+
 #cue = visual.Circle(win, size = cueSize, lineColor = 'white', fillColor = 'lightGrey')
 instruction = visual.TextStim(win)
 
-#import conditions from csv
-#should be an even number
+########################################################
+
+# trials
+# make a separate line here (list w/ one dict * desired loops)
+trials = data.TrialHandler(trialList = [{}, {}], nReps = 1)
 
 
-#conditions = data.importConditions('conditions_short.csv') 
 
-
-# KZ : ^ideally run independent of csv file (low priority)
-#      currently, csv gives us only # of trials
-trials = data.TrialHandler(trialList = [{}], nReps = 1)
-
-##########################################################
-
-#define practice run (same length as full run)
-conditionsPractice = data.importConditions('conditions_short.csv')
-practice = data.TrialHandler(trialList = conditionsPractice, nReps = 1)
-
-thisExp = data.ExperimentHandler(name='Posner', version= vers, #not needed, just handy
-    extraInfo = info, #the info we created earlier
-    dataFileName = filename, # using our string with data/name_date
-    )
-
-thisExp.addLoop(trials)
-thisExp.addLoop(practice)
+#thisExp = data.ExperimentHandler(name='Posner', version= vers, #not needed, just handy
+#    extraInfo = info, #the info we created earlier
+#    dataFileName = filename, # using our string with data/name_date
+#    )
+#
+#thisExp.addLoop(trials)
+#thisExp.addLoop(practice)
 
 respClock = core.Clock()
 
 
-####### FILE LOAD FUNCTIONS #########
+####### FILE LOAD FUNCTIONS ###########################
 
 def get_files(dir_name):
     '''returns all subj pkl files'''
@@ -227,9 +232,11 @@ def presBlock( pickle_name, prev_stim, run, loop = object, saveData = True, test
         
         #show cue
         cue.setAutoDraw(True)
+        cueCat1.setAutoDraw(True, )
         for frameN in range(info['cueFrames']):
             win.flip()
         cue.setAutoDraw(False) 
+        cueCat1.setAutoDraw(False)
         
         # EDIT
         # add place or face cue 
@@ -407,9 +414,6 @@ def presBlock( pickle_name, prev_stim, run, loop = object, saveData = True, test
         pickle.dump(previous_items, f)
 
 
-
-
-
 def memBlock( conds, current_pickle, prev_stim ):
     trialClock = core.Clock()
     
@@ -525,9 +529,8 @@ def memBlock( conds, current_pickle, prev_stim ):
     
     with open(pickle_name_mem, 'wb') as f:
         pickle.dump(mem_task, f)
-        
-        
-        
+
+
 ######### RUN EXPERIMENT ###########
 
 # for specified number of reps, run presentation them memory
@@ -553,8 +556,7 @@ for rep in range(0,repetitions):
     #prev_stim list of all images shown BEFORE THIS TRIAL
     
     # load trials
-    conditions = data.importConditions('conditions_short.csv') 
-    trials = data.TrialHandler(trialList = [{},{}], nReps = 1)
+    trials = data.TrialHandler(trialList = [{}]*tL, nReps = 1)
 
     #presentation task
     showInstructions(text = instructExp, acceptedKeys = ['1','2','3','4','return', 'escape'])
