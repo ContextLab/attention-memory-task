@@ -114,8 +114,7 @@ instruction = visual.TextStim(win)
 ########################################################
 
 # trials
-# make a separate line here (list w/ one dict * desired loops)
-trials = data.TrialHandler(trialList = [{}, {}], nReps = 1)
+#trials = data.TrialHandler(trialList = [{}, {}], nReps = 1)
 
 
 
