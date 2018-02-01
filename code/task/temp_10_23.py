@@ -8,36 +8,43 @@ vers = '2.0'
 
 ####### PARAMS + SUB INFO ########################
 
-# edit the parameters in this section ~~~~~~~~~~~~
+# edit the parameters in this section ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # runs
 repetitions = 1
 
-# pres trials per run (tL%4==0)
-tL = 8
+# pres trials per run (tL % 8 == 0)
+num_trials = 16
 
 # catch trials per run
-catch = tL/4
+catch = 0 #num_trials/4
+
+# invalid trials per run
+invalid = 4
+
+tL = num_trials + catch
 
 # stim dirs
 dir1 = '../../stim/comp_test/composites/' # Overlays
 stim_dir1 = '../../stim/comp_test/test1/' # Face
 stim_dir2 = '../../stim/comp_test/test2/' # House
 
+
 # code uses first letter of this string as the category cue
 cat1 = 'Face'
 cat2 = 'House'
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# objects sizes
+fixation_size = 0.5
+probe_size = 7
+cue_size = 1
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # clocks
 globalClock = core.Clock()
-logging.setDefaultClock(globalClock)
+logging.setDefaultClock(globalClock) 
 
-# objects sizes
-fixationSize = 0.5
-probeSize = 7
-cueSize = 1
 
 # info dictionary
 info = {}
@@ -97,7 +104,10 @@ info['memPauseFrames'] = int(round(2 *fRate_secs))
 
 #create objects
 fixation = visual.TextStim(win=win, ori=0, name='fixation', text='+', font='Arial', height = 2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0)
-probe = visual.Circle(win, size = fixationSize, lineColor = 'white', fillColor = 'lightGrey')
+
+catchF = visual.TextStim(win=win, ori=0, name='catchF', text='Male (L) or Female (R)?', font='Arial', height = 2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0)
+catchH = visual.TextStim(win=win, ori=0, name='catchF', text='Indoor (L) or Outdoor (R)?', font='Arial', height = 2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0)
+probe = visual.Circle(win, size = fixation_size, lineColor = 'white', fillColor = 'lightGrey')
 
 cueVerticesR = [[-.8,-.5], [-.8,.5], [.8,0]]
 cueRight = visual.ShapeStim(win, vertices = cueVerticesR, lineColor = 'white', fillColor = 'lightGrey')
@@ -108,26 +118,12 @@ cueLeft = visual.ShapeStim(win, vertices = cueVerticesL, lineColor = 'white', fi
 cueCat1 = visual.TextStim(win=win, ori=0, name='fixation', text=cat1[0], font='Arial', height = 2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0, pos = [0,2])
 cueCat2 = visual.TextStim(win=win, ori=0, name='fixation', text=cat2[0], font='Arial', height = 2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0, pos = [0,2])
 
-#cue = visual.Circle(win, size = cueSize, lineColor = 'white', fillColor = 'lightGrey')
+#cue = visual.Circle(win, size = cue_size, lineColor = 'white', fillColor = 'lightGrey')
 instruction = visual.TextStim(win)
 
-########################################################
-
-# trials
-#trials = data.TrialHandler(trialList = [{}, {}], nReps = 1)
-
-
-
-#thisExp = data.ExperimentHandler(name='Posner', version= vers, #not needed, just handy
-#    extraInfo = info, #the info we created earlier
-#    dataFileName = filename, # using our string with data/name_date
-#    )
-#
-#thisExp.addLoop(trials)
-#thisExp.addLoop(practice)
+#######################################################
 
 respClock = core.Clock()
-
 
 ####### FILE LOAD FUNCTIONS ###########################
 
@@ -163,7 +159,6 @@ def load_prevP(pickles):
     for f in pickles:
         if f.endswith('previous_items.pkl'):
             prev.append(f)
-
             
     prev_dicts = []
     for prevf in prev:
@@ -173,26 +168,25 @@ def load_prevP(pickles):
     prev_dict = concat_dicts(prev_dicts)
     return prev_dict
     
-############ EXP FUNCTIONS ############
+############ EXP FUNCTIONS ############################
 
 def showInstructions(text, acceptedKeys = None):
-    """Presents a question and waits for acceptedKeys"""
+    """Presents text and waits for acceptedKeys"""
     
     # Set and display text
     instruction.setText(text)
     instruction.draw()
     win.flip()
     
-    # Wait for response and return it
+    # Wait for response 
     response = event.waitKeys(keyList=acceptedKeys)
-    #return response
     if response == 'escape':
         core.quit()
 
 
 def presBlock( pickle_name, prev_stim, run, loop = object, saveData = True, test=False):
 
-    """Runs a loop for an experimental block and saves reponses if requested"""
+    """Runs experimental block and saves reponses if requested"""
     
     trialClock = core.Clock()
     
@@ -207,21 +201,57 @@ def presBlock( pickle_name, prev_stim, run, loop = object, saveData = True, test
     
     trial_count = 0
     
+    # generate conditions
+    # When using AFNI jittering, will create all for whole exp outside of loop (prior, even, to running?)
+    # maybe make csv from afni
+    RL = ['cue_L']*(int(num_trials/2)) + ['cue_R']*(int(num_trials/2))
+    FH = ([cat1[0]]*(int(num_trials/4)) + [cat2[0]]*(int(num_trials/4)))*2
+    validity0 = [[1]*(int(invalid/4)) + [0]*(int((num_trials-invalid)/4))]*4
+    validity = [item for sublist in validity0 for item in sublist]
+    
+    # cueTuples is a list of tuples (one per trial) specifying: catch/no, R/L attend, F/H attend
+    cueTuples0 = zip(RL, FH, validity) #, attention)
+    cueTuples = random.sample(cueTuples0, len(cueTuples0))
+    
+    # make catch params
+    RL_catch = ['cue_L']*(catch/2) + ['cue_R']*(catch/2)
+    FH_catch = [cat1[0]]*(catch/4) + [cat2[0]]*(catch/4)
+    FH_catch = FH_catch*2
+    validity_catch = [0]*catch
+    
+    # cueTuples is a list of tuples (one per trial) specifying: catch/no, R/L attend, F/H attend
+    catchTuples0 = zip(RL_catch, FH_catch, validity_catch) #, attention)
+    catchTuples = random.sample(catchTuples0, len(catchTuples0))
+    
+    #list to tell when catch and when regular trial
+    catches0 = num_trials*[0] + catch*[1]
+    catches = random.sample(catches0, len(catches0))
+    
+    trialnum = 0
+    cueTupNum = 0
+    catchNum = 0
+    
     for thisTrial in loop:
         
-        trial_count += 1
-        
-        # [1] CUE ONE SIDE
-        
-        #randomize side
-        if bool(random.getrandbits(1)) == True:
+        if catches[trialnum] == 0:
+            params = cueTuples[cueTupNum]
+            cueTupNum += 1
+            
+        else:
+            params = catchTuples[catchNum]
+            catchNum += 1
+            
+        if params[0] == 'cue_R':
             cue = cueRight
-            cue_right.append(1)
-
         else:
             cue = cueLeft
-            cue_right.append(0)
             
+        if params[1]=='F':
+            cueCat = cueCat1
+        else:
+            cueCat = cueCat2
+                
+                
         cue.setPos( [0, 0] )
         
         #show fixation
@@ -231,30 +261,21 @@ def presBlock( pickle_name, prev_stim, run, loop = object, saveData = True, test
         
         #show cue
         cue.setAutoDraw(True)
-        cueCat1.setAutoDraw(True, )
+        cueCat.setAutoDraw(True, )
         for frameN in range(info['cueFrames']):
             win.flip()
         cue.setAutoDraw(False) 
-        cueCat1.setAutoDraw(False)
-        
-        # EDIT
-        # add place or face cue 
-        # record place or face cue
-        # need half place half face
-        # need half right half left 
+        cueCat.setAutoDraw(False)
         
         #pause
         for frameN in range(info['cuePauseFrames']):
             fixation.setAutoDraw(True)
             win.flip()
         
-        # [2] DETERMINE TRIAL TYPE (STANDARD vs CATCH)
-        #trialType = random.choice([1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2])
-
         # [3] RUN TRIAL
         all_items0 = os.listdir(dir1)
         all_items = []
-
+        
         for entry in all_items0:
             if fnmatch.fnmatch(entry,'*.jpg'):
                 all_items.append(entry)
@@ -272,8 +293,8 @@ def presBlock( pickle_name, prev_stim, run, loop = object, saveData = True, test
         img2 = dir1 + img2_file
         
         #assign images as probes (w/ sizes, locations, etc.)
-        probe1 = visual.ImageStim(win, img1, size=probeSize, name='Probe1') 
-        probe2 = visual.ImageStim(win, img2, size=probeSize, name='Probe2') 
+        probe1 = visual.ImageStim(win, img1, size=probe_size, name='Probe1')
+        probe2 = visual.ImageStim(win, img2, size=probe_size, name='Probe2')
         
         # Probe1 displays right, Probe 2 displays left
         probe1.setPos([info['probePos'], 0])
@@ -307,44 +328,31 @@ def presBlock( pickle_name, prev_stim, run, loop = object, saveData = True, test
         #clear screen
         win.flip()
         
-            #KZ : code below from the original repo
-            #     maybe useful format for saving
-            #####################################
-#                trials.addData('resp', resp)
-#                trials.addData('rt', rt)
-#                trials.addData('corr', corr)
-#                thisExp.nextEntry()
-            #####################################
-                
-             
-            
-        #if trialType == 1: #if catch trial (30% chance):
-                #pause
-                
-        #for frameN in range(info['cuePauseFrames']):
-            #win.flip()
-
+        
         resp = None
         rt = None
         
         probe = visual.TextStim(win=win, ori=0, name='fixation', text='+', font='Arial', height = 2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0)
         
-        # 70% chance attn cross on cued side
-        if cue == cueRight:
-            position = random.choice( [-10, -10, -10, 10, 10, 10, 10, 10, 10, 10] )
+        # set attention probe location
+        if cue == cueRight and params[2] == 0:
+            position = 10
+        elif cue == cueLeft and params[2] == 1:
+            position = 10
         else:
-            position = random.choice( [10, 10, 10, -10, -10, -10, -10, -10, -10, -10] )
+            position = -10
+            
         probe.setPos( [position, 0] )
 
-        #display probe, break is response recorded
+        # display probe, break is response recorded
         fixation.setAutoDraw(True)
         probe.setAutoDraw(True)
         win.callOnFlip(respClock.reset)
         event.clearEvents()
         for frameN in range(info['probeFrames']):
             
-            #fixation.setAutoDraw(True)
-            #probe.setAutoDraw(True)
+            # fixation.setAutoDraw(True)
+            # probe.setAutoDraw(True)
             if frameN == 0:
                 respClock.reset()
                 keys = event.getKeys(keyList = ['enter'])
@@ -353,12 +361,12 @@ def presBlock( pickle_name, prev_stim, run, loop = object, saveData = True, test
                     rt = respClock.getTime()
                     break
                     
-            #clear screen
+            # clear screen
             win.flip()
             probe.setAutoDraw(False)
             fixation.setAutoDraw(False)
 
-            #if no response, wait w/ blank screen until response
+            # if no response, wait w/ blank screen until response
             if (resp == None and test==False):
                 keys = event.waitKeys(keyList = ['1', '3'])
                 resp = keys[0]
@@ -381,26 +389,16 @@ def presBlock( pickle_name, prev_stim, run, loop = object, saveData = True, test
             #clear screen upon response
             win.flip()
             
-
-            #KZ : code below from the original repo
-            #     maybe useful format for saving
-            #####################################
-#                trials.addData('resp', resp)
-#                trials.addData('rt', rt)
-#                trials.addData('corr', corr)
-#                thisExp.nextEntry()
-            #####################################
                 
         win.flip()
+        trialnum+=1
     
     previous_items['cued'] = cued
     previous_items['uncued'] = uncued
     previous_items['uncued_RT'] = uncued_RT
     previous_items['cued_RT'] = cued_RT
-    previous_items['cued_RT'] = cued_RT
-    previous_items['cue_Right'] = cue_right
     previous_items['run_time'] = trialClock.getTime()
-    previous_items['total_iters'] = trial_count
+    previous_items['cue_tuples'] = cueTuples
     
     # KZ : code below saves data in pickle format
     #      if we save data per trial (we should, even if not needed; want a record of everything subject saw at each moment) 
@@ -446,17 +444,32 @@ def memBlock( conds, current_pickle, prev_stim ):
         # first, parse the previous_mem cued and uncued into separate image file names
         # additionally split into attended cat, attended side, cue Left, cue Right, etc
         
-#        available_attended = [x for x in current_list['cued'] if x not in previous_mem]
-#        available_unattended = [x for x in current_list['uncued'] if x not in previous_mem]
-#        available_random = [x for x in all_items if (x not in previous_mem and x not in current_list['cued'] and x not in current_list['uncued'] and x not in prev_stim)]
+        # split the composite images into indivudal image filenames
+        available_attended_stim1 = [x for x in current_list['cued'].split('_')[0]+'.jpg' if x not in previous_mem]
+        available_attended_stim2 = [x for x in current_list['cued'].split('_')[1] if x not in previous_mem]
+        
+        available_unattended_stim1 = [x for x in current_list['uncued'].split('_')[0]+'.jpg' if x not in previous_mem]
+        available_unattended_stim2 = [x for x in current_list['uncued'].split('_').[1] if x not in previous_mem]
+        
+        available random = [x for x in all_items if 
+                            (x not in previous_mem 
+                            and x not in current_list['cued'].split('_')[0] 
+                            and x not in current_list['cued'].split('_')[1] 
+                            and x not in current_list['uncued'].split('_')[0]
+                            and x not in current_list['uncued'].split('_')[1]
+                            and x not in prev_stim)]
         
         #select and load image stimuli 
         #options = [ 1, 2, 3]
         options = []
-        if len(available_attended)>0:
+        if len(available_attended_stim1)>0:
             options.append(1)
-        if len(available_unattended)>0:
+        if len(available_attended_stim2)>0:
+            options.append(4)
+        if len(available_unattended_stim1)>0:
             options.append(2)
+        if len(available_unattended_stim2)>0:
+            options.append(5)
         if len(available_random)>0:
             options.append(3)
         
@@ -464,9 +477,13 @@ def memBlock( conds, current_pickle, prev_stim ):
         type = random.choice(options)
         
         if type == 1:
-            mem_file = random.choice(available_attended)
+            mem_file = random.choice(available_attended_stim1)
+        elif type == 4:
+            mem_file = random.choice(available_attended_stim2)
         elif type == 2:
-            mem_file = random.choice(available_unattended)
+            mem_file = random.choice(available_unattended_stim1)
+        elif type == 5:
+            mem_file = random.choice(available_unattended_stim1)
         else:
             mem_file = random.choice(available_random)
         
@@ -476,7 +493,7 @@ def memBlock( conds, current_pickle, prev_stim ):
         #Type = 'Faces'
         #mem = '/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/'+Type+'/'+mem_file
         mem = dir1 + mem_file
-        memProbe = visual.ImageStim( win, mem, size=probeSize )
+        memProbe = visual.ImageStim( win, mem, size=probe_size )
         memProbe.setPos( [0, 0] )
         
         
@@ -532,7 +549,7 @@ def memBlock( conds, current_pickle, prev_stim ):
 
 ######### RUN EXPERIMENT ###########
 
-# for specified number of reps, run presentation them memory
+# for specified # of reps, run presentation then memory
 for rep in range(0,repetitions):
     
     #pickle_name for use in both functions
