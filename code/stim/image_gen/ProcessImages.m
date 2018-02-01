@@ -28,11 +28,11 @@ cliplimit = .01;    %contrast:  limit of contrast enhancement
 %% set up directories
 
 % where raw files are located 
-old_root_dir = '/Users/kirstenziman/Desktop/SUN_places/';
+old_root_dir = '/Users/kirstenziman/Desktop/IMAGES/';
 % where new files will be written 
-new_root_dir = '/Users/kirstenziman/Desktop/SUN_places_pre/';
+new_root_dir = '/Users/kirstenziman/Desktop/db_IMAGES/';
 % subfolders containing image files
-folders =  {'sunindoor550','sunoutdoor550'};
+folders =  {'faces','places'};
  
 
 %% image processing loop 

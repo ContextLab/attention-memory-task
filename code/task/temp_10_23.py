@@ -25,9 +25,9 @@ invalid = 4
 tL = num_trials + catch
 
 # stim dirs
-dir1 = '../../stim/comp_test/composites/' # Overlays
-stim_dir1 = '../../stim/comp_test/test1/' # Face
-stim_dir2 = '../../stim/comp_test/test2/' # House
+dir1 = '/Users/kirstenziman/Desktop/COMP_IMAGES/' # Overlays
+stim_dir1 = '/Users/kirstenziman/Desktop/faces/' # Face
+stim_dir2 = '/Users/kirstenziman/Desktop/places/' # House
 
 
 # code uses first letter of this string as the category cue
@@ -445,18 +445,29 @@ def memBlock( conds, current_pickle, prev_stim ):
         # additionally split into attended cat, attended side, cue Left, cue Right, etc
         
         # split the composite images into indivudal image filenames
-        available_attended_stim1 = [x for x in current_list['cued'].split('_')[0]+'.jpg' if x not in previous_mem]
-        available_attended_stim2 = [x for x in current_list['cued'].split('_')[1] if x not in previous_mem]
+        current_list['cued'] = [words for segments in current_list['cued'] for words in segments.split('_')]
+        current_list['uncued'] = [words for segments in current_list['uncued'] for words in segments.split('_')]
         
-        available_unattended_stim1 = [x for x in current_list['uncued'].split('_')[0]+'.jpg' if x not in previous_mem]
-        available_unattended_stim2 = [x for x in current_list['uncued'].split('_').[1] if x not in previous_mem]
+        current_list['cued_1'] = current_list['cued'][0::2]
+        current_list['cued_1'] = [s + '.jpg' for s in current_list['cued_1']]
+        current_list['cued_2'] = current_list['cued'][1::2]
         
-        available random = [x for x in all_items if 
+        current_list['uncued_1'] = current_list['uncued'][0::2]
+        current_list['uncued_1'] = [s + '.jpg' for s in current_list['uncued_1']]
+        current_list['uncued_2'] = current_list['uncued'][1::2]
+        
+        available_attended_stim1 = [x for x in current_list['cued_1'] if x not in previous_mem]
+        available_attended_stim2 = [x for x in current_list['cued_2'] if x not in previous_mem]
+        
+        available_unattended_stim1 = [x for x in current_list['uncued_1'] if x not in previous_mem]
+        available_unattended_stim2 = [x for x in current_list['uncued_2'] if x not in previous_mem]
+        
+        available_random = [x for x in all_items if 
                             (x not in previous_mem 
-                            and x not in current_list['cued'].split('_')[0] 
-                            and x not in current_list['cued'].split('_')[1] 
-                            and x not in current_list['uncued'].split('_')[0]
-                            and x not in current_list['uncued'].split('_')[1]
+                            and x not in current_list['cued_1'] 
+                            and x not in current_list['cued_2']
+                            and x not in current_list['uncued_1']
+                            and x not in current_list['uncued_2']
                             and x not in prev_stim)]
         
         #select and load image stimuli 
@@ -478,24 +489,33 @@ def memBlock( conds, current_pickle, prev_stim ):
         
         if type == 1:
             mem_file = random.choice(available_attended_stim1)
+            mem_dir = stim_dir1
         elif type == 4:
             mem_file = random.choice(available_attended_stim2)
+            mem_dir = stim_dir2
         elif type == 2:
             mem_file = random.choice(available_unattended_stim1)
+            mem_dir = stim_dir1
         elif type == 5:
-            mem_file = random.choice(available_unattended_stim1)
+            mem_file = random.choice(available_unattended_stim2)
+            mem_dir = stim_dir2
         else:
             mem_file = random.choice(available_random)
+            
+            if os.path.isfile(stim_dir1+mem_file):
+                mem_dir = stim_dir1
+            else: 
+                mem_dir = stim_dir2
         
         
         #change to if statement to get rid of pesky errors
         #try:
         #Type = 'Faces'
         #mem = '/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/'+Type+'/'+mem_file
-        mem = dir1 + mem_file
+        mem = mem_dir + mem_file
+        
         memProbe = visual.ImageStim( win, mem, size=probe_size )
         memProbe.setPos( [0, 0] )
-        
         
         win.callOnFlip(respClock.reset)
         event.clearEvents()
@@ -581,7 +601,7 @@ for rep in range(0,repetitions):
 
     #memory task
     showInstructions(text = instructMem, acceptedKeys = ['1','2','3','4','return'])
-    memBlock(range(0,len(conditions)*3), pickle_name, prev_stim)
+    memBlock(range(0,num_trials*8), pickle_name, prev_stim)
     
     info['run'] = str(int(info['run'])+1)
     
