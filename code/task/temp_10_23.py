@@ -6,9 +6,6 @@ import fnmatch
 
 vers = '2.0'
 
-#hello hello hello 
-#change 
-
 ####### PARAMS + SUB INFO ########################
 
 # edit the parameters in this section ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -17,7 +14,7 @@ vers = '2.0'
 repetitions = 1
 
 # pres trials per run (tL % 8 == 0)
-num_trials = 16
+num_trials = 4
 
 # catch trials per run
 catch = 0 #num_trials/4
@@ -35,7 +32,7 @@ stim_dir2 = '/Users/kirstenziman/Desktop/places/' # House
 
 # code uses first letter of this string as the category cue
 cat1 = 'Face'
-cat2 = 'House'
+cat2 = 'Location'
 
 # objects sizes
 fixation_size = 0.5
@@ -92,18 +89,18 @@ print(fRate_secs)
 # set stim display durations
 
 # fixation
-info['fixFrames'] = int(round(1.5 * fRate_secs))
+info['fixFrames'] = int(round(.8 * fRate_secs))
 
 # R/L cue 
 info['cueFrames'] = int(round(.5 * fRate_secs))
-info['cuePauseFrames'] = int(round(.2* fRate_secs))
+info['cuePauseFrames'] = int(round(.01* fRate_secs))
 
 # probeFrames == composite images
 info['probeFrames'] = int(round(3.0 * fRate_secs))
 info['probePos'] = 8
 info['cuePos'] = info['probePos']
-info['memFrames'] = int(round(2 * fRate_secs))
-info['memPauseFrames'] = int(round(2 *fRate_secs))
+info['memFrames'] = int(round(1 * fRate_secs))
+info['memPauseFrames'] = int(round(1 *fRate_secs))
 
 #create objects
 fixation = visual.TextStim(win=win, ori=0, name='fixation', text='+', font='Arial', height = 2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0)
@@ -118,8 +115,8 @@ cueRight = visual.ShapeStim(win, vertices = cueVerticesR, lineColor = 'white', f
 cueVerticesL = [[.8,-.5], [.8,.5], [-.8,0]]
 cueLeft = visual.ShapeStim(win, vertices = cueVerticesL, lineColor = 'white', fillColor = 'lightGrey')
 
-cueCat1 = visual.TextStim(win=win, ori=0, name='fixation', text=cat1[0], font='Arial', height = 2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0, pos = [0,2])
-cueCat2 = visual.TextStim(win=win, ori=0, name='fixation', text=cat2[0], font='Arial', height = 2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0, pos = [0,2])
+cueCat1 = visual.TextStim(win=win, ori=0, name='cuecat1', text=cat1[0], font='Arial', height = 2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0, pos = [0,2])
+cueCat2 = visual.TextStim(win=win, ori=0, name='cuecat2', text=cat2[0], font='Arial', height = 2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0, pos = [0,2])
 
 #cue = visual.Circle(win, size = cue_size, lineColor = 'white', fillColor = 'lightGrey')
 instruction = visual.TextStim(win)
@@ -263,12 +260,14 @@ def presBlock( pickle_name, prev_stim, run, loop = object, saveData = True, test
             win.flip()
         
         #show cue
+        fixation.setAutoDraw(False)
         cue.setAutoDraw(True)
         cueCat.setAutoDraw(True, )
         for frameN in range(info['cueFrames']):
             win.flip()
         cue.setAutoDraw(False) 
         cueCat.setAutoDraw(False)
+        fixation.setAutoDraw(True)
         
         #pause
         for frameN in range(info['cuePauseFrames']):
@@ -327,7 +326,7 @@ def presBlock( pickle_name, prev_stim, run, loop = object, saveData = True, test
         probe1.setAutoDraw(False)
         probe2.setAutoDraw(False)
         fixation.setAutoDraw(False)
-    
+        
         #clear screen
         win.flip()
         
@@ -335,19 +334,19 @@ def presBlock( pickle_name, prev_stim, run, loop = object, saveData = True, test
         resp = None
         rt = None
         
-        probe = visual.TextStim(win=win, ori=0, name='fixation', text='+', font='Arial', height = 2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0)
+        probe = visual.TextStim(win=win, ori=0, name='fixation', text='o', font='Arial', height = 2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0)
         
         # set attention probe location
         if cue == cueRight and params[2] == 0:
-            position = 10
+            position = info['probePos']
         elif cue == cueLeft and params[2] == 1:
-            position = 10
+            position = info['probePos']
         else:
-            position = -10
+            position = -info['probePos']
             
         probe.setPos( [position, 0] )
 
-        # display probe, break is response recorded
+        # display probe, break if response recorded
         fixation.setAutoDraw(True)
         probe.setAutoDraw(True)
         win.callOnFlip(respClock.reset)
@@ -359,18 +358,18 @@ def presBlock( pickle_name, prev_stim, run, loop = object, saveData = True, test
             if frameN == 0:
                 respClock.reset()
                 keys = event.getKeys(keyList = ['enter'])
-                if len(keys) > 0:
-                    resp = keys[0]
-                    rt = respClock.getTime()
-                    break
+            if len(keys) > 0:
+                resp = keys[0]
+                rt = respClock.getTime()
+                break
                     
             # clear screen
             win.flip()
             probe.setAutoDraw(False)
-            fixation.setAutoDraw(False)
+            #fixation.setAutoDraw(False)
 
             # if no response, wait w/ blank screen until response
-            if (resp == None and test==False):
+            if (resp == None and test == False):
                 keys = event.waitKeys(keyList = ['1', '3'])
                 resp = keys[0]
                 rt = respClock.getTime()
@@ -413,6 +412,7 @@ def presBlock( pickle_name, prev_stim, run, loop = object, saveData = True, test
     with open(pickle_name, 'wb') as f:
         pickle.dump(previous_items, f)
 
+    fixation.setAutoDraw(False)
 
 def memBlock( conds, current_pickle, prev_stim ):
     trialClock = core.Clock()
