@@ -46,13 +46,17 @@ globalClock = core.Clock()
 logging.setDefaultClock(globalClock) 
 
 
-# info dictionary
+# initialize info dictionary
 info = {}
+
+# experimenter inputs subject info
 info['participant'] = ''
 info['run'] = ''
 dlg = gui.DlgFromDict(info)
 if not dlg.OK:
     core.quit()
+    
+# get date
 info['dateStr']= data.getDateStr()[0:11]
 
 # subject directory
@@ -69,8 +73,8 @@ logFileName = "data/" + dir_name + '/' + info['participant'] + '_' + info['run']
 
 #instructions 
 instructPractice = 'Practice about to start. Press RETURN when ready'
-instructExp = 'In this task, you will be cued to attend to either a face or place image on the right or left of the screen while maintaining fixation at the center of the screen. After each image presentation period, a small cross will display. You will press a button to indicate if the cross is on the left or right of the screen as soon as it appears. Press RETURN when ready'
-instructMem = 'Memory task about to start. Press RETURN when ready'
+instructExp = 'PART 1: \n\n On each trial, you will be cued to covertly attend a face image (F) or location image (L) on the right or left of the screen. \n\n Your eyes will stay fixated at center-screen. \n\n After each presentation, a circle will display. \n\n You will immediately press a button indicating if the circle appears screen-left (1) or screen-right (3). \n\n Press RETURN to begin'
+instructMem = 'PART 2: \n\n On each trial you will see one image appear, followed by a rating scale. \n\n When the scale appears, you will quickly rate (in one second) the image as being familiar (1), slightly familiar (2), slightly unfamiliar (3) or unfamiliar (4). \n\n Press RETURN to begin'
 instructThanks = 'Thank you for your participation!'
 
 #logging\debugging preferences
