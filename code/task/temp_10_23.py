@@ -543,7 +543,7 @@ def memBlock( conds, current_pickle, prev_stim ):
         ##################
         
         ##KIRSTEN ORIGINAL##
-        ratingScale = visual.RatingScale( win, low = 1, high = 4, labels = ['viewed before','new image'], singleClick=True, scale = None, pos = [0,0], acceptPreText='-', maxTime=2.0, disappear=False)
+        ratingScale = visual.RatingScale( win, low = 1, high = 4, labels = ['familiar','unfamiliar'], singleClick=True, scale = None, pos = [0,0], acceptPreText='-', maxTime=2.0, disappear=False)
         
         event.getKeys(keyList=None)
         while ratingScale.noResponse == True:
