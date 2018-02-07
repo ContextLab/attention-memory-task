@@ -17,7 +17,7 @@ repetitions = 1
 num_trials = 4
 
 # catch trials per run
-catch = 0 #num_trials/4
+catch = 0 # num_trials/4
 
 # invalid trials per run
 invalid = 4
@@ -57,7 +57,7 @@ if not dlg.OK:
     core.quit()
     
 # get date
-info['date_str']= data.getdate_str()[0:11]
+info['date_str']= data.getDateStr()[0:11]
 
 # subject directory
 dir_name = info['participant'] + '_' + info['date_str']
@@ -84,7 +84,7 @@ instruct_exp = 'PART 1: \n\n On each trial, you will be cued to covertotal_trial
                '\n\n Press RETURN to begin'
 
 instruct_mem = 'PART 2: \n\n On each trial you will see one image appear, followed by a rating scale. ' \
-               '\n\n When the scale appears, you will quickly rate (in one second) the image as being familiar ' \
+               '\n\n When the scale appears, you will quickly rate (in two seconds) the image as being familiar ' \
                '(1), slightotal_trialsy familiar (2), slightotal_trialsy unfamiliar (3) or unfamiliar (4). ' \
                '\n\n Press RETURN to begin'
 
@@ -98,7 +98,7 @@ log_data = logging.LogFile (log_file_name+'_log', filemode='w', level = logging.
 log_data = logging.LogFile (log_file_name+'_2.log', filemode='w', level = logging.EXP)
 
 # create window
-win = visual.Window([1024,768], fullscr = True, monitor = 'test_monitor', units='deg', color = 'black')
+win = visual.Window([1024,768], fullscr = True, monitor = 'testMonitor', units='deg', color = 'black')
 
 # obtain frame rate
 frame_rate_secs = win.getActualFrameRate()
@@ -123,28 +123,28 @@ info['mem_pause_frames'] = int(round(1 *frame_rate_secs))
 #create objects
 #split up lines to stay within max line length; EP 
 fixation = visual.TextStim(win=win, ori=0, name='fixation', text='+', font='Arial', 
-                           height = 2, color='light_grey', colorSpace='rgb', opacity=1, depth=0.0)
+                           height = 2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0)
 
 catch_f = visual.TextStim(win=win, ori=0, name='catch_f', text='Male (L) or Female (R)?', 
-                         font='Arial', height = 2, color='light_grey', colorSpace='rgb', opacity=1, depth=0.0)
+                         font='Arial', height = 2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0)
 
 catch_h = visual.TextStim(win=win, ori=0, name='catch_f', text='Indoor (L) or Outdoor (R)?', font='Arial', 
-                         height = 2, color='light_grey', colorSpace='rgb', opacity=1, depth=0.0)
+                         height = 2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0)
 
-probe = visual.Circle(win, size = fixation_size, line_color = 'white', fill_color = 'light_grey')
+probe = visual.Circle(win, size = fixation_size, lineColor = 'white', fillColor = 'lightGrey')
 
 cue_vertices_r = [[-.8,-.5], [-.8,.5], [.8,0]]
-cue_right = visual.ShapeStim(win, vertices = cue_vertices_r, line_color = 'white', fill_color = 'light_grey')
+cue_right = visual.ShapeStim(win, vertices = cue_vertices_r, lineColor = 'white', fillColor = 'lightGrey')
 
 cue_vertices_l = [[.8,-.5], [.8,.5], [-.8,0]]
-cue_left = visual.ShapeStim(win, vertices = cue_vertices_l, line_color = 'white', fill_color = 'light_grey')
+cue_left = visual.ShapeStim(win, vertices = cue_vertices_l, lineColor = 'white', fillColor = 'lightGrey')
 
 #split up lines to stay within max line length; EP
 cue_cat_1 = visual.TextStim(win=win, ori=0, name='cue_cat_1', text=cat1[0], font='Arial', 
-                            height = 2, color='light_grey', colorSpace='rgb', opacity=1, depth=0.0, pos = [0,2])
+                            height = 2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0, pos = [0,2])
 
 cue_cat_2 = visual.TextStim(win=win, ori=0, name='cue_cat_2', text=cat2[0], font='Arial', 
-                            height = 2, color='light_grey', colorSpace='rgb', opacity=1, depth=0.0, pos = [0,2])
+                            height = 2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0, pos = [0,2])
 
 #cue = visual.Circle(win, size = cue_size, line_color = 'white', fill_color = 'light_grey')
 instruction = visual.TextStim(win)
@@ -221,7 +221,7 @@ def pres_block( pickle_name, prev_stim, run, loop = object, saveData = True, tes
     previous_items = {}
     cued = []
     uncued = []
-    cue_right = []
+    #cue_r = []
     
     reaction_time={}
     cued_RT = []
@@ -363,7 +363,7 @@ def pres_block( pickle_name, prev_stim, run, loop = object, saveData = True, tes
         rt = None
         
         #split line to stay within max line length; EP
-        probe = visual.TextStim(win=win, ori=0, name='fixation', text='o', font='Arial', height = 2, color='light_grey', 
+        probe = visual.TextStim(win=win, ori=0, name='fixation', text='o', font='Arial', height = 2, color='lightGrey', 
                                 colorSpace='rgb', opacity=1, depth=0.0)
         
         # set attention probe location
@@ -565,14 +565,13 @@ def mem_block( conds, current_pickle, prev_stim ):
 #            mem_probe.setAutodraw(True)
 #        win.flip()
         
-        
         ##################
         
         ##KIRSTEN ORIGINAL##
         #split line to stay within max line length; EP
-        rating_scale = visual.rating_scale( win, low = 1, high = 4, labels = ['familiar','unfamiliar'], 
-                                            singleClick=True, scale = None, pos = [0,0], acceptPreText='-', 
-                                            maxTime=2.0, disappear=False)
+        rating_scale = visual.RatingScale( win, low = 1, high = 4, labels = ['familiar','unfamiliar'], 
+                                            singleClick = True, scale = None, pos = [0,0], acceptPreText = '-',
+                                            maxTime=3.0, disappear=True, minTime=0, showValue=True, marker = 'triangle' )
         
         event.getKeys(keyList=None)
         while rating_scale.noResponse == True:
