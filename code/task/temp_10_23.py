@@ -19,16 +19,24 @@ num_trials = 4
 # catch trials per run
 catch = 0 # num_trials/4
 
+# practice runs
+practice_runs = 0
+practice_slow_trials = 2
+practice_quick_trials = 10
+
 # invalid trials per run
-invalid = 4
+invalid = 8
 
 total_trials = num_trials + catch
 
 # stim dirs
-dir1 = '/Users/kirstenziman/Desktop/COMP_IMAGES/' # Overlays
-stim_dir1 = '/Users/kirstenziman/Desktop/faces/' # Face
-stim_dir2 = '/Users/kirstenziman/Desktop/places/' # House
+dir1 = '/Users/kirstenziman/Desktop/comp_test/composites/' # Overlays
+stim_dir1 = '/Users/kirstenziman/Desktop/comp_test/test1/' # Face
+stim_dir2 = '/Users/kirstenziman/Desktop/comp_test/test2/' # House
+practice_dir = '/Users/kirstenziman/Desktop/PRACTICE_OVERLAY/' # Practice overlays
 
+cue_pic1 = '/Users/kirstenziman/Documents/github/attention-memory-task/stim/Cue/scene_icon.png'
+cue_pic2 = '/Users/kirstenziman/Documents/github/attention-memory-task/stim/Cue/face_icon.png'
 
 # code uses first letter of this string as the category cue
 cat1 = 'Face'
@@ -37,14 +45,13 @@ cat2 = 'Location'
 # objects sizes
 fixation_size = 0.5
 probe_size = 7
-cue_size = 1
+cue_size = 2
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # clocks
 global_clock = core.Clock()
 logging.setDefaultClock(global_clock) 
-
 
 # initialize info dictionary
 info = {}
@@ -75,24 +82,37 @@ log_file_name = "data/" + dir_name + '/' + info['participant'] + '_' + info['run
 #split up to stay within max line length; EP
 instruct_practice = 'Practice about to start. Press RETURN when ready'
 
-instruct_exp = 'PART 1: \n\n On each trial, you will be cued to covertotal_trialsy attend a face image (F) or ' \
-               'location image (L) on the right or left of the screen. ' \
-               '\n\n Your eyes will stay fixated at center-screen. ' \
-               '\n\n After each presentation, a circle will display. ' \
-               '\n\n You will immediately press a button indicating if ' \
-               'the circle appears screen-left (1) or screen-right (3). ' \
+instruct_pract = '\n\n You will see a series of "hybrid" images. Each hybrid image is ' \
+                'made by blending together an image of a face and a scene. These hybrid images' \
+                'will be presented in pairs (one oon the left side of the screen and one on ' \
+                'the right). Your job is to attend to one of the components of one of the images.' \
+                
+                
+                
+instruct_exp = 'PART 1: \n\n Thank you for agreeing to participate in this experiment! ' \
+                'We will be testing your ability to selectively attend to one (of several) ' \
+                'things presented to you simultaneously.  We will also be testing your memory ' \
+                'for the things you are asked to attend to. ' \
+                '\n\n There will be many things going on at once in this task; just do your ' \
+                'best, even if it seems lik you aren\'t getting anything right! You will get ' \
+                'better over time as you get used to the task and learn to focus your attention. ' \
+                '\n\n Take a deep breath, clear your mind, and press a button to continue when ' \
+                'you\'re ready to practice the task. ' \
                '\n\n Press RETURN to begin'
-
-instruct_mem = 'PART 2: \n\n On each trial you will see one image appear, followed by a rating scale. ' \
-               '\n\n When the scale appears, you will quickly rate (in two seconds) the image as being familiar ' \
-               '(1), slightotal_trialsy familiar (2), slightotal_trialsy unfamiliar (3) or unfamiliar (4). ' \
+               
+instruct_exp2 = ''
+                
+instruct_mem = 'PART 2: \n\n On each trial you will see one image appear, along with a rating scale. ' \
+               '\n\n You will quickly rate (in two seconds) the image as being unfamiliar ' \
+               '(1), slightly unfamiliar (2), slightly familiar (3) or familiar (4). ' \
                '\n\n Press RETURN to begin'
-
+               
+instruct_mem2 = ''
+                
 instruct_thanks = 'Thank you for your participation!'
 
 #logging\debugging preferences
 #fullscr = True; EP
-
 
 log_data = logging.LogFile (log_file_name+'_log', filemode='w', level = logging.DATA)
 log_data = logging.LogFile (log_file_name+'_2.log', filemode='w', level = logging.EXP)
@@ -113,11 +133,16 @@ info['fix_frames'] = int(round(.8 * frame_rate_secs))
 info['cue_frames'] = int(round(.5 * frame_rate_secs))
 info['cue_pause_frames'] = int(round(.01* frame_rate_secs))
 
+# practice frames
+# R/L cue 
+info['cue_pract_long'] = int(round(15 * frame_rate_secs))
+info['cue_pract_short'] = int(round(3.0 * frame_rate_secs))
+
 # probe_frames == composite images
 info['probe_frames'] = int(round(3.0 * frame_rate_secs))
 info['probe_pos'] = 8
 info['cue_pos'] = info['probe_pos']
-info['mem_frames'] = int(round(1 * frame_rate_secs))
+info['mem_frames'] = int(round(2 * frame_rate_secs))
 info['mem_pause_frames'] = int(round(1 *frame_rate_secs))
 
 #create objects
@@ -133,21 +158,33 @@ catch_h = visual.TextStim(win=win, ori=0, name='catch_f', text='Indoor (L) or Ou
 
 probe = visual.Circle(win, size = fixation_size, lineColor = 'white', fillColor = 'lightGrey')
 
-cue_vertices_r = [[-.8,-.5], [-.8,.5], [.8,0]]
-cue_right = visual.ShapeStim(win, vertices = cue_vertices_r, lineColor = 'white', fillColor = 'lightGrey')
+#cue_vertices_r = [[-.8,-.5], [-.8,.5], [.8,0]]
+#cue_right = visual.ShapeStim(win, vertices = cue_vertices_r, lineColor = 'white', fillColor = 'lightGrey')
+cue_right = visual.TextStim(win=win, ori=0, name='cue_right', text = '>', font='Arial', 
+                            height=2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0, pos=[0,2])
 
-cue_vertices_l = [[.8,-.5], [.8,.5], [-.8,0]]
-cue_left = visual.ShapeStim(win, vertices = cue_vertices_l, lineColor = 'white', fillColor = 'lightGrey')
+#cue_vertices_l = [[.8,-.5], [.8,.5], [-.8,0]]
+#cue_left = visual.ShapeStim(win, vertices = cue_vertices_l, lineColor = 'white', fillColor = 'lightGrey')
+
+cue_left = visual.TextStim(win=win, ori=0, name='cue_left', text='<', font='Arial', 
+                           height = 2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0)
 
 #split up lines to stay within max line length; EP
-cue_cat_1 = visual.TextStim(win=win, ori=0, name='cue_cat_1', text=cat1[0], font='Arial', 
-                            height = 2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0, pos = [0,2])
 
-cue_cat_2 = visual.TextStim(win=win, ori=0, name='cue_cat_2', text=cat2[0], font='Arial', 
-                            height = 2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0, pos = [0,2])
+#cue_cat_1 = visual.TextStim(win=win, ori=0, name='cue_cat_1', text=cat1[0], font='Arial', 
+                            #height=2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0, pos=[0,2])
+
+#cue_cat_2 = visual.TextStim(win=win, ori=0, name='cue_cat_2', text=cat2[0], font='Arial', 
+                            #height = 2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0, pos = [0,2])
+
+cue_cat_1 = visual.ImageStim(win, cue_pic1, size=cue_size, name='cue_img1')
+cue_cat_2 = visual.ImageStim(win, cue_pic2, size=cue_size, name='cue_img2')
+cue_cat_1.setPos([0, 2])
+cue_cat_2.setPos([0, 2])
 
 #cue = visual.Circle(win, size = cue_size, line_color = 'white', fill_color = 'light_grey')
 instruction = visual.TextStim(win)
+
 
 #######################################################
 
@@ -159,7 +196,7 @@ def get_files(dir_name):
     '''returns all subj pkl files'''
     files = [dir_name + '/' + f for f in os.listdir(dir_name) if f.endswith('.pkl')]
     return files
-    
+
 def concat_dicts(dicts):
     big_dict = {}
     for k in dicts[0]:
@@ -180,8 +217,9 @@ def load_mem_p(pickles):
         mem_dicts.append(x)
     mem_dict = concat_dicts(mem_dicts)
     return mem_dict
-    
+
 def load_prev_p(pickles):
+
     '''returns list of prev pkl files'''
     prev = []
     for f in pickles:
@@ -195,7 +233,40 @@ def load_prev_p(pickles):
         prev_dicts.append(y)
     prev_dict = concat_dicts(prev_dicts)
     return prev_dict
-    
+
+
+########## MAKE RUN PARAMS ############################
+total_runs = num_trials*repetitions
+
+# generate conditions
+# When using AFNI jittering, will create all for whole exp outside of loop (prior, even, to running?)
+# maybe make csv from afni
+right_left = ['cue_L']*(int(total_runs/2)) + ['cue_R']*(int(total_runs/2))
+face_house = ([cat1[0]]*(int(total_runs/4)) + [cat2[0]]*(int(total_runs/4)))*2
+validity_0 = [[1]*(int(invalid/4)) + [0]*(int((total_runs-invalid)/4))]*4
+validity = [item for sublist in validity_0 for item in sublist]
+
+#cue_tuples is a list of tuples (one per trial) specifying: catch/no, R/L attend, F/H attend
+cue_tuples_0 = zip(right_left, face_house, validity) #, attention)
+cue_tuples = random.sample(cue_tuples_0, len(cue_tuples_0))
+
+# make catch params
+# currently not using catch trials
+
+right_left_catch = ['cue_L']*(catch/2) + ['cue_R']*(catch/2)
+face_house_catch = [cat1[0]]*(catch/4) + [cat2[0]]*(catch/4)
+face_house_catch = face_house_catch*2
+validity_catch = [0]*catch
+
+#cue_tuples is a list of tuples (one per trial) specifying: catch/no, R/L attend, F/H attend
+catch_tuples_0 = zip(right_left_catch, face_house_catch, validity_catch) #, attention)
+catch_tuples = random.sample(catch_tuples_0, len(catch_tuples_0))
+
+#list to tell when catch and when regular trial
+catches_0 = num_trials*[0] + catch*[1]
+catches = random.sample(catches_0, len(catches_0))
+
+
 ############ EXP FUNCTIONS ############################
 
 def show_instructions(text, acceptedKeys = None):
@@ -211,9 +282,45 @@ def show_instructions(text, acceptedKeys = None):
     if response == 'escape':
         core.quit()
 
+def practice_block( practice_dir, practice_runs, practice_slow_trials, practice_quick_trials, loop = object, maxWait = 10):
+    """Displays trials for subject to practice attending to sides and categories"""
+    
+    trial_count = 0
+    previously_practiced = []
+    
+    for this_trial in loop:
+        
+        img1_file = random.choice([x for x in os.listdir(practice_dir) if x not in previously_practiced])
+        img1 = practice_dir + img1_file
+        img2_file = img1_file
+           
+        while (img2_file == img1_file):
+            img2_file = random.choice([x for x in os.listdir(practice_dir) if x not in previously_practiced])
+            
+        img2 = practice_dir + img2_file
+        previously_practiced.extend((img1_file, img2_file))
+        
+        
+        probe1 = visual.ImageStim(win, img1, size=probe_size, name='Probe1')
+        probe2 = visual.ImageStim(win, img2, size=probe_size, name='Probe2')
+        
+        # Probe1 displays right, Probe 2 displays left
+        probe1.setPos([info['probe_pos'], 0])
+        probe2.setPos([-info['probe_pos'], 0])
+        
+        if trial_count <= practice_slow_trials:
+            probe1.setAutoDraw(True)
+            probe2.setAutoDraw(True)
+            fixation.setAutoDraw(True)
+            for frame_n in range(info['cue_pract_long']):
+                win.flip()
+                
+            # Wait for response 
+            response = event.getKeys(keyList = ['return','enter','1'])
+            if len(response) > 0:
+                core.quit()
 
-def pres_block( pickle_name, prev_stim, run, loop = object, saveData = True, test=False):
-
+def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData = True, test=False):
     """Runs experimental block and saves reponses if requested"""
     
     trial_clock = core.Clock()
@@ -221,7 +328,6 @@ def pres_block( pickle_name, prev_stim, run, loop = object, saveData = True, tes
     previous_items = {}
     cued = []
     uncued = []
-    #cue_r = []
     
     reaction_time={}
     cued_RT = []
@@ -229,31 +335,31 @@ def pres_block( pickle_name, prev_stim, run, loop = object, saveData = True, tes
     
     trial_count = 0
     
-    # generate conditions
-    # When using AFNI jittering, will create all for whole exp outside of loop (prior, even, to running?)
-    # maybe make csv from afni
-    right_left= ['cue_L']*(int(num_trials/2)) + ['cue_R']*(int(num_trials/2))
-    face_house= ([cat1[0]]*(int(num_trials/4)) + [cat2[0]]*(int(num_trials/4)))*2
-    validity_0 = [[1]*(int(invalid/4)) + [0]*(int((num_trials-invalid)/4))]*4
-    validity = [item for sublist in validity_0 for item in sublist]
-    
-    #cue_tuples is a list of tuples (one per trial) specifying: catch/no, R/L attend, F/H attend
-    cue_tuples_0 = zip(right_left, face_house, validity) #, attention)
-    cue_tuples = random.sample(cue_tuples_0, len(cue_tuples_0))
-    
-    # make catch params
-    right_left_catch = ['cue_L']*(catch/2) + ['cue_R']*(catch/2)
-    face_house_catch = [cat1[0]]*(catch/4) + [cat2[0]]*(catch/4)
-    face_house_catch = face_house_catch*2
-    validity_catch = [0]*catch
-    
-    #cue_tuples is a list of tuples (one per trial) specifying: catch/no, R/L attend, F/H attend
-    catch_tuples_0 = zip(right_left_catch, face_house_catch, validity_catch) #, attention)
-    catch_tuples = random.sample(catch_tuples_0, len(catch_tuples_0))
-    
-    #list to tell when catch and when regular trial
-    catches_0 = num_trials*[0] + catch*[1]
-    catches = random.sample(catches_0, len(catches_0))
+#    # generate conditions
+#    # When using AFNI jittering, will create all for whole exp outside of loop (prior, even, to running?)
+#    # maybe make csv from afni
+#    right_left = ['cue_L']*(int(num_trials/2)) + ['cue_R']*(int(num_trials/2))
+#    face_house = ([cat1[0]]*(int(num_trials/4)) + [cat2[0]]*(int(num_trials/4)))*2
+#    validity_0 = [[1]*(int(invalid/4)) + [0]*(int((num_trials-invalid)/4))]*4
+#    validity = [item for sublist in validity_0 for item in sublist]
+#    
+#    #cue_tuples is a list of tuples (one per trial) specifying: catch/no, R/L attend, F/H attend
+#    cue_tuples_0 = zip(right_left, face_house, validity) #, attention)
+#    cue_tuples = random.sample(cue_tuples_0, len(cue_tuples_0))
+#    
+#    # make catch params
+#    right_left_catch = ['cue_L']*(catch/2) + ['cue_R']*(catch/2)
+#    face_house_catch = [cat1[0]]*(catch/4) + [cat2[0]]*(catch/4)
+#    face_house_catch = face_house_catch*2
+#    validity_catch = [0]*catch
+#    
+#    #cue_tuples is a list of tuples (one per trial) specifying: catch/no, R/L attend, F/H attend
+#    catch_tuples_0 = zip(right_left_catch, face_house_catch, validity_catch) #, attention)
+#    catch_tuples = random.sample(catch_tuples_0, len(catch_tuples_0))
+#    
+#    #list to tell when catch and when regular trial
+#    catches_0 = num_trials*[0] + catch*[1]
+#    catches = random.sample(catches_0, len(catches_0))
     
     trial_num = 0
     cue_tup_num = 0
@@ -262,7 +368,7 @@ def pres_block( pickle_name, prev_stim, run, loop = object, saveData = True, tes
     for this_trial in loop:
         
         if catches[trial_num] == 0:
-            params =cue_tuples[cue_tup_num]
+            params = cue_tuples[cue_tup_num]
             cue_tup_num += 1
             
         else:
@@ -290,7 +396,7 @@ def pres_block( pickle_name, prev_stim, run, loop = object, saveData = True, tes
         #show cue
         fixation.setAutoDraw(False)
         cue.setAutoDraw(True)
-        cue_cat.setAutoDraw(True, )
+        cue_cat.setAutoDraw(True)
         for frame_n in range(info['cue_frames']):
             win.flip()
         cue.setAutoDraw(False) 
@@ -357,7 +463,6 @@ def pres_block( pickle_name, prev_stim, run, loop = object, saveData = True, tes
         
         #clear screen
         win.flip()
-        
         
         resp = None
         rt = None
@@ -553,13 +658,6 @@ def mem_block( conds, current_pickle, prev_stim ):
         win.callOnFlip(resp_clock.reset)
         event.clearEvents()
         
-        for frame_n in range(info['mem_frames']):
-            mem_probe.setAutoDraw(True)
-            if frame_n == 0:
-                resp_clock.reset()
-            win.flip()
-        mem_probe.setAutoDraw(False)
-        win.flip()
         
 #        for frame_n in range(info['mem_frames']):
 #            mem_probe.setAutodraw(True)
@@ -569,16 +667,31 @@ def mem_block( conds, current_pickle, prev_stim ):
         
         ##KIRSTEN ORIGINAL##
         #split line to stay within max line length; EP
-        rating_scale = visual.RatingScale( win, low = 1, high = 4, labels = ['familiar','unfamiliar'], 
-                                            singleClick = True, scale = None, pos = [0,0], acceptPreText = '-',
-                                            maxTime=3.0, disappear=True, minTime=0, showValue=True, marker = 'triangle' )
+        rating_scale = visual.RatingScale( win, low = 1, high = 4, labels = ['unfamiliar', 'familiar'], 
+                                            singleClick = True, scale = None, pos = [0,-.35], acceptPreText = '-',
+                                            maxTime=3.0, minTime=0, marker = 'triangle', showAccept=False, acceptSize=0 ) #disappear=True)
         
-        event.getKeys(keyList=None)
-        while rating_scale.noResponse == True:
+        
+#        event.getKeys(keyList=None)
+#        while rating_scale.noResponse == True:
+#            rating_scale.setAutoDraw(True)
+#            win.flip()
+#        rating_scale.setAutoDraw(False)
+#        choice_history = rating_scale.getHistory()
+#        
+        
+        event.getKeys(keyList = None)
+        for frame_n in range(info['mem_frames']):
+            mem_probe.setAutoDraw(True)
             rating_scale.setAutoDraw(True)
+            if frame_n == 0:
+                resp_clock.reset()
             win.flip()
-        rating_scale.setAutoDraw(False)
         choice_history = rating_scale.getHistory()
+        rating_scale.setAutoDraw(False)
+        mem_probe.setAutoDraw(False)
+        win.flip()
+        
         
         for frame_n in range(info['mem_pause_frames']):
             fixation.setAutoDraw(True)
@@ -604,17 +717,25 @@ def mem_block( conds, current_pickle, prev_stim ):
 
 ######### RUN EXPERIMENT ###########
 
+# for specified # of runs, show practice presentation 
+for rep in range(0, practice_runs):
+    practice_block(practice_dir, practice_runs, practice_slow_trials, practice_quick_trials, practice_trials)
+    
 # for specified # of reps, run presentation then memory
 for rep in range(0,repetitions):
     
-    #pickle_name for use in both functions
-    #split line to stay within max line length; EP
+    cue_tuple_input = cue_tuples[rep*10:(rep+1)*10]
+    practice_trials = data.TrialHandler(trialList = [{}]*(practice_slow_trials + practice_quick_trials), nReps = 1)
+    
+    # pickle_name for use in both functions
+    # split line to stay within max line length; EP
     pickle_name = "data/" + dir_name + '/' + info['participant'] + '_' + info['run'] + '_' + \
                   info['date_str'] + 'previous_items.pkl'
     
     # if pkl files exist from previous runs, load the data
     prev_runs = []
     files = get_files(dir_check)
+    
     if len(files)>0:
         mem_dict = load_mem_p(files)
         prev_dict = load_prev_p(files)
@@ -623,24 +744,24 @@ for rep in range(0,repetitions):
         prev_stim.append(prev_dict['cued'])
         prev_stim.append(prev_dict['uncued'])
         prev_stim = [val for sublist in prev_stim for val in sublist]
+        
     else:
         prev_stim = []
-    
-    #prev_stim list of all images shown BEFORE THIS TRIAL
+        # prev_stim == list of all images shown BEFORE THIS TRIAL
     
     # load trials
     trials = data.TrialHandler(trialList = [{}]*total_trials, nReps = 1)
 
-    #presentation task
+    # presentation task
     show_instructions(text = instruct_exp, acceptedKeys = ['1','2','3','4','return', 'escape'])
-    pres_block(pickle_name, prev_stim, info['run'], trials, test=False)
+    pres_block(cue_tuple_input, pickle_name, prev_stim, info['run'], trials, test=False)
 #   pres_block(info['run'], trials)
 
-    #memory task
+    # memory task
     show_instructions(text = instruct_mem, acceptedKeys = ['1','2','3','4','return'])
     mem_block(range(0,num_trials*8), pickle_name, prev_stim)
     
     info['run'] = str(int(info['run'])+1)
     
-#closing message
+# closing message
 show_instructions(text = instruct_thanks, acceptedKeys = ['1','2','3','4','return'])
