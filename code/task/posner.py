@@ -31,18 +31,18 @@ practice_slow_trials = 2
 practice_quick_trials = 10
 
 # invalid trials per run
-invalid = 2
+invalid = 3
 
 total_trials = num_trials + catch
 
 # stim dirs
-dir1 = '/Users/kirstenziman/Desktop/composites_even/' # Overlays
-stim_dir1 = '/Users/kirstenziman/Desktop/faces/' # Face
-stim_dir2 = '/Users/kirstenziman/Desktop/places/' # House
+dir1 = '../../stim/composites_even/' # Overlays
+stim_dir1 = '../../stim/faces/' # Face
+stim_dir2 = '../../stim/places/' # House
 practice_dir = '/Users/kirstenziman/Desktop/PRACTICE_OVERLAY/' # Practice overlays
 
-cue_pic1 = '/Users/kirstenziman/Documents/github/attention-memory-task/stim/Cue/scene_icon.png'
-cue_pic2 = '/Users/kirstenziman/Documents/github/attention-memory-task/stim/Cue/face_icon.png'
+cue_pic1 = '../../stim/Cue/scene_icon.png'
+cue_pic2 = '../../stim/Cue/face_icon.png'
 
 # code uses first letter of this string as the category cue
 cat1 = 'Face'
@@ -301,8 +301,9 @@ total_runs = num_trials*repetitions
 # maybe make csv from afni
 right_left = ['cue_L']*(int(total_runs/2)) + ['cue_R']*(int(total_runs/2))
 face_house = ([cat1[0]]*(int(total_runs/4)) + [cat2[0]]*(int(total_runs/4)))*2
-validity_0 = [[1]*(int(invalid/4)) + [0]*(int((total_runs-invalid)/4))]*4
-validity = [item for sublist in validity_0 for item in sublist]
+validity_0 = ([1]*invalid + [0]*(num_trials-invalid))
+validity = random.sample(validity_0, len(validity_0))
+validity = validity*total_runs
 
 
 #cue_tuples is a list of tuples (one per trial) specifying: catch/no, R/L attend, F/H attend
