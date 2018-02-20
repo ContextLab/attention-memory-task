@@ -8,6 +8,9 @@ vers = '2.0'
 
 ####### PARAMS + SUB INFO ########################
 
+
+# FIX VALIDITY 
+
 # edit the parameters in this section ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # runs
@@ -18,6 +21,9 @@ num_trials = 4
 
 # catch trials per run
 catch = 0 # num_trials/4
+
+# block or random
+block = True
 
 # practice runs
 practice_runs = 0
@@ -78,38 +84,90 @@ if not os.path.exists(dir_check):
 file_name = "data/" + dir_name + '/'+ info['participant'] + '_' + info['run'] + '_' + info['date_str'] 
 log_file_name = "data/" + dir_name + '/' + info['participant'] + '_' + info['run'] + '_' + info['date_str']
 
-#instructions 
-#split up to stay within max line length; EP
+######## INSTRUCTIONS #########
+
+# PRACTICE
 instruct_practice = 'Practice about to start. Press RETURN when ready'
 
 instruct_pract = '\n\n You will see a series of "hybrid" images. Each hybrid image is ' \
-                'made by blending together an image of a face and a scene. These hybrid images' \
+                'made by blending together an image of a face and a scene. These hybrid images ' \
                 'will be presented in pairs (one oon the left side of the screen and one on ' \
-                'the right). Your job is to attend to one of the components of one of the images.' \
-                
-                
-                
-instruct_exp = 'PART 1: \n\n Thank you for agreeing to participate in this experiment! ' \
+                'the right). Your job is to attend to one of the components of one of the images. ' \
+                '\n\n For example, we may ask you to attend to the "face" part of the image on the left. ' \
+                'That means you should attempt to bring the face part of the left image into mental focus. ' \
+                'Importantly, you should do this wthout moving your eyes from the center of the screen. ' \
+                'Only your attention should move, not your eyes! ' \
+                '\n\n To indicate which image (left vs. right) to pay attention to, we\'ll display an ' \
+                'arrow icon (< or >) pointing to the left or right. To indicate which part of the image ' \
+                'to pay attention to, we\'ll display an image icon (<image> for face; [] for scene). ' \
+                'These attention cues will occur in pairs; e.g. <<:)> tells you to pay attention to the ' \
+                'face part of the image on the left. ' \
+                '\n\n Ready to practice? Please press a button to continue...'
+# INTRO
+introduction = '\n\n Thank you for agreeing to participate in this experiment! ' \
                 'We will be testing your ability to selectively attend to one (of several) ' \
                 'things presented to you simultaneously.  We will also be testing your memory ' \
                 'for the things you are asked to attend to. ' \
                 '\n\n There will be many things going on at once in this task; just do your ' \
-                'best, even if it seems lik you aren\'t getting anything right! You will get ' \
+                'best, even if it seems like you aren\'t getting anything right! You will get ' \
                 'better over time as you get used to the task and learn to focus your attention. ' \
                 '\n\n Take a deep breath, clear your mind, and press a button to continue when ' \
-                'you\'re ready to practice the task. ' \
+                'you\'re ready to practice the task... ' \
                '\n\n Press RETURN to begin'
-               
-instruct_exp2 = ''
-                
-instruct_mem = 'PART 2: \n\n On each trial you will see one image appear, along with a rating scale. ' \
-               '\n\n You will quickly rate (in two seconds) the image as being unfamiliar ' \
-               '(1), slightly unfamiliar (2), slightly familiar (3) or familiar (4). ' \
-               '\n\n Press RETURN to begin'
-               
-instruct_mem2 = ''
-                
+
+
+# PRESENTATION
+instruct_exp = 'PART 1: ' \
+                'In this next part of the experiment you will again be viewing pairs of hybrid face/scene ' \
+                'images on the left and right of the screen. You will see a series of hybrid image pairs ' \
+                'flash on the screen. Your job is to attend to the cued image and part, according to what the icons indicate. ' \
+                '\n\n Remember to keep your eyes fixed on the center of the screen throughout the experiment. ' \
+                '\n\n To help keep you on your toes during this phase of the experiment, we will also be testing your ' \
+                'mental focus using a reaction time task. After each pair of images disappears from the screen, ' \
+                'you\'ll see a circle (o) appear on either the left, or button 2 if the circle appears on the right. ' \
+                'Respond as quickly as you can!' \
+                '\n\n Ready to start? Press a button when you are ready to continue...' \
+
+instruct_exp2 = 'Next up is another round of attentional cueing and reaction time tests. Like before, your job is ' \
+                'to shift the focus of your attention towards the face or scene part of the image on the left or right ' \
+                'of the screen. Remember to keep your eyes fixed on the center of the screen!' \
+
+
+# MEMORY
+instruct_mem =  'PART 2: \n\n Now we\'re going to test your memory. You\'ll see a series of (single) face or scene images ' \
+                'in the center of the screen. Your job is to rate whether you have seen the image before or not, using a ' \
+                'sliding scale: ' \
+                '\n\n (1) I definitely have not seen the image before' \
+                '\n\n (2) I probably have not seen the image before' \
+                '\n\n (3) I probably have seen the image before' \
+                '\n\n (4) I definitely have seen the image before' \
+                '\n\n You will need to make your responses quickly -- you\'ll have just 2 seconds to ' \
+                'press the appropriate button. If you aren\'t sure what to say for a particular image, ' \
+                'just make your best guess. For example, if an image seems familiar to you, you should respond ' \
+                'with a 3 or 4, and if you are pretty sure you haven\'t seen the image before, you should respond ' \
+                'with 1 or 2.' \
+                '\n\n Ready to go? Press a button when you are ready to continue...' \
+
+instruct_mem2 = 'We\'re going to be testing your memory again. As before, you;ll see a series of (single) face or ' \
+                'scene images in the center of the screen. Your job is to rate whether you have seen the image before or not, ' \
+                'using a sliding scale: ' \
+                '\n\n (1) I definitely have not seen the image before' \
+                '\n\n (2) I probably have not seen the image before' \
+                '\n\n (3) I probably have seen the image before' \
+                '\n\n (4) I definitely have seen the image before' \
+                '\n\n You will need to make your responses quickly-- you\'ll have just 2 seconds to press the ' \
+                'appropriate button. If you aren\'t sure what to say for a particuar ' \
+                '\n\n You will need to make your responses quickly -- you\'ll have just 2 seconds to ' \
+                'press the appropriate button. If you aren\'t sure what to say for a particular image, ' \
+                'just make your best guess. For example, if an image seems familiar to you, you should respond ' \
+                'with a 3 or 4, and if you are pretty sure you haven\'t seen the image before, you should respond ' \
+                'with 1 or 2.' \
+                '\n\n Ready to go? Press a button when you are ready to continue...' \
+
+
+# CLOSING
 instruct_thanks = 'Thank you for your participation!'
+
 
 #logging\debugging preferences
 #fullscr = True; EP
@@ -246,9 +304,14 @@ face_house = ([cat1[0]]*(int(total_runs/4)) + [cat2[0]]*(int(total_runs/4)))*2
 validity_0 = [[1]*(int(invalid/4)) + [0]*(int((total_runs-invalid)/4))]*4
 validity = [item for sublist in validity_0 for item in sublist]
 
+
 #cue_tuples is a list of tuples (one per trial) specifying: catch/no, R/L attend, F/H attend
 cue_tuples_0 = zip(right_left, face_house, validity) #, attention)
-cue_tuples = random.sample(cue_tuples_0, len(cue_tuples_0))
+
+if block == False :
+    cue_tuples = random.sample(cue_tuples_0, len(cue_tuples_0))
+else:
+    cue_tuples = cue_tuples_0
 
 # make catch params
 # currently not using catch trials
@@ -535,7 +598,7 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
     previous_items['uncued_RT'] = uncued_RT
     previous_items['cued_RT'] = cued_RT
     previous_items['run_time'] = trial_clock.getTime()
-    previous_items['cue_tuples'] =cue_tuples
+    previous_items['cue_tuples'] = cue_tuples
     
     # KZ : code below saves data in pickle format
     #      if we save data per trial (we should, even if not needed; want a record of everything subject saw at each moment) 
