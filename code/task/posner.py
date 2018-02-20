@@ -816,12 +816,20 @@ for rep in range(0,repetitions):
     trials = data.TrialHandler(trialList = [{}]*total_trials, nReps = 1)
 
     # presentation task
-    show_instructions(text = instruct_exp, acceptedKeys = ['1','2','3','4','return', 'escape'])
+    if rep == 0:
+        show_instructions(text = instruct_exp, acceptedKeys = ['1','2','3','4','return', 'escape'])
+    else:
+        show_instructions(text = instruct_exp2, acceptedKeys = ['1','2','3','4','return', 'escape'])
+        
     pres_block(cue_tuple_input, pickle_name, prev_stim, info['run'], trials, test=False)
 #   pres_block(info['run'], trials)
 
     # memory task
-    show_instructions(text = instruct_mem, acceptedKeys = ['1','2','3','4','return'])
+    if rep == 0:
+        show_instructions(text = instruct_mem, acceptedKeys = ['1','2','3','4','return'])
+    else: 
+        show_instructions(text = instruct_mem2, acceptedKeys = ['1','2','3','4','return'])
+        
     mem_block(range(0,num_trials*8), pickle_name, prev_stim)
     
     info['run'] = str(int(info['run'])+1)
