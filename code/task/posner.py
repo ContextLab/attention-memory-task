@@ -14,10 +14,10 @@ vers = '2.0'
 # edit the parameters in this section ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # runs
-repetitions = 1
+repetitions = 8
 
 # pres trials per run (total_trials % 8 == 0)
-num_trials = 4
+num_trials = 10
 
 # catch trials per run
 catch = 0 # num_trials/4
@@ -31,14 +31,14 @@ practice_slow_trials = 2
 practice_quick_trials = 10
 
 # invalid trials per run
-invalid = 8
+invalid = 2
 
 total_trials = num_trials + catch
 
 # stim dirs
-dir1 = '/Users/kirstenziman/Desktop/comp_test/composites/' # Overlays
-stim_dir1 = '/Users/kirstenziman/Desktop/comp_test/test1/' # Face
-stim_dir2 = '/Users/kirstenziman/Desktop/comp_test/test2/' # House
+dir1 = '/Users/kirstenziman/Desktop/composites_even/' # Overlays
+stim_dir1 = '/Users/kirstenziman/Desktop/faces/' # Face
+stim_dir2 = '/Users/kirstenziman/Desktop/places/' # House
 practice_dir = '/Users/kirstenziman/Desktop/PRACTICE_OVERLAY/' # Practice overlays
 
 cue_pic1 = '/Users/kirstenziman/Documents/github/attention-memory-task/stim/Cue/scene_icon.png'
