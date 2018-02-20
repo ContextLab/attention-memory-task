@@ -63,11 +63,57 @@ logging.setDefaultClock(global_clock)
 info = {}
 
 # experimenter inputs subject info
+myDlg = gui.Dlg(title="Attention and Memory Experiment")
 info['participant'] = ''
 info['run'] = ''
+myDlg.addField('1. age')
+myDlg.addField('2. sex:', choices=['--', "Male", "Female"])
+myDlg.addField('3. Are you hispanic or latino?', choices=['--', "Yes", "No"])
+myDlg.addText('')
+myDlg.addText('4. Race (check all that apply):')
+myDlg.addField('White', False) 
+myDlg.addField('Black or African American', False) 
+myDlg.addField('Native Hawaiian or other Pacific Islander', False) 
+myDlg.addField('Asian', False) 
+myDlg.addField('American Indian or Alaskan Native', False) 
+myDlg.addText('')
+myDlg.addField('5. Highest Degree Achieved:', choices = ['--', 'some high school', 'high schoool graduate', 'some college', \
+'college graduate', 'some graduate training', "Master's", 'Doctorate'])
+myDlg.addText('6. Do you have any reading impairments')
+myDlg.addField('(e.g. dyslexia, uncorrected far-sightedness, etc.)', choices = ['--', "Yes", "No"])
+myDlg.addText('')
+myDlg.addField('7. Do you have normal color vision?', choices = ['--', "Yes", "No"])
+myDlg.addText('')
+myDlg.addText('8. Are you taking any medications or have you had')
+myDlg.addText('any recent injuries that could')
+myDlg.addField('affect your memory or attention?', choices = ['--', "Yes", "No"])
+myDlg.addText('')
+myDlg.addField('9. If yes to question above, describe')
+myDlg.addText('10. How many hours of sleep did')
+myDlg.addField('you get last night? (enter only a number)')
+myDlg.addText('')
+myDlg.addText('11. How many cups of coffee') 
+myDlg.addField('have you had today? (enter only a number)')
+myDlg.addField('12. How alert are you feeling?:', choices=['--', "Very sluggish", "A little slugglish", "Neutral", "A little alert", "Very alert"])
+
+#may not need this anymore
 dlg = gui.DlgFromDict(info)
 if not dlg.OK:
     core.quit()
+
+ok_data = myDlg.show() 
+if myDlg.OK:
+    print(ok_data)
+
+endDlg = gui.Dlg(title="Post Questionnaire")
+endDlg.addField('1. How engaging did you find this experiment?', choices=['--', "Very engaging", "A little engaging", "Neutral", "A little boring", "Very boring"])
+endDlg.addField('2. How tired do you feel?', choices=['--', "Very tired", "A little tired", "Neutral", "A little alert", "Very alert"])
+endDlg.addField('3. Did you find one category easier to remember? If so, which one?') 
+endDlg.addField('4. Did you find one side easier to attend to? If so, which one?') 
+endDlg.addField('5. What strategies did you use to help remember the attended images?')
+end_data = endDlg.show() 
+if endDlg.OK:
+    print(end_data)
     
 # get date
 info['date_str']= data.getDateStr()[0:11]
@@ -837,3 +883,4 @@ for rep in range(0,repetitions):
     
 # closing message
 show_instructions(text = instruct_thanks, acceptedKeys = ['1','2','3','4','return'])
+
