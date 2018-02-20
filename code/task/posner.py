@@ -146,7 +146,7 @@ instruct_mem =  'PART 2: \n\n Now we\'re going to test your memory. You\'ll see 
                 'just make your best guess. For example, if an image seems familiar to you, you should respond ' \
                 'with a 3 or 4, and if you are pretty sure you haven\'t seen the image before, you should respond ' \
                 'with 1 or 2.' \
-                '\n\n Ready to go? Press a button when you are ready to continue...' \
+                'Ready to go? Press a button when you are ready to continue...' \
 
 instruct_mem2 = 'We\'re going to be testing your memory again. As before, you;ll see a series of (single) face or ' \
                 'scene images in the center of the screen. Your job is to rate whether you have seen the image before or not, ' \
