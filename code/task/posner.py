@@ -25,7 +25,7 @@ catch = 0 # num_trials/4
 block = True
 
 # practice runs
-practice_runs = 0
+practice_runs = 1
 practice_slow_trials = 2
 practice_quick_trials = 10
 
@@ -822,18 +822,19 @@ def mem_block( conds, current_pickle, prev_stim ):
 # select out required number of composite images (runs * trials)
 # avoid using these for presentation stim
 # use only split singles from this list for "unseen" memory images
-
-
+mem_only_0 = [f for f in random.sample(os.listdir(dir1),num_trials*repetitions) if f.endswith('.jpg')]
 
 # for specified # of runs, show practice presentation
 for rep in range(0, practice_runs):
+    practice_trials = data.TrialHandler(trialList = [{}]*(practice_slow_trials + practice_quick_trials), nReps = 1)
+    
     practice_block(practice_dir, practice_runs, practice_slow_trials, practice_quick_trials, practice_trials)
 
 # for specified # of reps, run presentation then memory
 for rep in range(0,repetitions):
 
     cue_tuple_input = cue_tuples[rep*10:(rep+1)*10]
-    practice_trials = data.TrialHandler(trialList = [{}]*(practice_slow_trials + practice_quick_trials), nReps = 1)
+    #practice_trials = data.TrialHandler(trialList = [{}]*(practice_slow_trials + practice_quick_trials), nReps = 1)
 
     # pickle_name for use in both functions
     # split line to stay within max line length; EP
