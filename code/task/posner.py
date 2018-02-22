@@ -99,6 +99,10 @@ dlg = gui.DlgFromDict(info)
 if not dlg.OK:
     core.quit()
 
+end_data = myDlg.show() 
+if myDlg.OK:
+    print(end_data)
+    
 # get date
 info['date_str']= data.getDateStr()[0:11]
 
@@ -152,7 +156,6 @@ instruct_exp = 'PART 1: ' \
                 'images on the left and right of the screen. Just like you practiced, you will see a series of hybrid image pairs ' \
                 'flash on the screen. Your job is to attend to the cued image and part, according to what the icons indicate. ' \
                 '\n\n Remember to keep your eyes fixed on the center of the screen throughout the experiment. ' \
-
                 '\n\n To help keep you on your toes during this phase of the experiment, we will also be testing your ' \
                 'mental focus using a reaction time task. After each pair of images disappears from the screen, ' \
                 'you\'ll see a circle (o) appear on either the left or right of the screen. You should press button 1 ' \
