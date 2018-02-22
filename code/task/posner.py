@@ -25,7 +25,7 @@ catch = 0 # num_trials/4
 block = True
 
 # practice runs
-practice_runs = 1
+practice_runs = 0
 practice_slow_trials = 2
 practice_quick_trials = 10
 
@@ -372,6 +372,21 @@ catch_tuples = random.sample(catch_tuples_0, len(catch_tuples_0))
 catches_0 = num_trials*[0] + catch*[1]
 catches = random.sample(catches_0, len(catches_0))
 
+# PRE ALLOCATE MEM ONLY IMAGES
+# select out required number of composite images (runs * trials)
+# avoid using these for presentation stim
+# use only split singles from this list for "unseen" memory images
+
+mem_only_0 = [f for f in random.sample(os.listdir(dir1),num_trials*repetitions) if f.endswith('.jpg')]
+mem_only_1 = [words for segments in mem_only_0 for words in segments.split('_')]
+
+mem_only_a = mem_only_1[0::2]
+mem_only_a = [s + '.jpg' for s in mem_only_a]
+mem_only_b = mem_only_1[1::2]
+
+mem_only = mem_only_a + mem_only_b
+
+
 ############ EXP FUNCTIONS ############################
 
 def show_instructions(text, acceptedKeys = None):
@@ -419,11 +434,6 @@ def practice_block( practice_dir, practice_runs, practice_slow_trials, practice_
             fixation.setAutoDraw(True)
             for frame_n in range(info['cue_pract_long']):
                 win.flip()
-
-            # Wait for response
-            response = event.getKeys(keyList = ['return','enter','1'])
-            if len(response) > 0:
-                core.quit()
 
 def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData = True, test=False):
     """Runs experimental block and saves reponses if requested"""
@@ -519,7 +529,7 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
 #            if fnmatch.fnmatch(entry,'*.jpg'):
 #                all_items.append(entry)
 
-        available_items = [x for x in all_items if (x not in cued and x not in uncued and x not in prev_stim)]
+        available_items = [x for x in all_items if (x not in cued and x not in uncued and x not in prev_stim and x not in mem_only)]
 
         #select and load image stimuli at random
         img1_file = random.choice(available_items)
@@ -589,8 +599,8 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
         probe.setAutoDraw(True)
         win.callOnFlip(resp_clock.reset)
         event.clearEvents()
+        
         for frame_n in range(info['probe_frames']):
-
             # fixation.setAutoDraw(True)
             # probe.setAutoDraw(True)
             if frame_n == 0:
@@ -673,8 +683,9 @@ def mem_block( conds, current_pickle, prev_stim ):
 
 
     for each in conds:
-
-        all_items_0 = os.listdir(stim_dir1) + os.listdir(stim_dir2)
+        
+        all_items_0 = mem_only
+        #all_items_0 = os.listdir(stim_dir1) + os.listdir(stim_dir2)
         all_items = []
 
         for entry in all_items_0:
@@ -819,10 +830,6 @@ def mem_block( conds, current_pickle, prev_stim ):
 
 ######### RUN EXPERIMENT ###########
 
-# select out required number of composite images (runs * trials)
-# avoid using these for presentation stim
-# use only split singles from this list for "unseen" memory images
-mem_only_0 = [f for f in random.sample(os.listdir(dir1),num_trials*repetitions) if f.endswith('.jpg')]
 
 # for specified # of runs, show practice presentation
 for rep in range(0, practice_runs):
