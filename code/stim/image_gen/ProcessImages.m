@@ -28,11 +28,11 @@ cliplimit = .01;    %contrast:  limit of contrast enhancement
 %% set up directories
 
 % where raw files are located 
-old_root_dir = '/Users/kirstenziman/Desktop/IMAGES/';
+old_root_dir = '/Users/kirstenziman/Desktop/360_stim/';
 % where new files will be written 
-new_root_dir = '/Users/kirstenziman/Desktop/db_IMAGES/';
+new_root_dir = '/Users/kirstenziman/Desktop/360_stim_new/';
 % subfolders containing image files
-folders =  {'faces','places'};
+folders =  {'faces','scenes'};
  
 
 %% image processing loop 
