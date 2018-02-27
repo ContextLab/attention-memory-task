@@ -161,6 +161,7 @@ instruct_pract3 = 'PRACTICE: ' \
                 '\n\n To indicate which image and image part to pay attention to, we will first display a pair of icons: an ' \
                 'arrow icon (< or >) pointing left or right, and an image icon: ' \
                 '\n\n\n\n These icons tell you what to attend to for the next series of pictures.' \
+                '\n\n Press ENTER to continue...' \
 
 instruct_pract4 = '\n\n For example, the cue below tells you to pay attention to the ' \
                 'face part of the image on the left for the next series of images. ' \
@@ -204,6 +205,7 @@ elif block == True:
                     'flash on the screen.' \
                     '\n\n This time, however, you will be cued to one side and image part at the beggning of the trial.' \
                     '\n\n Your job is to attend to that same cued side and image part for every pair of presented images that follows. ' \
+                    '\n\n Press ENTER to continue...' \
                     
 instruct_exp_b = '\n\n Remember to keep your eyes fixed on the center of the screen throughout the experiment. ' \
                 '\n\n To help keep you on your toes during this phase of the experiment, we will also be testing your ' \
@@ -219,6 +221,7 @@ instruct_exp2 = 'PART 1: ' \
                 'to shift the focus of your attention towards the face or scene part of the image on the left or right ' \
                 'of the screen and to button press (1 or 3) when you see the circle (o).' \
                 'Remember to keep your eyes fixed on the center of the screen!' \
+                '\n\n Press ENTER to continue...' \
 
 # MEMORY
 instruct_mem =  'PART 2: ' \
@@ -230,13 +233,14 @@ instruct_mem =  'PART 2: ' \
                 '\n\n (4) I definitely have seen the image before' \
                 '\n\n You will need to make your responses quickly -- you\'ll have just 2 seconds to ' \
                 'press the appropriate button.' \
+                '\n\n Press ENTER to continue...' \
 
 instruct_mem_pt2 = 'If you aren\'t sure what to say for a particular image, ' \
                 'just make your best guess. For example, if an image seems familiar to you, you should respond ' \
                 'with a 3 or 4, and if you are pretty sure you haven\'t seen the image before, you should respond ' \
                 'with 1 or 2.' \
                 '\n\n Ready to go?' \
-                '\n\n Press a button when you are ready to continue...' \
+                '\n\n Press ENTER when you are ready to continue...' \
 
 instruct_mem2 = 'PART 2:' \
                 '\n\n We\'re going to be testing your memory again. As before, you\'ll see a series of (single) face or ' \
@@ -248,6 +252,7 @@ instruct_mem2 = 'PART 2:' \
                 '\n\n (4) I definitely have seen the image before' \
                 '\n\n You will need to make your responses quickly-- you\'ll have just 2 seconds to press the ' \
                 'appropriate button. '
+                '\n\n Press ENTER to continue...' \
 
 # CLOSING
 instruct_thanks = 'Thank you for your participation!'
@@ -469,7 +474,7 @@ def show_instructions(text, cue_pos1 = False, cue_pos2 = False, acceptedKeys = N
         
         cue_inst_right = visual.TextStim(win=win, ori=0, name='cue_right', text = '>', font='Arial', 
                             height=2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0)
-                            
+        
         cue_inst_right.setPos([0, 1])
         cue_inst_right.setAutoDraw(True)
         cat_inst_1.setAutoDraw(True)
@@ -478,9 +483,8 @@ def show_instructions(text, cue_pos1 = False, cue_pos2 = False, acceptedKeys = N
         #cue_cat.setAutoDraw(False)
         
         # Wait for response
-    response = event.waitKeys(keyList=acceptedKeys)
-    if response == 'return':
-            
+    response = event.waitKeys(keyList=['return'])
+    if len(response)>0:
         if cue_pos1:        
             cat_inst_1.setAutoDraw(False)
             cat_inst_2.setAutoDraw(False)
@@ -488,10 +492,14 @@ def show_instructions(text, cue_pos1 = False, cue_pos2 = False, acceptedKeys = N
             
         if cue_pos2: 
             cat_inst_1.setAutoDraw(False)
-            cat_inst_right.setAutoDraw(False) 
-            win.flip()
+            cue_inst_right.setAutoDraw(False)
             
-        core.quit()
+            for frame_n in range(int(round(1* frame_rate_secs))):
+                win.flip()
+            
+        print('it works!')
+        
+        #core.quit()
     
 def practice_block( practice_dir, practice_runs, practice_slow_trials, practice_quick_trials, loop = object, maxWait = 120):
     """Displays trials for subject to practice attending to sides and categories"""
@@ -502,6 +510,7 @@ def practice_block( practice_dir, practice_runs, practice_slow_trials, practice_
     
     for this_trial in loop:
         if trial_count == 0:
+            show_instructions(text = instruct_pract1, acceptedKeys = ['1','2','3','4','return', 'escape'])
             show_instructions(text = instruct_pract1, acceptedKeys = ['1','2','3','4','return', 'escape'])
             show_instructions(text = instruct_pract1b, acceptedKeys = ['1','2','3','4','return', 'escape'])
         if trial_count == 1:
