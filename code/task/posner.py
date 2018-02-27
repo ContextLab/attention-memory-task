@@ -160,11 +160,11 @@ instruct_pract3 = 'PRACTICE: ' \
                 'Again, you should do this without moving your eyes from the center of the screen. ' \
                 '\n\n To indicate which image and image part to pay attention to, we will first display a pair of icons: an ' \
                 'arrow icon (< or >) pointing left or right, and an image icon: ' \
-                'These icons tell you what to attend to for the next series of pictures.' \
+                '\n\n\n\n These icons tell you what to attend to for the next series of pictures.' \
 
-instruct_pract4 = '\n\n For example, <<:)> tells you to pay attention to the ' \
+instruct_pract4 = '\n\n For example, the cue below tells you to pay attention to the ' \
                 'face part of the image on the left for the next series of images. ' \
-                '\n\n The images will display more quickly than before (you cannot control when they appear) ' \
+                '\n\n\n\n\n\n The images will display more quickly than before (you cannot control when they appear) ' \
                 'and the task can be tricky. ' \
                 '\n\n You may not see the images very clearly, but just do your best!' \
                 '\n\n Ready? Please press ENTER to continue...' \
@@ -446,25 +446,52 @@ def show_instructions(text, cue_pos1 = False, cue_pos2 = False, acceptedKeys = N
     # Set and display text
     instruction.setText(text)
     instruction.draw()
-    if not cue_pos1:
+    
+    if not cue_pos1 and not cue_pos2:
         win.flip()
 
     # if cue_pos1, show icons 
     if cue_pos1 == True:
-        cue_cat_2.setAutoDraw(True)
-        cue_cat_1.setAutoDraw(True)
+        cat_inst_1 = visual.ImageStim(win, cue_pic1, size=cue_size, name='cue_img1')
+        cat_inst_2 = visual.ImageStim(win, cue_pic2, size=cue_size, name='cue_img2')
+        cat_inst_2.setPos([-2.5, -5])
+        cat_inst_1.setPos([2.5, -5])
+        cat_inst_1.setAutoDraw(True)
+        cat_inst_2.setAutoDraw(True)
+        win.flip()
+        #cue.setAutoDraw(False)
+        #cue_cat.setAutoDraw(False)
+        
+    # if cue_pos2, show single example icon and arrow 
+    if cue_pos2:
+        cat_inst_1 = visual.ImageStim(win, cue_pic2, size=cue_size, name='cue_img2')
+        cat_inst_1.setPos([0, 3])
+        
+        cue_inst_right = visual.TextStim(win=win, ori=0, name='cue_right', text = '>', font='Arial', 
+                            height=2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0)
+                            
+        cue_inst_right.setPos([0, 1])
+        cue_inst_right.setAutoDraw(True)
+        cat_inst_1.setAutoDraw(True)
         win.flip()
         #cue.setAutoDraw(False)
         #cue_cat.setAutoDraw(False)
         
         # Wait for response
     response = event.waitKeys(keyList=acceptedKeys)
-    if response == 'escape':
-        core.quit()
+    if response == 'return':
             
         if cue_pos1:        
-            cue_cat_1.setAutoDraw(False)
-            cue_cat_2.setAutoDraw(False)
+            cat_inst_1.setAutoDraw(False)
+            cat_inst_2.setAutoDraw(False)
+            win.flip()
+            
+        if cue_pos2: 
+            cat_inst_1.setAutoDraw(False)
+            cat_inst_right.setAutoDraw(False) 
+            win.flip()
+            
+        core.quit()
     
 def practice_block( practice_dir, practice_runs, practice_slow_trials, practice_quick_trials, loop = object, maxWait = 120):
     """Displays trials for subject to practice attending to sides and categories"""
@@ -481,7 +508,7 @@ def practice_block( practice_dir, practice_runs, practice_slow_trials, practice_
             show_instructions(text = instruct_pract2, acceptedKeys = ['1','2','3','4','return', 'escape'])
         if trial_count == 2:
             show_instructions(text = instruct_pract3, cue_pos1 = True, acceptedKeys = ['1','2','3','4','return', 'escape'])
-            show_instructions(text = instruct_pract4, acceptedKeys = ['1','2','3','4','return', 'escape'])
+            show_instructions(text = instruct_pract4, cue_pos2 = True, acceptedKeys = ['1','2','3','4','return', 'escape'])
         img1_file = random.choice([x for x in os.listdir(practice_dir) if x not in previously_practiced])
         img1 = practice_dir + img1_file
         img2_file = img1_file
