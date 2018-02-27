@@ -130,40 +130,42 @@ log_file_name = "data/" + dir_name + '/' + info['participant'] + '_' + info['run
 
 #instruct_practice = 'Practice about to start. Press RETURN when ready'
 #
-instruct_pract1 = 'PRACTICE:' \
+instruct_pract1 = 'INTRODUCTION:' \
                 '\n\n In this task, you will see a series of "hybrid" images. Each hybrid image is ' \
                 'made by blending together an image of a face and an image of a scene. These hybrid images ' \
                 'will be presented in pairs (one on the left side of the screen and one on ' \
                 'the right).' \
-                '\n\n One of your jobs in the experiment is to pay special attention to one part (face or scene)' \
+                '\n\n One of your jobs in the experiment is to pay special attention to one part (face or scene) ' \
                 'of one of the images (right or left), without moving your eyes. ' \
 
 instruct_pract1b = 'PRACTICE: ' \
                 '\n\n On the next screen, you will practice shifting your attention.' \
-                '\n\n You will see two hybrid images.' \
+                '\n\n You will see two hybrid images. ' \
                 'Keeping your eyes focused on the central fixation cross, ' \
-                'try to bring the scene part of the image on the left into focus.' \
-                'When you feel you are as focused as possible on the scene on the left, ' \
-                'try to shift your attention to the scene part of the image on the right, keeping your eyes at center.' \
-                'Then, try again with the faces!' \
-                'This task can be tricky and you may not see the images very clearly, but just do your best!' \
-                '\n\n Hit ENTER when you\'re ready to begin, and again once you have finished.'
+                'try to bring the scene part of the image on the left into focus. ' \
+                '\n\n When you feel you are as focused as possible on the scene on the left, ' \
+                'try to shift your attention to the scene part of the image on the right, keeping your eyes at center. ' \
+                '\n\n Then, try this again with the faces! ' \
+                '\n\n This task can be tricky and you may not see the images very clearly, but just do your best! ' \
+                'Hit ENTER when you\'re ready to begin, and again once you have finished.'
                 
 instruct_pract2 = 'PRACTICE: ' \
-                   '\n\n Great job! Let\'s try that one more time.' \
+                   '\n\n Great job! Let\'s try that one more time. ' \
                    'Make sure your eyes stay focused on the center of the screen!' \
                    '\n\n Press ENTER to begin, and again once you have finished.' \
                    
 instruct_pract3 = 'Now that you can shift your attention, you will practice ' \
-                'attending to specific images (right / left) and image parts (face / house) based on cue signals.' \
+                'attending to specific images (right / left) and image parts (face / house) based on cue signals. ' \
                 'Again, you should do this without moving your eyes from the center of the screen. ' \
                 '\n\n To indicate which image (left / right) and image part (face / scene) to pay attention to, we will first display a pair of icons: an ' \
-                'arrow icon (< or >) pointing left or right, and an image icon (<image> for face; <image> for place). ' \
+                'arrow icon (< or >) pointing left or right, and an image icon (<image> for face; <image> for scene). ' \
                 'These icons tell you what to attend to for the next series of pictures.' \
-                '\n\n For example, <<:)> tells you to pay attention to the ' \
+
+instruct_pract4 = '\n\n For example, <<:)> tells you to pay attention to the ' \
                 'face part of the image on the left for the next series of images. ' \
-                '\n\n The images will display more quickly than before (you cannot control when they appear).' \
-                'and the task can be tricky. You may not see the images very clearly, but just do your best!' \
+                '\n\n The images will display more quickly than before (you cannot control when they appear) ' \
+                'and the task can be tricky. ' \
+                '\n\n You may not see the images very clearly, but just do your best!' \
                 '\n\n Ready? Please press ENTER to continue...' \
  
 # INTRO
@@ -175,9 +177,8 @@ introduction = 'INTRODUCTION: ' \
                 '\n\n There will be many things going on at once in this task; just do your ' \
                 'best, even if it seems like you aren\'t getting anything right! You will get ' \
                 'better over time as you get used to the task and learn to focus your attention. ' \
-                '\n\n Take a deep breath, clear your mind, and press a button to continue when ' \
+                '\n\n Take a deep breath, clear your mind, and press ENTER to continue when ' \
                 'you\'re ready to practice... ' \
-                '\n\n Press RETURN to begin'
 
 # PRESENTATION
 if block == False:
@@ -188,6 +189,7 @@ if block == False:
                     '\n\n Remember to keep your eyes fixed on the center of the screen throughout the experiment and shift only your attention, just like you did in the practice. ' \
                     '\n\n In addition to shifting your attention, you will have another task.' \
                     ' After each pair of images disappears from the screen, ' \
+                    'you\'ll see a circle (o) appear on either the left or right of the screen.' \
                     'you\'ll see a circle (o) appear on either the left or right of the screen.' \
                     'When you see the circle, you should immediately press a button! You should press 1 ' \
                     'if the circle appears on the left, or 3 if the circle appears on the right. ' \
@@ -464,7 +466,7 @@ def practice_block( practice_dir, practice_runs, practice_slow_trials, practice_
             show_instructions(text = instruct_pract2, acceptedKeys = ['1','2','3','4','return', 'escape'])
         if trial_count == 2:
             show_instructions(text = instruct_pract3, acceptedKeys = ['1','2','3','4','return', 'escape'])
-        
+            show_instructions(text = instruct_pract4, acceptedKeys = ['1','2','3','4','return', 'escape'])
         img1_file = random.choice([x for x in os.listdir(practice_dir) if x not in previously_practiced])
         img1 = practice_dir + img1_file
         img2_file = img1_file
@@ -495,7 +497,7 @@ def practice_block( practice_dir, practice_runs, practice_slow_trials, practice_
                 # probe.setAutoDraw(True)
 #                if frame_n == 0:
 #                    resp_clock.reset()
-                keys = event.getKeys(keyList = ['enter', '1', ' '])
+                keys = event.getKeys(keyList = ['return', '1', ' '])
 
                 if len(keys) > 0:
                     resp = keys[0]
@@ -503,7 +505,7 @@ def practice_block( practice_dir, practice_runs, practice_slow_trials, practice_
                     break
             probe1.setAutoDraw(False)
             probe2.setAutoDraw(False)
-            #fixation.setAutoDraw(False)
+            fixation.setAutoDraw(False)
 
         else:
             probe1.setAutoDraw(True)
@@ -514,6 +516,7 @@ def practice_block( practice_dir, practice_runs, practice_slow_trials, practice_
 
             probe1.setAutoDraw(False)
             probe2.setAutoDraw(False)
+            
 
         for frame_n in range(info['fix_frames']):
             win.flip()
@@ -706,7 +709,7 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
             # probe.setAutoDraw(True)
             if frame_n == 0:
                 resp_clock.reset()
-                keys = event.getKeys(keyList = ['enter'])
+                keys = event.getKeys(keyList = ['1','3'])
             if len(keys) > 0:
                 resp = keys[0]
                 rt = resp_clock.getTime()
