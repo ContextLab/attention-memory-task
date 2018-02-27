@@ -108,6 +108,8 @@ if not dlg.OK:
 end_data = myDlg.show() 
 if myDlg.OK:
     print(end_data)
+#    with open(pre_name, 'wb') as f:
+#        pickle.dump(end_data, f)
     
 # get date
 info['date_str']= data.getDateStr()[0:11]
@@ -123,6 +125,9 @@ if not os.path.exists(dir_check):
 # file_names
 file_name = "data/" + dir_name + '/'+ info['participant'] + '_' + info['run'] + '_' + info['date_str']
 log_file_name = "data/" + dir_name + '/' + info['participant'] + '_' + info['run'] + '_' + info['date_str']
+
+pre_name = "data/" + dir_name + '/'+ info['participant'] + '_' + 'pre' + '_' + info['date_str']
+post_name = "data/" + dir_name + '/'+ info['participant'] + '_' + 'post' + '_' + info['date_str']
 
 ######## INSTRUCTIONS #########
 
@@ -147,7 +152,7 @@ instruct_pract1b = 'PRACTICE: ' \
                 'try to shift your attention to the scene part of the image on the right, keeping your eyes at center. ' \
                 '\n\n Then, try this again with the faces! ' \
                 '\n\n This task can be tricky and you may not see the images very clearly, but just do your best! ' \
-                'Hit ENTER when you\'re ready to begin, and again once you have finished.'
+                'Hit ENTER when you\'re ready to begin, and again once you have finished.' \
                 
 instruct_pract2 = 'PRACTICE: ' \
                    '\n\n Great job! Let\'s try that one more time. ' \
@@ -251,7 +256,7 @@ instruct_mem2 = 'PART 2:' \
                 '\n\n (3) I probably have seen the image before' \
                 '\n\n (4) I definitely have seen the image before' \
                 '\n\n You will need to make your responses quickly-- you\'ll have just 2 seconds to press the ' \
-                'appropriate button. '
+                'appropriate button. ' \
                 '\n\n Press ENTER to continue...' \
 
 # CLOSING
@@ -1095,3 +1100,5 @@ endDlg.addField('5. What strategies did you use to help remember the attended im
 end_data = endDlg.show()
 if endDlg.OK:
     print(end_data)
+    #with open(post_name, 'wb') as f:
+       # pickle.dump(end_data, f)
