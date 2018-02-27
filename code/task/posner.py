@@ -62,6 +62,7 @@ logging.setDefaultClock(global_clock)
 # initialize info dictionary
 info = {}
 
+
 # experimenter inputs subject info
 myDlg = gui.Dlg(title="Attention and Memory Experiment")
 info['participant'] = ''
@@ -108,26 +109,29 @@ if not dlg.OK:
 end_data = myDlg.show() 
 if myDlg.OK:
     print(end_data)
-#    with open(pre_name, 'wb') as f:
-#        pickle.dump(end_data, f)
     
 # get date
 info['date_str']= data.getDateStr()[0:11]
 
 # subject directory
 dir_name = info['participant'] + '_' + info['date_str']
-dir_check = 'data/' + dir_name
+dir_check = '../../data/' + dir_name
 
 # if subject directory does not exist, create it
 if not os.path.exists(dir_check):
     os.makedirs(dir_check)
 
 # file_names
-file_name = "data/" + dir_name + '/'+ info['participant'] + '_' + info['run'] + '_' + info['date_str']
-log_file_name = "data/" + dir_name + '/' + info['participant'] + '_' + info['run'] + '_' + info['date_str']
+file_name = "../../data/" + dir_name + '/'+ info['participant'] + '_' + info['run'] + '_' + info['date_str']
+log_file_name = "../../data/" + dir_name + '/' + info['participant'] + '_' + info['run'] + '_' + info['date_str']
 
-pre_name = "data/" + dir_name + '/'+ info['participant'] + '_' + 'pre' + '_' + info['date_str']
-post_name = "data/" + dir_name + '/'+ info['participant'] + '_' + 'post' + '_' + info['date_str']
+# pre and post questionnaire
+pre_name = "../../data/" + dir_name + '/'+ info['participant'] + '_' + 'pre' + '_' + info['date_str']
+post_name = "../../data/" + dir_name + '/'+ info['participant'] + '_' + 'post' + '_' + info['date_str']
+    
+with open(pre_name, 'wb') as f:
+    pickle.dump(end_data, f)
+
 
 ######## INSTRUCTIONS #########
 
@@ -464,8 +468,8 @@ def show_instructions(text, cue_pos1 = False, cue_pos2 = False, acceptedKeys = N
     if cue_pos1 == True:
         cat_inst_1 = visual.ImageStim(win, cue_pic1, size=cue_size, name='cue_img1')
         cat_inst_2 = visual.ImageStim(win, cue_pic2, size=cue_size, name='cue_img2')
-        cat_inst_2.setPos([-2.5, -5])
-        cat_inst_1.setPos([2.5, -5])
+        cat_inst_2.setPos([-2.5, -4])
+        cat_inst_1.setPos([2.5, -4])
         cat_inst_1.setAutoDraw(True)
         cat_inst_2.setAutoDraw(True)
         win.flip()
@@ -501,8 +505,6 @@ def show_instructions(text, cue_pos1 = False, cue_pos2 = False, acceptedKeys = N
             
             for frame_n in range(int(round(1* frame_rate_secs))):
                 win.flip()
-            
-        print('it works!')
         
         #core.quit()
     
@@ -852,7 +854,7 @@ def mem_block( conds, current_pickle, prev_stim ):
     mem_task = {}
 
     # file_name for saved output
-    pickle_name_mem = "data/" + dir_name + '/' + info['participant'] + '_' + info['run'] + '_' + info['date_str'] + 'mem_items.pkl'
+    pickle_name_mem = "../../data/" + dir_name + '/' + info['participant'] + '_' + info['run'] + '_' + info['date_str'] + 'mem_items.pkl'
 
     #KZ : reads in the pickle file
     with open(current_pickle,'rb') as fp:
@@ -1034,7 +1036,7 @@ for rep in range(0,repetitions):
 
     # pickle_name for use in both functions
     # split line to stay within max line length; EP
-    pickle_name = "data/" + dir_name + '/' + info['participant'] + '_' + info['run'] + '_' + \
+    pickle_name = "../../data/" + dir_name + '/' + info['participant'] + '_' + info['run'] + '_' + \
                   info['date_str'] + 'previous_items.pkl'
 
     # if pkl files exist from previous runs, load the data
@@ -1100,5 +1102,4 @@ endDlg.addField('5. What strategies did you use to help remember the attended im
 end_data = endDlg.show()
 if endDlg.OK:
     print(end_data)
-    #with open(post_name, 'wb') as f:
-       # pickle.dump(end_data, f)
+#    with open(post_name, 'wb') as f:
