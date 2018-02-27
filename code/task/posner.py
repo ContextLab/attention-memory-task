@@ -156,10 +156,10 @@ instruct_pract2 = 'PRACTICE: ' \
                    
 instruct_pract3 = 'PRACTICE: ' \
                 'Now that you can shift your attention, you will practice ' \
-                'attending to specific images (right / left) and image parts (face / house) based on cue signals. ' \
+                'attending to specific images (right / left) and image parts (face / scene) based on cue signals. ' \
                 'Again, you should do this without moving your eyes from the center of the screen. ' \
-                '\n\n To indicate which image (left / right) and image part (face / scene) to pay attention to, we will first display a pair of icons: an ' \
-                'arrow icon (< or >) pointing left or right, and an image icon (<image> for face; <image> for scene). ' \
+                '\n\n To indicate which image and image part to pay attention to, we will first display a pair of icons: an ' \
+                'arrow icon (< or >) pointing left or right, and an image icon: ' \
                 'These icons tell you what to attend to for the next series of pictures.' \
 
 instruct_pract4 = '\n\n For example, <<:)> tells you to pay attention to the ' \
@@ -440,19 +440,32 @@ mem_only = mem_only_a + mem_only_b
 
 ############ EXP FUNCTIONS ############################
 
-def show_instructions(text, acceptedKeys = None):
+def show_instructions(text, cue_pos1 = False, cue_pos2 = False, acceptedKeys = None):
     """Presents text and waits for acceptedKeys"""
-
+    
     # Set and display text
     instruction.setText(text)
     instruction.draw()
-    win.flip()
+    if not cue_pos1:
+        win.flip()
 
-    # Wait for response
+    # if cue_pos1, show icons 
+    if cue_pos1 == True:
+        cue_cat_2.setAutoDraw(True)
+        cue_cat_1.setAutoDraw(True)
+        win.flip()
+        #cue.setAutoDraw(False)
+        #cue_cat.setAutoDraw(False)
+        
+        # Wait for response
     response = event.waitKeys(keyList=acceptedKeys)
     if response == 'escape':
         core.quit()
-
+            
+        if cue_pos1:        
+            cue_cat_1.setAutoDraw(False)
+            cue_cat_2.setAutoDraw(False)
+    
 def practice_block( practice_dir, practice_runs, practice_slow_trials, practice_quick_trials, loop = object, maxWait = 120):
     """Displays trials for subject to practice attending to sides and categories"""
 
@@ -467,7 +480,7 @@ def practice_block( practice_dir, practice_runs, practice_slow_trials, practice_
         if trial_count == 1:
             show_instructions(text = instruct_pract2, acceptedKeys = ['1','2','3','4','return', 'escape'])
         if trial_count == 2:
-            show_instructions(text = instruct_pract3, acceptedKeys = ['1','2','3','4','return', 'escape'])
+            show_instructions(text = instruct_pract3, cue_pos1 = True, acceptedKeys = ['1','2','3','4','return', 'escape'])
             show_instructions(text = instruct_pract4, acceptedKeys = ['1','2','3','4','return', 'escape'])
         img1_file = random.choice([x for x in os.listdir(practice_dir) if x not in previously_practiced])
         img1 = practice_dir + img1_file
