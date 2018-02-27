@@ -154,7 +154,8 @@ instruct_pract2 = 'PRACTICE: ' \
                    'Make sure your eyes stay focused on the center of the screen!' \
                    '\n\n Press ENTER to begin, and again once you have finished.' \
                    
-instruct_pract3 = 'Now that you can shift your attention, you will practice ' \
+instruct_pract3 = 'PRACTICE: ' \
+                'Now that you can shift your attention, you will practice ' \
                 'attending to specific images (right / left) and image parts (face / house) based on cue signals. ' \
                 'Again, you should do this without moving your eyes from the center of the screen. ' \
                 '\n\n To indicate which image (left / right) and image part (face / scene) to pay attention to, we will first display a pair of icons: an ' \
@@ -302,7 +303,7 @@ probe = visual.Circle(win, size = fixation_size, lineColor = 'white', fillColor 
 #cue_vertices_r = [[-.8,-.5], [-.8,.5], [.8,0]]
 #cue_right = visual.ShapeStim(win, vertices = cue_vertices_r, lineColor = 'white', fillColor = 'lightGrey')
 cue_right = visual.TextStim(win=win, ori=0, name='cue_right', text = '>', font='Arial',
-                            height=2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0, pos=[0,2])
+                            height=2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0)
 
 #cue_vertices_l = [[.8,-.5], [.8,.5], [-.8,0]]
 #cue_left = visual.ShapeStim(win, vertices = cue_vertices_l, lineColor = 'white', fillColor = 'lightGrey')
@@ -457,7 +458,8 @@ def practice_block( practice_dir, practice_runs, practice_slow_trials, practice_
 
     trial_count = 0
     previously_practiced = []
-
+    cue_pract_prev = []
+    
     for this_trial in loop:
         if trial_count == 0:
             show_instructions(text = instruct_pract1, acceptedKeys = ['1','2','3','4','return', 'escape'])
@@ -486,8 +488,6 @@ def practice_block( practice_dir, practice_runs, practice_slow_trials, practice_
         probe2.setPos([-info['probe_pos'], 0])
 
         if trial_count < practice_slow_trials:
-            
-            
             probe1.setAutoDraw(True)
             probe2.setAutoDraw(True)
             fixation.setAutoDraw(True)
@@ -508,6 +508,32 @@ def practice_block( practice_dir, practice_runs, practice_slow_trials, practice_
             fixation.setAutoDraw(False)
 
         else:
+            if (trial_count == practice_slow_trials) or ((trial_count - practice_slow_trials ) % 4 == 0) :
+                
+                if trial_count == practice_slow_trials:
+                    cue = random.choice([cue_right, cue_left])
+                    cue_cat = random.choice([cue_cat_1, cue_cat_2])
+                    
+                else:
+                    while cue in cue_pract_prev:
+                       cue = random.choice([cue_right, cue_left])
+                       
+                    while cue_cat in cue_pract_prev:
+                       cue_cat = random.choice([cue_cat_1, cue_cat_2])
+                       
+                cue_pract_prev.append(cue)
+                cue_pract_prev.append(cue_cat)
+                
+                fixation.setAutoDraw(False)
+                cue.setAutoDraw(True)
+                cue_cat.setAutoDraw(True)
+                for frame_n in range(info['cue_frames']*3):
+                    win.flip()
+                cue.setAutoDraw(False)
+                cue_cat.setAutoDraw(False)
+                fixation.setAutoDraw(True)
+                
+                
             probe1.setAutoDraw(True)
             probe2.setAutoDraw(True)
             fixation.setAutoDraw(True)
@@ -591,7 +617,6 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
             cue_cat = cue_cat_2
 
         cue.setPos( [0, 0] )
-
 
         if block == True and cue_tup_num == 0 :
             fixation.setAutoDraw(False)
@@ -936,12 +961,12 @@ def mem_block( conds, current_pickle, prev_stim ):
 
 
 # for specified # of runs, show practice presentation
-for rep in range(0, practice_runs):
+#for rep in range(0, practice_runs):
     
-    practice_trials = data.TrialHandler(trialList = [{}]*(practice_slow_trials + practice_quick_trials), nReps = 1)
-    show_instructions(text = introduction, acceptedKeys = ['1','2','3','4','return', 'escape'])
-    #show_instructions(text = introduction, acceptedKeys = ['1','2','3','4','return', 'escape'])
-    practice_block(practice_dir, practice_runs, practice_slow_trials, practice_quick_trials, practice_trials)
+practice_trials = data.TrialHandler(trialList = [{}]*(practice_slow_trials + practice_quick_trials), nReps = 1)
+show_instructions(text = introduction, acceptedKeys = ['1','2','3','4','return', 'escape'])
+#show_instructions(text = introduction, acceptedKeys = ['1','2','3','4','return', 'escape'])
+practice_block(practice_dir, practice_runs, practice_slow_trials, practice_quick_trials, practice_trials)
 
 
 if practice_runs == 0:
