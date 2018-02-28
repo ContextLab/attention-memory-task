@@ -24,27 +24,24 @@ catch = 0 # num_trials/4
 block = True
 
 # practice runs
-practice_runs = 10
-practice_slow_trials = 2
-practice_quick_trials = 8
-
+practice_runs = 1
 
 # invalid trials per run
 invalid = 3
-
 total_trials = num_trials + catch
 
 # stim dirs
 dir1 = '../../stim/composites_new/' # Overlays
+
 stim_dir1 = '../../stim/faces/' # Face
-stim_dir2 = '../../stim/places/' # House
+stim_dir2 = '../../stim/places/' # Scene
+
 practice_dir = '../../stim/practice/' # Practice overlays
 
-cue_pic1 = '../../stim/Cue/scene_icon.png'
-cue_pic2 = '../../stim/Cue/face_icon.png'
+cue_pic1 = '../../stim/Cue/scene_icon.png' # Scene icon
+cue_pic2 = '../../stim/Cue/face_icon.png' # Face icon
 
-
-# code uses first letter of this string as the category cue
+# categories
 cat1 = 'Face'
 cat2 = 'Location'
 
@@ -62,11 +59,12 @@ logging.setDefaultClock(global_clock)
 # initialize info dictionary
 info = {}
 
-
 # experimenter inputs subject info
 myDlg = gui.Dlg(title="Attention and Memory Experiment")
 info['participant'] = ''
 info['run'] = ''
+
+# subject enters demographic info
 myDlg.addField('1. age')
 myDlg.addField('2. sex:', choices=['--', "Male", "Female", "Other", "No Response"])
 myDlg.addField('3. Are you hispanic or latino?', choices=['--', "Yes", "No"])
@@ -125,147 +123,119 @@ if not os.path.exists(dir_check):
 file_name = "../../data/" + dir_name + '/'+ info['participant'] + '_' + info['run'] + '_' + info['date_str']
 log_file_name = "../../data/" + dir_name + '/' + info['participant'] + '_' + info['run'] + '_' + info['date_str']
 
-# pre and post questionnaire
+# pre and post questionnaire directories
 pre_name = "../../data/" + dir_name + '/'+ info['participant'] + '_' + 'pre' + '_' + info['date_str']
 post_name = "../../data/" + dir_name + '/'+ info['participant'] + '_' + 'post' + '_' + info['date_str']
     
+# save responses to pre questionnaire
 with open(pre_name, 'wb') as f:
     pickle.dump(end_data, f)
 
 
 ######## INSTRUCTIONS #########
 
-# PRACTICE
-
-#instruct_practice = 'Practice about to start. Press RETURN when ready'
-#
-instruct_pract1 = 'INTRODUCTION:' \
-                '\n\n In this task, you will see a series of "hybrid" images. Each hybrid image is ' \
-                'made by blending together an image of a face and an image of a scene. These hybrid images ' \
-                'will be presented in pairs (one on the left side of the screen and one on ' \
-                'the right).' \
-                '\n\n One of your jobs in the experiment is to pay special attention to one part (face or scene) ' \
-                'of one of the images (right or left), without moving your eyes. ' \
-
-instruct_pract1b = 'PRACTICE: ' \
-                '\n\n On the next screen, you will practice shifting your attention.' \
-                '\n\n You will see two hybrid images. ' \
-                'Keeping your eyes focused on the central fixation cross, ' \
-                'try to bring the scene part of the image on the left into focus. ' \
-                '\n\n When you feel you are as focused as possible on the scene on the left, ' \
-                'try to shift your attention to the scene part of the image on the right, keeping your eyes at center. ' \
-                '\n\n Then, try this again with the faces! ' \
-                '\n\n This task can be tricky and you may not see the images very clearly, but just do your best! ' \
-                'Hit ENTER when you\'re ready to begin, and again once you have finished.' \
-                
-instruct_pract2 = 'PRACTICE: ' \
-                   '\n\n Great job! Let\'s try that one more time. ' \
-                   'Make sure your eyes stay focused on the center of the screen!' \
-                   '\n\n Press ENTER to begin, and again once you have finished.' \
-                   
-instruct_pract3 = 'PRACTICE: ' \
-                'Now that you can shift your attention, you will practice ' \
-                'attending to specific images (right / left) and image parts (face / scene) based on cue signals. ' \
-                'Again, you should do this without moving your eyes from the center of the screen. ' \
-                '\n\n To indicate which image and image part to pay attention to, we will first display a pair of icons: an ' \
-                'arrow icon (< or >) pointing left or right, and an image icon: ' \
-                '\n\n\n\n These icons tell you what to attend to for the next series of pictures.' \
-                '\n\n Press ENTER to continue...' \
-
-instruct_pract4 = '\n\n For example, the cue below tells you to pay attention to the ' \
-                'face part of the image on the left for the next series of images. ' \
-                '\n\n\n\n\n\n The images will display more quickly than before (you cannot control when they appear) ' \
-                'and the task can be tricky. ' \
-                '\n\n You may not see the images very clearly, but just do your best!' \
-                '\n\n Ready? Please press ENTER to continue...' \
- 
 # INTRO
-introduction = 'INTRODUCTION: ' \
-                '\n\n Thank you for agreeing to participate in this experiment! ' \
-                'We will be testing your ability to selectively attend to one (of several) ' \
-                'things presented to you simultaneously.  We will also be testing your memory ' \
-                'for the things you are asked to attend to. ' \
-                '\n\n There will be many things going on at once in this task; just do your ' \
-                'best, even if it seems like you aren\'t getting anything right! You will get ' \
-                'better over time as you get used to the task and learn to focus your attention. ' \
-                '\n\n Take a deep breath, clear your mind, and press ENTER to continue when ' \
-                'you\'re ready to practice... ' \
+introduction = '\n\n Thank you for participating in this experiment! ' \
+                '\n\n We will be testing your ability to pay attention to one item when multiple items are displayed.' \
+                'We will also be testing your memory ' \
+                'for the things you have paid attention to. ' \
+                '\n\n There will be many things going on at once; just do your ' \
+                'best! ' \
+                'You will get ' \
+                'better as you learn to focus your attention. ' \
+                '\n\n Press ENTER to continue... ' \
+
+# PRACTICE
+instruct_pract1 = '\n\n In this task, you will see a series of "hybrid" images. Each hybrid image is ' \
+                'made by blending together an image of a face and an image of a scene.' \
+                '\n\n These hybrid images ' \
+                'will be presented in pairs (one on the left and one on ' \
+                'the right).' \
+                '\n\n One of your jobs will be to pay special attention to one part (face or scene) ' \
+                'of a hybrid image. ' \
+                '\n\n Press any key to continue...' \
+                
+instruct_pract2 = 'Below is an example of a hybrid image.' \
+                '\n Look directly at the image and see if you can bring the FACE part into focus. ' \
+                '\n\n\n\n\n\n\n\n\n\n\n\n\n\n When you are able to focus easily on the FACE, press any key to continue. ' \
+                
+instruct_pract3 = 'Great job! Let\'s practice again. ' \
+                '\n This time, try bringing the SCENE into focus. ' \
+                '\n\n\n\n\n\n\n\n\n\n\n\n\n\n When you are able to focus easily on the SCENE, press any key to continue. ' \
+
+instruct_pract4 = 'Now, you will practice shifting your attention.' \
+                '\n\n You will see two hybrid images on the screen. ' \
+                '\n\n You will keep your eyes staring straight ahead at the cross, ' \
+                'but you will try to bring the SCENE part of the image on the LEFT into focus. ' \
+                '\n\n Remember, only your attention should shift, not your eyes!' \
+                '\n\n Press any key to begin this practice. ' \
+                
+instruct_pract5 = '\n\n\n\n\n\n\n\n\n\n When you are done, press any key to continue... ' \
+                
+instruct_pract6 = '\n\n Great job! Let\'s practice again! ' \
+                'This time, keeping your eyes at center, see if you can focus on the FACE part of the RIGHT image.' \
+                '\n\n Press any key to begin this practice.' \
+
+instruct_pract7 = '\n\n\n\n\n\n\n\n\n\n When you are done, press any key to continue... ' \
+
+instruct_pract8 = 'Now that you can shift your attention, you will practice ' \
+                'attending to specific images (right / left) and image parts (face / scene) based on cue signals. ' \
+                '\n\n To indicate which image and image part to pay attention to, we will first display a pair of icons: an ' \
+                'arrow icon pointing left or right (< or >), and an image icon (face or scene): ' \
+                '\n\n\n\n After the cue, you will see several image pairs in a row. You should attend to the SAME cued side and image part for EVERY image pair.' \
+                'Remember to keep your eyes fixated on the cross! ' \
+                '\n\n Press any key to begin this practice...' \
+
+instruct_pract9 = 'Now, we will repeat the attention task with one added component.' \
+                  '\n\n You will still see the cue followed by image pairs, but after each pair, a circle (o) will appear.' \
+                  '\n\n When you see the circle, you should immediately press a button! Press 1 ' \
+                  'if the circle appears on the left, or 3 if the circle appears on the right. ' \
+                  '\n\n Remember to respond as quickly as you can!' \
+                  '\n\n Ready to start? Press any key to begin this practice...' \
+
+instruct_pract10 = '\n\n Finally, you will practice reporting which images you remember. ' \
+                '\n\n You will use the following scale to rate individual images displayed on the screen: ' \
+                '\n\n (1) I definitely have not seen the image before' \
+                '\n\n (2) I probably have not seen the image before' \
+                '\n\n (3) I probably have seen the image before' \
+                '\n\n (4) I definitely have seen the image before' \
+                '\n\n You will need to respond quickly -- you\'ll have just 2 seconds!' \
+                '\n\n\ When you\'re ready to begin this practice round, press any key.' \
 
 # PRESENTATION
-if block == False:
-    instruct_exp = 'PART 1: ' \
-                    '\n\n In this part of the experiment you will again be viewing pairs of hybrid face / scene ' \
-                    'images on the left and right of the screen..' \
-                    'Your job is to attend to the cued image and part, according to what the icons indicate. ' \
-                    '\n\n Remember to keep your eyes fixed on the center of the screen throughout the experiment and shift only your attention, just like you did in the practice. ' \
-                    '\n\n In addition to shifting your attention, you will have another task.' \
-                    ' After each pair of images disappears from the screen, ' \
-                    'you\'ll see a circle (o) appear on either the left or right of the screen.' \
-                    'you\'ll see a circle (o) appear on either the left or right of the screen.' \
-                    'When you see the circle, you should immediately press a button! You should press 1 ' \
-                    'if the circle appears on the left, or 3 if the circle appears on the right. ' \
-                    '\n\n Remember to respond as quickly as you can!' \
-                    '\n\n Ready to start? Press a button when you are ready to continue...' \
+instruct_exp = 'Now we will begin the main experiment! ' \
+                'Remember to: ' \
+                '\n Keep your eyes staring at the cross' \
+                '\n Shift your attention to the SAME cued side and part for EACH pair' \
+                '\n Immeditaely press 1 (Left) or 3 (Right) when you see the circle (o)'
+                '\n\n Do you have questions? Ask them now! ' \
+                '\n\n Otherwise, position your hand over the 1 and 3 buttons, clear your mind, and press any key to begin. ' \
 
-elif block == True:
-    instruct_exp = 'PART 1: ' \
-                    'In this part of the experiment you will again be viewing pairs of hybrid face/scene ' \
-                    'images on the left and right of the screen. Just like you practiced, you will see a series of hybrid image pairs ' \
-                    'flash on the screen.' \
-                    '\n\n This time, however, you will be cued to one side and image part at the beggning of the trial.' \
-                    '\n\n Your job is to attend to that same cued side and image part for every pair of presented images that follows. ' \
-                    '\n\n Press ENTER to continue...' \
-                    
-instruct_exp_b = '\n\n Remember to keep your eyes fixed on the center of the screen throughout the experiment. ' \
-                '\n\n To help keep you on your toes during this phase of the experiment, we will also be testing your ' \
-                'mental focus using a reaction time task. After each pair of images disappears from the screen, ' \
-                'you\'ll see a circle (o) appear on either the left or right of the screen.' \
-                '\n\n You should press 1 ' \
-                'if the circle appears on the left, or 3 if the circle appears on the right. ' \
-                'Respond as quickly as you can!' \
-                '\n\n Ready to start? Press ENTER when you are ready to continue...' \
-
-instruct_exp2 = 'PART 1: ' \
-                '\n\n Next up is another round of attentional cueing and reaction time tests. Like before, your job is ' \
-                'to shift the focus of your attention towards the face or scene part of the image on the left or right ' \
-                'of the screen and to button press (1 or 3) when you see the circle (o).' \
-                'Remember to keep your eyes fixed on the center of the screen!' \
-                '\n\n Press ENTER to continue...' \
+instruct_exp2 = 'We will do another round with a cue, followed by image pairs and circles (o).' \
+                'Remember to: ' \
+                '\n Keep your eyes staring at the cross' \
+                '\n Shift your attention to the SAME cued side and part for EACH pair' \
+                '\n Immeditaely press 1 (Left) or 3 (Right) when you see the circle (o)'
+                '\n\n Press any key to begin. ' \
 
 # MEMORY
-instruct_mem =  'PART 2: ' \
-                '\n\n Now we\'re going to test your memory. You\'ll see a series of (single) face or scene images ' \
-                'in the center of the screen. Your job is to rate whether you have seen the image before or not, using the following rating scale: ' \
+instruct_mem = 'Now we\'re going to test your memory. ' \
+                '\n\n Just like the practice round, you will rate single images using the following scale: '
                 '\n\n (1) I definitely have not seen the image before' \
-                '\n\n (2) I probably have not seen the image before' \
-                '\n\n (3) I probably have seen the image before' \
-                '\n\n (4) I definitely have seen the image before' \
-                '\n\n You will need to make your responses quickly -- you\'ll have just 2 seconds to ' \
-                'press the appropriate button.' \
-                '\n\n Press ENTER to continue...' \
-
-instruct_mem_pt2 = 'If you aren\'t sure what to say for a particular image, ' \
-                'just make your best guess. For example, if an image seems familiar to you, you should respond ' \
-                'with a 3 or 4, and if you are pretty sure you haven\'t seen the image before, you should respond ' \
-                'with 1 or 2.' \
-                '\n\n Ready to go?' \
-                '\n\n Press ENTER when you are ready to continue...' \
+                '\n (2) I probably have not seen the image before' \
+                '\n (3) I probably have seen the image before' \
+                '\n (4) I definitely have seen the image before' \
+                '\n\n You will need to make your responses quickly -- you\'ll have just 2 seconds. ' \
+                'If you aren\'t sure what to say for a particular image, make your best guess!'
+                '\n Press any key to begin.' \
 
 instruct_mem2 = 'PART 2:' \
-                '\n\n We\'re going to be testing your memory again. As before, you\'ll see a series of (single) face or ' \
-                'scene images in the center of the screen. Your job is to rate whether you have seen the image before or not, ' \
-                'using the following rating scale: ' \
-                '\n\n (1) I definitely have not seen the image before' \
-                '\n\n (2) I probably have not seen the image before' \
-                '\n\n (3) I probably have seen the image before' \
-                '\n\n (4) I definitely have seen the image before' \
-                '\n\n You will need to make your responses quickly-- you\'ll have just 2 seconds to press the ' \
-                'appropriate button. ' \
-                '\n\n Press ENTER to continue...' \
+                'We\'re going to be testing your memory again. ' \
+                '\n\n Remember to respond quickly, and make your best guess when you\'re not sure!'
+                '\n\n Press any key to begin.' \
 
 # CLOSING
 instruct_thanks = 'Thank you for your participation!'
-
 
 #logging\debugging preferences
 #fullscr = True; EP
@@ -314,33 +284,18 @@ catch_h = visual.TextStim(win=win, ori=0, name='catch_f', text='Indoor (L) or Ou
 
 probe = visual.Circle(win, size = fixation_size, lineColor = 'white', fillColor = 'lightGrey')
 
-#cue_vertices_r = [[-.8,-.5], [-.8,.5], [.8,0]]
-#cue_right = visual.ShapeStim(win, vertices = cue_vertices_r, lineColor = 'white', fillColor = 'lightGrey')
 cue_right = visual.TextStim(win=win, ori=0, name='cue_right', text = '>', font='Arial',
                             height=2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0)
 
-#cue_vertices_l = [[.8,-.5], [.8,.5], [-.8,0]]
-#cue_left = visual.ShapeStim(win, vertices = cue_vertices_l, lineColor = 'white', fillColor = 'lightGrey')
-
 cue_left = visual.TextStim(win=win, ori=0, name='cue_left', text='<', font='Arial',
                            height = 2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0)
-
-#split up lines to stay within max line length; EP
-
-#cue_cat_1 = visual.TextStim(win=win, ori=0, name='cue_cat_1', text=cat1[0], font='Arial',
-                            #height=2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0, pos=[0,2])
-
-#cue_cat_2 = visual.TextStim(win=win, ori=0, name='cue_cat_2', text=cat2[0], font='Arial',
-                            #height = 2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0, pos = [0,2])
 
 cue_cat_1 = visual.ImageStim(win, cue_pic1, size=cue_size, name='cue_img1')
 cue_cat_2 = visual.ImageStim(win, cue_pic2, size=cue_size, name='cue_img2')
 cue_cat_1.setPos([0, 2])
 cue_cat_2.setPos([0, 2])
 
-#cue = visual.Circle(win, size = cue_size, line_color = 'white', fill_color = 'light_grey')
-instruction = visual.TextStim(win)
-
+instruction = visual.TextStim(win, wrapWidth=40)
 
 #######################################################
 
@@ -404,8 +359,8 @@ def load_prev_p(pickles):
 total_runs = num_trials*repetitions
 
 # generate conditions
-# When using AFNI jittering, will create all for whole exp outside of loop (prior, even, to running?)
-# maybe make csv from afni
+# if jittering for scanner, will need to change order and timing accordingly
+
 right_left = ['cue_L']*(int(total_runs/2)) + ['cue_R']*(int(total_runs/2))
 face_house = ([cat1[0]]*(int(total_runs/4)) + [cat2[0]]*(int(total_runs/4)))*2
 validity_0 = ([1]*invalid + [0]*(num_trials-invalid))
@@ -454,8 +409,8 @@ mem_only = mem_only_a + mem_only_b
 
 ############ EXP FUNCTIONS ############################
 
-def show_instructions(text, cue_pos1 = False, cue_pos2 = False, acceptedKeys = None):
-    """Presents text and waits for acceptedKeys"""
+def show_instructions(text, cue_pos1 = False, cue_pos2 = False, center_image = False, hybrid_pair = False, acceptedKeys = None):
+    """Presents text and desired images, per arguments, then waits for acceptedKeys"""
     
     # Set and display text
     instruction.setText(text)
@@ -463,8 +418,8 @@ def show_instructions(text, cue_pos1 = False, cue_pos2 = False, acceptedKeys = N
     
     if not cue_pos1 and not cue_pos2:
         win.flip()
-
-    # if cue_pos1, show icons 
+    
+    # if cue_pos1, show icons
     if cue_pos1 == True:
         cat_inst_1 = visual.ImageStim(win, cue_pic1, size=cue_size, name='cue_img1')
         cat_inst_2 = visual.ImageStim(win, cue_pic2, size=cue_size, name='cue_img2')
@@ -473,26 +428,37 @@ def show_instructions(text, cue_pos1 = False, cue_pos2 = False, acceptedKeys = N
         cat_inst_1.setAutoDraw(True)
         cat_inst_2.setAutoDraw(True)
         win.flip()
-        #cue.setAutoDraw(False)
-        #cue_cat.setAutoDraw(False)
-        
+    
     # if cue_pos2, show single example icon and arrow 
     if cue_pos2:
         cat_inst_1 = visual.ImageStim(win, cue_pic2, size=cue_size, name='cue_img2')
         cat_inst_1.setPos([0, 3])
         
-        cue_inst_right = visual.TextStim(win=win, ori=0, name='cue_right', text = '>', font='Arial', 
+        cue_inst_right = visual.TextStim(win=win, ori=0, name='cue_right', text='>', font='Arial', 
                             height=2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0)
         
         cue_inst_right.setPos([0, 1])
         cue_inst_right.setAutoDraw(True)
         cat_inst_1.setAutoDraw(True)
         win.flip()
-        #cue.setAutoDraw(False)
-        #cue_cat.setAutoDraw(False)
         
-        # Wait for response
-    response = event.waitKeys(keyList=['return'])
+    if center_image == True:
+        center = visual.ImageStim(win, 'picturestring', size = probe_size)
+        center.setAutoDraw(True)
+        
+    if hybrid_pair == True:
+        hybrid1 = visual.ImageStim(win,'../../stim/hybrid_2/00002940128fb_sunaaacnosloariecpa.jpg', size = probe_size)
+        hybrid2 = visual.ImageStim(win, '../../stim/hybrid_2/00003941121fa_sunaaaenaoynzhoyheo.jpg', size = probe_size)
+        
+        hybrid1.setPos([info['probe_pos'], 0])
+        hybrid2.setPos([-info['probe_pos'], 0])
+        
+        hybrid1.setAutoDraw(True)
+        hybrid2.setAutoDraw(True)
+        fixation.setAutoDraw(True)
+        
+    # Wait for response
+    response = event.waitKeys(keyList=acceptedKeys)
     if len(response)>0:
         if cue_pos1:        
             cat_inst_1.setAutoDraw(False)
@@ -503,12 +469,10 @@ def show_instructions(text, cue_pos1 = False, cue_pos2 = False, acceptedKeys = N
             cat_inst_1.setAutoDraw(False)
             cue_inst_right.setAutoDraw(False)
             
-            for frame_n in range(int(round(1* frame_rate_secs))):
-                win.flip()
-        
-        #core.quit()
-    
-def practice_block( practice_dir, practice_runs, practice_slow_trials, practice_quick_trials, loop = object, maxWait = 120):
+            #for frame_n in range(int(round(1* frame_rate_secs))):
+            win.flip()
+
+def practice_block( practice_dir, practice_runs, practice_slow_trials, practice_quick_trials, loop = object, maxWait = 120 ):
     """Displays trials for subject to practice attending to sides and categories"""
 
     trial_count = 0
@@ -516,15 +480,21 @@ def practice_block( practice_dir, practice_runs, practice_slow_trials, practice_
     cue_pract_prev = []
     
     for this_trial in loop:
-        if trial_count == 0:
-            show_instructions(text = instruct_pract1, acceptedKeys = ['1','2','3','4','return', 'escape'])
-            show_instructions(text = instruct_pract1, acceptedKeys = ['1','2','3','4','return', 'escape'])
-            show_instructions(text = instruct_pract1b, acceptedKeys = ['1','2','3','4','return', 'escape'])
-        if trial_count == 1:
-            show_instructions(text = instruct_pract2, acceptedKeys = ['1','2','3','4','return', 'escape'])
-        if trial_count == 2:
-            show_instructions(text = instruct_pract3, cue_pos1 = True, acceptedKeys = ['1','2','3','4','return', 'escape'])
-            show_instructions(text = instruct_pract4, cue_pos2 = True, acceptedKeys = ['1','2','3','4','return', 'escape'])
+        
+        # display text for practice instructions
+        this_instruct = 'instruct-pract'+str(trial_count+1)
+        show_instructions(text = instruct_pract1, acceptedKeys = None)
+        
+        # FOR PRACTICE BLOCKS AFTER TEXT INSTRUCTION
+        if trial_count == 7:
+            # presentation block, w/cue, no (o) x4
+        
+        if trial_count == 8:
+            # presentation block w/cue, w/(o) x4
+         
+        if trial_block == 9:
+            # memory block x4
+            
         img1_file = random.choice([x for x in os.listdir(practice_dir) if x not in previously_practiced])
         img1 = practice_dir + img1_file
         img2_file = img1_file
@@ -623,31 +593,22 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
 
     trial_count = 0
 
-#    # generate conditions
-#    # When using AFNI jittering, will create all for whole exp outside of loop (prior, even, to running?)
-#    # maybe make csv from afni
-#    right_left = ['cue_L']*(int(num_trials/2)) + ['cue_R']*(int(num_trials/2))
-#    face_house = ([cat1[0]]*(int(num_trials/4)) + [cat2[0]]*(int(num_trials/4)))*2
-#    validity_0 = [[1]*(int(invalid/4)) + [0]*(int((num_trials-invalid)/4))]*4
-#    validity = [item for sublist in validity_0 for item in sublist]
-#
-#    #cue_tuples is a list of tuples (one per trial) specifying: catch/no, R/L attend, F/H attend
-#    cue_tuples_0 = zip(right_left, face_house, validity) #, attention)
-#    cue_tuples = random.sample(cue_tuples_0, len(cue_tuples_0))
-#
-#    # make catch params
-#    right_left_catch = ['cue_L']*(catch/2) + ['cue_R']*(catch/2)
-#    face_house_catch = [cat1[0]]*(catch/4) + [cat2[0]]*(catch/4)
-#    face_house_catch = face_house_catch*2
-#    validity_catch = [0]*catch
-#
-#    #cue_tuples is a list of tuples (one per trial) specifying: catch/no, R/L attend, F/H attend
-#    catch_tuples_0 = zip(right_left_catch, face_house_catch, validity_catch) #, attention)
-#    catch_tuples = random.sample(catch_tuples_0, len(catch_tuples_0))
-#
-#    #list to tell when catch and when regular trial
-#    catches_0 = num_trials*[0] + catch*[1]
-#    catches = random.sample(catches_0, len(catches_0))
+    # generate conditions
+    # When using AFNI jittering, will create all for whole exp outside of loop (prior, even, to running?)
+    # maybe make csv from afni
+    
+    right_left = ['cue_L']*(int(num_trials/2)) + ['cue_R']*(int(num_trials/2))
+    face_house = ([cat1[0]]*(int(num_trials/4)) + [cat2[0]]*(int(num_trials/4)))*2
+    validity_0 = [[1]*(int(invalid/4)) + [0]*(int((num_trials-invalid)/4))]*4
+    validity = [item for sublist in validity_0 for item in sublist]
+
+    # cue_tuples is a list of tuples (one per trial) specifying: catch/no, R/L attend, F/H attend
+    cue_tuples_0 = zip(right_left, face_house, validity) #, attention)
+    cue_tuples = random.sample(cue_tuples_0, len(cue_tuples_0))
+
+    # list to tell when catch and when regular trial
+    catches_0 = num_trials*[0] + catch*[1]
+    catches = random.sample(catches_0, len(catches_0))
 
     trial_num = 0
     cue_tup_num = 0
@@ -966,7 +927,7 @@ def mem_block( conds, current_pickle, prev_stim ):
 
         ##KIRSTEN ORIGINAL##
         #split line to stay within max line length; EP
-        rating_scale = visual.RatingScale( win, low = 1, high = 4, labels = ['unfamiliar', 'familiar'],
+        rating_scale = visual.RatingScale( win, low = 1, high = 4, labels = ['1','2','3','4'],
                                             singleClick = True, scale = None, pos = [0,-.35], acceptPreText = '-',
                                             maxTime=3.0, minTime=0, marker = 'triangle', showAccept=False, acceptSize=0 ) #disappear=True)
 
@@ -1018,12 +979,10 @@ def mem_block( conds, current_pickle, prev_stim ):
 
 # for specified # of runs, show practice presentation
 #for rep in range(0, practice_runs):
-    
-practice_trials = data.TrialHandler(trialList = [{}]*(practice_slow_trials + practice_quick_trials), nReps = 1)
-show_instructions(text = introduction, acceptedKeys = ['1','2','3','4','return', 'escape'])
-#show_instructions(text = introduction, acceptedKeys = ['1','2','3','4','return', 'escape'])
-practice_block(practice_dir, practice_runs, practice_slow_trials, practice_quick_trials, practice_trials)
-
+if practice_runs != 0:
+    practice_trials = data.TrialHandler(trialList = [{}]*(practice_slow_trials + practice_quick_trials), nReps = 1)
+    show_instructions(text = introduction, acceptedKeys = ['1','2','3','4','return', 'escape'])
+    practice_block(practice_dir, practice_runs, practice_slow_trials, practice_quick_trials, practice_trials)
 
 if practice_runs == 0:
     show_instructions(text = introduction, acceptedKeys = ['1','2','3','4','return', 'escape'])
@@ -1070,7 +1029,7 @@ for rep in range(0,repetitions):
     else:
         show_instructions(text = instruct_exp2, acceptedKeys = ['1','2','3','4','return', 'escape'])
     
-    show_instructions(text = instruct_exp_b, acceptedKeys = ['1','2','3','4','return', 'escape'])
+    #show_instructions(text = instruct_exp_b, acceptedKeys = ['1','2','3','4','return', 'escape'])
 
     pres_block(cue_tuple_input, pickle_name, prev_stim, info['run'], trials, test=False)
 #   pres_block(info['run'], trials)
@@ -1089,7 +1048,7 @@ for rep in range(0,repetitions):
     info['run'] = str(int(info['run'])+1)
 
 # closing message
-show_instructions(text = introduction, acceptedKeys = ['1','2','3','4','return'])
+show_instructions(text = instruct_thanks, acceptedKeys = ['1','2','3','4','return'])
 
 #end of task questionnaire
 endDlg = gui.Dlg(title="Post Questionnaire")
