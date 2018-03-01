@@ -178,15 +178,15 @@ instruct_pract8 = 'Now, you will practice ' \
 
 instruct_pract9 = 'Great job, let\'s try it one more time!' \
                   '\n\n This time will be the same, but after each pair, a circle (o) will appear.' \
-                  '\n\n When you see the circle, you should immediately press a button! ' \
-                  '\n\n        If the circle appears on the RIGHT, press 1 ' \
-                  '\n        If the circle appears on the LEFT, press 3 ' \
+                  '\n When you see the circle, you should immediately press a button! ' \
+                  '\n\n        If the circle appears on the LEFT, press 1 ' \
+                  '\n        If the circle appears on the RIGHT, press 3 ' \
                   '\n\n Remember to respond as quickly as you can!' \
                   '\n Press any key to begin.' \
 
 instruct_pract10 = '\n\n Finally, you will practice reporting which images you remember. ' \
-                '\n\n You will use the following scale to rate individual images displayed on the screen: ' \
-                '\n        (1) I definitely have not seen the image before' \
+                '\n You will use the following scale to rate individual images displayed on the screen: ' \
+                '\n\n        (1) I definitely have not seen the image before' \
                 '\n        (2) I probably have not seen the image before' \
                 '\n        (3) I probably have seen the image before' \
                 '\n        (4) I definitely have seen the image before' \
@@ -202,7 +202,8 @@ instruct_exp = 'Now we will begin the main experiment! ' \
                 '\n\n Do you have questions? Ask them now! ' \
                 '\n\n Otherwise, position your hand over the 1 and 3 buttons, clear your mind, and press any key to begin. ' \
 
-instruct_exp2 = 'We will do another round with a cue, followed by image pairs and circles (o).' \
+instruct_exp2 = 'Feel free to take a moment to rest, if you like! ' \
+                'When you\'re ready, we will do another round with a cue, followed by image pairs and circles (o).' \
                 'Remember to: ' \
                 '\n Keep your eyes staring at the cross' \
                 '\n Shift your attention to the SAME cued side and part for EACH pair' \
@@ -211,7 +212,7 @@ instruct_exp2 = 'We will do another round with a cue, followed by image pairs an
 
 # MEMORY
 instruct_mem = 'Now we\'re going to test your memory. ' \
-                '\n\n Just like the practice round, you will rate single images using the following scale: ' \
+                '\n Just like the practice round, you will rate single images using the following scale: ' \
                 '\n\n (1) I definitely have not seen the image before' \
                 '\n (2) I probably have not seen the image before' \
                 '\n (3) I probably have seen the image before' \
@@ -503,15 +504,18 @@ def practice_block( practice_dir, practice_runs, loop = object, maxWait = 120 ):
 
         if trial_count == 9:
             # presentation block w/cue, w/(o) x4
+            practice_trials1 = data.TrialHandler(trialList = [{}]*(4), nReps = 1)
             pract_pres2(practice_trials1)
 
-#        if trial_block == 9:
-#            # memory block x4
-#            pract_mem1()
+        if trial_count == 10:
+            # memory block x4
+            practice_trials1 = data.TrialHandler(trialList = [{}]*(4), nReps = 1)
+            pract_mem(practice_trials1)
 
         trial_count += 1
 
 def pract_pres1(loop = object):
+    
     trial_count = 0
     for this_trial in loop:
         cue = cue_right
@@ -567,13 +571,14 @@ def pract_pres1(loop = object):
 
 def pract_pres2(loop = object):
     
-    for x in range(4):
+    trial_count = 0
+    for this_trial in loop:
         cue = cue_left
         cue_cat = cue_cat_2
 
         cue.setPos( [0, 0] )
 
-        if x == 0 :
+        if trial_count == 0 :
             cue.setAutoDraw(True)
             cue_cat.setAutoDraw(True)
             for frame_n in range(info['cue_frames']*3):
@@ -581,6 +586,8 @@ def pract_pres2(loop = object):
             cue.setAutoDraw(False)
             cue_cat.setAutoDraw(False)
             fixation.setAutoDraw(True)
+            win.flip()
+
 
         #show fixation
         fixation.setAutoDraw(True)
@@ -591,8 +598,8 @@ def pract_pres2(loop = object):
         items = os.listdir('../../stim/hybrids_8_1/')
 
         #select and load image stimuli at random
-        img1_filename = '../../stim/hybrids_8_1/'+items[x*2]
-        img2_filename = '../../stim/hybrids_8_1/'+items[x*2 + 1]
+        img1_filename = '../../stim/hybrids_8_1/'+items[trial_count*2]
+        img2_filename = '../../stim/hybrids_8_1/'+items[trial_count*2 + 1]
 
         #assign images as probes (w/ sizes, locations, etc.)
         probe1 = visual.ImageStim(win, img1_filename, size=probe_size, name='Probe1')
@@ -619,7 +626,7 @@ def pract_pres2(loop = object):
                                 colorSpace='rgb', opacity=1, depth=0.0)
 
         # set circle position (three valid, one invalid)
-        if x == 3:
+        if trial_count == 2:
             position = -info['probe_pos']
         else:
             position = info['probe_pos']
@@ -649,10 +656,53 @@ def pract_pres2(loop = object):
             if resp == None:
                 keys = event.waitKeys(keyList = ['1', '3'])
                 resp = keys[0]
-
+                
+        trial_count += 1
+        
         win.flip()
 
     fixation.setAutoDraw(False)
+    
+def pract_mem(loop = object):
+    
+    items = os.listdir('../../stim/singles_4/')
+    trial_count = 0
+    
+    for this_trial in loop:
+        #select and load image stimuli at random
+        mem = '../../stim/singles_4/'+items[trial_count]
+
+        mem_probe = visual.ImageStim( win, mem, size=probe_size )
+        mem_probe.setPos( [0, 0] )
+        
+        event.clearEvents()
+
+        ##################
+
+        ##KIRSTEN ORIGINAL##
+        #split line to stay within max line length; EP
+        rating_scale = visual.RatingScale( win, low = 1, high = 4, labels = ['1','2','3','4'],
+                                            singleClick = True, scale = None, pos = [0,-.35], acceptPreText = '-',
+                                            maxTime=3.0, minTime=0, marker = 'triangle', showAccept=False, acceptSize=0 ) #disappear=True)
+
+        event.getKeys(keyList = None)
+        for frame_n in range(info['mem_frames']):
+            mem_probe.setAutoDraw(True)
+            rating_scale.setAutoDraw(True)
+            if frame_n == 0:
+                resp_clock.reset()
+            win.flip()
+        choice_history = rating_scale.getHistory()
+        rating_scale.setAutoDraw(False)
+        mem_probe.setAutoDraw(False)
+        win.flip()
+
+        for frame_n in range(info['mem_pause_frames']):
+            fixation.setAutoDraw(True)
+            win.flip()
+        fixation.setAutoDraw(False)
+        
+        trial_count += 1
 
 def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData = True, test=False):
     """Runs experimental block and saves reponses if requested"""
