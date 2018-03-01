@@ -204,10 +204,10 @@ instruct_pract10 = '\n\n Finally, you will practice reporting which images you r
 
 # PRESENTATION
 instruct_exp = 'Now we will begin the main experiment! ' \
-                'Remember to: ' \
+                '\n\nRemember to: ' \
                 '\n Keep your eyes staring at the cross' \
                 '\n Shift your attention to the SAME cued side and part for EACH pair' \
-                '\n Immeditaely press 1 (Left) or 3 (Right) when you see the circle (o)'
+                '\n Immeditaely press 1 (Left) or 3 (Right) when you see the circle (o) ' \
                 '\n\n Do you have questions? Ask them now! ' \
                 '\n\n Otherwise, position your hand over the 1 and 3 buttons, clear your mind, and press any key to begin. ' \
 
@@ -215,27 +215,27 @@ instruct_exp2 = 'We will do another round with a cue, followed by image pairs an
                 'Remember to: ' \
                 '\n Keep your eyes staring at the cross' \
                 '\n Shift your attention to the SAME cued side and part for EACH pair' \
-                '\n Immeditaely press 1 (Left) or 3 (Right) when you see the circle (o)'
+                '\n Immeditaely press 1 (Left) or 3 (Right) when you see the circle (o) ' \
                 '\n\n Press any key to begin. ' \
 
 # MEMORY
 instruct_mem = 'Now we\'re going to test your memory. ' \
-                '\n\n Just like the practice round, you will rate single images using the following scale: '
+                '\n\n Just like the practice round, you will rate single images using the following scale: ' \
                 '\n\n (1) I definitely have not seen the image before' \
                 '\n (2) I probably have not seen the image before' \
                 '\n (3) I probably have seen the image before' \
                 '\n (4) I definitely have seen the image before' \
                 '\n\n You will need to make your responses quickly -- you\'ll have just 2 seconds. ' \
-                'If you aren\'t sure what to say for a particular image, make your best guess!'
+                'If you aren\'t sure what to say for a particular image, make your best guess! ' \
                 '\n Press any key to begin.' \
 
 instruct_mem2 = 'PART 2:' \
                 'We\'re going to be testing your memory again. ' \
-                '\n\n Remember to respond quickly, and make your best guess when you\'re not sure!'
+                '\n\n Remember to respond quickly, and make your best guess when you\'re not sure! ' \
                 '\n\n Press any key to begin.' \
 
 # CLOSING
-instruct_thanks = 'Thank you for your participation!'
+instruct_thanks = 'Thank you for your participation! ' \
 
 #logging\debugging preferences
 #fullscr = True; EP
@@ -257,14 +257,12 @@ info['fix_frames'] = int(round(1 * frame_rate_secs))
 
 # R/L cue
 info['cue_frames'] = int(round(.5 * frame_rate_secs))
-info['cue_pause_frames'] = int(round(.01* frame_rate_secs))
+info['cue_pause_frames'] = int(round(0* frame_rate_secs))
 
 # practice frames
 # R/L cue
 info['cue_pract_long'] = int(round(15 * frame_rate_secs))
 info['cue_pract_short'] = int(round(3.0 * frame_rate_secs))
-
-# probe_frames == composite images
 info['probe_frames'] = int(round(3.0 * frame_rate_secs))
 info['probe_pos'] = 8
 info['cue_pos'] = info['probe_pos']
@@ -416,11 +414,11 @@ def show_instructions(text, cue_pos1 = False, cue_pos2 = False, center_image = F
     instruction.setText(text)
     instruction.draw()
     
-    if not cue_pos1 and not cue_pos2:
+    if not center_image and not hybrid_pair and not cue_pos1 and not cue_pos2:
         win.flip()
     
     # if cue_pos1, show icons
-    if cue_pos1 == True:
+    if cue_pos1:
         cat_inst_1 = visual.ImageStim(win, cue_pic1, size=cue_size, name='cue_img1')
         cat_inst_2 = visual.ImageStim(win, cue_pic2, size=cue_size, name='cue_img2')
         cat_inst_2.setPos([-2.5, -4])
@@ -443,12 +441,13 @@ def show_instructions(text, cue_pos1 = False, cue_pos2 = False, center_image = F
         win.flip()
         
     if center_image == True:
-        center = visual.ImageStim(win, 'picturestring', size = probe_size)
+        center = visual.ImageStim(win, '../../stim/hybrid_1/00060931230fa_sunaaehaikpckyjsety.jpg', size = probe_size)
         center.setAutoDraw(True)
+        win.flip()
         
     if hybrid_pair == True:
-        hybrid1 = visual.ImageStim(win,'../../stim/hybrid_2/00002940128fb_sunaaacnosloariecpa.jpg', size = probe_size)
-        hybrid2 = visual.ImageStim(win, '../../stim/hybrid_2/00003941121fa_sunaaaenaoynzhoyheo.jpg', size = probe_size)
+        hybrid1 = visual.ImageStim(win,'../../stim/hybrids_2/00002940128fb_sunaaacnosloariecpa.jpg', size = probe_size)
+        hybrid2 = visual.ImageStim(win, '../../stim/hybrids_2/00003941121fa_sunaaaenaoynzhoyheo.jpg', size = probe_size)
         
         hybrid1.setPos([info['probe_pos'], 0])
         hybrid2.setPos([-info['probe_pos'], 0])
@@ -456,6 +455,7 @@ def show_instructions(text, cue_pos1 = False, cue_pos2 = False, center_image = F
         hybrid1.setAutoDraw(True)
         hybrid2.setAutoDraw(True)
         fixation.setAutoDraw(True)
+        win.flip()
         
     # Wait for response
     response = event.waitKeys(keyList=acceptedKeys)
@@ -468,113 +468,198 @@ def show_instructions(text, cue_pos1 = False, cue_pos2 = False, center_image = F
         if cue_pos2: 
             cat_inst_1.setAutoDraw(False)
             cue_inst_right.setAutoDraw(False)
-            
             #for frame_n in range(int(round(1* frame_rate_secs))):
             win.flip()
+            
+        if center_image == True:
+            center.setAutoDraw(False)
+            win.flip()
+        
+        if hybrid_pair == True:
+            hybrid1.setAutoDraw(False)
+            hybrid2.setAutoDraw(False)
+            fixation.setAutoDraw(False)
+            win.flip()
 
-def practice_block( practice_dir, practice_runs, practice_slow_trials, practice_quick_trials, loop = object, maxWait = 120 ):
+def practice_block( practice_dir, practice_runs, loop = object, maxWait = 120 ):
     """Displays trials for subject to practice attending to sides and categories"""
 
-    trial_count = 0
+    instr_dict =  {1: instruct_pract1, 2: instruct_pract2, 3: instruct_pract3, 4: instruct_pract4, 5: instruct_pract5, 6: instruct_pract6, 7: instruct_pract7, 8: instruct_pract8, 9:instruct_pract9, 10: instruct_pract10}
+    trial_count = 1
     previously_practiced = []
     cue_pract_prev = []
-    
+
     for this_trial in loop:
+
+        # select instructions
+        this_instruct = instr_dict[trial_count]
         
         # display text for practice instructions
-        this_instruct = 'instruct-pract'+str(trial_count+1)
-        show_instructions(text = instruct_pract1, acceptedKeys = None)
-        
+        if trial_count in [1,2]:
+            show_instructions(text = this_instruct, center_image=True, acceptedKeys = None)
+        if trial_count in [4,6]:
+            show_instructions(text = this_instruct, hybrid_pair=True, acceptedKeys = None)
+        if trial_count in [8]:
+            show_instructions(text = this_instruct, cue_pos1=True, acceptedKeys = None)
+        else :
+            show_instructions(text = this_instruct, acceptedKeys = None)
+
+
         # FOR PRACTICE BLOCKS AFTER TEXT INSTRUCTION
         if trial_count == 7:
             # presentation block, w/cue, no (o) x4
-        
+            practice_trials1 = data.TrialHandler(trialList = [{}]*(4), nReps = 1)
+            pract_pres1(practice_trials1)
+
         if trial_count == 8:
             # presentation block w/cue, w/(o) x4
-         
-        if trial_block == 9:
-            # memory block x4
-            
-        img1_file = random.choice([x for x in os.listdir(practice_dir) if x not in previously_practiced])
-        img1 = practice_dir + img1_file
-        img2_file = img1_file
+            pract_pres2()
 
-        while (img2_file == img1_file):
-            img2_file = random.choice([x for x in os.listdir(practice_dir) if x not in previously_practiced])
+#        if trial_block == 9:
+#            # memory block x4
+#            pract_mem1()
+        trial_count += 1
 
-        img2 = practice_dir + img2_file
-        previously_practiced.extend((img1_file, img2_file))
+def pract_pres1(loop = object):
+    trial_count = 0
+    for this_trial in loop:
+        cue = cue_right
+        cue_cat = cue_cat_1
 
+        cue.setPos( [0, 0] )
 
-        probe1 = visual.ImageStim(win, img1, size=probe_size, name='Probe1')
-        probe2 = visual.ImageStim(win, img2, size=probe_size, name='Probe2')
+        if trial_count == 0 :
+            cue.setAutoDraw(True)
+            cue_cat.setAutoDraw(True)
+            for frame_n in range(info['cue_frames']*3):
+                win.flip()
+            cue.setAutoDraw(False)
+            cue_cat.setAutoDraw(False)
+            fixation.setAutoDraw(True)
+
+        #show fixation
+        fixation.setAutoDraw(True)
+        for frame_n in range(info['fix_frames']):
+            win.flip()
+
+        # [3] RUN TRIAL
+        items = os.listdir('../../stim/hybrids_8_1/')
+
+        #select and load image stimuli at random
+        img1_filename = '../../stim/hybrids_8_1/'+items[trial_count*2]
+        img2_filename = '../../stim/hybrids_8_1/'+items[trial_count*2 + 1]
+
+        #assign images as probes (w/ sizes, locations, etc.)
+        probe1 = visual.ImageStim(win, img1_filename, size=probe_size, name='Probe1')
+        probe2 = visual.ImageStim(win, img2_filename, size=probe_size, name='Probe2')
 
         # Probe1 displays right, Probe 2 displays left
         probe1.setPos([info['probe_pos'], 0])
         probe2.setPos([-info['probe_pos'], 0])
 
-        if trial_count < practice_slow_trials:
-            probe1.setAutoDraw(True)
-            probe2.setAutoDraw(True)
-            fixation.setAutoDraw(True)
-            for frame_n in range(info['cue_pract_long']):
+
+        #display probes simultaneously
+        probe1.setAutoDraw(True)
+        probe2.setAutoDraw(True)
+        for frame_n in range(info['probe_frames']):
+            win.flip()
+        probe1.setAutoDraw(False)
+        probe2.setAutoDraw(False)
+        fixation.setAutoDraw(False)
+
+        #clear screen
+        win.flip()
+        
+        trial_count +=1
+        
+    fixation.setAutoDraw(False)
+
+def pract_pres2():
+    
+    for x in range(4):
+        cue = cue_left
+        cue_cat = cue_cat_2
+
+        cue.setPos( [0, 0] )
+
+        if x == 0 :
+            cue.setAutoDraw(True)
+            cue_cat.setAutoDraw(True)
+            for frame_n in range(info['cue_frames']*3):
                 win.flip()
-                # fixation.setAutoDraw(True)
-                # probe.setAutoDraw(True)
-#                if frame_n == 0:
-#                    resp_clock.reset()
-                keys = event.getKeys(keyList = ['return', '1', ' '])
-
-                if len(keys) > 0:
-                    resp = keys[0]
-                    rt = resp_clock.getTime()
-                    break
-            probe1.setAutoDraw(False)
-            probe2.setAutoDraw(False)
-            fixation.setAutoDraw(False)
-
-        else:
-            if (trial_count == practice_slow_trials) or ((trial_count - practice_slow_trials ) % 4 == 0) :
-                
-                if trial_count == practice_slow_trials:
-                    cue = random.choice([cue_right, cue_left])
-                    cue_cat = random.choice([cue_cat_1, cue_cat_2])
-                    
-                else:
-                    while cue in cue_pract_prev:
-                       cue = random.choice([cue_right, cue_left])
-                       
-                    while cue_cat in cue_pract_prev:
-                       cue_cat = random.choice([cue_cat_1, cue_cat_2])
-                       
-                cue_pract_prev.append(cue)
-                cue_pract_prev.append(cue_cat)
-                
-                fixation.setAutoDraw(False)
-                cue.setAutoDraw(True)
-                cue_cat.setAutoDraw(True)
-                for frame_n in range(info['cue_frames']*3):
-                    win.flip()
-                cue.setAutoDraw(False)
-                cue_cat.setAutoDraw(False)
-                fixation.setAutoDraw(True)
-                
-                
-            probe1.setAutoDraw(True)
-            probe2.setAutoDraw(True)
+            cue.setAutoDraw(False)
+            cue_cat.setAutoDraw(False)
             fixation.setAutoDraw(True)
-            for frame_n in range(info['cue_pract_short']):
-                win.flip()
 
-            probe1.setAutoDraw(False)
-            probe2.setAutoDraw(False)
-            
-
+        #show fixation
+        fixation.setAutoDraw(True)
         for frame_n in range(info['fix_frames']):
             win.flip()
 
-        trial_count += 1
+        # [3] RUN TRIAL
+        items = os.listdir('../../stim/hybrids_8_1/')
 
+        #select and load image stimuli at random
+        img1_filename = '../../stim/hybrids_8_1/'+items[x*2]
+        img2_filename = '../../stim/hybrids_8_1/'+items[x*2 + 1]
+
+        #assign images as probes (w/ sizes, locations, etc.)
+        probe1 = visual.ImageStim(win, img1_filename, size=probe_size, name='Probe1')
+        probe2 = visual.ImageStim(win, img2_filename, size=probe_size, name='Probe2')
+
+        # Probe1 displays right, Probe 2 displays left
+        probe1.setPos([info['probe_pos'], 0])
+        probe2.setPos([-info['probe_pos'], 0])
+
+        #display probes simultaneously
+        probe1.setAutoDraw(True)
+        probe2.setAutoDraw(True)
+        for frame_n in range(info['probe_frames']):
+            win.flip()
+        probe1.setAutoDraw(False)
+        probe2.setAutoDraw(False)
+        fixation.setAutoDraw(False)
+
+        #clear screen
+        win.flip()
+
+        #split line to stay within max line length; EP
+        probe = visual.TextStim(win=win, ori=0, name='fixation', text='o', font='Arial', height = 2, color='lightGrey',
+                                colorSpace='rgb', opacity=1, depth=0.0)
+
+        # set circle position (three valid, one invalid)
+        if x == 3:
+            position = -info['probe_pos']
+        else:
+            position = info['probe_pos']
+
+        probe.setPos( [position, 0] )
+
+        # display probe, break if response recorded
+        fixation.setAutoDraw(True)
+        probe.setAutoDraw(True)
+        win.callOnFlip(resp_clock.reset)
+        event.clearEvents()
+        
+        resp = None
+        
+        for frame_n in range(info['probe_frames']):
+            if frame_n == 0:
+                keys = event.getKeys(keyList = ['1','3'])
+            if len(keys) > 0:
+                resp = keys[0]
+                break
+
+            # clear screen
+            win.flip()
+            probe.setAutoDraw(False)
+
+            # if no response, wait w/ blank screen until response
+            if (resp == None and test == False):
+                keys = event.waitKeys(keyList = ['1', '3'])
+                resp = keys[0]
+
+        win.flip()
 
     fixation.setAutoDraw(False)
 
@@ -590,25 +675,6 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
     reaction_time={}
     cued_RT = []
     uncued_RT = []
-
-    trial_count = 0
-
-    # generate conditions
-    # When using AFNI jittering, will create all for whole exp outside of loop (prior, even, to running?)
-    # maybe make csv from afni
-    
-    right_left = ['cue_L']*(int(num_trials/2)) + ['cue_R']*(int(num_trials/2))
-    face_house = ([cat1[0]]*(int(num_trials/4)) + [cat2[0]]*(int(num_trials/4)))*2
-    validity_0 = [[1]*(int(invalid/4)) + [0]*(int((num_trials-invalid)/4))]*4
-    validity = [item for sublist in validity_0 for item in sublist]
-
-    # cue_tuples is a list of tuples (one per trial) specifying: catch/no, R/L attend, F/H attend
-    cue_tuples_0 = zip(right_left, face_house, validity) #, attention)
-    cue_tuples = random.sample(cue_tuples_0, len(cue_tuples_0))
-
-    # list to tell when catch and when regular trial
-    catches_0 = num_trials*[0] + catch*[1]
-    catches = random.sample(catches_0, len(catches_0))
 
     trial_num = 0
     cue_tup_num = 0
@@ -628,7 +694,7 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
         else:
             cue = cue_left
 
-        if params[1]=='F':
+        if params[1] == cat1[0]:
             cue_cat = cue_cat_1
         else:
             cue_cat = cue_cat_2
@@ -670,11 +736,6 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
 
         # [3] RUN TRIAL
         all_items = [f for f in os.listdir(dir1) if f.endswith('.jpg')]
-
-#        for entry in all_items_0:
-#            if fnmatch.fnmatch(entry,'*.jpg'):
-#                all_items.append(entry)
-
         available_items = [x for x in all_items if (x not in cued and x not in uncued and x not in prev_stim and x not in mem_only)]
 
         #select and load image stimuli at random
@@ -796,13 +857,6 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
     previous_items['run_time'] = trial_clock.getTime()
     previous_items['cue_tuples'] = cue_tuples
 
-    # KZ : code below saves data in pickle format
-    #      if we save data per trial (we should, even if not needed; want a record of everything subject saw at each moment)
-    #      we will need to incorporate trial # and subject # into file_names
-
-    #      should set up experiment so that if subject is on run 1, it makes new directory for subject
-    #      other runs --> check for directory --> if exists, save out to subj dir --> if not exist..warning? create subject direcotry?
-
     with open(pickle_name, 'wb') as f:
         pickle.dump(previous_items, f)
 
@@ -827,11 +881,9 @@ def mem_block( conds, current_pickle, prev_stim ):
     previous_mem = []
     all_ratings = []
 
-
     for each in conds:
         
         all_items_0 = mem_only
-        #all_items_0 = os.listdir(stim_dir1) + os.listdir(stim_dir2)
         all_items = []
 
         for entry in all_items_0:
@@ -918,11 +970,6 @@ def mem_block( conds, current_pickle, prev_stim ):
         win.callOnFlip(resp_clock.reset)
         event.clearEvents()
 
-
-#        for frame_n in range(info['mem_frames']):
-#            mem_probe.setAutodraw(True)
-#        win.flip()
-
         ##################
 
         ##KIRSTEN ORIGINAL##
@@ -930,15 +977,6 @@ def mem_block( conds, current_pickle, prev_stim ):
         rating_scale = visual.RatingScale( win, low = 1, high = 4, labels = ['1','2','3','4'],
                                             singleClick = True, scale = None, pos = [0,-.35], acceptPreText = '-',
                                             maxTime=3.0, minTime=0, marker = 'triangle', showAccept=False, acceptSize=0 ) #disappear=True)
-
-
-#        event.getKeys(keyList=None)
-#        while rating_scale.noResponse == True:
-#            rating_scale.setAutoDraw(True)
-#            win.flip()
-#        rating_scale.setAutoDraw(False)
-#        choice_history = rating_scale.getHistory()
-#
 
         event.getKeys(keyList = None)
         for frame_n in range(info['mem_frames']):
@@ -952,15 +990,10 @@ def mem_block( conds, current_pickle, prev_stim ):
         mem_probe.setAutoDraw(False)
         win.flip()
 
-
         for frame_n in range(info['mem_pause_frames']):
             fixation.setAutoDraw(True)
             win.flip()
         fixation.setAutoDraw(False)
-
-        # KZ : need to save decisionTime and choice_history
-        #      need to save decisionTime grouped by type of image subj is responding to
-        #      10 image types : 1 (seen) * 2 (attended/unattended) * 2 (displayed right/left) * 2 (face/house)  +  1 (unseen) * 2 (face/house)
 
         previous_mem.append(mem_file)
         all_ratings.append(choice_history)
@@ -980,9 +1013,9 @@ def mem_block( conds, current_pickle, prev_stim ):
 # for specified # of runs, show practice presentation
 #for rep in range(0, practice_runs):
 if practice_runs != 0:
-    practice_trials = data.TrialHandler(trialList = [{}]*(practice_slow_trials + practice_quick_trials), nReps = 1)
+    practice_trials = data.TrialHandler(trialList = [{}]*(11), nReps = 1)
     show_instructions(text = introduction, acceptedKeys = ['1','2','3','4','return', 'escape'])
-    practice_block(practice_dir, practice_runs, practice_slow_trials, practice_quick_trials, practice_trials)
+    practice_block(practice_dir, practice_runs, practice_trials)
 
 if practice_runs == 0:
     show_instructions(text = introduction, acceptedKeys = ['1','2','3','4','return', 'escape'])
@@ -1002,7 +1035,6 @@ for rep in range(0,repetitions):
     prev_runs = []
     files = get_files(dir_check)
 
-
     # obtain all previously displayed images
     if len(files)>0:
         mem_dict = load_mem_p(files)
@@ -1018,9 +1050,7 @@ for rep in range(0,repetitions):
 
     else:
         prev_stim = []
-        # prev_stim == list of all images shown BEFORE THIS TRIAL
 
-    # load trials
     trials = data.TrialHandler(trialList = [{}]*total_trials, nReps = 1)
 
     # presentation task
@@ -1028,11 +1058,8 @@ for rep in range(0,repetitions):
         show_instructions(text = instruct_exp, acceptedKeys = ['1','2','3','4','return', 'escape'])
     else:
         show_instructions(text = instruct_exp2, acceptedKeys = ['1','2','3','4','return', 'escape'])
-    
-    #show_instructions(text = instruct_exp_b, acceptedKeys = ['1','2','3','4','return', 'escape'])
 
     pres_block(cue_tuple_input, pickle_name, prev_stim, info['run'], trials, test=False)
-#   pres_block(info['run'], trials)
 
     # memory task
     if rep == 0:
@@ -1040,8 +1067,6 @@ for rep in range(0,repetitions):
         
     else:
         show_instructions(text = instruct_mem2, acceptedKeys = ['1','2','3','4','return'])
-
-    show_instructions(text = instruct_mem_pt2, acceptedKeys = ['1','2','3','4','return'])
 
     mem_block(range(0,num_trials*8), pickle_name, prev_stim)
 
@@ -1054,9 +1079,9 @@ show_instructions(text = instruct_thanks, acceptedKeys = ['1','2','3','4','retur
 endDlg = gui.Dlg(title="Post Questionnaire")
 endDlg.addField('1. How engaging did you find this experiment?', choices=['--', "Very engaging", "A little engaging", "Neutral", "A little boring", "Very boring"])
 endDlg.addField('2. How tired do you feel?', choices=['--', "Very tired", "A little tired", "Neutral", "A little alert", "Very alert"])
-endDlg.addField('3. Did you find one category easier to remember? If so, which one?')
+endDlg.addField('3. Did you find one category easier to remember? If so, which one and why?')
 endDlg.addField('4. Did you find one side easier to attend to? If so, which one?')
-endDlg.addField('5. What strategies did you use to help remember the attended images?')
+endDlg.addField('5. What strategies did you use (if any) to help remember the attended images?')
 
 end_data = endDlg.show()
 if endDlg.OK:
