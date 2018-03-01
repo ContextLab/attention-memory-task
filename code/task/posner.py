@@ -42,8 +42,9 @@ cue_pic1 = '../../stim/Cue/scene_icon.png' # Scene icon
 cue_pic2 = '../../stim/Cue/face_icon.png' # Face icon
 
 # categories
-cat1 = 'Face'
-cat2 = 'Location'
+
+cat1 = 'Location'
+cat2 = 'Face'
 
 # objects sizes
 fixation_size = 0.5
@@ -627,9 +628,9 @@ def pract_pres2(loop = object):
 
         # set circle position (three valid, one invalid)
         if trial_count == 2:
-            position = -info['probe_pos']
-        else:
             position = info['probe_pos']
+        else:
+            position = -info['probe_pos']
 
         probe.setPos( [position, 0] )
 
