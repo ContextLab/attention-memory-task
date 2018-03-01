@@ -682,7 +682,7 @@ def pract_mem(loop = object):
         ##KIRSTEN ORIGINAL##
         #split line to stay within max line length; EP
         rating_scale = visual.RatingScale( win, low = 1, high = 4, labels=['unfamiliar','familiar'], scale='1               2               3               4',
-                                            singleClick = True, pos = [0,-.4.2], acceptPreText = '-',
+                                            singleClick = True, pos = [0,-.42], acceptPreText = '-',
                                             maxTime=3.0, minTime=0, marker = 'triangle', showAccept=False, acceptSize=0) #disappear=True)
 
         #visual.RatingScale(win=win, name='rating', marker=u'triangle', size=1.0, pos=[0.0, -0.4], low=1, high=4, labels=[u''], scale=u'')
