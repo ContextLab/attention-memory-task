@@ -141,11 +141,11 @@ introduction = '\n\n Thank you for participating in this experiment! ' \
                 '\n\n\n\n\n\n Press ENTER to continue... ' \
 
 # PRACTICE
-instruct_pract1 = '\n\n You will see many images like the one below.' \
-                '\n\n You will need to pay special attention to either the FACE or SCENE. ' \
+instruct_pract1 = ' You will see many images like the one below.' \
+                '\n You will need to pay special attention to either the FACE or SCENE. ' \
                 '\n\n\n\n\n\n\n\n\n\n\n\n\n\n Press any key to continue...' \
                 
-instruct_pract2 = 'Let\'s practice now! \n\n Look straight at the image and focus as hard as you can on the FACE. ' \
+instruct_pract2 = 'Let\'s practice now! \n Look straight at the image and focus as hard as you can on the FACE. ' \
                 '\n\n\n\n\n\n\n\n\n\n\n\n\n\n When you can focus on the FACE well, press any key... ' \
                 
 instruct_pract3 = 'Great job! ' \
@@ -172,7 +172,7 @@ instruct_pract8 = 'Now, you will practice ' \
                 '\n\n First, you\'ll see a pair of cue icons: ' \
                 '\n One arrow icon pointing left or right (< or >) ' \
                 ' and one image icon (face or scene): ' \
-                '\n\n\n\n After the cue icons, you will see several image pairs in a row. You\'ll attend to the SAME cued side and image part for EVERY pair.' \
+                '\n\n\n\n\n\n After the cue icons, you will see several image pairs in a row. You\'ll attend to the SAME cued side and image part for EVERY pair.' \
                 ' Remember to keep your eyes fixated on the cross! ' \
                 '\n\n Press any key to begin.' \
 
@@ -412,8 +412,8 @@ def show_instructions(text, cue_pos1 = False, cue_pos2 = False, center_image = F
     if cue_pos1:
         cat_inst_1 = visual.ImageStim(win, cue_pic1, size=cue_size, name='cue_img1')
         cat_inst_2 = visual.ImageStim(win, cue_pic2, size=cue_size, name='cue_img2')
-        cat_inst_2.setPos([-2.5, -.5])
-        cat_inst_1.setPos([2.5, -.5])
+        cat_inst_2.setPos([-2.5, 0])
+        cat_inst_1.setPos([2.5, 0])
         cat_inst_1.setAutoDraw(True)
         cat_inst_2.setAutoDraw(True)
         win.flip()
@@ -454,22 +454,22 @@ def show_instructions(text, cue_pos1 = False, cue_pos2 = False, center_image = F
         if cue_pos1:
             cat_inst_1.setAutoDraw(False)
             cat_inst_2.setAutoDraw(False)
-            #win.flip()
+            win.flip()
             
         if cue_pos2: 
             cat_inst_1.setAutoDraw(False)
             cue_inst_right.setAutoDraw(False)
-            #win.flip()
+            win.flip()
             
         if center_image == True:
             center.setAutoDraw(False)
-            #win.flip()
+            win.flip()
         
         if hybrid_pair == True:
             hybrid1.setAutoDraw(False)
             hybrid2.setAutoDraw(False)
             fixation.setAutoDraw(False)
-            #win.flip()
+            win.flip()
     win.flip()
     
 def practice_block( practice_dir, practice_runs, loop = object, maxWait = 120 ):
@@ -503,11 +503,12 @@ def practice_block( practice_dir, practice_runs, loop = object, maxWait = 120 ):
 
         if trial_count == 9:
             # presentation block w/cue, w/(o) x4
-            pract_pres2()
+            pract_pres2(practice_trials1)
 
 #        if trial_block == 9:
 #            # memory block x4
 #            pract_mem1()
+
         trial_count += 1
 
 def pract_pres1(loop = object):
@@ -564,7 +565,7 @@ def pract_pres1(loop = object):
         
     fixation.setAutoDraw(False)
 
-def pract_pres2():
+def pract_pres2(loop = object):
     
     for x in range(4):
         cue = cue_left
