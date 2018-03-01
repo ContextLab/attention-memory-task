@@ -192,14 +192,14 @@ instruct_pract10 = '\n\n Finally, you will practice reporting which images you r
                 '\n        (3) I probably have seen the image before' \
                 '\n        (4) I definitely have seen the image before' \
                 '\n\n You will need to respond quickly -- you\'ll have just 2 seconds!' \
-                '\n\n\ When you\'re ready to begin, press any key.' \
+                '\n\n When you\'re ready to begin, press any key.' \
 
 # PRESENTATION
 instruct_exp = 'Now we will begin the main experiment! ' \
                 '\n\nRemember to: ' \
-                '\n Keep your eyes staring at the cross' \
-                '\n Shift your attention to the SAME cued side and part for EACH pair' \
-                '\n Immeditaely press 1 (Left) or 3 (Right) when you see the circle (o) ' \
+                '\n\n        Keep your eyes staring at the cross' \
+                '\n        Shift your attention to the SAME cued side and part for EACH pair' \
+                '\n        Immeditaely press 1 (Left) or 3 (Right) when you see the circle (o) ' \
                 '\n\n Do you have questions? Ask them now! ' \
                 '\n\n Otherwise, position your hand over the 1 and 3 buttons, clear your mind, and press any key to begin. ' \
 
@@ -222,8 +222,7 @@ instruct_mem = 'Now we\'re going to test your memory. ' \
                 'If you aren\'t sure what to say for a particular image, make your best guess! ' \
                 '\n Press any key to begin.' \
 
-instruct_mem2 = 'PART 2:' \
-                'We\'re going to be testing your memory again. ' \
+instruct_mem2 = 'We\'re going to be testing your memory again. ' \
                 '\n\n Remember to respond quickly, and make your best guess when you\'re not sure! ' \
                 '\n\n Press any key to begin.' \
 
@@ -682,9 +681,12 @@ def pract_mem(loop = object):
 
         ##KIRSTEN ORIGINAL##
         #split line to stay within max line length; EP
-        rating_scale = visual.RatingScale( win, low = 1, high = 4, labels = ['1','2','3','4'],
-                                            singleClick = True, scale = None, pos = [0,-.35], acceptPreText = '-',
-                                            maxTime=3.0, minTime=0, marker = 'triangle', showAccept=False, acceptSize=0 ) #disappear=True)
+        rating_scale = visual.RatingScale( win, low = 1, high = 4, labels=['unfamiliar','familiar'], scale='1               2               3               4',
+                                            singleClick = True, pos = [0,-.4.2], acceptPreText = '-',
+                                            maxTime=3.0, minTime=0, marker = 'triangle', showAccept=False, acceptSize=0) #disappear=True)
+
+        #visual.RatingScale(win=win, name='rating', marker=u'triangle', size=1.0, pos=[0.0, -0.4], low=1, high=4, labels=[u''], scale=u'')
+
 
         event.getKeys(keyList = None)
         for frame_n in range(info['mem_frames']):
@@ -702,6 +704,7 @@ def pract_mem(loop = object):
             fixation.setAutoDraw(True)
             win.flip()
         fixation.setAutoDraw(False)
+        win.flip()
         
         trial_count += 1
 
@@ -1054,8 +1057,9 @@ def mem_block( conds, current_pickle, prev_stim ):
 
 # for specified # of runs, show practice presentation
 #for rep in range(0, practice_runs):
+
 if practice_runs != 0:
-    practice_trials = data.TrialHandler(trialList = [{}]*(11), nReps = 1)
+    practice_trials = data.TrialHandler(trialList = [{}]*(10), nReps = 1)
     show_instructions(text = introduction, acceptedKeys = None)
     practice_block(practice_dir, practice_runs, practice_trials)
 
