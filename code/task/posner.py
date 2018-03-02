@@ -138,18 +138,18 @@ with open(pre_name, 'wb') as f:
 # INTRO
 introduction = '\n\n Thank you for participating in this experiment! ' \
                 '\n\n In the experiment, you will pay attention to specific items on the screen.' \
-                '\n\n Then, we will test your memory for some of the items you have seen. ' \
-                '\n\n\n\n\n\n Press ENTER to continue... ' \
+                '\n Then, we will test your memory for some of the items you have seen. ' \
+                '\n\n Press any key to continue... ' \
 
 # PRACTICE
 instruct_pract1 = ' You will see many images like the one below.' \
                 '\n You will need to pay special attention to either the FACE or SCENE. ' \
                 '\n\n\n\n\n\n\n\n\n\n\n\n\n\n Press any key to continue...' \
                 
-instruct_pract2 = 'Let\'s practice now! \n Look straight at the image and focus as hard as you can on the FACE. ' \
+instruct_pract2 = ' Let\'s practice now! \n Look straight at the image and focus as hard as you can on the FACE. ' \
                 '\n\n\n\n\n\n\n\n\n\n\n\n\n\n When you can focus on the FACE well, press any key... ' \
                 
-instruct_pract3 = 'Great job! ' \
+instruct_pract3 = ' Great job! ' \
                 '\n Now, focus as hard as you can on the SCENE. ' \
                 '\n\n\n\n\n\n\n\n\n\n\n\n\n\n When you can focus on the SCENE well, press any key... ' \
 
@@ -168,7 +168,7 @@ instruct_pract6 = '\n\n Great job! ' \
 
 instruct_pract7 = '\n\n\n\n\n\n\n\n\n\n\n\n\n\n When you are done, press any key to continue... ' \
 
-instruct_pract8 = 'Now, you will practice ' \
+instruct_pract8 = ' Now, you will practice ' \
                 'attending to parts of images based on cue icons. ' \
                 '\n\n First, you\'ll see a pair of cue icons: ' \
                 '\n One arrow icon pointing left or right (< or >) ' \
@@ -177,7 +177,7 @@ instruct_pract8 = 'Now, you will practice ' \
                 ' Remember to keep your eyes fixated on the cross! ' \
                 '\n\n Press any key to begin.' \
 
-instruct_pract9 = 'Great job, let\'s try it one more time!' \
+instruct_pract9 = ' Great job, let\'s try it one more time!' \
                   '\n\n This time will be the same, but after each pair, a circle (o) will appear.' \
                   '\n When you see the circle, you should immediately press a button! ' \
                   '\n\n        If the circle appears on the LEFT, press 1 ' \
@@ -195,34 +195,35 @@ instruct_pract10 = '\n\n Finally, you will practice reporting which images you r
                 '\n\n When you\'re ready to begin, press any key.' \
 
 # PRESENTATION
-instruct_exp = 'Now we will begin the main experiment! ' \
-                '\n\nRemember to: ' \
+instruct_exp = ' Now we will begin the main experiment! ' \
+                'Again you will see cue icons, followed by a series of image pairs and circles (and a fixation cross).' \
+                '\n\n Remember to: ' \
                 '\n\n        Keep your eyes staring at the cross' \
                 '\n        Shift your attention to the SAME cued side and part for EACH pair' \
                 '\n        Immeditaely press 1 (Left) or 3 (Right) when you see the circle (o) ' \
                 '\n\n Do you have questions? Ask them now! ' \
-                '\n\n Otherwise, position your hand over the 1 and 3 buttons, clear your mind, and press any key to begin. ' \
+                '\n Otherwise, position your hand over the 1 and 3 buttons, clear your mind, and press any key to begin. ' \
 
-instruct_exp2 = 'Feel free to take a moment to rest, if you like! ' \
-                'When you\'re ready, we will do another round with a cue, followed by image pairs and circles (o).' \
-                'Remember to: ' \
+instruct_exp2 = ' Feel free to take a moment to rest, if you like! ' \
+                ' When you\'re ready, we will do another round with a cue, followed by image pairs and circles (o).' \
+                ' \n\n Remember to: ' \
                 '\n Keep your eyes staring at the cross' \
                 '\n Shift your attention to the SAME cued side and part for EACH pair' \
                 '\n Immeditaely press 1 (Left) or 3 (Right) when you see the circle (o) ' \
                 '\n\n Press any key to begin. ' \
 
 # MEMORY
-instruct_mem = 'Now we\'re going to test your memory. ' \
+instruct_mem = ' Now we\'re going to test your memory. ' \
                 '\n Just like the practice round, you will rate single images using the following scale: ' \
                 '\n\n (1) I definitely have not seen the image before' \
                 '\n (2) I probably have not seen the image before' \
                 '\n (3) I probably have seen the image before' \
                 '\n (4) I definitely have seen the image before' \
                 '\n\n You will need to make your responses quickly -- you\'ll have just 2 seconds. ' \
-                'If you aren\'t sure what to say for a particular image, make your best guess! ' \
-                '\n Press any key to begin.' \
+                ' If you aren\'t sure what to say for a particular image, make your best guess! ' \
+                '\n\n Press any key to begin.' \
 
-instruct_mem2 = 'We\'re going to be testing your memory again. ' \
+instruct_mem2 = ' We\'re going to be testing your memory again. ' \
                 '\n\n Remember to respond quickly, and make your best guess when you\'re not sure! ' \
                 '\n\n Press any key to begin.' \
 
@@ -245,7 +246,7 @@ print(frame_rate_secs)
 # set stim display durations
 
 # fixation
-info['fix_frames'] = int(round(1 * frame_rate_secs))
+info['fix_frames'] = int(round(1.0 * frame_rate_secs))
 
 # R/L cue
 info['cue_frames'] = int(round(.5 * frame_rate_secs))
@@ -253,7 +254,7 @@ info['cue_pause_frames'] = int(round(0* frame_rate_secs))
 
 # practice frames
 # R/L cue
-info['cue_pract_long'] = int(round(15 * frame_rate_secs))
+info['cue_pract_long'] = int(round(15.0 * frame_rate_secs))
 info['cue_pract_short'] = int(round(3.0 * frame_rate_secs))
 info['probe_frames'] = int(round(3.0 * frame_rate_secs))
 info['probe_pos'] = 8
@@ -399,15 +400,13 @@ mem_only = mem_only_a + mem_only_b
 
 ############ EXP FUNCTIONS ############################
 
-def show_instructions(text, cue_pos1 = False, cue_pos2 = False, center_image = False, hybrid_pair = False, acceptedKeys = None):
+def show_instructions(text, cue_pos1 = False, cue_pos2 = False, center_image1 = False, hybrid_pair = False, center_image_end = False, acceptedKeys = None):
     """Presents text and desired images, per arguments, then waits for acceptedKeys"""
     
     # Set and display text
-    instruction.setText(text)
-    instruction.draw()
-    
-    if not center_image and not hybrid_pair and not cue_pos1 and not cue_pos2:
-        win.flip()
+    instruction = visual.TextStim(win, text=text, wrapWidth=40)
+    instruction.setAutoDraw(True)
+    win.flip()
     
     # if cue_pos1, show icons
     if cue_pos1:
@@ -418,27 +417,27 @@ def show_instructions(text, cue_pos1 = False, cue_pos2 = False, center_image = F
         cat_inst_1.setAutoDraw(True)
         cat_inst_2.setAutoDraw(True)
         win.flip()
-    
+
     # if cue_pos2, show single example icon and arrow 
-    if cue_pos2:
+    elif cue_pos2:
         cat_inst_1 = visual.ImageStim(win, cue_pic2, size=cue_size, name='cue_img2')
         cat_inst_1.setPos([0, 3])
-        
+
         cue_inst_right = visual.TextStim(win=win, ori=0, name='cue_right', text='>', font='Arial', 
                             height=2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0)
-        
+
         cue_inst_right.setPos([0, 1])
         cue_inst_right.setAutoDraw(True)
         cat_inst_1.setAutoDraw(True)
         win.flip()
         
-    if center_image == True:
+    elif center_image1 == True:
         center = visual.ImageStim(win, '../../stim/hybrid_1/00060931230fa_sunaaehaikpckyjsety.jpg', size = probe_size)
         center.setAutoDraw(True)
         win.flip()
-        
-    if hybrid_pair == True:
-        hybrid1 = visual.ImageStim(win,'../../stim/hybrids_2/00002940128fb_sunaaacnosloariecpa.jpg', size = probe_size)
+
+    elif hybrid_pair == True:
+        hybrid1 = visual.ImageStim(win, '../../stim/hybrids_2/00002940128fb_sunaaacnosloariecpa.jpg', size = probe_size)
         hybrid2 = visual.ImageStim(win, '../../stim/hybrids_2/00003941121fa_sunaaaenaoynzhoyheo.jpg', size = probe_size)
         
         hybrid1.setPos([info['probe_pos'], 0])
@@ -449,30 +448,32 @@ def show_instructions(text, cue_pos1 = False, cue_pos2 = False, center_image = F
         fixation.setAutoDraw(True)
         win.flip()
         
+    else:
+        win.flip()
+        
     # Wait for response
     response = event.waitKeys(keyList=None)
-    if len(response)>0:
-        if cue_pos1:
-            cat_inst_1.setAutoDraw(False)
-            cat_inst_2.setAutoDraw(False)
-            win.flip()
-            
-        if cue_pos2: 
-            cat_inst_1.setAutoDraw(False)
-            cue_inst_right.setAutoDraw(False)
-            win.flip()
-            
-        if center_image == True:
-            center.setAutoDraw(False)
-            win.flip()
-        
-        if hybrid_pair == True:
-            hybrid1.setAutoDraw(False)
-            hybrid2.setAutoDraw(False)
-            fixation.setAutoDraw(False)
-            win.flip()
-    win.flip()
     
+    instruction.setAutoDraw(False)
+    #if len(response)>0:
+    if cue_pos1:
+        cat_inst_1.setAutoDraw(False)
+        cat_inst_2.setAutoDraw(False)
+        
+    if cue_pos2: 
+        cat_inst_1.setAutoDraw(False)
+        cue_inst_right.setAutoDraw(False)
+        
+    if hybrid_pair == True:
+        hybrid1.setAutoDraw(False)
+        hybrid2.setAutoDraw(False)
+        fixation.setAutoDraw(False)
+        
+    if center_image1:
+        center.setAutoDraw(False)
+
+    win.flip()
+
 def practice_block( practice_dir, practice_runs, loop = object, maxWait = 120 ):
     """Displays trials for subject to practice attending to sides and categories"""
 
@@ -488,10 +489,13 @@ def practice_block( practice_dir, practice_runs, loop = object, maxWait = 120 ):
         
         # display text for practice instructions
         if trial_count in [1,2,3]:
-            show_instructions(text = this_instruct, center_image=True, acceptedKeys = None)
-        if trial_count in [5,7]:
+            if trial_count == 3:
+                show_instructions(text = this_instruct, center_image1=True, acceptedKeys = None)
+            else:
+                show_instructions(text = this_instruct, center_image1=True, acceptedKeys = None)
+        elif trial_count in [5,7]:
             show_instructions(text = this_instruct, hybrid_pair=True, acceptedKeys = None)
-        if trial_count in [8]:
+        elif trial_count in [8]:
             show_instructions(text = this_instruct, cue_pos1=True, acceptedKeys = None)
         else:
             show_instructions(text = this_instruct, acceptedKeys = None)
@@ -1019,9 +1023,9 @@ def mem_block( conds, current_pickle, prev_stim ):
 
         ##KIRSTEN ORIGINAL##
         #split line to stay within max line length; EP
-        rating_scale = visual.RatingScale( win, low = 1, high = 4, labels = ['1','2','3','4'],
-                                            singleClick = True, scale = None, pos = [0,-.35], acceptPreText = '-',
-                                            maxTime=3.0, minTime=0, marker = 'triangle', showAccept=False, acceptSize=0 ) #disappear=True)
+        rating_scale = visual.RatingScale( win, low = 1, high = 4, labels=['unfamiliar','familiar'], scale='1               2               3               4',
+                                            singleClick = True, pos = [0,-.42], acceptPreText = '-',
+                                            maxTime=3.0, minTime=0, marker = 'triangle', showAccept=False, acceptSize=0) #disappear=True)
 
         event.getKeys(keyList = None)
         for frame_n in range(info['mem_frames']):
