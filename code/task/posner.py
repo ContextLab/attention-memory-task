@@ -799,7 +799,7 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
 
         #assign images as probes (w/ sizes, locations, etc.)
         probe1 = visual.ImageStim(win, img1, size=probe_size, name='Probe1')
-        probe2 = visual.ImageStim(win, img2, size=probe_size, name='Probe2')
+        probe2 = visual.ImageStim(win, img2, size=probe_size, name='Probe2')
 
         # Probe1 displays right, Probe 2 displays left
         probe1.setPos([info['probe_pos'], 0])
@@ -956,10 +956,16 @@ def mem_block( conds, current_pickle, prev_stim ):
         current_list['uncued_2'] = current_list['uncued'][1::2]
 
         available_attended_stim1 = [x for x in current_list['cued_1'] if x not in previous_mem]
+        available_attended_stim1 = random.sample(vailable_attended_stim1, len(vailable_attended_stim1)/2)
+        
         available_attended_stim2 = [x for x in current_list['cued_2'] if x not in previous_mem]
+        available_attended_stim2 = random.sample(available_attended_stim2, len(available_attended_stim2)/2)
 
         available_unattended_stim1 = [x for x in current_list['uncued_1'] if x not in previous_mem]
+        available_unattended_stim1 - random.sample(available_unattended_stim1, len(available_unattended_stim1)/2)
+        
         available_unattended_stim2 = [x for x in current_list['uncued_2'] if x not in previous_mem]
+        available_unattended_stim2 = random.sample(available_unattended_stim2, len(available_unattended_stim2)/2)
 
         available_random = [x for x in all_items if
                             (x not in previous_mem
@@ -1118,7 +1124,7 @@ for rep in range(0,repetitions):
     else:
         show_instructions(text = instruct_mem2, acceptedKeys = ['1','2','3','4','return'])
 
-    mem_block(range(0,num_trials*8), pickle_name, prev_stim)
+    mem_block(range(0,num_trials*4), pickle_name, prev_stim)
 
     info['run'] = str(int(info['run'])+1)
 
