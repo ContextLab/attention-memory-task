@@ -223,8 +223,7 @@ instruct_mem = ' Now we\'re going to test your memory. ' \
                 ' If you aren\'t sure what to say for a particular image, make your best guess! ' \
                 '\n\n Press any key to begin.' \
 
-instruct_mem2 = ' We\'re going to be testing your memory again. ' \
-                '\n\n Remember to respond quickly, and make your best guess when you\'re not sure! ' \
+instruct_mem2 = ' MEMORY BLOCK. ' \
                 '\n\n Press any key to begin.' \
 
 # CLOSING
