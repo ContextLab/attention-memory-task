@@ -11,8 +11,11 @@ vers = '2.0'
 
 # edit the parameters in this section only ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+# test mode
+test = True
+
 # runs
-repetitions = 2
+repetitions = 8
 
 # pres trials per run (total_trials % 8 == 0)
 num_trials = 10
@@ -305,7 +308,6 @@ def concat_dicts(dicts):
     return big_dict
 
 def load_mem_p(pickles):
-
     '''
     input: list of pickle files
     output: list of prev pkl files
@@ -326,7 +328,6 @@ def load_mem_p(pickles):
     return mem_dict
 
 def load_prev_p(pickles):
-
     '''
     input: list of pickle files
     output: list of prev pkl files
@@ -387,7 +388,11 @@ catches = random.sample(catches_0, len(catches_0))
 # avoid using these for presentation stim
 # use only split singles from this list for "unseen" memory images
 
-mem_only_0 = [f for f in random.sample(os.listdir(dir1),num_trials*repetitions*2) if f.endswith('.jpg')]
+
+# IMTRACE 
+# mem_only_0 --> composite images for mem only
+# mem_only --> single images for mem only
+mem_only_0 = [f for f in random.sample([z for z in os.listdir(dir1) if z.endswith('.jpg')],num_trials*repetitions*4)]
 mem_only_1 = [words for segments in mem_only_0 for words in segments.split('_')]
 
 mem_only_a = mem_only_1[0::2]
@@ -395,7 +400,6 @@ mem_only_a = [s + '.jpg' for s in mem_only_a]
 mem_only_b = mem_only_1[1::2]
 
 mem_only = mem_only_a + mem_only_b
-
 
 ############ EXP FUNCTIONS ############################
 
@@ -784,7 +788,11 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
 
         # [3] RUN TRIAL
         all_items = [f for f in os.listdir(dir1) if f.endswith('.jpg')]
-        available_items = [x for x in all_items if (x not in cued and x not in uncued and x not in prev_stim and x not in mem_only)]
+        available_items = [x for x in all_items if 
+                          (x not in cued and 
+                          x not in uncued and 
+                          x not in prev_stim and 
+                          x not in mem_only_0)]
 
         #select and load image stimuli at random
         img1_file = random.choice(available_items)
@@ -798,7 +806,7 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
 
         #assign images as probes (w/ sizes, locations, etc.)
         probe1 = visual.ImageStim(win, img1, size=probe_size, name='Probe1')
-        probe2 = visual.ImageStim(win, img2, size=probe_size, name='Probe2')
+        probe2 = visual.ImageStim(win, img2, size=probe_size, name='Probe2')
 
         # Probe1 displays right, Probe 2 displays left
         probe1.setPos([info['probe_pos'], 0])
@@ -829,13 +837,12 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
         probe2.setAutoDraw(False)
         fixation.setAutoDraw(False)
 
-        #clear screen
+        # clear screen
         win.flip()
 
         resp = None
         rt = None
 
-        #split line to stay within max line length; EP
         probe = visual.TextStim(win=win, ori=0, name='fixation', text='o', font='Arial', height = 2, color='lightGrey',
                                 colorSpace='rgb', opacity=1, depth=0.0)
 
@@ -846,7 +853,6 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
             position = info['probe_pos']
         else:
             position = -info['probe_pos']
-
         probe.setPos( [position, 0] )
 
         # display probe, break if response recorded
@@ -866,12 +872,7 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
                 rt = resp_clock.getTime()
                 break
 
-            # clear screen
-            win.flip()
-            probe.setAutoDraw(False)
-            #fixation.setAutoDraw(False)
-
-            # if no response, wait w/ blank screen until response
+            # if no response, wait until response
             if (resp == None and test == False):
                 keys = event.waitKeys(keyList = ['1', '3'])
                 resp = keys[0]
@@ -880,20 +881,14 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
             elif (resp == None and test == True):
                 rt = 'test'
 
-            # KZ : reaction times saved below
-            #      currentotal_trialsy saves two groups: cued/uncued
-            #      change to save into four:
-            #           2 (cued/uncued) * 2 (right/left) = 4
+            probe.setAutoDraw(False)
 
         if ( cue == cue_right and position > 1 ):
             cued_RT.append(rt)
 
         else:
             uncued_RT.append(rt)
-            #target_right.append(0)
-            #clear screen upon response
             win.flip()
-
 
         win.flip()
         trial_num+=1
@@ -922,15 +917,12 @@ def mem_block( conds, current_pickle, prev_stim ):
     #KZ : reads in the pickle file
     with open(current_pickle,'rb') as fp:
         current_list = pickle.load(fp)
-        #previous_items_full = [val for sublist in previous_items for val in sublist]
-
 
     # empty list to store items used in memory task
     previous_mem = []
     all_ratings = []
 
     for each in conds:
-        
         all_items_0 = mem_only
         all_items = []
 
@@ -955,13 +947,13 @@ def mem_block( conds, current_pickle, prev_stim ):
         current_list['uncued_2'] = current_list['uncued'][1::2]
 
         available_attended_stim1 = [x for x in current_list['cued_1'] if x not in previous_mem]
-        available_attended_stim1 = random.sample(vailable_attended_stim1, len(vailable_attended_stim1)/2)
+        available_attended_stim1 = random.sample(available_attended_stim1, len(available_attended_stim1)/2)
         
         available_attended_stim2 = [x for x in current_list['cued_2'] if x not in previous_mem]
         available_attended_stim2 = random.sample(available_attended_stim2, len(available_attended_stim2)/2)
 
         available_unattended_stim1 = [x for x in current_list['uncued_1'] if x not in previous_mem]
-        available_unattended_stim1 - random.sample(available_unattended_stim1, len(available_unattended_stim1)/2)
+        available_unattended_stim1 = random.sample(available_unattended_stim1, len(available_unattended_stim1)/2)
         
         available_unattended_stim2 = [x for x in current_list['uncued_2'] if x not in previous_mem]
         available_unattended_stim2 = random.sample(available_unattended_stim2, len(available_unattended_stim2)/2)
@@ -1062,8 +1054,6 @@ def mem_block( conds, current_pickle, prev_stim ):
         pickle.dump(mem_task, f)
 
 ######### RUN EXPERIMENT ###########
-
-
 # for specified # of runs, show practice presentation
 #for rep in range(0, practice_runs):
 
@@ -1113,8 +1103,11 @@ for rep in range(0,repetitions):
         show_instructions(text = instruct_exp, acceptedKeys = ['1','2','3','4','return', 'escape'])
     else:
         show_instructions(text = instruct_exp2, acceptedKeys = ['1','2','3','4','return', 'escape'])
-
-    pres_block(cue_tuple_input, pickle_name, prev_stim, info['run'], trials, test=False)
+    
+    if test == False:
+        pres_block(cue_tuple_input, pickle_name, prev_stim, info['run'], trials, test=False)
+    else:
+        pres_block(cue_tuple_input, pickle_name, prev_stim, info['run'], trials, test=True)
 
     # memory task
     if rep == 0:
@@ -1130,6 +1123,8 @@ for rep in range(0,repetitions):
 # closing message
 show_instructions(text = instruct_thanks, acceptedKeys = ['1','2','3','4','return'])
 
+win.close()
+
 #end of task questionnaire
 endDlg = gui.Dlg(title="Post Questionnaire")
 endDlg.addField('1. How engaging did you find this experiment?', choices=['--', "Very engaging", "A little engaging", "Neutral", "A little boring", "Very boring"])
@@ -1141,4 +1136,5 @@ endDlg.addField('5. What strategies did you use (if any) to help remember the at
 end_data = endDlg.show()
 if endDlg.OK:
     print(end_data)
-#    with open(post_name, 'wb') as f:
+    with open(post_name, 'wb') as f:
+        pickle.dump(end_data, f)
