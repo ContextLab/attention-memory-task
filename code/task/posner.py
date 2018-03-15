@@ -786,6 +786,10 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
             fixation.setAutoDraw(True)
             win.flip()
 
+        # IMTRACE
+        # available_images = images not in: cued/uncued current trial, prev stim, mem_only_0
+        # randomly select img1 and img2 from available_images
+        
         # [3] RUN TRIAL
         all_items = [f for f in os.listdir(dir1) if f.endswith('.jpg')]
         available_items = [x for x in all_items if 
@@ -923,12 +927,17 @@ def mem_block( conds, current_pickle, prev_stim ):
     all_ratings = []
 
     for each in conds:
-        all_items_0 = mem_only
-        all_items = []
+        all_items = mem_only
+        
+        # REMOVE AFTER SUCCESSFUL RUN
+#        all_items = []
+#
+#        for entry in all_items_0:
+#            if fnmatch.fnmatch(entry,'*.jpg'):
+#                all_items.append(entry)
 
-        for entry in all_items_0:
-            if fnmatch.fnmatch(entry,'*.jpg'):
-                all_items.append(entry)
+
+        # IMTRACE -- see notes below
 
         # EDIT
         # first, parse the previous_mem cued and uncued into separate image file names
@@ -946,6 +955,7 @@ def mem_block( conds, current_pickle, prev_stim ):
         current_list['uncued_1'] = [s + '.jpg' for s in current_list['uncued_1']]
         current_list['uncued_2'] = current_list['uncued'][1::2]
 
+        
         available_attended_stim1 = [x for x in current_list['cued_1'] if x not in previous_mem]
         available_attended_stim1 = random.sample(available_attended_stim1, len(available_attended_stim1)/2)
         
@@ -958,6 +968,7 @@ def mem_block( conds, current_pickle, prev_stim ):
         available_unattended_stim2 = [x for x in current_list['uncued_2'] if x not in previous_mem]
         available_unattended_stim2 = random.sample(available_unattended_stim2, len(available_unattended_stim2)/2)
 
+        # IMTRACE -- MAKE SURE PREV_STIM ARE SPLIT FILENAMES
         available_random = [x for x in all_items if
                             (x not in previous_mem
                             and x not in current_list['cued_1']
@@ -965,6 +976,8 @@ def mem_block( conds, current_pickle, prev_stim ):
                             and x not in current_list['uncued_1']
                             and x not in current_list['uncued_2']
                             and x not in prev_stim)]
+
+        # IMTRACE -- LEFT OFF HERE (3/15 KZ)
 
         #select and load image stimuli
         #options = [ 1, 2, 3]
