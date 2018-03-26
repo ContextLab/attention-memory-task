@@ -15,10 +15,10 @@ vers = '2.0'
 test = True
 
 # runs
-repetitions = 8
+repetitions = 10
 
 # pres trials per run (total_trials % 8 == 0)
-num_trials = 10
+num_trials = 8
 
 # catch trials per run
 catch = 0 # num_trials/4
@@ -325,7 +325,6 @@ def load_mem_p(pickles):
         mem_dicts.append(x)
     mem_dict = concat_dicts(mem_dicts)
     return mem_dict
-    return mem_dict
 
 def load_prev_p(pickles):
     '''
@@ -455,7 +454,8 @@ def show_instructions(text, cue_pos1 = False, cue_pos2 = False, center_image1 = 
         win.flip()
         
     # Wait for response
-    response = event.waitKeys(keyList=None)
+    if test == False:
+        response = event.waitKeys(keyList=None)
     
     instruction.setAutoDraw(False)
     #if len(response)>0:
@@ -715,8 +715,9 @@ def pract_mem(loop = object):
         
         trial_count += 1
 
+# PRES FUNCTION - BRYAN COMMIT
 def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData = True, test=False):
-    """Runs experimental block and saves reponses if requested"""
+# """Runs experimental block and saves reponses if requested"""
 
     trial_clock = core.Clock()
 
@@ -786,17 +787,9 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
             fixation.setAutoDraw(True)
             win.flip()
 
-        # IMTRACE
-        # available_images = images not in: cued/uncued current trial, prev stim, mem_only_0
-        # randomly select img1 and img2 from available_images
-        
         # [3] RUN TRIAL
         all_items = [f for f in os.listdir(dir1) if f.endswith('.jpg')]
-        available_items = [x for x in all_items if 
-                          (x not in cued and 
-                          x not in uncued and 
-                          x not in prev_stim and 
-                          x not in mem_only_0)]
+        available_items = [x for x in all_items if (x not in cued and x not in uncued and x not in prev_stim and x not in mem_only)]
 
         #select and load image stimuli at random
         img1_file = random.choice(available_items)
@@ -817,7 +810,7 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
         probe2.setPos([-info['probe_pos'], 0])
 
         # save cued and uncued images
-        if (cue == cue_right):
+        if cue == cue_right:
             cued.append(img1_file)
             uncued.append(img2_file)
         else:
@@ -841,12 +834,13 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
         probe2.setAutoDraw(False)
         fixation.setAutoDraw(False)
 
-        # clear screen
+        #clear screen
         win.flip()
 
         resp = None
         rt = None
 
+        #split line to stay within max line length; EP
         probe = visual.TextStim(win=win, ori=0, name='fixation', text='o', font='Arial', height = 2, color='lightGrey',
                                 colorSpace='rgb', opacity=1, depth=0.0)
 
@@ -857,6 +851,7 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
             position = info['probe_pos']
         else:
             position = -info['probe_pos']
+
         probe.setPos( [position, 0] )
 
         # display probe, break if response recorded
@@ -876,7 +871,12 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
                 rt = resp_clock.getTime()
                 break
 
-            # if no response, wait until response
+            # clear screen
+            win.flip()
+            probe.setAutoDraw(False)
+            #fixation.setAutoDraw(False)
+
+            # if no response, wait w/ blank screen until response
             if (resp == None and test == False):
                 keys = event.waitKeys(keyList = ['1', '3'])
                 resp = keys[0]
@@ -885,18 +885,28 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
             elif (resp == None and test == True):
                 rt = 'test'
 
-            probe.setAutoDraw(False)
+            # KZ : reaction times saved below
+            #      currentotal_trialsy saves two groups: cued/uncued
+            #      change to save into four:
+            #           2 (cued/uncued) * 2 (right/left) = 4
 
         if ( cue == cue_right and position > 1 ):
             cued_RT.append(rt)
 
         else:
             uncued_RT.append(rt)
+            #target_right.append(0)
+            #clear screen upon response
             win.flip()
+
+        print(cued)
 
         win.flip()
         trial_num+=1
+        
+        #print(cued)
 
+    print(cued)
     previous_items['cued'] = cued
     previous_items['uncued'] = uncued
     previous_items['uncued_RT'] = uncued_RT
@@ -908,6 +918,208 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
         pickle.dump(previous_items, f)
 
     fixation.setAutoDraw(False)
+
+#PRES FUNCTION 3/20
+#def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData = True, test = False):
+#    """Runs experimental block and saves reponses if requested"""
+#
+#    trial_clock = core.Clock()
+#
+#    previous_items = {}
+#    cued = []
+#    uncued = []
+#
+#    reaction_time={}
+#    cued_RT = []
+#    uncued_RT = []
+#
+#    trial_num = 0
+#    cue_tup_num = 0
+#    catch_num = 0
+#
+#    for this_trial in loop:
+#
+#        if catches[trial_num] == 0:
+#            params = cue_tuples[cue_tup_num]
+#
+#        else:
+#            params = catch_tuples[catch_num]
+#            catch_num += 1
+#
+#        if params[0] == 'cue_R':
+#            cue = cue_right
+#        else:
+#            cue = cue_left
+#
+#        if params[1] == cat1[0]:
+#            cue_cat = cue_cat_1
+#        else:
+#            cue_cat = cue_cat_2
+#
+#        cue.setPos( [0, 0] )
+#
+#        if block == True and cue_tup_num == 0 :
+#            fixation.setAutoDraw(False)
+#            cue.setAutoDraw(True)
+#            cue_cat.setAutoDraw(True)
+#            for frame_n in range(info['cue_frames']*3):
+#                win.flip()
+#            cue.setAutoDraw(False)
+#            cue_cat.setAutoDraw(False)
+#            fixation.setAutoDraw(True)
+#
+#        cue_tup_num += 1
+#
+#        #show fixation
+#        fixation.setAutoDraw(True)
+#        for frame_n in range(info['fix_frames']):
+#            win.flip()
+#
+#        #show cue on each iteration if NOT block design
+#        if block == False:
+#            fixation.setAutoDraw(False)
+#            cue.setAutoDraw(True)
+#            cue_cat.setAutoDraw(True)
+#            for frame_n in range(info['cue_frames']):
+#                win.flip()
+#            cue.setAutoDraw(False)
+#            cue_cat.setAutoDraw(False)
+#            fixation.setAutoDraw(True)
+#
+#        #pause
+#        for frame_n in range(info['cue_pause_frames']):
+#            fixation.setAutoDraw(True)
+#            win.flip()
+#
+#        # IMTRACE
+#        # available_images = images not in: cued/uncued current trial, prev stim, mem_only_0
+#        # randomly select img1 and img2 from available_images
+#        
+#        # [3] RUN TRIAL
+#        all_items = [f for f in os.listdir(dir1) if f.endswith('.jpg')]
+#        available_items = [x for x in all_items if 
+#                          (x not in cued and 
+#                          x not in uncued and 
+#                          x not in prev_stim and 
+#                          x not in mem_only_0)]
+#
+#        #select and load image stimuli at random
+#        img1_file = random.choice(available_items)
+#        img1 = dir1+img1_file
+#        img2_file = img1_file
+#
+#        while (img2_file == img1_file):
+#            img2_file = random.choice(available_items)
+#
+#        img2 = dir1 + img2_file
+#
+#        #assign images as probes (w/ sizes, locations, etc.)
+#        probe1 = visual.ImageStim(win, img1, size=probe_size, name='Probe1')
+#        probe2 = visual.ImageStim(win, img2, size=probe_size, name='Probe2')
+#
+#        # Probe1 displays right, Probe 2 displays left
+#        probe1.setPos([info['probe_pos'], 0])
+#        probe2.setPos([-info['probe_pos'], 0])
+#
+#        # save cued and uncued images
+#        if cue == cue_right:
+#            cued.append(img1_file)
+#            uncued.append(img2_file)
+#        else:
+#            cued.append(img2_file)
+#            uncued.append(img1_file)
+#            
+#        print(cued)
+#
+#        #response and reaction time variables
+#        resp = None
+#        rt = None
+#
+#        #display probes simultaneously
+#        probe1.setAutoDraw(True)
+#        probe2.setAutoDraw(True)
+#        win.callOnFlip(resp_clock.reset)
+#        event.clearEvents()
+#        for frame_n in range(info['probe_frames']):
+#            if frame_n == 0:
+#                resp_clock.reset()
+#            win.flip()
+#        probe1.setAutoDraw(False)
+#        probe2.setAutoDraw(False)
+#        # 3/20 : fixation.setAutoDraw(False)
+#
+#        # clear screen
+#        win.flip()
+#
+#        resp = None
+#        rt = None
+#
+#        probe = visual.TextStim(win=win, ori=0, name='attention', text='o', font='Arial', height = 2, color='lightGrey',
+#                                colorSpace='rgb', opacity=1, depth=0.0)
+#
+#        # set attention probe location
+#        if cue == cue_right and params[2] == 0:
+#            position = info['probe_pos']
+#        elif cue == cue_left and params[2] == 1:
+#            position = info['probe_pos']
+#        else:
+#            position = -info['probe_pos']
+#        probe.setPos( [position, 0] )
+#
+#        # display probe, break if response recorded
+#        fixation.setAutoDraw(True)
+#        probe.setAutoDraw(True)
+#        win.callOnFlip(resp_clock.reset)
+#        event.clearEvents()
+#        
+#        for frame_n in range(info['probe_frames']):
+#            #fixation.setAutoDraw(True)
+#            #probe.setAutoDraw(True)
+#            if frame_n == 0:
+#                resp_clock.reset()
+#                keys = event.getKeys(keyList = ['1','3'])
+#            if len(keys) > 0:
+#                resp = keys[0]
+#                rt = resp_clock.getTime()
+#                break
+#
+#            # if no response, wait until response
+#            if (resp == None and test == False):
+#                keys = event.waitKeys(keyList = ['1', '3'])
+#                resp = keys[0]
+#                rt = resp_clock.getTime()
+#                
+#            # if test run, continue
+#            elif (resp == None and test == True):
+#                rt = 'test'
+#
+#            probe.setAutoDraw(False)
+#            #fixation.setAutoDraw(False)
+#            
+#        if ( cue == cue_right and position > 1 ):
+#            cued_RT.append(rt)
+#
+#        else:
+#            uncued_RT.append(rt)
+#            win.flip()
+#
+#        win.flip()
+#        trial_num+=1
+#    
+#    # fixation.setAutoDraw(False)
+#
+#    previous_items['cued'] = cued
+#    print(cued)
+#    previous_items['uncued'] = uncued
+#    previous_items['uncued_RT'] = uncued_RT
+#    previous_items['cued_RT'] = cued_RT
+#    previous_items['run_time'] = trial_clock.getTime()
+#    previous_items['cue_tuples'] = cue_tuples
+#
+#    with open(pickle_name, 'wb') as f:
+#        pickle.dump(previous_items, f)
+#
+#    fixation.setAutoDraw(False)
 
 def mem_block( conds, current_pickle, prev_stim ):
     trial_clock = core.Clock()
@@ -977,10 +1189,10 @@ def mem_block( conds, current_pickle, prev_stim ):
                             and x not in current_list['uncued_2']
                             and x not in prev_stim)]
 
-        # IMTRACE -- LEFT OFF HERE (3/15 KZ)
+        # IMTRACE 
 
-        #select and load image stimuli
-        #options = [ 1, 2, 3]
+        # select and load image stimuli
+        # options = [ 1, 2, 3]
         options = []
         if len(available_attended_stim1)>0:
             options.append(1)
@@ -1017,10 +1229,10 @@ def mem_block( conds, current_pickle, prev_stim ):
                 mem_dir = stim_dir2
 
 
-        #change to if statement to get rid of pesky errors
-        #try:
-        #Type = 'Faces'
-        #mem = '/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/'+Type+'/'+mem_file
+        # change to if statement to get rid of pesky errors
+        # try:
+        # Type = 'Faces'
+        # mem = '/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/'+Type+'/'+mem_file
         mem = mem_dir + mem_file
 
         mem_probe = visual.ImageStim( win, mem, size=probe_size )
@@ -1032,7 +1244,7 @@ def mem_block( conds, current_pickle, prev_stim ):
         ##################
 
         ##KIRSTEN ORIGINAL##
-        #split line to stay within max line length; EP
+        # split line to stay within max line length; EP
         rating_scale = visual.RatingScale( win, low = 1, high = 4, labels=['unfamiliar','familiar'], scale='1               2               3               4',
                                             singleClick = True, pos = [0,-.42], acceptPreText = '-',
                                             maxTime=3.0, minTime=0, marker = 'triangle', showAccept=False, acceptSize=0) #disappear=True)
@@ -1054,6 +1266,9 @@ def mem_block( conds, current_pickle, prev_stim ):
             win.flip()
         fixation.setAutoDraw(False)
 
+        # IMTRACE - previous_mem contains the half of possible previously seen images they were shown in mem trial 
+        # and whatever mem only images they were shown in mem trialList; this should be sufficient to prevent future repeats
+        
         previous_mem.append(mem_file)
         all_ratings.append(choice_history)
 
@@ -1082,7 +1297,7 @@ if practice_runs == 0:
 for rep in range(0,repetitions):
 
     cue_tuple_input = cue_tuples[rep*num_trials:(rep+1)*num_trials]
-    #practice_trials = data.TrialHandler(trialList = [{}]*(practice_slow_trials + practice_quick_trials), nReps = 1)
+    # practice_trials = data.TrialHandler(trialList = [{}]*(practice_slow_trials + practice_quick_trials), nReps = 1)
 
     # pickle_name for use in both functions
     # split line to stay within max line length; EP
@@ -1111,16 +1326,20 @@ for rep in range(0,repetitions):
 
     trials = data.TrialHandler(trialList = [{}]*total_trials, nReps = 1)
 
+    #3print(prev_stim)
+
     # presentation task
     if rep == 0:
         show_instructions(text = instruct_exp, acceptedKeys = ['1','2','3','4','return', 'escape'])
     else:
         show_instructions(text = instruct_exp2, acceptedKeys = ['1','2','3','4','return', 'escape'])
     
-    if test == False:
-        pres_block(cue_tuple_input, pickle_name, prev_stim, info['run'], trials, test=False)
-    else:
-        pres_block(cue_tuple_input, pickle_name, prev_stim, info['run'], trials, test=True)
+    pres_block(cue_tuple_input, pickle_name, prev_stim, info['run'], trials, test=test)
+    
+#    if test == False:
+#        pres_block(cue_tuple_input, pickle_name, prev_stim, info['run'], trials, test=False)
+#    else:
+#        pres_block(cue_tuple_input, pickle_name, prev_stim, info['run'], trials, test=True)
 
     # memory task
     if rep == 0:
@@ -1148,6 +1367,7 @@ endDlg.addField('5. What strategies did you use (if any) to help remember the at
 
 end_data = endDlg.show()
 if endDlg.OK:
-    print(end_data)
+    
+    (end_data)
     with open(post_name, 'wb') as f:
         pickle.dump(end_data, f)
