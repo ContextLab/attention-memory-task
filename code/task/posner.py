@@ -899,14 +899,14 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
             #clear screen upon response
             win.flip()
 
-        print(cued)
+        #print(cued)
 
         win.flip()
         trial_num+=1
         
         #print(cued)
 
-    print(cued)
+    #3print(cued)
     previous_items['cued'] = cued
     previous_items['uncued'] = uncued
     previous_items['uncued_RT'] = uncued_RT
@@ -1188,8 +1188,8 @@ def mem_block( conds, current_pickle, prev_stim ):
                             and x not in current_list['uncued_1']
                             and x not in current_list['uncued_2']
                             and x not in prev_stim)]
+                            # IMTRACE: need to split cued and uncued here
 
-        # IMTRACE 
 
         # select and load image stimuli
         # options = [ 1, 2, 3]
