@@ -391,7 +391,7 @@ catches = random.sample(catches_0, len(catches_0))
 # IMTRACE 
 # mem_only_0 --> composite images for mem only
 # mem_only --> single images for mem only
-mem_only_0 = [f for f in random.sample([z for z in os.listdir(dir1) if z.endswith('.jpg')],num_trials*repetitions*4)]
+mem_only_0 = [f for f in random.sample([z for z in os.listdir(dir1) if z.endswith('.jpg')],num_trials)] #*repetitions*4)]
 mem_only_1 = [words for segments in mem_only_0 for words in segments.split('_')]
 
 mem_only_a = mem_only_1[0::2]
@@ -789,7 +789,7 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
 
         # [3] RUN TRIAL
         all_items = [f for f in os.listdir(dir1) if f.endswith('.jpg')]
-        available_items = [x for x in all_items if (x not in cued and x not in uncued and x not in prev_stim and x not in mem_only)]
+        available_items = [x for x in all_items if (x not in cued and x not in uncued and x not in prev_stim and x not in mem_only_0)]
 
         #select and load image stimuli at random
         img1_file = random.choice(available_items)
@@ -1192,47 +1192,54 @@ def mem_block( conds, current_pickle, prev_stim ):
 
 
         # select and load image stimuli
-        # options = [ 1, 2, 3]
-        options = []
-        if len(available_attended_stim1)>0:
-            options.append(1)
-        if len(available_attended_stim2)>0:
-            options.append(4)
-        if len(available_unattended_stim1)>0:
-            options.append(2)
-        if len(available_unattended_stim2)>0:
-            options.append(5)
-        if len(available_random)>0:
-            options.append(3)
-
-        # if we decide not to show all images then will want to show Rpres and Lpres with same frequency
-        type = random.choice(options)
-
-        if type == 1:
-            mem_file = random.choice(available_attended_stim1)
-            mem_dir = stim_dir1
-        elif type == 4:
-            mem_file = random.choice(available_attended_stim2)
-            mem_dir = stim_dir2
-        elif type == 2:
-            mem_file = random.choice(available_unattended_stim1)
-            mem_dir = stim_dir1
-        elif type == 5:
-            mem_file = random.choice(available_unattended_stim2)
-            mem_dir = stim_dir2
-        else:
-            mem_file = random.choice(available_random)
-
-            if os.path.isfile(stim_dir1+mem_file):
-                mem_dir = stim_dir1
-            else:
-                mem_dir = stim_dir2
+        mem_files = available_attended_stim1 + available_attended_stim2 + available_unattended_stim1 + available_unattended_stim2 + random.sample(available_random, len(repetitions)*2)
+        mem_files = random.sample(mem_files, len(mem_files))
+        
+#        # select and load image stimuli
+#        # options = [ 1, 2, 3]
+#        options = []
+#        if len(available_attended_stim1)>0:
+#            options.append(1)
+#        if len(available_attended_stim2)>0:
+#            options.append(4)
+#        if len(available_unattended_stim1)>0:
+#            options.append(2)
+#        if len(available_unattended_stim2)>0:
+#            options.append(5)
+#        if len(available_random)>0:
+#            options.append(3)
+#
+#        # if we decide not to show all images then will want to show Rpres and Lpres with same frequency
+#        type = random.choice(options)
+#
+#        if type == 1:
+#            mem_file = random.choice(available_attended_stim1)
+#            mem_dir = stim_dir1
+#        elif type == 4:
+#            mem_file = random.choice(available_attended_stim2)
+#            mem_dir = stim_dir2
+#        elif type == 2:
+#            mem_file = random.choice(available_unattended_stim1)
+#            mem_dir = stim_dir1
+#        elif type == 5:
+#            mem_file = random.choice(available_unattended_stim2)
+#            mem_dir = stim_dir2
+#        else:
+#            mem_file = random.choice(available_random)
+#
+#            if os.path.isfile(stim_dir1+mem_file):
+#                mem_dir = stim_dir1
+#            else:
+#                mem_dir = stim_dir2
 
 
         # change to if statement to get rid of pesky errors
         # try:
         # Type = 'Faces'
         # mem = '/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/'+Type+'/'+mem_file
+        
+        mem_file = random.sample(mem_files, 1)
+        
         mem = mem_dir + mem_file
 
         mem_probe = visual.ImageStim( win, mem, size=probe_size )
