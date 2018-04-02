@@ -15,10 +15,10 @@ vers = '2.0'
 test = True
 
 # runs
-repetitions = 10
+repetitions = 8
 
 # pres trials per run (total_trials % 8 == 0)
-num_trials = 8
+num_trials = 10
 
 # catch trials per run
 catch = 0 # num_trials/4
@@ -1192,45 +1192,50 @@ def mem_block( conds, current_pickle, prev_stim ):
 
 
         # select and load image stimuli
-        mem_files = available_attended_stim1 + available_attended_stim2 + available_unattended_stim1 + available_unattended_stim2 + random.sample(available_random, len(repetitions)*2)
-        mem_files = random.sample(mem_files, len(mem_files))
+        # mem_files = available_attended_stim1 + available_attended_stim2 + available_unattended_stim1 + available_unattended_stim2 + random.sample(available_random, repetitions*2)
+        # mem_files = random.sample(mem_files, len(mem_files))
         
-#        # select and load image stimuli
-#        # options = [ 1, 2, 3]
-#        options = []
-#        if len(available_attended_stim1)>0:
-#            options.append(1)
-#        if len(available_attended_stim2)>0:
-#            options.append(4)
-#        if len(available_unattended_stim1)>0:
-#            options.append(2)
-#        if len(available_unattended_stim2)>0:
-#            options.append(5)
-#        if len(available_random)>0:
-#            options.append(3)
-#
-#        # if we decide not to show all images then will want to show Rpres and Lpres with same frequency
-#        type = random.choice(options)
-#
-#        if type == 1:
-#            mem_file = random.choice(available_attended_stim1)
-#            mem_dir = stim_dir1
-#        elif type == 4:
-#            mem_file = random.choice(available_attended_stim2)
-#            mem_dir = stim_dir2
-#        elif type == 2:
-#            mem_file = random.choice(available_unattended_stim1)
-#            mem_dir = stim_dir1
-#        elif type == 5:
-#            mem_file = random.choice(available_unattended_stim2)
-#            mem_dir = stim_dir2
-#        else:
-#            mem_file = random.choice(available_random)
-#
-#            if os.path.isfile(stim_dir1+mem_file):
-#                mem_dir = stim_dir1
-#            else:
-#                mem_dir = stim_dir2
+        track_rand = 0
+        
+        # select and load image stimuli
+        # options = [ 1, 2, 3]
+        options = []
+        if len(available_attended_stim1)>0:
+            options.append(1)
+        if len(available_attended_stim2)>0:
+            options.append(4)
+        if len(available_unattended_stim1)>0:
+            options.append(2)
+        if len(available_unattended_stim2)>0:
+            options.append(5)
+        if len(track_rand)<20:
+            options.append(3)
+
+        # if we decide not to show all images then will want to show Rpres and Lpres with same frequency
+        type = random.choice(options)
+        
+        # need to fix how many presented from random
+
+        if type == 1:
+            mem_file = random.choice(available_attended_stim1)
+            mem_dir = stim_dir1
+        elif type == 4:
+            mem_file = random.choice(available_attended_stim2)
+            mem_dir = stim_dir2
+        elif type == 2:
+            mem_file = random.choice(available_unattended_stim1)
+            mem_dir = stim_dir1
+        elif type == 5:
+            mem_file = random.choice(available_unattended_stim2)
+            mem_dir = stim_dir2
+        else:
+            mem_file = random.choice(available_random)
+            track_rand += 1
+
+            if os.path.isfile(stim_dir1+mem_file):
+                mem_dir = stim_dir1
+            else:
+                mem_dir = stim_dir2
 
 
         # change to if statement to get rid of pesky errors
@@ -1321,12 +1326,15 @@ for rep in range(0,repetitions):
         prev_dict = load_prev_p(files)
 
         # list of all previous single memory images
-        prev_stim= mem_dict['images']
+        prev_stim = mem_dict['images']
 
         # list of all previous composite presentation stim
         prev_stim.append(prev_dict['cued'])
         prev_stim.append(prev_dict['uncued'])
         prev_stim = [val for sublist in prev_stim for val in sublist]
+
+        print(prev_stim)
+        print(' ')
 
     else:
         prev_stim = []
