@@ -30,7 +30,7 @@ block = True
 practice_runs = 1
 
 # invalid trials per run
-invalid = 3
+invalid = 1
 total_trials = num_trials + catch
 
 # stim dirs
@@ -247,22 +247,40 @@ print(frame_rate_secs)
 
 # set stim display durations
 
-# fixation
-info['fix_frames'] = int(round(1.0 * frame_rate_secs))
-
-# R/L cue
-info['cue_frames'] = int(round(.5 * frame_rate_secs))
-info['cue_pause_frames'] = int(round(0* frame_rate_secs))
-
 # practice frames
 # R/L cue
-info['cue_pract_long'] = int(round(15.0 * frame_rate_secs))
-info['cue_pract_short'] = int(round(3.0 * frame_rate_secs))
-info['probe_frames'] = int(round(3.0 * frame_rate_secs))
-info['probe_pos'] = 8
-info['cue_pos'] = info['probe_pos']
-info['mem_frames'] = int(round(2 * frame_rate_secs))
-info['mem_pause_frames'] = int(round(1 *frame_rate_secs))
+
+if test == False:
+    # fixation
+    info['fix_frames'] = int(round(1.0 * frame_rate_secs))
+
+    # R/L cue
+    info['cue_frames'] = int(round(.5 * frame_rate_secs))
+    info['cue_pause_frames'] = int(round(0* frame_rate_secs))
+    info['cue_pract_long'] = int(round(15.0 * frame_rate_secs))
+    info['cue_pract_short'] = int(round(3.0 * frame_rate_secs))
+    info['probe_frames'] = int(round(3.0 * frame_rate_secs))
+    info['probe_pos'] = 8
+    info['cue_pos'] = info['probe_pos']
+    info['mem_frames'] = int(round(2 * frame_rate_secs))
+    info['mem_pause_frames'] = int(round(1 *frame_rate_secs))
+    
+if test == True:
+    # fixation
+    info['fix_frames'] = int(round(0 * frame_rate_secs))
+
+    # R/L cue
+    info['cue_frames'] = int(round(0 * frame_rate_secs))
+    info['cue_pause_frames'] = int(round(0* frame_rate_secs))
+
+    info['cue_pract_long'] = int(round(0* frame_rate_secs))
+    info['cue_pract_short'] = int(round(0 * frame_rate_secs))
+    info['probe_frames'] = int(round(0 * frame_rate_secs))
+    info['probe_pos'] = 8
+    info['cue_pos'] = info['probe_pos']
+    info['mem_frames'] = int(round(0 * frame_rate_secs))
+    info['mem_pause_frames'] = int(round(0 *frame_rate_secs))
+
 
 #create objects
 #split up lines to stay within max line length; EP
@@ -351,11 +369,12 @@ total_runs = num_trials*repetitions
 # generate conditions
 # if jittering for scanner, will need to change order and timing accordingly
 
+
 right_left = ['cue_L']*(int(total_runs/2)) + ['cue_R']*(int(total_runs/2))
 face_house = ([cat1[0]]*(int(total_runs/4)) + [cat2[0]]*(int(total_runs/4)))*2
 validity_0 = ([1]*invalid + [0]*(num_trials-invalid))
+validity_0 = validity_0*repetitions
 validity = random.sample(validity_0, len(validity_0))
-validity = validity*total_runs
 
 #cue_tuples is a list of tuples (one per trial) specifying: catch/no, R/L attend, F/H attend
 cue_tuples_0 = zip(right_left, face_house, validity) #, attention)
@@ -365,6 +384,7 @@ if block == False :
 
 else:
     cue_tuples = cue_tuples_0
+    
 
 # make catch params
 # currently not using catch trials
@@ -391,7 +411,7 @@ catches = random.sample(catches_0, len(catches_0))
 # IMTRACE 
 # mem_only_0 --> composite images for mem only
 # mem_only --> single images for mem only
-mem_only_0 = [f for f in random.sample([z for z in os.listdir(dir1) if z.endswith('.jpg')],num_trials)] #*repetitions*4)]
+mem_only_0 = [f for f in random.sample([z for z in os.listdir(dir1) if z.endswith('.jpg')],num_trials*repetitions*2)]
 mem_only_1 = [words for segments in mem_only_0 for words in segments.split('_')]
 
 mem_only_a = mem_only_1[0::2]
@@ -399,6 +419,7 @@ mem_only_a = [s + '.jpg' for s in mem_only_a]
 mem_only_b = mem_only_1[1::2]
 
 mem_only = mem_only_a + mem_only_b
+print(len(mem_only))
 
 ############ EXP FUNCTIONS ############################
 
@@ -672,6 +693,7 @@ def pract_pres2(loop = object):
     
 def pract_mem(loop = object):
     
+    
     items = os.listdir('../../stim/singles_4/')
     trial_count = 0
     
@@ -719,9 +741,13 @@ def pract_mem(loop = object):
 def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData = True, test=False):
 # """Runs experimental block and saves reponses if requested"""
 
+    previous_items = {}
+    cue_tuples = random.sample(cue_tuples, len(cue_tuples))
+    previous_items['cue_tuples'] = cue_tuples
+    print(cue_tuples)
+    
     trial_clock = core.Clock()
 
-    previous_items = {}
     cued = []
     uncued = []
 
@@ -734,6 +760,8 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
     catch_num = 0
 
     for this_trial in loop:
+        
+        counter = 0
 
         if catches[trial_num] == 0:
             params = cue_tuples[cue_tup_num]
@@ -791,6 +819,9 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
         all_items = [f for f in os.listdir(dir1) if f.endswith('.jpg')]
         available_items = [x for x in all_items if (x not in cued and x not in uncued and x not in prev_stim and x not in mem_only_0)]
 
+
+        # NON - PILOT ###########
+        
         #select and load image stimuli at random
         img1_file = random.choice(available_items)
         img1 = dir1+img1_file
@@ -800,6 +831,13 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
             img2_file = random.choice(available_items)
 
         img2 = dir1 + img2_file
+        #####################
+
+
+
+
+        # IMAGE PILOT##########################
+
 
         #assign images as probes (w/ sizes, locations, etc.)
         probe1 = visual.ImageStim(win, img1, size=probe_size, name='Probe1')
@@ -911,7 +949,7 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
     previous_items['uncued'] = uncued
     previous_items['uncued_RT'] = uncued_RT
     previous_items['cued_RT'] = cued_RT
-    previous_items['run_time'] = trial_clock.getTime()
+    #previous_items['run_time'] = trial_clock.getTime()
     previous_items['cue_tuples'] = cue_tuples
 
     with open(pickle_name, 'wb') as f:
@@ -1137,8 +1175,36 @@ def mem_block( conds, current_pickle, prev_stim ):
     # empty list to store items used in memory task
     previous_mem = []
     all_ratings = []
+    
+    # split the composite images into indivudal image file_names
+    current_list['cued'] = [words for segments in current_list['cued'] for words in segments.split('_')]
+    current_list['uncued'] = [words for segments in current_list['uncued'] for words in segments.split('_')]
 
+    current_list['cued_1'] = current_list['cued'][0::2]
+    current_list['cued_1'] = [s + '.jpg' for s in current_list['cued_1']]
+    current_list['cued_2'] = current_list['cued'][1::2]
+
+    current_list['uncued_1'] = current_list['uncued'][0::2]
+    current_list['uncued_1'] = [s + '.jpg' for s in current_list['uncued_1']]
+    current_list['uncued_2'] = current_list['uncued'][1::2]
+    
+    all_attended_stim1 = [x for x in current_list['cued_1'] if x not in previous_mem]
+    all_attended_stim1 = random.sample(all_attended_stim1,len(all_attended_stim1)/2)
+    
+    all_attended_stim2 = [x for x in current_list['cued_2'] if x not in previous_mem]
+    all_attended_stim2 = random.sample(all_attended_stim2,len(all_attended_stim2)/2)
+    
+    all_unattended_stim1 = [x for x in current_list['uncued_1'] if x not in previous_mem]
+    all_unattended_stim1 = random.sample(all_unattended_stim1,len(all_unattended_stim1)/2)
+    
+    all_unattended_stim2 = [x for x in current_list['uncued_2'] if x not in previous_mem]
+    all_unattended_stim2 = random.sample(all_unattended_stim2,len(all_unattended_stim2)/2)
+    
+    
     for each in conds:
+        
+        counter = 0
+        
         all_items = mem_only
         
         # REMOVE AFTER SUCCESSFUL RUN
@@ -1155,45 +1221,34 @@ def mem_block( conds, current_pickle, prev_stim ):
         # first, parse the previous_mem cued and uncued into separate image file names
         # additionally split into attended cat, attended side, cue Left, cue Right, etc
 
-        # split the composite images into indivudal image file_names
-        current_list['cued'] = [words for segments in current_list['cued'] for words in segments.split('_')]
-        current_list['uncued'] = [words for segments in current_list['uncued'] for words in segments.split('_')]
-
-        current_list['cued_1'] = current_list['cued'][0::2]
-        current_list['cued_1'] = [s + '.jpg' for s in current_list['cued_1']]
-        current_list['cued_2'] = current_list['cued'][1::2]
-
-        current_list['uncued_1'] = current_list['uncued'][0::2]
-        current_list['uncued_1'] = [s + '.jpg' for s in current_list['uncued_1']]
-        current_list['uncued_2'] = current_list['uncued'][1::2]
-
         
-        available_attended_stim1 = [x for x in current_list['cued_1'] if x not in previous_mem]
-        available_attended_stim1 = random.sample(available_attended_stim1, len(available_attended_stim1)/2)
+        available_attended_stim1 = [x for x in all_attended_stim1 if x not in previous_mem]
+        available_attended_stim1 = random.sample(available_attended_stim1, len(available_attended_stim1))
         
-        available_attended_stim2 = [x for x in current_list['cued_2'] if x not in previous_mem]
-        available_attended_stim2 = random.sample(available_attended_stim2, len(available_attended_stim2)/2)
+        available_attended_stim2 = [x for x in all_attended_stim2 if x not in previous_mem]
+        available_attended_stim2 = random.sample(available_attended_stim2, len(available_attended_stim2))
 
-        available_unattended_stim1 = [x for x in current_list['uncued_1'] if x not in previous_mem]
-        available_unattended_stim1 = random.sample(available_unattended_stim1, len(available_unattended_stim1)/2)
+        available_unattended_stim1 = [x for x in all_unattended_stim1 if x not in previous_mem]
+        available_unattended_stim1 = random.sample(available_unattended_stim1, len(available_unattended_stim1))
         
-        available_unattended_stim2 = [x for x in current_list['uncued_2'] if x not in previous_mem]
-        available_unattended_stim2 = random.sample(available_unattended_stim2, len(available_unattended_stim2)/2)
+        available_unattended_stim2 = [x for x in all_unattended_stim2 if x not in previous_mem]
+        available_unattended_stim2 = random.sample(available_unattended_stim2, len(available_unattended_stim2))
 
         # IMTRACE -- MAKE SURE PREV_STIM ARE SPLIT FILENAMES
-        available_random = [x for x in all_items if
+        available_random = [x for x in mem_only if
                             (x not in previous_mem
                             and x not in current_list['cued_1']
                             and x not in current_list['cued_2']
                             and x not in current_list['uncued_1']
                             and x not in current_list['uncued_2']
                             and x not in prev_stim)]
+        print(available_random)
                             # IMTRACE: need to split cued and uncued here
 
 
         # select and load image stimuli
-        # mem_files = available_attended_stim1 + available_attended_stim2 + available_unattended_stim1 + available_unattended_stim2 + random.sample(available_random, repetitions*2)
-        # mem_files = random.sample(mem_files, len(mem_files))
+#        mem_files = available_attended_stim1 + available_attended_stim2 + available_unattended_stim1 + available_unattended_stim2 + random.sample(available_random, repetitions*2)
+#        mem_files = random.sample(mem_files, len(mem_files))
         
         track_rand = 0
         
@@ -1208,7 +1263,7 @@ def mem_block( conds, current_pickle, prev_stim ):
             options.append(2)
         if len(available_unattended_stim2)>0:
             options.append(5)
-        if len(track_rand)<20:
+        if track_rand<20:
             options.append(3)
 
         # if we decide not to show all images then will want to show Rpres and Lpres with same frequency
@@ -1243,7 +1298,7 @@ def mem_block( conds, current_pickle, prev_stim ):
         # Type = 'Faces'
         # mem = '/Users/kirstenziman/Documents/GitHub/P4N2016/stim/OddballLocStims/'+Type+'/'+mem_file
         
-        mem_file = random.sample(mem_files, 1)
+        #mem_file = random.sample(mem_files, 1)
         
         mem = mem_dir + mem_file
 
@@ -1308,7 +1363,9 @@ if practice_runs == 0:
 # for specified # of reps, run presentation then memory
 for rep in range(0,repetitions):
 
+    
     cue_tuple_input = cue_tuples[rep*num_trials:(rep+1)*num_trials]
+    #print(cue_tuple_input)
     # practice_trials = data.TrialHandler(trialList = [{}]*(practice_slow_trials + practice_quick_trials), nReps = 1)
 
     # pickle_name for use in both functions
@@ -1326,15 +1383,18 @@ for rep in range(0,repetitions):
         prev_dict = load_prev_p(files)
 
         # list of all previous single memory images
-        prev_stim = mem_dict['images']
+        prev_stim = [mem_dict['images']]
 
         # list of all previous composite presentation stim
         prev_stim.append(prev_dict['cued'])
         prev_stim.append(prev_dict['uncued'])
+
+        # for now, do this step twice
+        prev_stim = [val for sublist in prev_stim for val in sublist]
         prev_stim = [val for sublist in prev_stim for val in sublist]
 
-        print(prev_stim)
-        print(' ')
+#        print(prev_stim)
+#        print(' ')
 
     else:
         prev_stim = []
