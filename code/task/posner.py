@@ -12,7 +12,7 @@ vers = '2.0'
 # edit the parameters in this section only ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # test mode
-test = True
+test = False
 
 # runs
 repetitions = 8
@@ -930,6 +930,8 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
 
         if ( cue == cue_right and position > 1 ):
             cued_RT.append(rt)
+            
+        
 
         else:
             uncued_RT.append(rt)
