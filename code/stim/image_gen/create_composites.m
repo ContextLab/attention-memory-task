@@ -3,10 +3,10 @@
 
 %% variables and path names
 
-main_dir = '/Users/kirstenziman/Desktop/360_stim_new/';
+main_dir = '/Users/kirstenziman/Desktop/scene_ob/';
 
-subdir_1 = 'faces/';
-subdir_2 = 'scenes/';
+subdir_1 = 'obs/';
+subdir_2 = 'places/';
 
 % file extension of image files
 file_ext = '.jpg';
@@ -27,12 +27,15 @@ for x = 1:length(file_list_1);
     composite = imfuse(im1, im2, 'blend','Scaling','joint');
 
     % composite image filename (combo of original file names)
-    comp_name = strcat('/Users/kirstenziman/Desktop/composites_new/', file_list_1(x).name(1:length(file_list_1(x).name)-length(file_ext)), '_', file_list_2(x).name);
+    comp_name = strcat('/Users/kirstenziman/Desktop/ob_comp/', file_list_1(x).name(1:length(file_list_1(x).name)-length(file_ext)), '_', file_list_2(x).name);
+    ob_name = strcat('/Users/kirstenziman/Desktop/object_singles/', file_list_1(x).name);
+    ob_im = imread(path1)
     
     % save composite
     imwrite(composite, comp_name);
-    
+    imwrite(ob_im, ob_name);
 end
+
 
 %% split file lists 
 
