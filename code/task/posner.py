@@ -5,6 +5,7 @@
 
 ## IMPORTS ###########################################
 
+import psychopy
 from psychopy import visual, event, core, data, gui, logging
 from itertools import groupby
 import random
@@ -14,7 +15,7 @@ import fnmatch
 import glob
 import pandas as pd
 import sys
-import pylinkwrapper
+#import pylinkwrapper
 
 sys.path.insert(0, '../analysis/')
 from analysis import *
@@ -26,13 +27,10 @@ vers = '2.0'
 ## edit parameters in section below only! ~~~~~~~~~~~
 
 # test mode
-test = True
+test = False
 
 # eye tracking
 track = False
-
-# icon
-object = True
 
 # runs
 repetitions = 8
@@ -517,7 +515,6 @@ def practice_block( practice_dir, practice_runs, loop = object, maxWait = 120 ):
                 show_instructions(text = this_instruct, center_image1=True, acceptedKeys = None)
             else:
                 show_instructions(text = this_instruct, center_image1=True, acceptedKeys = None)
-                
         elif trial_count in [5,7]:
             show_instructions(text = this_instruct, hybrid_pair=True, acceptedKeys = None)
         elif trial_count in [8]:
@@ -546,6 +543,7 @@ def practice_block( practice_dir, practice_runs, loop = object, maxWait = 120 ):
 def pract_pres1(loop = object):
     
     trial_count = 0
+    
     
     for this_trial in loop:
         
@@ -695,6 +693,7 @@ def pract_pres2(loop = object):
 def pract_mem(loop = object):
     
     items = os.listdir('../../stim/singles_4_F/')
+
     trial_count = 0
     
     for this_trial in loop:
@@ -909,10 +908,10 @@ def pres_block( cue_tuples, pickle_name, prev_stim, run, loop = object, saveData
             elif (resp == None and test == True):
                 rt = 'test'
 
-        if ( cue == cue_right and position > 1 ):
+        if cue == cue_right and position > 1 :
             cued_RT.append(rt)
-        
-        elif ( cue == cue_left and position < 1 ):
+            
+        elif cue == cue_left and position < 1:
             cued_RT.append(rt)
 
         else:
@@ -1030,7 +1029,7 @@ def mem_block( conds, current_pickle, prev_stim ):
 
 ######### RUN EXPERIMENT ###########
 
-if track = True
+if track == True:
 
     # Initiate eye-tracker link and open EDF
     tracker = pylinkwrapper.Connect(win, '1_test')
