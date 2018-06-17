@@ -345,6 +345,7 @@ def probe_stim(win, cued_side, validity):
 
 def display(win, stim_list, frames, accepted_keys=None):
     rt = None
+    resp = None
 
     for x in stim_list:
         x.setAutoDraw(True)
@@ -355,27 +356,110 @@ def display(win, stim_list, frames, accepted_keys=None):
         event.clearEvents()
 
     for frame_n in range(frames):
+
         if type(accepted_keys)==list:
             if frame_n == 0:
+                resp_clock.reset()
                 keys = event.getKeys(keyList = accepted_keys)
             if len(keys) > 0:
-                rt = resp_clock.getTime()
                 resp = keys[0]
+                rt = resp_clock.getTime()
                 break
-        win.flip()
+            # clear screen
+            win.flip()
+            for x in stim_list:
+                x.setAutoDraw(False)
 
+            # if no response, wait until response
+            if resp == None:
+                keys = event.waitKeys(keyList = accepted_keys)
+                resp = keys[0]
+                rt = resp_clock.getTime()
+
+            win.flip()
+
+        else:
+            win.flip()
+
+    # clear screen
+    win.flip()
     for x in stim_list:
         x.setAutoDraw(False)
 
-    win.flip()
-    return(rt)
+    return([resp,rt])
+
+#
+# # display probe, break if response recorded
+# fixation.setAutoDraw(True)
+# probe.setAutoDraw(True)
+# win.callOnFlip(resp_clock.reset)
+# event.clearEvents()
+#
+# for frame_n in range(info['probe_frames']):
+#     if frame_n == 0:
+#         resp_clock.reset()
+#         keys = event.getKeys(keyList = ['1','3'])
+#     if len(keys) > 0:
+#         resp = keys[0]
+#         rt = resp_clock.getTime()
+#         break
+#
+#     # clear screen
+#     win.flip()
+#     probe.setAutoDraw(False)
+#
+#     # if no response, wait until response
+#     if (resp == None and test == False):
+#         keys = event.waitKeys(keyList = ['1', '3'])
+#         resp = keys[0]
+#         rt = resp_clock.getTime()
+#
+#
+#
+#     # clear screen
+#     win.flip()
+#     for x in stim_list:
+#         x.setAutoDraw(False)
+#
+#     return(rt)
+#
+#
+#     # if no response, wait until response
+#     if resp == None and type(accepted_keys)==list:
+#         keys = event.waitKeys(keyList = accepted_keys)
+#         resp = keys[0]
+#         rt = resp_clock.getTime()
+#
+#     win.flip()
+#
+#     return(rt)
+
+
+
+# ####
+#         for frame_n in range(info['probe_frames']):
+#             if frame_n == 0:
+#                 resp_clock.reset()
+#                 keys = event.getKeys(keyList = ['1','3'])
+#             if len(keys) > 0:
+#                 resp = keys[0]
+#                 rt = resp_clock.getTime()
+#                 break
+#
+#             # clear screen
+#             win.flip()
+#             probe.setAutoDraw(False)
+#
+#             # if no response, wait until response
+#             if (resp == None and test == False):
+#                 keys = event.waitKeys(keyList = ['1', '3'])
+#                 resp = keys[0]
+#                 rt = resp_clock.getTime()
+
 
 def pause(win, frames):
-
     for frame_n in range(frames):
         win.flip()
-
-
 
 
 # Presentation run
@@ -387,11 +471,9 @@ def presentation_run(win, pres_df, params, timing, paths, test = False):
     cue1.setPos( [0, 2] )
     cue2.setPos( [0, 0] )
     fixation = fix_stim(win)
-    #probe = probe_stim(win)
 
     # flash cue
     display(win, [cue1,cue2], timing['cue'])
-    #display(win, [probe], timing['cue'], accepted_buttons=[])
     pause(win, timing['pause'])
 
     # start fixation
@@ -404,8 +486,9 @@ def presentation_run(win, pres_df, params, timing, paths, test = False):
 
         # display stim
         display(win, images, timing['probe'])
-        pres_df['Attention Reaction Time (s)'].loc[trial] = display(win, [circle], timing['probe'], accepted_keys=[])
+        pres_df['Attention Reaction Time (s)'].loc[trial] = display(win, [circle], timing['probe'], accepted_keys=['1','3'])
         # accepted_keys = [] accepts keypress from any button
+        print(pres_df['Attention Reaction Time (s)'].loc[trial])
         pause(win, timing['pause'])
 
 
