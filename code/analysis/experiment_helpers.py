@@ -7,7 +7,7 @@ import random
 import os
 import time
 
-# Data entry and organization functions
+# Data entry, organization, trial setup functions
 
 def subject_info(header, data_path, path_only=False):
     '''
@@ -30,7 +30,7 @@ def subject_directory(info, data_path, path_only=False):
     '''
     Creates subject directory if does not exist
     '''
-    
+
     dir_name = data_path + str(info['participant']) + '_' + data.getDateStr()[0:11] + '/'
 
     if not os.path.exists(dir_name):
@@ -140,12 +140,11 @@ def cue_create(params):
     return three lists, total-tirals-in-experiment long, assigning cued side,
     cued category, and cue validity for each trial
     '''
-    
+
     presentations_per_run = params['presentations_per_run']
     runs = params['runs']
 
-    # create tuples, one per trial, chunked by block, that assign:
-    # cued side, cued category
+    # create tuples, one per trial, chunked by block, that assign: cued side, cued category
     cued_side = ['<']*int(presentations_per_run*runs/2)+['>']*int(presentations_per_run*runs/2)
     cued_category = flatten([['Face']*int(presentations_per_run*runs/4)+['Place']*int(presentations_per_run*runs/4)]*2)
 
@@ -172,9 +171,10 @@ def cue_create(params):
                 reshuffle=False
 
     cue_tuples = flatten(cue_tuples)
+    final = [[x[0] for x in cue_tuples],[x[1] for x in cue_tuples],validity]
 
     # return list for each
-    return([[x[0] for x in cue_tuples],[x[1] for x in cue_tuples],validity])
+    return(final)
 
 def trial_setup(params):
     '''
@@ -202,10 +202,9 @@ def presentation_images(presentation):
 
     for x,y in zip(['Cued','Uncued'],[cued, uncued]):
         images[x] = {'composite':y, 'place':img_split(y, cat=True)['place_im'], 'face':img_split(y, cat=True)['face_im']}
-        
-    print(images)
+
     return(images)
-    
+
 def group_it(data, num):
     return([data[i:i+num] for i in range(0, len(data), num)])
 
@@ -213,13 +212,13 @@ def memory_images(presentation, memory):
     '''
     returns list of memory images, half novel and half previously seen
     '''
-    
+
     # parse the presented and mem_only images
     cued = presentation[0:int(len(presentation)/2)]
     uncued = presentation[int(len(presentation)/2):]
     memory_face = img_split(memory, cat=True)['face_im']
     memory_place = img_split(memory, cat=True)['place_im']
-    
+
     # group by trials
     cued = group_it(cued, 10)
     uncued = group_it(uncued, 10)
@@ -229,7 +228,7 @@ def memory_images(presentation, memory):
     # append the split singles from all selected images (1/2 prev seen, and all chosen for memory)
     singles = []
     for x in range(len(cued)):
-        singles.extend(img_split(random.sample(cued[x],int(len(cued[x])/2)))) 
+        singles.extend(img_split(random.sample(cued[x],int(len(cued[x])/2))))
         singles.extend(img_split(random.sample(uncued[x],int(len(uncued[x])/2))))
         singles.extend(memory_face[x])
         singles.extend(memory_place[x])
@@ -243,83 +242,182 @@ def initialize_df(info, categories, paths, subject_directory, params, save=True)
     including all trial-wise parameters, and empty cells (None type) for experimental data
     '''
 
-    runs=params['runs']
-    presentations_per_run = params['presentations_per_run']
-    invalid_cue_percentage = params['invalid_cue_percentage']
-    mem_to_pres = params['mem_to_pres']
-    mem_pres_split = params['mem_pres_split']
+    total_pres = params['presentations_per_run']*params['runs']
 
     # create column names
-    columns = ['Subject', 'Block', 'Trial Type', 'Run', 'Cued Composite', 'Uncued Composite', 'Cued Face',
+    columns = ['Subject', 'Trial Type', 'Run', 'Cued Composite', 'Uncued Composite', 'Cued Face',
                 'Cued Place', 'Uncued Face', 'Uncued Place', 'Memory Image', 'Category', 'Cued Side',
                 'Cued Category', 'Attention Reaction Time (s)', 'Familiarity Reaction Time (s)',
                 'Familiarity Rating', 'Attention Level', 'Cue Validity', 'Post Invalid Cue', 'Pre Invalid Cue']
 
-    df = pd.DataFrame(index = range(runs*presentations_per_run + runs*presentations_per_run*4), columns=columns)
+    df = pd.DataFrame(index = range(total_pres*5), columns=columns)
 
-    # add subject number to dataframe
+    # add subject#, run#, trial types, cues
     df['Subject'] = info['participant']
-
-    # assign run # and trial type to each row
     df['Run'],df['Trial Type'] = trial_setup(params)
-
-    # assign cues for each presentation trial
     mask = df['Trial Type']=='Presentation'
     df.loc[mask,'Cued Side'],df.loc[mask,'Cued Category'],df.loc[mask,'Cue Validity'] = cue_create(params)
 
     # Select composite images
-    composites = random.sample(os.listdir(paths['stim_path']+'composite/'), presentations_per_run*runs*(params['mem_to_pres']-1))
+    composites = random.sample(os.listdir(paths['stim_path']+'composite/'), total_pres*(params['mem_to_pres']-1))
     presentation = composites[0:int(len(composites)*2/3)]
     memory = composites[int(len(composites)*2/3):]
 
-    # add all presentation images
+    # add presentation images
     pres_dict = presentation_images(presentation)
-    
+
     for cue in ['Cued','Uncued']:
         df.loc[mask, cue+' Composite']=pres_dict[cue]['composite']
         df.loc[mask, cue+' Face']=pres_dict[cue]['face']
         df.loc[mask, cue+' Place']=pres_dict[cue]['place']
 
-    # add all memory images
+    # add memory images
     mask2 = df['Trial Type']=='Memory'
     df.loc[mask2, 'Memory Image']= memory_images(presentation, memory)
 
-    # save out original dataframe
-    if save == True:
-        df.to_csv('yippee')
+    # save dataframe
+    df.to_csv('intial_df')
 
     return(df)
 
 
-# Basic stimulus presentation functions
+# Visual stim creation & presentation
 
-def stim_on(stim, duration=None):
-    for x in stim:
+def cue_stim(win, side, category, stim_dir):
+    '''
+    inputs: presentation trial #, cue side, cue cat
+    outputs: appropriate cue or fixation stim for center screen
+    '''
+
+    stim1 = visual.ImageStim(win, image=stim_dir+'cue/'+category+'.png', size=2) #, name=category+'_icon')
+    #stim1.setPos([-2.5, 0])
+
+    stim2 = visual.TextStim(win=win, ori=0, name='cue_side', text = side, font='Arial',
+            height=2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0)
+
+    return([stim1,stim2])
+
+def fix_stim(win):
+    stim1 = visual.TextStim(win=win, ori=0, name='fixation_cross', text='+', font='Arial',
+                  height = 2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0)
+    return(stim1)
+
+# def probe_stim(win):
+#     probe = visual.TextStim(win=win, ori=0, name='posner', text='o', font='Arial', height = 2, color='lightGrey',
+#             colorSpace='rgb', opacity=1, depth=0.0)
+#     return(probe)
+
+def cued_pos(side, validity=True):
+
+    if side == '>' and validity==True:
+        pos = 8
+    if side == '>' and validity==False:
+        pos = -8
+    if side == '<' and validity==True:
+        pos = -8
+    else:
+        pos = 8
+
+    return(pos)
+
+def composite_pair(win, cued, uncued, side, stim_dir):
+    cued_position = cued_pos(side)
+
+    cued = stim_dir+'composite/'+cued
+    uncued = stim_dir+'composite/'+uncued
+    probe_size=7
+
+    probe1 = visual.ImageStim(win, cued, size=probe_size, name='Probe1')
+    probe1.setPos( [cued_position, 0] )
+
+    probe2 = visual.ImageStim(win, uncued, size=probe_size, name='Probe2')
+    probe2.setPos( [-cued_position, 0] )
+
+    return(probe1, probe2)
+
+def probe_stim(win, cued_side, validity):
+    probe = visual.TextStim(win=win, ori=0, name='posner', text='o', font='Arial', height = 2, color='lightGrey',
+            colorSpace='rgb', opacity=1, depth=0.0)
+
+    cued_position = cued_pos(cued_side, validity=validity)
+    probe.setPos([cued_position, 0])
+    return(probe)
+
+def display(win, stim_list, frames, accepted_keys=None):
+    rt = None
+
+    for x in stim_list:
         x.setAutoDraw(True)
 
-    # if duration != None:
+    if type(accepted_keys)==list:
+        resp_clock = core.Clock()
+        win.callOnFlip(resp_clock.reset)
+        event.clearEvents()
 
-def stim_off(stim):
-    for x in stim:
+    for frame_n in range(frames):
+        if type(accepted_keys)==list:
+            if frame_n == 0:
+                keys = event.getKeys(keyList = accepted_keys)
+            if len(keys) > 0:
+                rt = resp_clock.getTime()
+                resp = keys[0]
+                break
+        win.flip()
+
+    for x in stim_list:
         x.setAutoDraw(False)
 
-def fixation(win, type='+', stim_dir='../../stim/', duration=None, switch='on'):
-    '''
-    Creates either fixation cross or cues (category icon and R/L arrow) to present center screen
+    win.flip()
+    return(rt)
 
-    :return: list of visual stim (list[0] is central stim (fixation or arrow), list[1] is category cue if applicable)
-    '''
+def pause(win, frames):
 
-    center_stim = visual.TextStim(win=win, ori=0, name='fixation_cross', text=fixation_type[0], font='Arial',
-                                  height = 2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0)
-    stim = [center_stim]
+    for frame_n in range(frames):
+        win.flip()
 
-    if len(type)>1:
-        cue_icon = visual.ImageStim(win, stim_dir+'cue/'+fixation[1:]+'.png', size=2, name=fixation[1:]+'_icon')
-        cue_icon.setPos([-2.5, 0])
-        stim.append(cue_icon)
 
-    return(stim)
+
+
+# Presentation run
+
+def presentation_run(win, pres_df, params, timing, paths, test = False):
+
+    # Create cue, fixation, and validity stim
+    cue1, cue2 = cue_stim(win, pres_df['Cued Side'][0], pres_df['Cued Category'][0], paths['stim_path'])
+    cue1.setPos( [0, 2] )
+    cue2.setPos( [0, 0] )
+    fixation = fix_stim(win)
+    #probe = probe_stim(win)
+
+    # flash cue
+    display(win, [cue1,cue2], timing['cue'])
+    #display(win, [probe], timing['cue'], accepted_buttons=[])
+    pause(win, timing['pause'])
+
+    # start fixation
+    fixation.setAutoDraw(True)
+
+    for trial in pres_df.index.values:
+        # make stim
+        images = composite_pair(win, pres_df['Cued Composite'].loc[trial],pres_df['Uncued Composite'].loc[trial], pres_df['Cued Side'][trial], paths['stim_path'])
+        circle = probe_stim(win, pres_df['Cued Side'][trial], pres_df['Cue Validity'][trial])
+
+        # display stim
+        display(win, images, timing['probe'])
+        pres_df['Attention Reaction Time (s)'].loc[trial] = display(win, [circle], timing['probe'], accepted_keys=[])
+        # accepted_keys = [] accepts keypress from any button
+        pause(win, timing['pause'])
+
+
+
+
+# Memory run
+
+
+
+
+
+
 
 #def image_stimuli(data, composite=True, number=2):
 
