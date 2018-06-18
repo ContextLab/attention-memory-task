@@ -7,7 +7,7 @@ import random
 import os
 import time
 
-# Data entry, organization, trial setup functions
+# Data entry & organization functions
 
 def subject_info(header, data_path, path_only=False):
     '''
@@ -135,6 +135,9 @@ def post_questionnaire(info, save=True, save_path='.'):
     else:
         return(end_data)
 
+
+# Trial params & Visual stimulus creation
+
 def cue_create(params):
     '''
     return three lists, total-tirals-in-experiment long, assigning cued side,
@@ -208,7 +211,7 @@ def presentation_images(presentation):
 def group_it(data, num):
     return([data[i:i+num] for i in range(0, len(data), num)])
 
-def memory_images(presentation, memory):
+def memory_image(presentation, memory):
     '''
     returns list of memory images, half novel and half previously seen
     '''
@@ -248,7 +251,8 @@ def initialize_df(info, categories, paths, subject_directory, params, save=True)
     columns = ['Subject', 'Trial Type', 'Run', 'Cued Composite', 'Uncued Composite', 'Cued Face',
                 'Cued Place', 'Uncued Face', 'Uncued Place', 'Memory Image', 'Category', 'Cued Side',
                 'Cued Category', 'Attention Reaction Time (s)', 'Familiarity Reaction Time (s)',
-                'Familiarity Rating', 'Attention Level', 'Cue Validity', 'Post Invalid Cue', 'Pre Invalid Cue']
+                'Familiarity Rating', 'Attention Level', 'Cue Validity', 'Post Invalid Cue', 'Pre Invalid Cue',
+                'Attention Button']
 
     df = pd.DataFrame(index = range(total_pres*5), columns=columns)
 
@@ -273,15 +277,12 @@ def initialize_df(info, categories, paths, subject_directory, params, save=True)
 
     # add memory images
     mask2 = df['Trial Type']=='Memory'
-    df.loc[mask2, 'Memory Image']= memory_images(presentation, memory)
+    df.loc[mask2, 'Memory Image']= memory_image(presentation, memory)
 
     # save dataframe
     df.to_csv('intial_df')
 
     return(df)
-
-
-# Visual stim creation & presentation
 
 def cue_stim(win, side, category, stim_dir):
     '''
@@ -302,11 +303,6 @@ def fix_stim(win):
                   height = 2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0)
     return(stim1)
 
-# def probe_stim(win):
-#     probe = visual.TextStim(win=win, ori=0, name='posner', text='o', font='Arial', height = 2, color='lightGrey',
-#             colorSpace='rgb', opacity=1, depth=0.0)
-#     return(probe)
-
 def cued_pos(side, validity=True):
 
     if side == '>' and validity==True:
@@ -325,12 +321,11 @@ def composite_pair(win, cued, uncued, side, stim_dir):
 
     cued = stim_dir+'composite/'+cued
     uncued = stim_dir+'composite/'+uncued
-    probe_size=7
 
-    probe1 = visual.ImageStim(win, cued, size=probe_size, name='Probe1')
+    probe1 = visual.ImageStim(win, cued, size=7, name='Probe1')
     probe1.setPos( [cued_position, 0] )
 
-    probe2 = visual.ImageStim(win, uncued, size=probe_size, name='Probe2')
+    probe2 = visual.ImageStim(win, uncued, size=7, name='Probe2')
     probe2.setPos( [-cued_position, 0] )
 
     return(probe1, probe2)
@@ -365,6 +360,7 @@ def display(win, stim_list, frames, accepted_keys=None):
                 resp = keys[0]
                 rt = resp_clock.getTime()
                 break
+
             # clear screen
             win.flip()
             for x in stim_list:
@@ -386,83 +382,31 @@ def display(win, stim_list, frames, accepted_keys=None):
     for x in stim_list:
         x.setAutoDraw(False)
 
-    return([resp,rt])
-
-#
-# # display probe, break if response recorded
-# fixation.setAutoDraw(True)
-# probe.setAutoDraw(True)
-# win.callOnFlip(resp_clock.reset)
-# event.clearEvents()
-#
-# for frame_n in range(info['probe_frames']):
-#     if frame_n == 0:
-#         resp_clock.reset()
-#         keys = event.getKeys(keyList = ['1','3'])
-#     if len(keys) > 0:
-#         resp = keys[0]
-#         rt = resp_clock.getTime()
-#         break
-#
-#     # clear screen
-#     win.flip()
-#     probe.setAutoDraw(False)
-#
-#     # if no response, wait until response
-#     if (resp == None and test == False):
-#         keys = event.waitKeys(keyList = ['1', '3'])
-#         resp = keys[0]
-#         rt = resp_clock.getTime()
-#
-#
-#
-#     # clear screen
-#     win.flip()
-#     for x in stim_list:
-#         x.setAutoDraw(False)
-#
-#     return(rt)
-#
-#
-#     # if no response, wait until response
-#     if resp == None and type(accepted_keys)==list:
-#         keys = event.waitKeys(keyList = accepted_keys)
-#         resp = keys[0]
-#         rt = resp_clock.getTime()
-#
-#     win.flip()
-#
-#     return(rt)
-
-
-
-# ####
-#         for frame_n in range(info['probe_frames']):
-#             if frame_n == 0:
-#                 resp_clock.reset()
-#                 keys = event.getKeys(keyList = ['1','3'])
-#             if len(keys) > 0:
-#                 resp = keys[0]
-#                 rt = resp_clock.getTime()
-#                 break
-#
-#             # clear screen
-#             win.flip()
-#             probe.setAutoDraw(False)
-#
-#             # if no response, wait until response
-#             if (resp == None and test == False):
-#                 keys = event.waitKeys(keyList = ['1', '3'])
-#                 resp = keys[0]
-#                 rt = resp_clock.getTime()
-
+    return([rt, resp])
 
 def pause(win, frames):
     for frame_n in range(frames):
         win.flip()
 
+def memory_stim(win, image, stim_dir):
+    image = stim_dir+'single/'+image
+    im = visual.ImageStim(win, image, size=7, name='mem_image')
+    im.setPos([0, 0])
+    return(im)
 
-# Presentation run
+def rating_pull(rating_tuple):
+    '''
+    pulls subject's rating out of rating tuple
+    '''
+    if len(rating_tuple)>1:
+        rating = rating_tuple[1][0]
+        rt = rating_tuple[0][0]
+    else:
+        rating = rating_tuple[0][0]
+        rt = None
+    return(rating, rt)
+
+# Presentation & Memory runs
 
 def presentation_run(win, pres_df, params, timing, paths, test = False):
 
@@ -486,18 +430,39 @@ def presentation_run(win, pres_df, params, timing, paths, test = False):
 
         # display stim
         display(win, images, timing['probe'])
-        pres_df['Attention Reaction Time (s)'].loc[trial] = display(win, [circle], timing['probe'], accepted_keys=['1','3'])
-        # accepted_keys = [] accepts keypress from any button
-        print(pres_df['Attention Reaction Time (s)'].loc[trial])
+        pres_df['Attention Reaction Time (s)'].loc[trial], pres_df['Attention Button'].loc[trial] = display(win, [circle], timing['probe'], accepted_keys=['1','3'])
         pause(win, timing['pause'])
 
+    fixation.setAutoDraw(False)
 
+def memory_run(win, mem_df, params, timing, paths, test = False):
 
+    fixation = fix_stim(win)
 
-# Memory run
+    for trial in mem_df.index.values:
 
+        rating_scale = visual.RatingScale( win, low = 1, high = 4, labels=['unfamiliar','familiar'], scale='1               2               3               4',
+                                            singleClick = True, pos = [0,-.42], acceptPreText = '-',
+                                            maxTime=3.0, minTime=0, marker = 'triangle', showAccept=False, acceptSize=0)
 
+        resp_clock = core.Clock()
+        im_path = paths['stim_path']+'single/'+mem_df['Memory Image']
+        image = memory_stim(win, mem_df['Memory Image'][trial], paths['stim_path'])
+        display(win, [fixation], timing['pause'])
 
+        event.getKeys(keyList = None)
+        for frame_n in range(timing['mem']):
+            image.setAutoDraw(True)
+            rating_scale.setAutoDraw(True)
+            if frame_n == 0:
+                resp_clock.reset()
+            win.flip()
+        choice_history = rating_scale.getHistory()
+        rating_scale.setAutoDraw(False)
+        image.setAutoDraw(False)
+        win.flip()
+
+        mem_df['Familiarity Rating'].loc[trial],mem_df['Familiarity Reaction Time (s)'].loc[trial] = rating_pull(choice_history)
 
 
 

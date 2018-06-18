@@ -1,4 +1,5 @@
 
+
 # This experiment was created by Kirsten Ziman (Kirsten.K.Ziman.gr@Dartmouth.edu)
 # for more information, visit: www.context-lab.com
 
@@ -48,6 +49,7 @@ rate = win.getActualFrameRate()
 timing = {'cue':int(round(1.5 * rate)), 'probe':int(round(3.0 * rate)), 'mem':int(round(2 * rate)), 'pause':int(round(1 *rate))}
 
 
+
 # Run Experiment #####################################################################################
 
 
@@ -83,9 +85,15 @@ mask2 = df['Trial Type']=='Memory'
 
 # Pres & Mem runs #
 for run in range(params['runs']):
+    
+    # show pres instruct (0 or other) 
+    
     mask3 = df['Run']==run
-    presentation_run(win, df.loc[mask1][mask3], params, timing, paths) #, test=test_mode)
-    #memory_run(df.loc[mask2, mask3], params, timing, paths, test=False)
+    presentation_run(win, df.loc[mask1][mask3], params, timing, paths) 
+    
+    # show memory instruct (0 or other)
+    
+    memory_run(win, df.loc[mask2][mask3], params, timing, paths)
     
 
 # post questionnaire #
