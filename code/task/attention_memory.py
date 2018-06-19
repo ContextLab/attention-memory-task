@@ -35,6 +35,7 @@ paths = {'data_path':'../../data/', 'stim_path':'../../stim/'}
 # Obtain participant info (pop-up) and make subdir #
 info = subject_info(experiment_title, paths['data_path'])
 subject_directory = subject_directory(info, paths['data_path'], path_only=True)
+paths['subject'] = subject_directory
 
 # Initiate clock #
 global_clock = core.Clock()
@@ -98,4 +99,4 @@ for run in range(params['runs']):
 
 # post questionnaire #
 #post_info = post_questionnaire(subject[0], save=save_data, save_path=paths['data_path'])
-
+df.to_csv(paths['subject']+'finl_df.csv')

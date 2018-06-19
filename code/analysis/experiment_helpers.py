@@ -280,8 +280,7 @@ def initialize_df(info, categories, paths, subject_directory, params, save=True)
     df.loc[mask2, 'Memory Image']= memory_image(presentation, memory)
 
     # save dataframe
-    df.to_csv('intial_df')
-
+    df.to_csv(paths['subject']+'intial_df.csv')
     return(df)
 
 def cue_stim(win, side, category, stim_dir):
@@ -409,9 +408,10 @@ def rating_pull(rating_tuple):
 # Presentation & Memory runs
 
 def presentation_run(win, pres_df, params, timing, paths, test = False):
+    first_row = pres_df.index.values[0]
 
     # Create cue, fixation, and validity stim
-    cue1, cue2 = cue_stim(win, pres_df['Cued Side'][0], pres_df['Cued Category'][0], paths['stim_path'])
+    cue1, cue2 = cue_stim(win, pres_df['Cued Side'][first_row], pres_df['Cued Category'][first_row], paths['stim_path'])
     cue1.setPos( [0, 2] )
     cue2.setPos( [0, 0] )
     fixation = fix_stim(win)
@@ -434,6 +434,7 @@ def presentation_run(win, pres_df, params, timing, paths, test = False):
         pause(win, timing['pause'])
 
     fixation.setAutoDraw(False)
+    pres_df.to_csv(paths['subject']+'pres'+str(pres_df['Run'][trial])+'.csv')
 
 def memory_run(win, mem_df, params, timing, paths, test = False):
 
@@ -463,6 +464,7 @@ def memory_run(win, mem_df, params, timing, paths, test = False):
         win.flip()
 
         mem_df['Familiarity Rating'].loc[trial],mem_df['Familiarity Reaction Time (s)'].loc[trial] = rating_pull(choice_history)
+        mem_df.to_csv(paths['subject']+'mem'+str(mem_df['Run'][trial])+'.csv')
 
 
 
