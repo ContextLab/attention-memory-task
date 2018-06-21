@@ -392,9 +392,11 @@ def pause(win, frames):
     for frame_n in range(frames):
         win.flip()
 
-def memory_stim(win, image, stim_dir, practice=False):
+def memory_stim(win, image, stim_dir, practice=False, practice_single=False):
     if practice:
         image = stim_dir+'practice_composite/'+image
+    elif practice_single:
+        image = stim_dir+'practice_single/'+image
     else:
         image = stim_dir+'single/'+image
 
@@ -582,7 +584,12 @@ def pres_text(trial):
 
     instructions = [pres1, pres2]
 
-    return(instructions[trial])
+    if trial >= 1:
+        num = 1
+    else:
+        num = 0
+
+    return(instructions[num])
 
 def thank_text():
     thanks = 'Thank you for your participation! '
@@ -695,15 +702,13 @@ def pract_mem(win, im_list, paths, timing):
                                             singleClick = True, pos = [0,-.42], acceptPreText = '-',
                                             maxTime=3.0, minTime=0, marker = 'triangle', showAccept=False, acceptSize=0)
 
-        image = memory_stim(win, im_list[trial], paths['stim_path'], practice=True)
+        image = memory_stim(win, im_list[trial], paths['stim_path'], practice_single=True)
         display(win, [fixation], timing['pause'])
 
         event.getKeys(keyList = None)
         for frame_n in range(timing['mem']):
             image.setAutoDraw(True)
             rating_scale.setAutoDraw(True)
-            if frame_n == 0:
-                resp_clock.reset()
             win.flip()
         choice_history = rating_scale.getHistory()
         rating_scale.setAutoDraw(False)
