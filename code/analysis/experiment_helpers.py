@@ -557,6 +557,10 @@ def mem_text(trial):
         mem2 = ' MEMORY BLOCK. ' \
                         '\n\n Press any key to begin.'
 
+        instructions = [mem1, mem2]
+
+        return(instructions[trial])
+
 def pres_text(trial):
 
     pres1 = ' Now we will begin the main experiment! ' \
@@ -576,14 +580,20 @@ def pres_text(trial):
                     '\n Immeditaely press 1 (Left) or 3 (Right) when you see the circle (o) ' \
                     '\n\n Press any key to begin. '
 
+    instructions = [pres1, pres2]
+
+    return(instructions[trial])
+
 def thank_text():
     thanks = 'Thank you for your participation! '
     return(thanks)
 
 def text_present(win, text):
+
     instruction = visual.TextStim(win, text=text, wrapWidth=40)
     instruction.setAutoDraw(True)
     win.flip()
+
     event.waitKeys(keyList=None)
     instruction.setAutoDraw(False)
     win.flip()
@@ -632,21 +642,27 @@ def practice_instructions(win, paths, text, pract_run, timing, acceptedKeys = []
     # dynamic practice trials
     # pract_pres1
     if pract_run ==8:
-        pract_pres(win, composites[-12:-6], paths['stim_path'], timing, circle=False)
+        pract_pres(win, paths, composites[-12:-6], timing, circle=False)
 
     # pract_pres2
     if pract_run == 9:
-        pract_pres(win, composites[-6:], paths['stim_path'], timing, circle=True)
+        pract_pres(win, paths, composites[-6:], timing, circle=True)
 
     # pract_mem
     elif pract_run == 10:
-        pract_mem(win, singles, paths['stim_path'], timing)
+        pract_mem(win, singles, paths, timing)
 
 def pract_pres(win, paths, im_list, timing, circle=False):
 
-    cue1,cue2 = cue_stim(win, '>', 'Face', paths['stim_path'])
-    cue1.setPos( [0, 2] )
-    cue2.setPos( [0, 0] )
+    # st = paths['stim_path']+'cue/'+'Face'+'.png'
+    # cue1 = visual.ImageStim(win, image=st, size=2)
+    # cue2 = visual.TextStim(win=win, ori=0, name='cue_side', text = '>', font='Arial',
+    #         height=2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0)
+
+    cue1, cue2 = cue_stim(win, '>', 'Face', paths['stim_path'])
+
+    cue1.setPos([0, 2])
+    cue2.setPos([0, 0])
 
     display(win, [cue1,cue2], timing['cue'])
     pause(win, timing['pause'])
@@ -655,7 +671,7 @@ def pract_pres(win, paths, im_list, timing, circle=False):
     fix.setAutoDraw(True)
 
     for x in range(3):
-        stim = composite_pair(win, im_list[x*2:x*2+2], '>', paths['stim_path'], practice=True)
+        stim = composite_pair(win, im_list[x*2], im_list[x*2+1], '>', paths['stim_path'], practice=True)
         display(win, stim, timing['probe'])
 
         if circle:

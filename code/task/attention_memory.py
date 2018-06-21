@@ -40,7 +40,7 @@ paths['subject'] = subject_directory(info, paths['data_path'], path_only=True)
 global_clock = core.Clock()
 logging.setDefaultClock(global_clock)
 
-# pre questionnaire #
+# Pre questionnaire #
 pre_info = pre_questionnaire(info, save=save_data, save_path=paths['subject'])
 
 # Window and Stimulus timing #
@@ -60,20 +60,19 @@ timing = {'cue':int(round(1.5 * rate)), 'probe':int(round(3.0 * rate)), 'mem':in
 # Instructions & Practice #
 if practice:
     for x in range(11):
-        practice_instructions(win, paths, pract_text(x), x, timing, acceptedKeys = [])
+        practice_instructions(win, paths, pract_text(x), x, timing, acceptedKeys = [], practice=True)
 
 
 # eye tracker callibration #
 # if eye_track:
 
-    
+
 # MRI sync #
 # if MRI:
 
 
 # Initialize subject dataframe #
 df = initialize_df(info, categories, paths, paths['subject'], params) 
-
 
 # create df masks
 mask1 = df['Trial Type']=='Presentation'
@@ -98,3 +97,4 @@ show_instructions(win, paths, thank_text(), acceptedKeys = [])
 # post questionnaire #
 #post_info = post_questionnaire(subject[0], save=save_data, save_path=paths['data_path'])
 df.to_csv(paths['subject']+'finl_df.csv')
+
