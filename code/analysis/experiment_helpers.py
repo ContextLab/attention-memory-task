@@ -695,7 +695,7 @@ def pract_mem(win, im_list, paths, timing):
                                             singleClick = True, pos = [0,-.42], acceptPreText = '-',
                                             maxTime=3.0, minTime=0, marker = 'triangle', showAccept=False, acceptSize=0)
 
-        image = memory_stim(win, im_list[x], paths['stim_path'], practice=True)
+        image = memory_stim(win, im_list[trial], paths['stim_path'], practice=True)
         display(win, [fixation], timing['pause'])
 
         event.getKeys(keyList = None)
