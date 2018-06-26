@@ -135,7 +135,6 @@ def post_questionnaire(info, save=True, save_path='.'):
     else:
         return(end_data)
 
-
 # Trial params & Visual stimulus creation
 
 def cue_create(params):
@@ -213,12 +212,16 @@ def group_it(data, num):
 
 def memory_image(presentation, memory):
     '''
-    returns list of memory images, half novel and half previously seen
+    inputs:  list of all presentation images
+             list of all novel memory images
+
+    outputs: list of all images for memory trials
     '''
 
-    # parse the presented and mem_only images
+    # parse cued/uncued presentation composites
     cued = presentation[0:int(len(presentation)/2)]
     uncued = presentation[int(len(presentation)/2):]
+    # parse novel single images
     memory_face = img_split(memory, cat=True)['face_im']
     memory_place = img_split(memory, cat=True)['place_im']
 
@@ -229,15 +232,16 @@ def memory_image(presentation, memory):
     memory_place = group_it(memory_place, 10)
 
     # append the split singles from all selected images (1/2 prev seen, and all chosen for memory)
-    singles = []
+    all_singles = []
     for x in range(len(cued)):
+        singles = []
         singles.extend(img_split(random.sample(cued[x],int(len(cued[x])/2))))
         singles.extend(img_split(random.sample(uncued[x],int(len(uncued[x])/2))))
         singles.extend(memory_face[x])
         singles.extend(memory_place[x])
-    singles = random.sample(singles, len(singles))
-
-    return(singles)
+        singles = random.sample(singles, len(singles))
+        all_singles.extend(singles)
+    return(all_singles)
 
 def initialize_df(info, categories, paths, subject_directory, params, save=True):
     '''
@@ -280,13 +284,12 @@ def initialize_df(info, categories, paths, subject_directory, params, save=True)
     df.loc[mask2, 'Memory Image']= memory_image(presentation, memory)
 
     # save dataframe
-    df.to_csv('intial_df')
-
+    df.to_csv(paths['subject']+'intial_df.csv')
     return(df)
 
 def cue_stim(win, side, category, stim_dir):
     '''
-    inputs: presentation trial #, cue side, cue cat
+    inputs: win, cue side, cue cat, stimulus directory
     outputs: appropriate cue or fixation stim for center screen
     '''
 
@@ -316,11 +319,16 @@ def cued_pos(side, validity=True):
 
     return(pos)
 
-def composite_pair(win, cued, uncued, side, stim_dir):
+def composite_pair(win, cued, uncued, side, stim_dir, practice=False):
     cued_position = cued_pos(side)
 
-    cued = stim_dir+'composite/'+cued
-    uncued = stim_dir+'composite/'+uncued
+    if practice:
+        dir = 'practice_composite/'
+    else:
+        dir = 'composite/'
+
+    cued = stim_dir+dir+cued
+    uncued = stim_dir+dir+uncued
 
     probe1 = visual.ImageStim(win, cued, size=7, name='Probe1')
     probe1.setPos( [cued_position, 0] )
@@ -388,8 +396,14 @@ def pause(win, frames):
     for frame_n in range(frames):
         win.flip()
 
-def memory_stim(win, image, stim_dir):
-    image = stim_dir+'single/'+image
+def memory_stim(win, image, stim_dir, practice=False, practice_single=False):
+    if practice:
+        image = stim_dir+'practice_composite/'+image
+    elif practice_single:
+        image = stim_dir+'practice_single/'+image
+    else:
+        image = stim_dir+'single/'+image
+
     im = visual.ImageStim(win, image, size=7, name='mem_image')
     im.setPos([0, 0])
     return(im)
@@ -408,10 +422,11 @@ def rating_pull(rating_tuple):
 
 # Presentation & Memory runs
 
-def presentation_run(win, pres_df, params, timing, paths, test = False):
+def presentation_run(win, run, pres_df, params, timing, paths, loop = object, test = False):
+    first_row = pres_df.index.values[0]
 
     # Create cue, fixation, and validity stim
-    cue1, cue2 = cue_stim(win, pres_df['Cued Side'][0], pres_df['Cued Category'][0], paths['stim_path'])
+    cue1, cue2 = cue_stim(win, pres_df['Cued Side'][first_row], pres_df['Cued Category'][first_row], paths['stim_path'])
     cue1.setPos( [0, 2] )
     cue2.setPos( [0, 0] )
     fixation = fix_stim(win)
@@ -423,7 +438,12 @@ def presentation_run(win, pres_df, params, timing, paths, test = False):
     # start fixation
     fixation.setAutoDraw(True)
 
+# --> ALEX, if you comment 439 and uncomment 438,440, will loop over trialHandler object
+
+    # for idx,x in enumerate(loop):
     for trial in pres_df.index.values:
+        # trial = pres_df.index.values[idx]
+
         # make stim
         images = composite_pair(win, pres_df['Cued Composite'].loc[trial],pres_df['Uncued Composite'].loc[trial], pres_df['Cued Side'][trial], paths['stim_path'])
         circle = probe_stim(win, pres_df['Cued Side'][trial], pres_df['Cue Validity'][trial])
@@ -434,13 +454,13 @@ def presentation_run(win, pres_df, params, timing, paths, test = False):
         pause(win, timing['pause'])
 
     fixation.setAutoDraw(False)
+    pres_df.to_csv(paths['subject']+'pres'+str(pres_df['Run'][-1:][-1:])+'.csv')
 
-def memory_run(win, mem_df, params, timing, paths, test = False):
+def memory_run(win, run, mem_df, params, timing, paths, test = False):
 
     fixation = fix_stim(win)
 
     for trial in mem_df.index.values:
-
         rating_scale = visual.RatingScale( win, low = 1, high = 4, labels=['unfamiliar','familiar'], scale='1               2               3               4',
                                             singleClick = True, pos = [0,-.42], acceptPreText = '-',
                                             maxTime=3.0, minTime=0, marker = 'triangle', showAccept=False, acceptSize=0)
@@ -461,144 +481,239 @@ def memory_run(win, mem_df, params, timing, paths, test = False):
         rating_scale.setAutoDraw(False)
         image.setAutoDraw(False)
         win.flip()
-
         mem_df['Familiarity Rating'].loc[trial],mem_df['Familiarity Reaction Time (s)'].loc[trial] = rating_pull(choice_history)
 
-
+    mem_df.to_csv(paths['subject']+'mem'+str(mem_df['Run'][-1:][-1:])+'.csv')
 
 
 #def image_stimuli(data, composite=True, number=2):
 
-#def rating_scale():
+def pract_text(trial):
 
-def show_instructions(practice_round = 'cue_pos1', acceptedKeys = None):
-    '''
-    Displays instruction text and instruction images that are not part of a practice loop
+    intro = '\n\n Thank you for participating in this experiment! ' \
+                    '\n\n In the experiment, you will pay attention to specific items on the screen.' \
+                    '\n Then, we will test your memory for some of the items you have seen. ' \
+                    '\n\n Press any key to continue... '
 
-    :param practice_round: indicates which text and image(s) to display
-    '''
+    # PRACTICE
+    pract1 = ' You will see many images like the one below.' \
+                    '\n You will need to pay special attention to either the FACE or SCENE. ' \
+                    '\n\n\n\n\n\n\n\n\n\n\n\n\n\n Press any key to continue...'
 
-    # Set and display text
+    pract2 = ' Let\'s practice now! \n Look straight at the image and focus as hard as you can on the FACE. ' \
+                    '\n\n\n\n\n\n\n\n\n\n\n\n\n\n When you can focus on the FACE well, press any key... '
+
+    pract3 = ' Great job! ' \
+                    '\n Now, focus as hard as you can on the SCENE. ' \
+                    '\n\n\n\n\n\n\n\n\n\n\n\n\n\n When you can focus on the SCENE well, press any key... '
+
+    pract4 = ' Next, you will see a cross and two images on the screen. ' \
+                    '\n\n Keep your eyes staring straight at the cross, ' \
+                    'but try to focus on the SCENE on the LEFT. ' \
+                    '\n\n Only your attention should shift, not your eyes!' \
+                    '\n You will not see the image perfectly clearly, just do your best, and feel free to ask questions!' \
+                    '\n\n Press any key to begin. '
+
+    pract5 = '\n\n\n\n\n\n\n\n\n\n\n\n\n\n When you are done, press any key to continue... '
+
+    pract6 = '\n\n Great job! ' \
+                    '\n This time, keeping your eyes at center, try and focus on the FACE on the RIGHT.' \
+                    '\n\n Press any key to begin.' \
+
+    pract7 = '\n\n\n\n\n\n\n\n\n\n\n\n\n\n When you are done, press any key to continue... '
+
+    pract8 = ' Now, you will practice ' \
+                    'attending to parts of images based on cue icons. ' \
+                    '\n\n First, you\'ll see a pair of cue icons: ' \
+                    '\n One arrow icon pointing left or right (< or >) ' \
+                    ' and one image icon (face or scene): ' \
+                    '\n\n\n\n\n\n After the cue icons, you will see several image pairs in a row. You\'ll attend to the SAME cued side and image part for EVERY pair.' \
+                    ' Remember to keep your eyes fixated on the cross! ' \
+                    '\n\n Press any key to begin.'
+
+    pract9 = ' Great job, let\'s try it one more time!' \
+                      '\n\n This time will be the same, but after each pair, a circle (o) will appear.' \
+                      '\n When you see the circle, you should immediately press a button! ' \
+                      '\n\n        If the circle appears on the LEFT, press 1 ' \
+                      '\n        If the circle appears on the RIGHT, press 3 ' \
+                      '\n\n Remember to respond as quickly as you can!' \
+                      '\n Press any key to begin.'
+
+    pract10 = '\n\n Finally, you will practice reporting which images you remember. ' \
+                    '\n You will use the following scale to rate individual images displayed on the screen: ' \
+                    '\n\n        (1) I definitely have not seen the image before' \
+                    '\n        (2) I probably have not seen the image before' \
+                    '\n        (3) I probably have seen the image before' \
+                    '\n        (4) I definitely have seen the image before' \
+                    '\n\n You will need to respond quickly -- you\'ll have just 2 seconds!' \
+                    '\n\n When you\'re ready to begin, press any key.'
+
+    instructions = [intro, pract1, pract2, pract3, pract4, pract5, pract6, pract7, pract8, pract9, pract10]
+
+    return(instructions[trial])
+
+def mem_text(trial):
+
+        mem1 = ' Now we\'re going to test your memory. ' \
+                        '\n Just like the practice round, you will rate single images using the following scale: ' \
+                        '\n\n (1) I definitely have not seen the image before' \
+                        '\n (2) I probably have not seen the image before' \
+                        '\n (3) I probably have seen the image before' \
+                        '\n (4) I definitely have seen the image before' \
+                        '\n\n You will need to make your responses quickly -- you\'ll have just 2 seconds. ' \
+                        ' If you aren\'t sure what to say for a particular image, make your best guess! ' \
+                        '\n\n Press any key to begin.'
+
+        mem2 = ' MEMORY BLOCK. ' \
+                        '\n\n Press any key to begin.'
+
+        instructions = [mem1, mem2]
+
+        return(instructions[trial])
+
+def pres_text(trial):
+
+    pres1 = ' Now we will begin the main experiment! ' \
+                    'Again you will see cue icons, followed by a series of image pairs and circles (and a fixation cross).' \
+                    '\n\n Remember to: ' \
+                    '\n\n        Keep your eyes staring at the cross' \
+                    '\n        Shift your attention to the SAME cued side and part for EACH pair' \
+                    '\n        Immeditaely press 1 (Left) or 3 (Right) when you see the circle (o) ' \
+                    '\n\n Do you have questions? Ask them now! ' \
+                    '\n Otherwise, position your hand over the 1 and 3 buttons, clear your mind, and press any key to begin. '
+
+    pres2 = ' Feel free to take a moment to rest, if you like! ' \
+                    ' When you\'re ready, we will do another round with a cue, followed by image pairs and circles (o).' \
+                    ' \n\n Remember to: ' \
+                    '\n Keep your eyes staring at the cross' \
+                    '\n Shift your attention to the SAME cued side and part for EACH pair' \
+                    '\n Immeditaely press 1 (Left) or 3 (Right) when you see the circle (o) ' \
+                    '\n\n Press any key to begin. '
+
+    instructions = [pres1, pres2]
+
+    if trial >= 1:
+        num = 1
+    else:
+        num = 0
+
+    return(instructions[num])
+
+def thank_text():
+    thanks = 'Thank you for your participation! '
+    return(thanks)
+
+def text_present(win, text):
+
     instruction = visual.TextStim(win, text=text, wrapWidth=40)
     instruction.setAutoDraw(True)
     win.flip()
 
-    # if cue_pos1, show icons
-    if practice_round == 'cue_pos1':
-        cat_inst_1 = visual.ImageStim(win, cue_pic1, size=cue_size, name='cue_img1')
-        cat_inst_2 = visual.ImageStim(win, cue_pic2, size=cue_size, name='cue_img2')
-        cat_inst_2.setPos([-2.5, 0])
-        cat_inst_1.setPos([2.5, 0])
-        cat_inst_1.setAutoDraw(True)
-        cat_inst_2.setAutoDraw(True)
-        win.flip()
-
-    # if cue_pos2, show single example icon and arrow
-    elif practice_round == 'cue_pos2':
-        cat_inst_1 = visual.ImageStim(win, cue_pic2, size=cue_size, name='cue_img2')
-        cat_inst_1.setPos([0, 3])
-
-        cue_inst_right = visual.TextStim(win=win, ori=0, name='cue_right', text='>', font='Arial',
-                            height=2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0)
-
-        cue_inst_right.setPos([0, 1])
-        cue_inst_right.setAutoDraw(True)
-        cat_inst_1.setAutoDraw(True)
-        win.flip()
-
-    elif practice_round == 'center_image1':
-        center = visual.ImageStim(win, '../../stim/hybrid_1_F/00060931230fa_sunaaehaikpckyjsety.jpg', size = probe_size)
-        center.setAutoDraw(True)
-        win.flip()
-
-    elif practice_round == 'hybrid_pair':
-        hybrid1 = visual.ImageStim(win, '../../stim/hybrids_2_F/00002940128fb_sunaaacnosloariecpa.jpg', size = probe_size)
-        hybrid2 = visual.ImageStim(win, '../../stim/hybrids_2_F/00003941121fa_sunaaaenaoynzhoyheo.jpg', size = probe_size)
-
-        hybrid1.setPos([info['probe_pos'], 0])
-        hybrid2.setPos([-info['probe_pos'], 0])
-
-        hybrid1.setAutoDraw(True)
-        hybrid2.setAutoDraw(True)
-        fixation.setAutoDraw(True)
-        win.flip()
-
-    else:
-        win.flip()
-
-    # wait for response
-    if test == False:
-        response = event.waitKeys(keyList=None)
-
+    event.waitKeys(keyList=None)
     instruction.setAutoDraw(False)
-
-    if practice_round == 'cue_pos1':
-        cat_inst_1.setAutoDraw(False)
-        cat_inst_2.setAutoDraw(False)
-
-    elif practice_round == 'cue_pos2':
-        cat_inst_1.setAutoDraw(False)
-        cue_inst_right.setAutoDraw(False)
-
-    elif practice_round == 'hybrid_pair':
-        hybrid1.setAutoDraw(False)
-        hybrid2.setAutoDraw(False)
-        fixation.setAutoDraw(False)
-
-    elif practice_round == 'center_image':
-        center.setAutoDraw(False)
-
     win.flip()
 
+def practice_instructions(win, paths, text, pract_run, timing, acceptedKeys = [], practice=False):
+    '''
+    Displays instruction text and instruction images that are not part of a practice loop
+    :param practice_round: indicates which text and image(s) to display
+    '''
 
+    # make list of stim for this practice_round
+    cat_cues = [paths['stim_path']+'cue/'+x for x in ['Face.png', 'Place.png']]
+    composites = os.listdir(paths['stim_path']+'practice_composite')
+    singles = os.listdir(paths['stim_path']+'practice_single')
+    instruction = visual.TextStim(win, text=text, wrapWidth=40)
+    ims = [instruction]
 
+    # center composite
+    if pract_run in [1,2,3]:
+        ims.append(memory_stim(win, composites[pract_run-1], paths['stim_path'], practice=True))
 
-# Trial block funcions
+    # composite pair, fixation
+    elif pract_run in [5,7]:
+        image1,image2 = [composites[pract_run-1], composites[pract_run-2]]
+        ims.extend(composite_pair(win, composites[pract_run-1], composites[pract_run-2], '>', paths['stim_path'], practice=True))
+        ims.append(fix_stim(win))
 
-# def practice_block(loop = object):
-#     '''
-#     Displays practice trials
-#
-#     :params loop: loop object psychopy iterates over for trials
-#     '''
-#
-#     instr_dict =  {1: instruct_pract1, 2: instruct_pract2, 3: instruct_pract3, 4: instruct_pract4, 5: instruct_pract5, 6: instruct_pract6, 7: instruct_pract7, 8: instruct_pract8, 9:instruct_pract9, 10: instruct_pract10}
-#     trial_count = 1
-#     previously_practiced = []
-#     cue_pract_prev = []
-#
-#     for this_trial in loop:
-#         # select instructions
-#         this_instruct = instr_dict[trial_count]
-#
-#         # display text for practice instructions
-#         if trial_count in [1,2,3]:
-#             show_instructions(text = this_instruct, practice_round = 'center_image1', acceptedKeys = None)
-#         elif trial_count in [5,7]:
-#             show_instructions(text = this_instruct, practice_round = 'hybrid_pair', acceptedKeys = None)
-#         elif trial_count in [8]:
-#             show_instructions(text = this_instruct, practice_round = 'cue_pos1', acceptedKeys = None)
-#         else:
-#             show_instructions(text = this_instruct, acceptedKeys = None)
-#
-#         # PRACTICE BLOCKS AFTER TEXT INSTRUCTION
-#         if trial_count == 8:
-#             # presentation block, w/cue, no (o) x4
-#             practice_trials1 = data.TrialHandler(trialList = [{}]*(4), nReps = 1)
-#             pract_pres1(practice_trials1)
-#
-#         if trial_count == 9:
-#             # presentation block w/cue, w/(o) x4
-#             practice_trials1 = data.TrialHandler(trialList = [{}]*(4), nReps = 1)
-#             pract_pres2(practice_trials1)
-#
-#         if trial_count == 10:
-#             # memory block x4
-#             practice_trials1 = data.TrialHandler(trialList = [{}]*(4), nReps = 1)
-#             pract_mem(practice_trials1)
-#
-#         trial_count += 1
-#
-# def presentation_block(df, practice=False):
-#
-# def memory_block(df, practice=False):
+    # face cue, place cue
+    elif pract_run == 8:
+        for x,pos in zip(cat_cues, [2.5, -2.5]):
+            cue = visual.ImageStim(win, x, size=2)
+            cue.setPos([pos, 0])
+            ims.append(cue)
+
+    # display stim until button press
+    for x in ims:
+        x.setAutoDraw(True)
+
+    win.flip()
+    event.waitKeys(keyList=None)
+
+    for x in ims:
+        x.setAutoDraw(False)
+    win.flip()
+
+    # dynamic practice trials
+    # pract_pres1
+    if pract_run ==8:
+        pract_pres(win, paths, composites[-12:-6], timing, circle=False)
+
+    # pract_pres2
+    if pract_run == 9:
+        pract_pres(win, paths, composites[-6:], timing, circle=True)
+
+    # pract_mem
+    elif pract_run == 10:
+        pract_mem(win, singles, paths, timing)
+
+def pract_pres(win, paths, im_list, timing, circle=False):
+
+    cue1, cue2 = cue_stim(win, '>', 'Face', paths['stim_path'])
+
+    cue1.setPos([0, 2])
+    cue2.setPos([0, 0])
+
+    display(win, [cue1,cue2], timing['cue'])
+    pause(win, timing['pause'])
+
+    fix = fix_stim(win)
+    fix.setAutoDraw(True)
+
+    for x in range(3):
+        stim = composite_pair(win, im_list[x*2], im_list[x*2+1], '>', paths['stim_path'], practice=True)
+        display(win, stim, timing['probe'])
+
+        if circle:
+            if x in [0,1]:
+                validity = 1
+            else:
+                validity = 0
+
+            circle = probe_stim(win, '>', validity)
+            display(win, [circle], timing['probe'], accepted_keys=['1','3'])
+
+        pause(win, timing['pause'])
+    fix.setAutoDraw(False)
+
+def pract_mem(win, im_list, paths, timing):
+
+    fixation = fix_stim(win)
+
+    for trial in range(4):
+        rating_scale = visual.RatingScale( win, low = 1, high = 4, labels=['unfamiliar','familiar'], scale='1               2               3               4',
+                                            singleClick = True, pos = [0,-.42], acceptPreText = '-',
+                                            maxTime=3.0, minTime=0, marker = 'triangle', showAccept=False, acceptSize=0)
+
+        image = memory_stim(win, im_list[trial], paths['stim_path'], practice_single=True)
+        display(win, [fixation], timing['pause'])
+
+        event.getKeys(keyList = None)
+        for frame_n in range(timing['mem']):
+            image.setAutoDraw(True)
+            rating_scale.setAutoDraw(True)
+            win.flip()
+        choice_history = rating_scale.getHistory()
+        rating_scale.setAutoDraw(False)
+        image.setAutoDraw(False)
+        win.flip()
