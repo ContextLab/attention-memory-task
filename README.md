@@ -1,10 +1,8 @@
 # Overview
 
-This repository contains various adaptations of the classic Posner covert attention task, aimed at exploring the effects of covert attention on the processing and subsequent storage of information into memory.
+This repository contains the experiment basic analysis code for a covert attention experiment utilizing composite image stimuli (overlayed images of faces and houses).
 
-The task is programmed in v1.85.1 of Psychopy.
-
-More detailed description pending..
+![paradigm figure](figs/attn_task.pdf)
 
 # Installation
 
