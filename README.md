@@ -1,6 +1,6 @@
 # Overview
 
-This repository contains the experiment basic analysis code for a covert attention experiment utilizing composite image stimuli (overlayed images of faces and houses).
+This repository contains the experiment and analysis code for a psychology experiment exploring the relationship between covert attention and recognition memory.  
 
 ![Hypertools example](figs/attn_task.png)
 
