@@ -2,7 +2,7 @@
 
 This repository contains the experiment basic analysis code for a covert attention experiment utilizing composite image stimuli (overlayed images of faces and houses).
 
-<embed src="figs/attn_task.pdf"/, width="800px">
+<embed src="figs/attn_task.pdf", width="800px"/>
 
 # Installation
 
