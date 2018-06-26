@@ -135,7 +135,6 @@ def post_questionnaire(info, save=True, save_path='.'):
     else:
         return(end_data)
 
-
 # Trial params & Visual stimulus creation
 
 def cue_create(params):
@@ -213,12 +212,16 @@ def group_it(data, num):
 
 def memory_image(presentation, memory):
     '''
-    returns list of memory images, half novel and half previously seen
+    inputs:  list of all presentation images
+             list of all novel memory images
+
+    outputs: list of all images for memory trials
     '''
 
-    # parse the presented and mem_only images
+    # parse cued/uncued presentation composites
     cued = presentation[0:int(len(presentation)/2)]
     uncued = presentation[int(len(presentation)/2):]
+    # parse novel single images
     memory_face = img_split(memory, cat=True)['face_im']
     memory_place = img_split(memory, cat=True)['place_im']
 
@@ -229,15 +232,16 @@ def memory_image(presentation, memory):
     memory_place = group_it(memory_place, 10)
 
     # append the split singles from all selected images (1/2 prev seen, and all chosen for memory)
-    singles = []
+    all_singles = []
     for x in range(len(cued)):
+        singles = []
         singles.extend(img_split(random.sample(cued[x],int(len(cued[x])/2))))
         singles.extend(img_split(random.sample(uncued[x],int(len(uncued[x])/2))))
         singles.extend(memory_face[x])
         singles.extend(memory_place[x])
-    singles = random.sample(singles, len(singles))
-
-    return(singles)
+        singles = random.sample(singles, len(singles))
+        all_singles.extend(singles)
+    return(all_singles)
 
 def initialize_df(info, categories, paths, subject_directory, params, save=True):
     '''
@@ -418,7 +422,7 @@ def rating_pull(rating_tuple):
 
 # Presentation & Memory runs
 
-def presentation_run(win, pres_df, params, timing, paths, test = False):
+def presentation_run(win, run, pres_df, params, timing, paths, loop = object, test = False):
     first_row = pres_df.index.values[0]
 
     # Create cue, fixation, and validity stim
@@ -434,7 +438,12 @@ def presentation_run(win, pres_df, params, timing, paths, test = False):
     # start fixation
     fixation.setAutoDraw(True)
 
+# --> ALEX, if you comment 439 and uncomment 438,440, will loop over trialHandler object
+
+    # for idx,x in enumerate(loop):
     for trial in pres_df.index.values:
+        # trial = pres_df.index.values[idx]
+
         # make stim
         images = composite_pair(win, pres_df['Cued Composite'].loc[trial],pres_df['Uncued Composite'].loc[trial], pres_df['Cued Side'][trial], paths['stim_path'])
         circle = probe_stim(win, pres_df['Cued Side'][trial], pres_df['Cue Validity'][trial])
@@ -445,14 +454,13 @@ def presentation_run(win, pres_df, params, timing, paths, test = False):
         pause(win, timing['pause'])
 
     fixation.setAutoDraw(False)
-    pres_df.to_csv(paths['subject']+'pres'+str(pres_df['Run'][trial])+'.csv')
+    pres_df.to_csv(paths['subject']+'pres'+str(pres_df['Run'][-1:][-1:])+'.csv')
 
-def memory_run(win, mem_df, params, timing, paths, test = False):
+def memory_run(win, run, mem_df, params, timing, paths, test = False):
 
     fixation = fix_stim(win)
 
     for trial in mem_df.index.values:
-
         rating_scale = visual.RatingScale( win, low = 1, high = 4, labels=['unfamiliar','familiar'], scale='1               2               3               4',
                                             singleClick = True, pos = [0,-.42], acceptPreText = '-',
                                             maxTime=3.0, minTime=0, marker = 'triangle', showAccept=False, acceptSize=0)
@@ -473,9 +481,9 @@ def memory_run(win, mem_df, params, timing, paths, test = False):
         rating_scale.setAutoDraw(False)
         image.setAutoDraw(False)
         win.flip()
-
         mem_df['Familiarity Rating'].loc[trial],mem_df['Familiarity Reaction Time (s)'].loc[trial] = rating_pull(choice_history)
-        mem_df.to_csv(paths['subject']+'mem'+str(mem_df['Run'][trial])+'.csv')
+
+    mem_df.to_csv(paths['subject']+'mem'+str(mem_df['Run'][-1:][-1:])+'.csv')
 
 
 #def image_stimuli(data, composite=True, number=2):
@@ -660,11 +668,6 @@ def practice_instructions(win, paths, text, pract_run, timing, acceptedKeys = []
         pract_mem(win, singles, paths, timing)
 
 def pract_pres(win, paths, im_list, timing, circle=False):
-
-    # st = paths['stim_path']+'cue/'+'Face'+'.png'
-    # cue1 = visual.ImageStim(win, image=st, size=2)
-    # cue2 = visual.TextStim(win=win, ori=0, name='cue_side', text = '>', font='Arial',
-    #         height=2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0)
 
     cue1, cue2 = cue_stim(win, '>', 'Face', paths['stim_path'])
 
