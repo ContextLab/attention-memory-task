@@ -127,6 +127,15 @@ def rating_pull(tuple_rating_list):
     else:
         return(tuple_rating_list)[0][0]
 
+def ratetime_pull(tuple_rating_list):
+    '''
+    pulls subject's response time out of rating tuple
+    '''
+    if len(tuple_rating_list)>1:
+        return(tuple_rating_list)[1][1]
+    else:
+        return(tuple_rating_list)[0][1]
+
 def cat_check(row):
     if row['cat'] == row['cued_cat'] :
         return('attended')
@@ -160,6 +169,7 @@ def rep_seen(row):
 
 # Prep ROC data
 def ROC_data(rec, category = False):
+
 
     labels_a = ['both','none','novel','side','category']
 
