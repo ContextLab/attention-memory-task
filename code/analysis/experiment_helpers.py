@@ -2,7 +2,7 @@
 
 # Imports
 import pandas as pd
-#from psychopy import visual, event, core, data, gui, logging
+from psychopy import visual, event, core, data, gui, logging
 from analysis_helpers import *
 import random
 import os
@@ -410,16 +410,25 @@ def memory_stim(win, image, stim_dir, practice=False, practice_single=False):
     im.setPos([0, 0])
     return(im)
 
+# def ratetime_pull(rating_tuple_list):
+#     '''
+#     pulls subject's response time out of rating tuple
+#     '''
+#     if len(tuple_rating_list)>1:
+#         return(tuple_rating_list)[1][1]
+#     else:
+#         return(tuple_rating_list)[0][1]
+
 def rating_pull(rating_tuple):
     '''
     pulls subject's rating out of rating tuple
     '''
     if len(rating_tuple)>1:
         rating = rating_tuple[1][0]
-        rt = rating_tuple[0][0]
+        rt = rating_tuple[1][1]
     else:
         rating = rating_tuple[0][0]
-        rt = None
+        rt = rating_tuple[0][1]
     return(rating, rt)
 
 # Functions to Execute Presentation & Memory Runs
@@ -479,7 +488,7 @@ def memory_run(win, run, mem_df, params, timing, paths, test = False):
         rating_scale.setAutoDraw(False)
         image.setAutoDraw(False)
         win.flip()
-        mem_df['Familiarity Rating'].loc[trial],mem_df['Familiarity Reaction Time (s)'].loc[trial] = rating_pull(choice_history)
+        mem_df['Familiarity Rating'].loc[trial],mem_df['Familiarity Reaction Time (s)'].loc[trial] = rating_pull(choice_history) #,ratetime_pull(choice_history)]
 
     mem_df.to_csv(paths['subject']+'mem'+str(run)+'.csv')
 
@@ -862,7 +871,6 @@ def run_level(df):
     df.loc[mem_mask,'Attention Level'] = df.loc[mem_mask,'Attention Level'].fillna('Novel')
 
     return(df)
-
 
 def ROC(df, plot=True):
     '''
