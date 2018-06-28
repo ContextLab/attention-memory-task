@@ -454,7 +454,7 @@ def presentation_run(win, run, pres_df, params, timing, paths, loop = object, te
         pause(win, timing['pause'])
 
     fixation.setAutoDraw(False)
-    pres_df.to_csv(paths['subject']+'pres'+str(pres_df['Run'][-1:][-1:])+'.csv')
+    pres_df.to_csv(paths['subject']+'pres'+str(run)+'.csv')
 
 def memory_run(win, run, mem_df, params, timing, paths, test = False):
 
@@ -483,7 +483,7 @@ def memory_run(win, run, mem_df, params, timing, paths, test = False):
         win.flip()
         mem_df['Familiarity Rating'].loc[trial],mem_df['Familiarity Reaction Time (s)'].loc[trial] = rating_pull(choice_history)
 
-    mem_df.to_csv(paths['subject']+'mem'+str(mem_df['Run'][-1:][-1:])+'.csv')
+    mem_df.to_csv(paths['subject']+'mem'+str(run)+'.csv')
 
 
 #def image_stimuli(data, composite=True, number=2):
