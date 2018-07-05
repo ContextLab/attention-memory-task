@@ -68,7 +68,7 @@ def validity_check(df, params):
 
     if num_valid != params['presentations_per_run']*params['runs']*(100-params['invalid_cue_percentage'])/100:
         if len(df.Run.unique())==params['runs']:
-            msg.append('Incorrect number of invalid attention circles.  '])
+            msg.append('Incorrect number of invalid attention circles.  ')
     else:
         msg = []
 

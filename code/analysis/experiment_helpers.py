@@ -502,7 +502,7 @@ def rating_pull(rating_tuple):
 
 # Functions to Execute Presentation & Memory Runs
 
-def presentation_run(win, run, pres_df, params, timing, paths, loop = object, test = False):
+def presentation_run(win, run, pres_df, params, timing, paths, test = False):
     """
     displays a full presentation run, saves out data
     """
@@ -634,22 +634,22 @@ def mem_text(trial):
     returns memory instruction text (string) for given practice trial, 'trial' (int)
     """
 
-        mem1 = ' Now we\'re going to test your memory. ' \
-                        '\n Just like the practice round, you will rate single images using the following scale: ' \
-                        '\n\n (1) I definitely have not seen the image before' \
-                        '\n (2) I probably have not seen the image before' \
-                        '\n (3) I probably have seen the image before' \
-                        '\n (4) I definitely have seen the image before' \
-                        '\n\n You will need to make your responses quickly -- you\'ll have just 2 seconds. ' \
-                        ' If you aren\'t sure what to say for a particular image, make your best guess! ' \
-                        '\n\n Press any key to begin.'
+    mem1 = ' Now we\'re going to test your memory. ' \
+                    '\n Just like the practice round, you will rate single images using the following scale: ' \
+                    '\n\n (1) I definitely have not seen the image before' \
+                    '\n (2) I probably have not seen the image before' \
+                    '\n (3) I probably have seen the image before' \
+                    '\n (4) I definitely have seen the image before' \
+                    '\n\n You will need to make your responses quickly -- you\'ll have just 2 seconds. ' \
+                    ' If you aren\'t sure what to say for a particular image, make your best guess! ' \
+                    '\n\n Press any key to begin.'
 
-        mem2 = ' MEMORY BLOCK. ' \
-                        '\n\n Press any key to begin.'
+    mem2 = ' MEMORY BLOCK. ' \
+                    '\n\n Press any key to begin.'
 
-        instructions = [mem1, mem2]
+    instructions = [mem1, mem2]
 
-        return(instructions[trial])
+    return(instructions[trial])
 
 def pres_text(trial):
     """
@@ -683,9 +683,9 @@ def pres_text(trial):
     return(instructions[num])
 
 def thank_text():
-        """
-        returns closing message text (str)
-        """
+    """
+    returns closing message text (str)
+    """
     thanks = 'Thank you for your participation! '
     return(thanks)
 

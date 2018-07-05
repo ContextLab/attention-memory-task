@@ -25,8 +25,7 @@ exp = data.ExperimentHandler(name = 'Attention Memory', version = '1.0')
 
 # Parameters #
 experiment_title = 'Attention and Memory' 
-practice = False   # instructions & practice
-test_mode = False # not for use with subjects
+practice = True   # instructions & practice
 save_data = True  # saves all data
 eye_track = False # for eye tracking
 MRI = False       # for MRI sync
@@ -63,9 +62,6 @@ if practice:
     for x in range(11):
         practice_instructions(win, paths, pract_text(x), x, timing, acceptedKeys = [], practice=True)
 
-# Initiate log file #
-log = logging.LogFile(paths['subject']+'log.log', filemode='w', level = logging.DATA)
-
 # eye tracker callibration #
 # if eye_track:
 
@@ -81,9 +77,6 @@ df = initialize_df(info, categories, paths, paths['subject'], params)
 mask1 = df['Trial Type']=='Presentation'
 mask2 = df['Trial Type']=='Memory'
 
-# Trial handler (for log file) #
-trials = data.TrialHandler(trialList = [{}]*params['presentations_per_run'], nReps=1)
-
 # Pres & Mem runs #
 for run in range(params['runs']):
     
@@ -91,13 +84,13 @@ for run in range(params['runs']):
     
     # presentation      
     text_present(win, pres_text(run))
-    presentation_run(win, run, df.loc[mask1][mask3], params, timing, paths, trials) 
+    presentation_run(win, run, df.loc[mask1][mask3], params, timing, paths) 
     
     # memory 
     text_present(win, mem_text(run))
     memory_run(win, run, df.loc[mask2][mask3], params, timing, paths)
     
-# thanks for participating 
+# thanks for participating #
 show_instructions(win, paths, thank_text(), acceptedKeys = [])
 
 # post questionnaire #
