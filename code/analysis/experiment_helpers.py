@@ -9,12 +9,27 @@ import os
 import time
 import matplotlib.pyplot as plt
 
+# Tiny helpers
+def group_it(data, num):
+    '''
+    input: list of data items of any types
+    output: ordered list of length num sublists of inputted data
+    '''
+    return([data[i:i+num] for i in range(0, len(data), num)])
+
+def flatten(the_list):
+    '''
+    input: list of lists
+    output: single list containing all data, ordered, from nested lists
+    '''
+    return([val for sublist in the_list for val in sublist])
+
 # Data entry & organization functions
 
 def subject_info(header, data_path, path_only=False):
     '''
     Create pop up box to obtain subject# and run#
-    Save out subject directory
+    Create subject directory, if not already existing
     '''
 
     info = {}
@@ -22,8 +37,8 @@ def subject_info(header, data_path, path_only=False):
     info['run'] = ''
     dlg = gui.DlgFromDict(info)
 
-    if not dlg.OK:
-        core.quit()
+    # if not dlg.OK:
+    #     core.quit()
 
     subject_directory(info, data_path)
     return(info)
@@ -209,8 +224,25 @@ def presentation_images(presentation):
 
     return(images)
 
-def group_it(data, num):
-    return([data[i:i+num] for i in range(0, len(data), num)])
+def img_split(image_list, cat = False):
+    '''
+    splits overlay image filenames into filenames of the original, single images
+
+    input : list of image filenames
+    output : list of image filenames OR two lists, separated by category
+
+    '''
+
+    split = [words for segments in image_list for words in segments.split('_')]
+    a = [word+'.jpg' for word in split if word[-3:]!='jpg']
+    b = [word for word in split if word[-3:]=='jpg']
+    glom = a+b
+
+    if cat == False:
+        return(glom)
+
+    else:
+        return({'face_im':a, 'place_im':b})
 
 def memory_image(presentation, memory):
     '''
@@ -304,11 +336,18 @@ def cue_stim(win, side, category, stim_dir):
     return([stim1,stim2])
 
 def fix_stim(win):
+    """
+    returns fixation stimulus for display in window
+    """
     stim1 = visual.TextStim(win=win, ori=0, name='fixation_cross', text='+', font='Arial',
                   height = 2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0)
     return(stim1)
 
 def cued_pos(side, validity=True):
+    """
+    input: cued side in this trial (string), desired stimulus validity (bool)
+    output: x-axis screen location for the stimulus (int)
+    """
 
     if side == '>' and validity==True:
         pos = 8
@@ -322,6 +361,10 @@ def cued_pos(side, validity=True):
     return(pos)
 
 def composite_pair(win, cued, uncued, side, stim_dir, practice=False):
+    """
+    returns list of two composite image stimuli (with stim location, size, etc)
+    for display in presentation trial
+    """
     cued_position = cued_pos(side)
 
     if practice:
@@ -341,6 +384,10 @@ def composite_pair(win, cued, uncued, side, stim_dir, practice=False):
     return(probe1, probe2)
 
 def probe_stim(win, cued_side, validity):
+    """
+    input: trial-wise cued side and validity
+    output: attention check stimulus for display (with location, size, etc)
+    """
     probe = visual.TextStim(win=win, ori=0, name='posner', text='o', font='Arial', height = 2, color='lightGrey',
             colorSpace='rgb', opacity=1, depth=0.0)
 
@@ -349,6 +396,20 @@ def probe_stim(win, cued_side, validity):
     return(probe)
 
 def display(win, stim_list, frames, accepted_keys=None, trial=0, df=None):
+    """
+    inputs:
+        win - visual window
+        stim_list - list of psychopy visual Stimuli
+        frames - int
+        accepted_keys - list of strings, or None
+        trial - int
+        df - pandas dataframe of trial information
+
+    displays all stimuli in window simultaneously.
+    if accepted_keys list passed, displays until key press; else, displays for 'frames' number of frames
+    if both dataframe and trial# passed, saves reaction time to coorresponding trial row in df
+    """
+
     rt = None
     resp = None
 
@@ -362,8 +423,6 @@ def display(win, stim_list, frames, accepted_keys=None, trial=0, df=None):
 
     for frame_n in range(frames):
 
-        ###########
-
         absolute_time = time.time()
 
         if df is not None:
@@ -371,8 +430,6 @@ def display(win, stim_list, frames, accepted_keys=None, trial=0, df=None):
                 df.loc[trial, 'Stimulus Start'] = absolute_time
             if frame_n == range(frames)[-1]:
                 df.loc[trial, 'Stimulus End'] = absolute_time
-
-        ###########
 
         if type(accepted_keys)==list:
             if frame_n == 0:
@@ -398,29 +455,28 @@ def display(win, stim_list, frames, accepted_keys=None, trial=0, df=None):
         else:
             win.flip()
 
-    # clear screen
     win.flip()
     for x in stim_list:
         x.setAutoDraw(False)
-
-        #############
 
         if type(x) is visual.RatingScale:
             choice_history = x.getHistory()
             df["Familiarity Rating"].loc[trial],df['Familiarity Reaction Time (s)'].loc[trial] = rating_pull(choice_history)
 
-        #############
-
     return([rt, resp])
 
-
-
-
 def pause(win, frames):
+    """
+    pauses experiment in given window (win) for 'frames' (int) number of frames
+    without affecting the stimuli on display
+    """
     for frame_n in range(frames):
         win.flip()
 
 def memory_stim(win, image, stim_dir, practice=False, practice_single=False):
+    """
+    return single image stimulus for display in memory trial
+    """
     if practice:
         image = stim_dir+'practice_composite/'+image
     elif practice_single:
@@ -447,6 +503,10 @@ def rating_pull(rating_tuple):
 # Functions to Execute Presentation & Memory Runs
 
 def presentation_run(win, run, pres_df, params, timing, paths, loop = object, test = False):
+    """
+    displays a full presentation run, saves out data
+    """
+
     first_row = pres_df.index.values[0]
 
     # Create cue, fixation, and validity stim
@@ -478,7 +538,9 @@ def presentation_run(win, run, pres_df, params, timing, paths, loop = object, te
     fixation.setAutoDraw(False)
 
 def memory_run(win, run, mem_df, params, timing, paths, test = False):
-
+    """
+    displays full memory run, saves out data
+    """
     fixation = fix_stim(win)
 
     for trial in mem_df.index.values:
@@ -501,6 +563,9 @@ def memory_run(win, run, mem_df, params, timing, paths, test = False):
 # Functions to Display Instruction Text and Practice Trials
 
 def pract_text(trial):
+    """
+    returns practice instruction text (string) for given practice trial, 'trial' (int)
+    """
 
     intro = '\n\n Thank you for participating in this experiment! ' \
                     '\n\n In the experiment, you will pay attention to specific items on the screen.' \
@@ -565,6 +630,9 @@ def pract_text(trial):
     return(instructions[trial])
 
 def mem_text(trial):
+    """
+    returns memory instruction text (string) for given practice trial, 'trial' (int)
+    """
 
         mem1 = ' Now we\'re going to test your memory. ' \
                         '\n Just like the practice round, you will rate single images using the following scale: ' \
@@ -584,6 +652,9 @@ def mem_text(trial):
         return(instructions[trial])
 
 def pres_text(trial):
+    """
+    returns presentation trial text (string) for given practice trial, 'trial' (int)
+    """
 
     pres1 = ' Now we will begin the main experiment! ' \
                     'Again you will see cue icons, followed by a series of image pairs and circles (and a fixation cross).' \
@@ -612,6 +683,9 @@ def pres_text(trial):
     return(instructions[num])
 
 def thank_text():
+        """
+        returns closing message text (str)
+        """
     thanks = 'Thank you for your participation! '
     return(thanks)
 
@@ -680,6 +754,9 @@ def practice_instructions(win, paths, text, pract_run, timing, acceptedKeys = []
         pract_mem(win, singles, paths, timing)
 
 def pract_pres(win, paths, im_list, timing, circle=False):
+    """
+    display practice presentation runs
+    """
 
     cue1, cue2 = cue_stim(win, '>', 'Face', paths['stim_path'])
 
@@ -709,6 +786,9 @@ def pract_pres(win, paths, im_list, timing, circle=False):
     fix.setAutoDraw(False)
 
 def pract_mem(win, im_list, paths, timing):
+    """
+    display practice memory text
+    """
 
     fixation = fix_stim(win)
 
@@ -729,189 +809,3 @@ def pract_mem(win, im_list, paths, timing):
         rating_scale.setAutoDraw(False)
         image.setAutoDraw(False)
         win.flip()
-
-
-# Functions to Aggregate Subject Data and Verify Correct Stimuli were Presented
-
-def sum_pd(subdir):
-    '''
-    input: subject directory (string)
-    output: full experiment info (dataframe)
-    '''
-
-    files = [ x for x in os.listdir(subdir) if 'pres' in x or 'mem' in x ]
-    df_list = [ pd.read_csv(subdir+'/'+x) for x in files ]
-    df = pd.concat(df_list, ignore_index=True)
-
-    return(df)
-
-def images(df_col):
-    '''
-    input: df column
-    output: list of image names (strings)
-    '''
-    return([ x for x in df_col if type(x)==str])
-
-def check_reps(lst):
-    '''
-    input: list of imagenames (strings)
-    output: number of repeats (int)
-    '''
-    return(len(lst)-len(set(lst)))
-
-def list_compare(lst1, lst2):
-    '''
-    input: two lists
-    output: number of shared items between lists
-    '''
-    return(set(lst1) & set(lst2))
-
-def check_shared(df, col1, col2,x=None):
-    '''
-    inputs: dataframe, two column names (strings), run#=None
-    outputs: lists images shared between the columns
-    '''
-
-    if type(x)==int:
-
-        mask = df['Run']==x
-        return(list_compare(list(images(df.loc[mask,col1])), list(images(df.loc[mask,col2]))))
-
-    else:
-        return(list_compare(list(images(df[col1])), list(images(df[col2]))))
-
-def validity_check(df, params):
-    '''
-    inputs: dataframe, parameters
-    outputs: message about validity percentage (empty list or list containing string)
-    '''
-    num_valid = sum(list(df['Cue Validity']))
-
-    if len(df.Run.unique())<params['runs']:
-        print("It looks like there is test data here! (Fewer than expected # of runs).  ")
-
-    if num_valid != params['presentations_per_run']*params['runs']*(100-params['invalid_cue_percentage'])/100:
-        if len(df.Run.unique())==params['runs']:
-            msg = ['Incorrect number of invalid attention circles.  ']
-    else:
-        msg = []
-
-    return(msg)
-
-def stimulus_check(subdir, params):
-    '''
-    input: subject directory (string)
-    output: message indicating whether all stimulus proportions are correct (string)
-    '''
-
-    msg = []
-    select_cols = ['Cued Face', 'Cued Place',
-                   'Uncued Face', 'Uncued Place',
-                   'Memory Image']
-
-    df = sum_pd(subdir)
-    for x in select_cols:
-        if check_reps(df[x]) > 0:
-            msg.append('Internal repetition in '+x+'.  ')
-        for run in range(params['runs']):
-            if x!='Memory Image':
-                if len(check_shared(df, x, 'Memory Image', run)) != params['presentations_per_run']*2/params['mem_to_pres']:
-                    msg.append('Wrong number of prev seen images from one or more categories.  ')
-                    print(x, check_shared(df, x, 'Memory Image', run))
-    msg.extend(validity_check(df, params))
-
-    if len(msg)==0:
-        msg = "All stimulus proportions correct! :)"
-
-    return(msg)
-
-
-# Functions for Simple Behavioral Analyses
-
-def add_level(df):
-    '''
-    input: subject dataframe
-    output: subject dataframe w/ Attention Level string for each Memory trial row
-    '''
-
-    for x in df.Run.unique():
-        mask = df['Run']==x
-        df[mask] = run_level(df[mask])
-
-    return(df)
-
-def run_level(df):
-    '''
-    input: df containing pres and mem from single run
-    output: df with string in 'Attention Level' column in each Memory trial row
-    '''
-
-    cued_cat = df[df['Trial Type']=='Presentation']['Cued Category'].tolist()[0]
-
-    for index,row in df.iterrows():
-
-        if row['Trial Type']=='Memory':
-            mem_image = row['Memory Image']
-            # for mem_image in df[df['Trial Type']=='Memory']['Memory Image'].tolist():
-            # loop over rows in memory chunk and pull memory image from each
-
-            for cue in ['Cued ', 'Uncued ']:
-                for cat in ['Face', 'Place']:
-                    if df.loc[df[cue+cat] == mem_image].shape[0]!=0:
-                        if cat == cued_cat:
-                            df['Category'][index]=cued_cat
-                            if cue == 'Cued ':
-                                attention = "Full"
-                            elif cue == 'Uncued ':
-                                attention = "Category"
-                        else:
-                            df['Category'][index]=cat
-                            if cue == 'Uncued ':
-                                attention = "None"
-                            elif cue == 'Cued ':
-                                attention = "Side"
-                        df['Attention Level'][index] = attention
-
-    mem_mask = df['Trial Type']=='Memory'
-    df.loc[mem_mask,'Attention Level'] = df.loc[mem_mask,'Attention Level'].fillna('Novel')
-
-    return(df)
-
-def ROC(df, plot=True):
-    '''
-    input: subject df
-    output: ROC plot or ROC data dict
-    '''
-
-    ratings = [1.0, 2.0, 3.0, 4.0]
-    ROC = {}
-
-    fig = plt.figure()
-    ax1 = fig.add_subplot(111)
-
-    # for each attention level
-    for attn in ['Novel', 'None','Side','Full','Category']:
-        ROC[attn] = [0]
-
-        # for each possible number rating
-        for idx in range(len(ratings)):
-
-            # proportion of times they rated that attn level & proportion of Novel that got that rating
-            num = df.loc[(df['Attention Level'] == attn) & df['Familiarity Rating'].isin(ratings[:idx+1])].shape[0]
-            denom = df.loc[df['Attention Level'] == attn].shape[0]
-            ROC[attn].append(float(num)/denom)
-
-        ROC[attn].append(1)
-
-        if attn != 'Novel':
-            ax1.plot(ROC['Novel'], ROC[attn], '-o', label=attn)
-
-    if plot:
-        plt.legend(loc='upper left');
-        plt.ylim(0, 1)
-        plt.xlim(0, 1)
-        plt.gca().set_aspect('equal', adjustable='box')
-        plt.show()
-
-    else:
-        return(ROC)
