@@ -473,8 +473,9 @@ def presentation_run(win, run, pres_df, params, timing, paths, loop = object, te
         pres_df['Attention Reaction Time (s)'].loc[trial], pres_df['Attention Button'].loc[trial] = display(win, [circle], timing['probe'], accepted_keys=['1','3'])
         pause(win, timing['pause'])
 
+        pres_df.to_csv(paths['subject']+'pres'+str(run)+'.csv')
+
     fixation.setAutoDraw(False)
-    pres_df.to_csv(paths['subject']+'pres'+str(run)+'.csv')
 
 def memory_run(win, run, mem_df, params, timing, paths, test = False):
 
@@ -490,21 +491,23 @@ def memory_run(win, run, mem_df, params, timing, paths, test = False):
         image = memory_stim(win, mem_df['Memory Image'][trial], paths['stim_path'])
         display(win, [fixation], timing['pause'])
 
-        event.getKeys(keyList = None)
-        for frame_n in range(timing['mem']):
-            image.setAutoDraw(True)
-            rating_scale.setAutoDraw(True)
-            if frame_n == 0:
-                resp_clock.reset()
-            win.flip()
-        choice_history = rating_scale.getHistory()
-        rating_scale.setAutoDraw(False)
-        image.setAutoDraw(False)
-        win.flip()
-        mem_df['Familiarity Rating'].loc[trial],mem_df['Familiarity Reaction Time (s)'].loc[trial] = rating_pull(choice_history) #,ratetime_pull(choice_history)]
-        mem_df['Rating History'].loc[trial] = choice_history
+        display(win, [image,rating_scale], timing['mem', accepted_keys=None, trial=trial, df=mem_df])
 
-    mem_df.to_csv(paths['subject']+'mem'+str(run)+'.csv')
+        # event.getKeys(keyList = None)
+        # for frame_n in range(timing['mem']):
+        #     image.setAutoDraw(True)
+        #     rating_scale.setAutoDraw(True)
+        #     if frame_n == 0:
+        #         resp_clock.reset()
+        #     win.flip()
+        # choice_history = rating_scale.getHistory()
+        # rating_scale.setAutoDraw(False)
+        # image.setAutoDraw(False)
+        # win.flip()
+        # mem_df['Familiarity Rating'].loc[trial],mem_df['Familiarity Reaction Time (s)'].loc[trial] = rating_pull(choice_history) #,ratetime_pull(choice_history)]
+        # mem_df['Rating History'].loc[trial] = choice_history
+
+        mem_df.to_csv(paths['subject']+'mem'+str(run)+'.csv')
 
 
 # Functions to Display Instruction Text and Practice Trials
