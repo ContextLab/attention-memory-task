@@ -258,7 +258,7 @@ def initialize_df(info, categories, paths, subject_directory, params, save=True)
                 'Cued Place', 'Uncued Face', 'Uncued Place', 'Memory Image', 'Category', 'Cued Side',
                 'Cued Category', 'Attention Reaction Time (s)', 'Familiarity Reaction Time (s)',
                 'Familiarity Rating', 'Attention Level', 'Cue Validity', 'Post Invalid Cue', 'Pre Invalid Cue',
-                'Attention Button']
+                'Attention Button', 'Rating History', 'Stimulus Onset', 'Stimulus End']
 
     df = pd.DataFrame(index = range(total_pres*5), columns=columns)
 
@@ -348,7 +348,7 @@ def probe_stim(win, cued_side, validity):
     probe.setPos([cued_position, 0])
     return(probe)
 
-def display(win, stim_list, frames, accepted_keys=None):
+def display(win, stim_list, frames, accepted_keys=None, trial=0, df=None):
     rt = None
     resp = None
 
@@ -362,6 +362,18 @@ def display(win, stim_list, frames, accepted_keys=None):
 
     for frame_n in range(frames):
 
+        ###########
+
+        absolute_time = time.time()
+
+        if df is not None:
+            if frame_n == 0:
+                df.loc[trial, 'Stimulus End'] = absolute_time
+            if frame_n == frames-1:
+                df.loc[trial, 'Stimulus End'] = absolute_time
+
+        ###########
+
         if type(accepted_keys)==list:
             if frame_n == 0:
                 resp_clock.reset()
@@ -371,7 +383,6 @@ def display(win, stim_list, frames, accepted_keys=None):
                 rt = resp_clock.getTime()
                 break
 
-            # clear screen
             win.flip()
             for x in stim_list:
                 x.setAutoDraw(False)
@@ -392,7 +403,18 @@ def display(win, stim_list, frames, accepted_keys=None):
     for x in stim_list:
         x.setAutoDraw(False)
 
+        #############
+
+        if type(x) is visual.RatingScale:
+            choice_history = x.getHistory()
+            df["Familiarity Rating"].loc[trial],df['Familiarity Reaction Time (s)'].loc[trial] = rating_pull(choice_history)
+
+        #############
+
     return([rt, resp])
+
+
+
 
 def pause(win, frames):
     for frame_n in range(frames):
@@ -409,15 +431,6 @@ def memory_stim(win, image, stim_dir, practice=False, practice_single=False):
     im = visual.ImageStim(win, image, size=7, name='mem_image')
     im.setPos([0, 0])
     return(im)
-
-# def ratetime_pull(rating_tuple_list):
-#     '''
-#     pulls subject's response time out of rating tuple
-#     '''
-#     if len(tuple_rating_list)>1:
-#         return(tuple_rating_list)[1][1]
-#     else:
-#         return(tuple_rating_list)[0][1]
 
 def rating_pull(rating_tuple):
     '''
@@ -489,6 +502,7 @@ def memory_run(win, run, mem_df, params, timing, paths, test = False):
         image.setAutoDraw(False)
         win.flip()
         mem_df['Familiarity Rating'].loc[trial],mem_df['Familiarity Reaction Time (s)'].loc[trial] = rating_pull(choice_history) #,ratetime_pull(choice_history)]
+        mem_df['Rating History'].loc[trial] = choice_history
 
     mem_df.to_csv(paths['subject']+'mem'+str(run)+'.csv')
 
