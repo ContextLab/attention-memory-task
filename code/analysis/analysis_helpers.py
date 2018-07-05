@@ -145,7 +145,7 @@ def stimulus_check(subdir, params):
                 if len(check_shared(df, x, 'Memory Image', run)) != params['presentations_per_run']*2/params['mem_to_pres']:
                     msg.append('Wrong number of prev seen images from one or more categories.  ')
                     print(x, check_shared(df, x, 'Memory Image', run))
-    msg.extend(validity_check(df, params))
+    msg.append(validity_check(df, params))
 
     if len(msg)==0:
         msg = "All stimulus proportions correct! :)"
