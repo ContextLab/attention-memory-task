@@ -7,7 +7,8 @@ from analysis_helpers import *
 import random
 import os
 import time
-import matplotlib.pyplot as plt
+import csv
+#from curtsies import Input
 
 # Tiny helpers
 def group_it(data, num):
@@ -809,3 +810,27 @@ def pract_mem(win, im_list, paths, timing):
         rating_scale.setAutoDraw(False)
         image.setAutoDraw(False)
         win.flip()
+
+
+# Functions for Saving Timestamps for All Important Experiment Events
+
+# def button_init(paths):
+#     """
+#     makes data file and records any button press and timestamp of button press to csv
+#     """
+#
+#     filename = paths['subject'] + 'button_press.csv'
+#
+#     with open(filename, 'wb') as csvfile:
+#         filewriter = csv.writer(csvfile, delimiter=',',
+#                                 quotechar='|', quoting=csv.QUOTE_MINIMAL)
+#
+#     with Input(keynames='curses') as input_generator:
+#
+#         for e in input_generator:
+#             filewriter.writerow(repr(e))
+#
+#     if __name__ == '__main__':
+#         main()
+
+#def button_end():
