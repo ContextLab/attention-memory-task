@@ -76,29 +76,29 @@ end
 
 %% loop over male faces
 
-for x=[1:numel(file_list_1b)]
-        
-    path1 = strcat(file_list_1b(x).folder, '/', file_list_1b(x).name)
-
-    if x <= numel(file_list_1b)/2 
-        path2 = strcat(file_list_2a(x+numel(file_list_1a)/2).folder, '/', file_list_2a(x+numel(file_list_1a)/2).name)
-        name2 = file_list_2a(x+numel(file_list_1a)/2).name(1:length(file_list_2a(x+numel(file_list_1a)/2).name)-length(file_ext))
-    else
-        path2 = strcat(file_list_2b(x).folder, '/', file_list_2b(x).name)
-        name2 = file_list_2b(x).name(1:length(file_list_2b(x).name)-length(file_ext))
-    end
-    
-    % load each image
-    im1 = imread(path1);
-    im2 = imread(path2);
-    
-    % make composite of the loaded images
-    composite = imfuse(im1, im2, 'blend','Scaling','joint');
-    
-    % composite image filename (combo of original file names)
-    comp_name = strcat('/Users/kirstenziman/Desktop/composites_even/', file_list_1b(x).name(1:length(file_list_1b(x).name)-length(file_ext)), '_', file_list_2(x).name(1:length(file_list_2(x).name)-length(file_ext)));
-    
-    % save composite
-    imwrite(composite, comp_name);
-    
-end
+% for x=[1:numel(file_list_1b)]
+%         
+%     path1 = strcat(file_list_1b(x).folder, '/', file_list_1b(x).name)
+% 
+%     if x <= numel(file_list_1b)/2 
+%         path2 = strcat(file_list_2a(x+numel(file_list_1a)/2).folder, '/', file_list_2a(x+numel(file_list_1a)/2).name)
+%         name2 = file_list_2a(x+numel(file_list_1a)/2).name(1:length(file_list_2a(x+numel(file_list_1a)/2).name)-length(file_ext))
+%     else
+%         path2 = strcat(file_list_2b(x).folder, '/', file_list_2b(x).name)
+%         name2 = file_list_2b(x).name(1:length(file_list_2b(x).name)-length(file_ext))
+%     end
+%     
+%     % load each image
+%     im1 = imread(path1);
+%     im2 = imread(path2);
+%     
+%     % make composite of the loaded images
+%     composite = imfuse(im1, im2, 'blend','Scaling','joint');
+%     
+%     % composite image filename (combo of original file names)
+%     comp_name = strcat('/Users/kirstenziman/Desktop/composites_even/', file_list_1b(x).name(1:length(file_list_1b(x).name)-length(file_ext)), '_', file_list_2(x).name(1:length(file_list_2(x).name)-length(file_ext)));
+%     
+%     % save composite
+%     imwrite(composite, comp_name);
+%     
+% end
