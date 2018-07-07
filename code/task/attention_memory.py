@@ -10,7 +10,6 @@ import psychopy
 import sys
 import pandas as pd
 from psychopy import visual, event, core, data, gui, logging
-
 sys.path.insert(0, '../analysis/')
 from analysis_helpers import *
 from experiment_helpers import * # main functions in experiment_helpers.fpy
@@ -24,7 +23,7 @@ exp = data.ExperimentHandler(name = 'Attention Memory', version = '1.0')
 
 # Parameters #
 experiment_title = 'Attention and Memory' 
-practice = True   # instructions & practice
+practice = False  # instructions & practice
 save_data = True  # saves all data
 eye_track = False # for eye tracking
 MRI = False       # for MRI sync

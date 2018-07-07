@@ -650,7 +650,13 @@ def mem_text(trial):
 
     instructions = [mem1, mem2]
 
-    return(instructions[trial])
+    if trial >= 1:
+        num = 1
+    else:
+        num = 0
+
+    return(instructions[num])
+
 
 def pres_text(trial):
     """
