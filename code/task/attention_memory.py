@@ -10,12 +10,10 @@ import psychopy
 import sys
 import pandas as pd
 from psychopy import visual, event, core, data, gui, logging
-#import pylinkwrapper
 sys.path.insert(0, '../analysis/')
 from analysis_helpers import *
-from experiment_helpers import * # main functions in experiment_helpers.py
+from experiment_helpers import * # main functions in experiment_helpers.fpy
 import time
-
 
 
 # Set Up #############################################################################################
@@ -25,8 +23,7 @@ exp = data.ExperimentHandler(name = 'Attention Memory', version = '1.0')
 
 # Parameters #
 experiment_title = 'Attention and Memory' 
-practice = False   # instructions & practice
-test_mode = False # not for use with subjects
+practice = False  # instructions & practice
 save_data = True  # saves all data
 eye_track = False # for eye tracking
 MRI = False       # for MRI sync
@@ -43,9 +40,6 @@ paths['subject'] = subject_directory(info, paths['data_path'], path_only=True)
 global_clock = core.Clock()
 logging.setDefaultClock(global_clock)
  
-#Absolute Time Variable
-#abs_time = core.getAbsTime()
-
 # Pre questionnaire #
 pre_info = pre_questionnaire(info, save=save_data, save_path=paths['subject'])
 
@@ -63,9 +57,6 @@ if practice:
     for x in range(11):
         practice_instructions(win, paths, pract_text(x), x, timing, acceptedKeys = [], practice=True)
 
-# Initiate log file #
-log = logging.LogFile(paths['subject']+'log.log', filemode='w', level = logging.DATA)
-
 # eye tracker callibration #
 # if eye_track:
 
@@ -74,15 +65,13 @@ log = logging.LogFile(paths['subject']+'log.log', filemode='w', level = logging.
 # if MRI:
 
 
-# Initialize subject dataframe #
+# Initialize dataframe and savefiles #
 df = initialize_df(info, categories, paths, paths['subject'], params) 
+# button_init(paths)
 
 # create df masks
 mask1 = df['Trial Type']=='Presentation'
 mask2 = df['Trial Type']=='Memory'
-
-# Trial handler (for log file) #
-trials = data.TrialHandler(trialList = [{}]*params['presentations_per_run'], nReps=1)
 
 # Pres & Mem runs #
 for run in range(params['runs']):
@@ -91,13 +80,13 @@ for run in range(params['runs']):
     
     # presentation      
     text_present(win, pres_text(run))
-    presentation_run(win, run, df.loc[mask1][mask3], params, timing, paths, trials) 
+    presentation_run(win, run, df.loc[mask1][mask3], params, timing, paths) 
     
     # memory 
     text_present(win, mem_text(run))
     memory_run(win, run, df.loc[mask2][mask3], params, timing, paths)
     
-# thanks for participating 
+# thanks for participating #
 show_instructions(win, paths, thank_text(), acceptedKeys = [])
 
 # post questionnaire #

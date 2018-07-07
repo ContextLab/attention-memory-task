@@ -4,379 +4,76 @@ import pickle
 #import statistics
 import pandas as pd
 import numpy as np
+from matplotlib import pyplot as plt
 
 
-# SINGLE SUBJECT ANALYSIS
-# pseudo code
+# Functions to Aggregate Subject Data and Verify Correct Stimuli were Presented
 
-# in: main directory name (../data)
-# out: list of subdirectories
-def get_subdirectories(a_dir):
-    return [a_dir + '/' + name for name in os.listdir(a_dir)
-            if os.path.isdir(os.path.join(a_dir, name))]
-
-# in: directory name
-# out: list of .pkl files within directory
-def get_files(dir_name):
-    files = [dir_name + '/' + f for f in os.listdir(dir_name) if f.endswith('.pkl')]
-    return files
-
-def rand_split(subject):
-    a = [x for x in subject['images'] if x[0:3]!='sun']
-    b = [x for x in subject['images'] if x[0:3]=='sun']
-    return({'place_rands':b, 'face_rands':a})
-
-# in: list of .pkl files within directory
-# out: dict that maps mem_items.pkl to corresponding previous_items.pkl
-def make_run_dict(files):
-    runs = {}
-
-    for f in files:
-        if f.endswith('mem_items.pkl'):
-            runs[f] = f[0:-13] + 'previous_items.pkl'
-
-    return runs
-
-# in: run is the name of mem_items.pkl, runs[run] is the name of corresponding previous_items.pkl
-#     mass is the aggregate data
-# out: none, prints if outlier
-def is_outlier(mass, runs):
-
-    cued_avg = sum(mass['cued_RT']) / len(mass['cued_RT'])
-    uncued_avg = sum(mass['uncued_RT']) / len(mass['uncued_RT'])
-    cued_sd = 3 * statistics.stdev(mass['cued_RT'])
-    uncued_sd = 3 * statistics.stdev(mass['uncued_RT'])
-
-    for run in runs:
-        with open(run, 'rb') as fp:
-            prev = pickle.load(fp)
-            print(prev)
-            cued = sum(prev['cued_RT']) / len(prev['cued_RT'])
-            uncued = sum(prev['uncued_RT']) / len(prev['uncued_RT'])
-            if cued > cued_avg + cued_sd or cued < cued_avg - cued_sd or uncued > uncued_avg + uncued_sd or uncued < uncued_avg - uncued_sd:
-                print("Outlier in " + runs[run])
-
-        fp.close()
-
-
-# in: dict of runs mem_items: previous_items
-# out: none, modifies mass dictionary
-def aggregate(run, runs, mass):
-    with open(run, 'rb') as fp1:
-        mem = pickle.load(fp1)
-
-        mass['images'].extend(mem['images'])
-        mass['ratings'].extend(mem['ratings'])
-
-    fp1.close()
-
-    with open(runs[run], 'rb') as fp2:
-        prev = pickle.load(fp2)
-
-        mass['cued'].extend(prev['cued'])
-        mass['cued_RT'].extend(prev['cued_RT'])
-        mass['uncued'].extend(prev['uncued'])
-        mass['uncued_RT'].extend(prev['uncued_RT'])
-        mass['cue_tuples'].extend(prev['cue_tuples'])
-
-    fp2.close()
-
-def plot_rl(mass):
-    df = pd.DataFrame.from_dict(mass, orient='index')
-    df = df.T
-    df_new = df.replace('None', 'Nan')
-
-    return(df_new)
-
-def idx_substring(the_list, substring, loud=False):
-    for i, s in enumerate(the_list):
-        if substring in s:
-            return i
-        else:
-            return None
-
-def flatten(the_list):
-    return([val for sublist in the_list for val in sublist])
-
-def mass_data(folder, sub_dir=None):
-    mass_list = []
-
-    if sub_dir==None:
-        dirs = get_subdirectories(folder)
-    else:
-        dirs = sub_dir
-
-    for dir_name in dirs:
-        runs = make_run_dict(get_files(dir_name))
-        mass = {'images':[], 'ratings':[], 'cued':[], 'cued_RT':[], 'uncued':[], 'uncued_RT':[], 'cue_tuples':[]}
-
-        for run in runs:
-            aggregate(run, runs, mass)
-
-        mass_list.append(mass)
-
-    return(mass_list)
-
-
-def rating_pull(tuple_rating_list):
+def sum_pd(subdir):
     '''
-    pulls subject's rating out of rating tuple
-    '''
-    if len(tuple_rating_list)>1:
-        return(tuple_rating_list)[1][0]
-    else:
-        return(tuple_rating_list)[0][0]
-
-def ratetime_pull(tuple_rating_list):
-    '''
-    pulls subject's response time out of rating tuple
-    '''
-    if len(tuple_rating_list)>1:
-        return(tuple_rating_list)[1][1]
-    else:
-        return(tuple_rating_list)[0][1]
-
-def cat_check(row):
-    if row['cat'] == row['cued_cat'] :
-        return('attended')
-    elif row['cued_cat'] == 'novel':
-        return('novel')
-    else:
-        return('unattended')
-
-def cat_loc_check(row):
-    if row['location'] == 'attended':
-        if row['category']=='attended' :
-            return('both')
-        if row['category']=='unattended':
-            return('side')
-
-    if row['location'] == 'unattended':
-        if row['category']=='attended' :
-            return('category')
-        if row['category']=='unattended':
-            return('none')
-
-    if row['location'] == 'novel':
-        return('novel')
-
-def rep_seen(row):
-    if row['familiarity'] in [1.0,2.0]:
-        return('no')
-    else:
-        return('yes')
-
-
-# Prep ROC data
-def ROC_data(rec, category = False):
-
-
-    labels_a = ['both','none','novel','side','category']
-
-    if category==True:
-        ROC = {}
-
-        for x in ['Face','Location']:
-
-            labels = [x+'_'+a for a in labels_a]
-
-            for typ,attn in zip(labels,labels_a):
-                ROC[typ] = [0]
-
-                for x in [1.0, 2.0, 3.0, 4.0]:
-
-                    num_cases = rec.loc[(rec['familiarity'] <=x) & rec['attention level'].isin([attn]) & rec['cat'].isin([typ[0]])].shape[0]
-
-                    if num_cases>0:
-                        ROC[typ].append(num_cases/float(rec.loc[rec['attention level'].isin([attn]) & rec['cat'].isin([typ[0]])].shape[0]))
-
-                    else:
-                        ROC[typ].append(0)
-
-                ROC[typ].append(1)
-
-
-    else:
-        ROC = {'both':[0],'none':[0], 'novel':[0],'side':[0],'category':[0]}
-
-        for typ in labels_a:
-            nums = []
-
-            for x in [1.0, 2.0, 3.0, 4.0]:
-
-                num_cases = rec.loc[(rec['familiarity'] <=x) & rec['attention level'].isin([typ])].shape[0]
-                #print(num_cases)
-
-                if num_cases>0:
-                    ROC[typ].append(num_cases/float(rec.loc[rec['attention level'].isin([typ])].shape[0]))
-
-                else:
-                    ROC[typ].append(0)
-
-            ROC[typ].append(1)
-
-    return(ROC)
-
-def arrange_RTs(pres,sub_data):
-    df_pres1 = pres[pres['is_cued_RT']==1]
-    df_pres2 = pres[pres['is_cued_RT']==2]
-
-    cued_RT = [y['cued_RT'] for y in sub_data]
-    cued_RT = [val for sublist in cued_RT for val in sublist]
-
-
-    uncued_RT = [y['uncued_RT'] for y in sub_data]
-    uncued_RT = [val for sublist in uncued_RT for val in sublist]
-
-
-    ser1 = pd.Series(cued_RT, index=df_pres1.index)
-    ser2 = pd.Series(uncued_RT, index=df_pres2.index)
-    df_pres1['RT'] = ser1
-    df_pres2['RT'] = ser2
-
-    prezzies=[df_pres1,df_pres2]
-    pres=pd.concat(prezzies).reset_index(drop=True)
-    return(pres)
-
-
-
-def pr(row):
-
-    if row['cue_tuples'][0]=='cue_R' and row['cue_tuples'][2]==0:
-        return(1)
-
-    elif row['cue_tuples'][0]=='cue_R' and row['cue_tuples'][2]==1:
-        return(2)
-
-    elif row['cue_tuples'][0]=='cue_L':
-        return(2)
-
-    else:
-        return(0)
-
-def is_valid(row):
-
-    if row['cue_tuples'][2]==0:
-        return('valid')
-    else:
-        return('invalid')
-
-
-def mass_df(mass, typ = 'pres'):
-    full_rec = []
-    full_pres = []
-
-    for s in mass:
-
-        cue_tup = []
-        cue_side = []
-        cat = []
-
-        cue_count = 0
-        uncue_count = 0
-
-        rec = pd.DataFrame({'images':s['images'],'familiarity':[rating_pull(x) for x in s['ratings']]})
-        pres = pd.DataFrame({'cued':s['cued'],'uncued':s['uncued'],'cue_tuples':s['cue_tuples']})
-
-        for im in rec['images']:
-
-            if len(pres[pres['cued'].str.contains(im[:-4])])>0:
-
-                obj = pres[pres['cued'].str.contains(im[:-4])]['cue_tuples']
-                cue_tup.append(obj[obj.index[0]][1])
-                cue_side.append('attended')
-                cue_count +=1
-
-            elif len(pres[pres['uncued'].str.contains(im[:-4])])>0:
-                obj = pres[pres['uncued'].str.contains(im[:-4])]['cue_tuples']
-                cue_tup.append(obj[obj.index[0]][1])
-                cue_side.append('unattended')
-                uncue_count +=1
-
-            else:
-                cue_tup.append('novel')
-                cue_side.append('novel')
-
-            if im.startswith('00'):
-                cat.append('F')
-
-            else:
-                cat.append('L')
-
-        rec['cued_cat']= cue_tup
-        rec['location'] = cue_side
-        rec['cat'] = cat
-        rec['category'] = rec.apply(lambda row: cat_check(row),axis=1)
-        rec['attention level'] = rec.apply(lambda row: cat_loc_check(row),axis=1)
-        rec['report familiar'] = rec.apply(lambda row: rep_seen(row),axis=1)
-
-
-        full_rec.append(rec)
-        full_pres.append(pres)
-
-
-    rec = pd.concat(full_rec).reset_index(drop=True)
-    pres = pd.concat(full_pres).reset_index(drop=True)
-
-    if typ == 'pres':
-        return(pres)
-    else:
-        return(rec)
-
-# def idx_substring(the_list, substring, loud=False):
-#     for i, s in enumerate(the_list):
-#         if substring in s:
-#             return i
-#         else:
-#             return('no')
-
-def img_split(image_list, cat = False):
-    '''
-    splits overlay image filenames into filenames of the original, single images
-
-    input : list of image filenames
-    output : list of image filenames OR two lists, separated by category
-
+    input: subject directory (string)
+    output: full experiment info (dataframe)
     '''
 
-    split = [words for segments in image_list for words in segments.split('_')]
-    a = [word+'.jpg' for word in split if word[-3:]!='jpg']
-    b = [word for word in split if word[-3:]=='jpg']
-    glom = a+b
+    files = [ x for x in os.listdir(subdir) if 'pres' in x or 'mem' in x ]
+    df_list = [ pd.read_csv(subdir+'/'+x) for x in files ]
+    df = pd.concat(df_list, ignore_index=True)
 
-    if cat == False:
-        return(glom)
+    return(df)
+
+def images(df_col):
+    '''
+    input: df column
+    output: list of image names (strings)
+    '''
+    return([ x for x in df_col if type(x)==str])
+
+def check_reps(lst):
+    '''
+    input: list of imagenames (strings)
+    output: number of repeats (int)
+    '''
+    return(len(lst)-len(set(lst)))
+
+def list_compare(lst1, lst2):
+    '''
+    input: two lists
+    output: number of shared items between lists
+    '''
+    return(set(lst1) & set(lst2))
+
+def check_shared(df, col1, col2,x=None):
+    '''
+    inputs: dataframe, two column names (strings), run#=None
+    outputs: lists images shared between the columns
+    '''
+
+    if type(x)==int:
+
+        mask = df['Run']==x
+        return(list_compare(list(images(df.loc[mask,col1])), list(images(df.loc[mask,col2]))))
 
     else:
-        return({'face_im':a, 'place_im':b})
+        return(list_compare(list(images(df[col1])), list(images(df[col2]))))
 
-def halfsies(mass):
+def validity_check(df, params):
     '''
-    selects subs who have seen equal proportion of cued and uncued in memory trials
+    inputs: dataframe, parameters
+    outputs: message about validity percentage (empty list or list containing string)
     '''
-    halfsies = []
-    for s in mass:
+    num_valid = sum(list(df['Cue Validity']))
 
-        cued_split = img_split(s['cued'])
-        uncued_split = img_split(s['uncued'])
+    msg = []
 
-        u1 = set(s['images']).intersection(set(cued_split))
-        u2 = set(s['images']).intersection(set(uncued_split))
+    if len(df.Run.unique())<params['runs']:
+        msg = ["It looks like there is test data here! (Fewer than expected # of runs).  "]
 
-        conglom = cued_split+uncued_split
+    if len(msg)==0:
+        if num_valid != params['presentations_per_run']*params['runs']*(100-params['invalid_cue_percentage'])/100:
+            if len(df.Run.unique())==params['runs']:
+                msg.append('Incorrect number of invalid attention circles.  ')
 
-        k = s['images']
-        u3 = [x for x in k if x not in conglom]
-        u4 = [x for x in k if x in conglom]
-
-
-        for index,img in enumerate(s['images']):
-            one = [words for segments in s['cued'] for words in segments.split('_')]
-
-
-        if len(u1)+len(u2) == len(u3):
-            halfsies.append(s)
-    return(halfsies)
+    return(msg)
 
 def check_rep_interal(mass):
     '''
@@ -390,8 +87,119 @@ def check_rep_interal(mass):
         if len([x for x in s['cued'] if x in s['uncued']]):
             print('Cue repeat, external')
 
-def reject_outliers(data, m=2):
+def ROC(df, plot=True):
     '''
-    rejects stat reject_outliers
+    input: subject df
+    output: ROC plot or ROC data dict
     '''
-    return data[abs(data - np.mean(data)) < m * np.std(data)]
+
+    ratings = [1.0, 2.0, 3.0, 4.0]
+    ROC = {}
+
+    fig = plt.figure()
+    ax1 = fig.add_subplot(111)
+
+    # for each attention level
+    for attn in ['Novel', 'None','Side','Full','Category']:
+        ROC[attn] = [0]
+
+        # for each possible number rating
+        for idx in range(len(ratings)):
+
+            # proportion of times they rated that attn level & proportion of Novel that got that rating
+            num = df.loc[(df['Attention Level'] == attn) & df['Familiarity Rating'].isin(ratings[:idx+1])].shape[0]
+            denom = df.loc[df['Attention Level'] == attn].shape[0]
+            ROC[attn].append(float(num)/denom)
+
+        ROC[attn].append(1)
+
+        if attn != 'Novel':
+            ax1.plot(ROC['Novel'], ROC[attn], '-o', label=attn)
+
+    if plot:
+        plt.legend(loc='upper left');
+        plt.ylim(0, 1)
+        plt.xlim(0, 1)
+        plt.gca().set_aspect('equal', adjustable='box')
+        plt.show()
+
+    else:
+        return(ROC)
+
+def stimulus_check(subdir, params):
+    '''
+    input: subject directory (string)
+    output: message indicating if all stimulus proportions are correct (string)
+    '''
+
+    msg = []
+    select_cols = ['Cued Face', 'Cued Place',
+                   'Uncued Face', 'Uncued Place',
+                'Memory Image']
+
+    df = sum_pd(subdir)
+    for x in select_cols:
+        if check_reps(df[x]) > 0:
+            msg.append('Internal repetition in '+x+'.  ')
+        for run in range(params['runs']):
+            if x!='Memory Image':
+                if len(check_shared(df, x, 'Memory Image', run)) != params['presentations_per_run']*2/params['mem_to_pres']:
+                    msg.append('Wrong number of prev seen images from one or more categories.  ')
+                    print(x, check_shared(df, x, 'Memory Image', run))
+    msg.append(validity_check(df, params))
+
+    if len(msg)==0:
+        msg = "All stimulus proportions correct! :)"
+
+    return(msg)
+
+# Functions for Simple Behavioral Analyses
+
+def add_level(df):
+    '''
+    input: subject dataframe
+    output: subject dataframe w/ Attention Level string for each Memory trial row
+    '''
+
+    for x in df.Run.unique():
+        mask = df['Run']==x
+        df[mask] = run_level(df[mask])
+
+    return(df)
+
+def run_level(df):
+    '''
+    input: df containing pres and mem from single run
+    output: df with string in 'Attention Level' column in each Memory trial row
+    '''
+
+    cued_cat = df[df['Trial Type']=='Presentation']['Cued Category'].tolist()[0]
+
+    for index,row in df.iterrows():
+
+        if row['Trial Type']=='Memory':
+            mem_image = row['Memory Image']
+            # for mem_image in df[df['Trial Type']=='Memory']['Memory Image'].tolist():
+            # loop over rows in memory chunk and pull memory image from each
+
+            for cue in ['Cued ', 'Uncued ']:
+                for cat in ['Face', 'Place']:
+                    if df.loc[df[cue+cat] == mem_image].shape[0]!=0:
+                        if cat == cued_cat:
+                            df['Category'][index]=cued_cat
+                            if cue == 'Cued ':
+                                attention = "Full"
+                            elif cue == 'Uncued ':
+                                attention = "Category"
+                        else:
+                            df['Category'][index]=cat
+                            if cue == 'Uncued ':
+                                attention = "None"
+                            elif cue == 'Cued ':
+                                attention = "Side"
+                        df['Attention Level'][index] = attention
+
+    mem_mask = df['Trial Type']=='Memory'
+    df.loc[mem_mask,'Attention Level'] = df.loc[mem_mask,'Attention Level'].fillna('Novel')
+
+    return(df)
