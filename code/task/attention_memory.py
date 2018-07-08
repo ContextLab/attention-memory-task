@@ -25,7 +25,6 @@ exp = data.ExperimentHandler(name = 'Attention Memory', version = '1.0')
 experiment_title = 'Attention and Memory' 
 practice = False  # instructions & practice
 save_data = True  # saves all data
-eye_track = False # for eye tracking
 MRI = False       # for MRI sync
 
 params = {'runs':8, 'presentations_per_run':10, 'invalid_cue_percentage':10, 'mem_to_pres':4, 'mem_pres_split':2}
@@ -56,9 +55,6 @@ timing = {'cue':int(round(1.5 * rate)), 'probe':int(round(3.0 * rate)), 'mem':in
 if practice:
     for x in range(11):
         practice_instructions(win, paths, pract_text(x), x, timing, acceptedKeys = [], practice=True)
-
-# eye tracker callibration #
-# if eye_track:
 
 
 # MRI sync #
