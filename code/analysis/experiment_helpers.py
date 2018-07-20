@@ -423,7 +423,6 @@ def display(win, stim_list, frames, accepted_keys=None, trial=0, df=None):
         event.clearEvents()
 
     for frame_n in range(frames):
-
         absolute_time = time.time()
 
         if df is not None:
@@ -459,6 +458,7 @@ def display(win, stim_list, frames, accepted_keys=None, trial=0, df=None):
     win.flip()
     for x in stim_list:
         x.setAutoDraw(False)
+        event.clearEvents()
 
         if type(x) is visual.RatingScale:
             choice_history = x.getHistory()
@@ -689,15 +689,11 @@ def pres_text(trial):
 
     return(instructions[num])
 
-def thank_text():
-    """
-    returns closing message text (str)
-    """
-    thanks = 'Thank you for your participation! '
-    return(thanks)
 
 def text_present(win, text):
-
+    '''
+    displays text on screen, given window (psychopy object) and text (str)
+    '''
     instruction = visual.TextStim(win, text=text, wrapWidth=40)
     instruction.setAutoDraw(True)
     win.flip()
@@ -840,3 +836,14 @@ def pract_mem(win, im_list, paths, timing):
 #         main()
 
 #def button_end():
+
+
+
+
+
+# def thank_text():
+#     """
+#     returns closing message text (str)
+#     """
+#     thanks = 'Thank you for your participation! '
+#     return(thanks)
