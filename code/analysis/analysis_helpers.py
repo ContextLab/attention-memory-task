@@ -56,6 +56,7 @@ def check_shared(df, col1, col2,x=None):
     else:
         return(list_compare(list(images(df[col1])), list(images(df[col2]))))
 
+
 def validity_check(df, params):
     '''
     inputs: dataframe, parameters
@@ -75,6 +76,7 @@ def validity_check(df, params):
 
     return(msg)
 
+
 def check_rep_interal(mass):
     '''
     checks for repeats within cued, uncued, and mem lists
@@ -86,6 +88,7 @@ def check_rep_interal(mass):
 
         if len([x for x in s['cued'] if x in s['uncued']]):
             print('Cue repeat, external')
+
 
 def ROC(df, plot=True):
     '''
@@ -125,6 +128,7 @@ def ROC(df, plot=True):
 
     else:
         return(ROC)
+
 
 def stimulus_check(subdir, params):
     '''

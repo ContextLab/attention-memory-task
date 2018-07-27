@@ -19,11 +19,11 @@ import time
 # Set Up #############################################################################################
 
 # Experiment handler #
-exp = data.ExperimentHandler(name = 'Attention Memory', version = '1.0')
+# exp = data.ExperimentHandler(name = 'Attention Memory', version = '1.0')
 
 # Parameters #
 experiment_title = 'Attention and Memory' 
-practice = False  # instructions & practice
+practice = True   # instructions & practice
 save_data = True  # saves all data
 MRI = False       # for MRI sync
 
@@ -56,7 +56,6 @@ if practice:
     for x in range(11):
         practice_instructions(win, paths, pract_text(x), x, timing, acceptedKeys = [], practice=True)
 
-
 # MRI sync #
 # if MRI:
 
@@ -83,7 +82,7 @@ for run in range(params['runs']):
     memory_run(win, run, df.loc[mask2][mask3], params, timing, paths)
     
 # thanks for participating #
-show_instructions(win, paths, thank_text(), acceptedKeys = [])
+text_present(win, 'Thank you for your participation!')
 
 # post questionnaire #
 post_info = post_questionnaire(subject[0], save=save_data, save_path=paths['data_path'])

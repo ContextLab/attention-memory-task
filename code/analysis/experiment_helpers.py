@@ -291,7 +291,7 @@ def initialize_df(info, categories, paths, subject_directory, params, save=True)
                 'Cued Place', 'Uncued Face', 'Uncued Place', 'Memory Image', 'Category', 'Cued Side',
                 'Cued Category', 'Attention Reaction Time (s)', 'Familiarity Reaction Time (s)',
                 'Familiarity Rating', 'Attention Level', 'Cue Validity', 'Post Invalid Cue', 'Pre Invalid Cue',
-                'Attention Button', 'Rating History', 'Stimulus Onset', 'Stimulus End']
+                'Attention Button', 'Rating History', 'Stimulus Onset', 'Stimulus End', 'Attention Probe']
 
     df = pd.DataFrame(index = range(total_pres*5), columns=columns)
 
@@ -300,6 +300,7 @@ def initialize_df(info, categories, paths, subject_directory, params, save=True)
     df['Run'],df['Trial Type'] = trial_setup(params)
     mask = df['Trial Type']=='Presentation'
     df.loc[mask,'Cued Side'],df.loc[mask,'Cued Category'],df.loc[mask,'Cue Validity'] = cue_create(params)
+    df.loc[mask, 'Attention Probe'] = random.sample(['o']*(len(df.loc[mask].index)/2) + ['x']*(len(df.loc[mask].index)/2), len(df.loc[mask].index))
 
     # Select composite images
     composites = random.sample(os.listdir(paths['stim_path']+'composite/'), total_pres*(params['mem_to_pres']-1))
@@ -384,12 +385,12 @@ def composite_pair(win, cued, uncued, side, stim_dir, practice=False):
 
     return(probe1, probe2)
 
-def probe_stim(win, cued_side, validity):
+def probe_stim(win, cued_side, validity, text):
     """
     input: trial-wise cued side and validity
     output: attention check stimulus for display (with location, size, etc)
     """
-    probe = visual.TextStim(win=win, ori=0, name='posner', text='o', font='Arial', height = 2, color='lightGrey',
+    probe = visual.TextStim(win=win, ori=0, name='posner', text=text, font='Arial', height = 2, color='lightGrey',
             colorSpace='rgb', opacity=1, depth=0.0)
 
     cued_position = cued_pos(cued_side, validity=validity)
@@ -527,7 +528,7 @@ def presentation_run(win, run, pres_df, params, timing, paths, test = False):
 
         # make stim
         images = composite_pair(win, pres_df['Cued Composite'].loc[trial],pres_df['Uncued Composite'].loc[trial], pres_df['Cued Side'][trial], paths['stim_path'])
-        circle = probe_stim(win, pres_df['Cued Side'][trial], pres_df['Cue Validity'][trial])
+        circle = probe_stim(win, pres_df['Cued Side'][trial], pres_df['Cue Validity'][trial], pres_df['Attention Probe'][trial])
 
         # display stim
         display(win, images, timing['probe'], accepted_keys=None, trial=trial, df=pres_df)
@@ -610,10 +611,10 @@ def pract_text(trial):
                     '\n\n Press any key to begin.'
 
     pract9 = ' Great job, let\'s try it one more time!' \
-                      '\n\n This time will be the same, but after each pair, a circle (o) will appear.' \
-                      '\n When you see the circle, you should immediately press a button! ' \
-                      '\n\n        If the circle appears on the LEFT, press 1 ' \
-                      '\n        If the circle appears on the RIGHT, press 3 ' \
+                      '\n\n This time will be the same, but after each pair, a letter ("x" or "o") will appear on one side.' \
+                      '\n When you see the letter, you should immediately press a button! ' \
+                      '\n\n        If the "o" appears, press 1 ' \
+                      '\n        If the "x" appears, press 3 ' \
                       '\n\n Remember to respond as quickly as you can!' \
                       '\n Press any key to begin.'
 
@@ -668,7 +669,7 @@ def pres_text(trial):
                     '\n\n Remember to: ' \
                     '\n\n        Keep your eyes staring at the cross' \
                     '\n        Shift your attention to the SAME cued side and part for EACH pair' \
-                    '\n        Immeditaely press 1 (Left) or 3 (Right) when you see the circle (o) ' \
+                    '\n        Immeditaely press 1 ("o") or 3 ("x") when you see the letter ' \
                     '\n\n Do you have questions? Ask them now! ' \
                     '\n Otherwise, position your hand over the 1 and 3 buttons, clear your mind, and press any key to begin. '
 
@@ -771,18 +772,15 @@ def pract_pres(win, paths, im_list, timing, circle=False):
 
     fix = fix_stim(win)
     fix.setAutoDraw(True)
+    text=['x','o','o']
+    validity_list = [1, 1, 0]
 
     for x in range(3):
-        stim = composite_pair(win, im_list[x*2], im_list[x*2+1], '>', paths['stim_path'], practice=True)
+        stim = composite_pair(win, im_list[x*2], im_list[x*2+1], '<', paths['stim_path'], practice=True)
         display(win, stim, timing['probe'])
 
         if circle:
-            if x in [0,1]:
-                validity = 1
-            else:
-                validity = 0
-
-            circle = probe_stim(win, '>', validity)
+            circle = probe_stim(win, '<', validity_list[x], text=text[x])
             display(win, [circle], timing['probe'], accepted_keys=['1','3'])
 
         pause(win, timing['pause'])
