@@ -423,7 +423,9 @@ def display(win, stim_list, frames, accepted_keys=None, trial=0, df=None, path=N
     resp = None
 
     for x in stim_list:
+        print "CHANGING STATE"
         x.setAutoDraw(True)
+        win.flip()
 
     if type(accepted_keys)==list:
         resp_clock = core.Clock()
@@ -437,7 +439,7 @@ def display(win, stim_list, frames, accepted_keys=None, trial=0, df=None, path=N
 
         #this is for pictures
         if df is not None:
-
+            #print "THIS IS AN IMAGE"
             if keys != []:
                 with open(path['subject'] + 'buttons_full.csv','a') as output:
                     wr = csv.writer(output, dialect='excel')
@@ -450,25 +452,32 @@ def display(win, stim_list, frames, accepted_keys=None, trial=0, df=None, path=N
         #this is for the cross awaiting response
         elif type(accepted_keys)==list:
 
-
+            #print "THIS AN OX"
             if frame_n == 0:
                 resp_clock.reset()
 
             if keys != []:
-                if keys not in accepted_keys:
+                if keys[0] not in accepted_keys:
+                    # print "*************"
+                    # print keys
+                    # print "*************"
                     with open(path['subject'] + 'buttons_full.csv','a') as output:
                         wr = csv.writer(output, dialect='excel')
                         wr.writerows([[keys, absolute_time]])
                 else:
+                    print "KEY IS IN ACCEPTED_KEYS"
                     resp = keys
                     rt = resp_clock.getTime()
                     break
 
-            if resp == None:
+            if resp == None and frame_n == range(frames)[-1]:
+                print "STILL WAITING"
+                # hold while [desired keys not pressed]
                 key_wait = event.waitKeys(keyList = accepted_keys)
                 resp = key_wait[0]
                 rt = resp_clock.getTime()
         else:
+            #print "NOT AN OX"
             if keys != []:
                 with open(path['subject'] + 'buttons_full.csv','a') as output:
                     wr = csv.writer(output, dialect='excel')
@@ -595,7 +604,7 @@ def presentation_run(win, run, pres_df, params, timing, paths, test = False):
         images = composite_pair(win, pres_df['Cued Composite'].loc[trial],pres_df['Uncued Composite'].loc[trial], pres_df['Cued Side'][trial], paths['stim_path'])
         circle = probe_stim(win, pres_df['Cued Side'][trial], pres_df['Cue Validity'][trial], pres_df['Attention Probe'][trial])
 
-        # display stim
+        # display images
         display(win, images, timing['probe'], accepted_keys=None, trial=trial, df=pres_df, path = paths)
         pres_df['Attention Reaction Time (s)'].loc[trial], pres_df['Attention Button'].loc[trial] = display(win, [circle], timing['probe'], accepted_keys=['1','3'], path = paths)
         pause(win, timing['pause'])
