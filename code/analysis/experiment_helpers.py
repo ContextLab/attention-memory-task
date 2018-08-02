@@ -457,10 +457,10 @@ def display(win, stim_list, frames, accepted_keys=None, trial=0, df=None, path=N
                 resp_clock.reset()
 
             if keys != []:
-                if keys[0] not in accepted_keys:
-                    # print "*************"
-                    # print keys
-                    # print "*************"
+                if any(x not in accepted_keys for x in keys):
+                    print "*************"
+                    print keys
+                    print "*************"
                     with open(path['subject'] + 'buttons_full.csv','a') as output:
                         wr = csv.writer(output, dialect='excel')
                         wr.writerows([[keys, absolute_time]])
