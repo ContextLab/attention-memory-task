@@ -10,20 +10,22 @@ import psychopy
 import sys
 import pandas as pd
 from psychopy import visual, event, core, data, gui, logging
+sys.path.append("/usr/local/lib/python3.6/site-packages")
 sys.path.insert(0, '../analysis/')
 from analysis_helpers import *
 from experiment_helpers import * # main functions in experiment_helpers.fpy
 import time
-
+import csv
+from curtsies import Input
 
 # Set Up #############################################################################################
 
-# Experiment handler #
+# Experiment handler #dsf
 # exp = data.ExperimentHandler(name = 'Attention Memory', version = '1.0')
 
 # Parameters #
 experiment_title = 'Attention and Memory' 
-practice = True   # instructions & practice
+practice = False   # instructions & practice
 save_data = True  # saves all data
 MRI = False       # for MRI sync
 
@@ -48,7 +50,6 @@ rate = win.getActualFrameRate()
 timing = {'cue':int(round(1.5 * rate)), 'probe':int(round(3.0 * rate)), 'mem':int(round(2 * rate)), 'pause':int(round(1 *rate))}
 
 
-
 # Run Experiment #####################################################################################
 
 # Instructions & Practice #
@@ -59,31 +60,45 @@ if practice:
 # MRI sync #
 # if MRI:
 
-
 # Initialize dataframe and savefiles #
 df = initialize_df(info, categories, paths, paths['subject'], params) 
 # button_init(paths)
 
-# create df masks
+# create df masks #
 mask1 = df['Trial Type']=='Presentation'
 mask2 = df['Trial Type']=='Memory'
 
+# record all key presses #
+#all_keys = []
+#with Input() as input_generator:
+#    for x in Input():
+#        all_keys.append(x)
+
 # Pres & Mem runs #
 for run in range(params['runs']):
-    
+  
+    # chunk dataframe
     mask3 = df['Run']==run
     
-    # presentation      
+    # presentation run
     text_present(win, pres_text(run))
     presentation_run(win, run, df.loc[mask1][mask3], params, timing, paths) 
     
-    # memory 
+    # memory run
     text_present(win, mem_text(run))
     memory_run(win, run, df.loc[mask2][mask3], params, timing, paths)
+    
+    # all_responses.append(response)
     
 # thanks for participating #
 text_present(win, 'Thank you for your participation!')
 
 # post questionnaire #
-post_info = post_questionnaire(subject[0], save=save_data, save_path=paths['data_path'])
+post_info = post_questio23nnaire(info, save=save_data, save_path=paths['data_path'])
 df.to_csv(paths['subject']+'final_df.csv')
+
+# save all button presses #
+#with open(path['subject'] + 'buttons_full.csv','a') as output:
+#   wr = csv.writer(output, dialect='excel')
+#   wr.writerows(all_keys)
+#    

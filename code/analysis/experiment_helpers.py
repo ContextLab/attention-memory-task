@@ -11,6 +11,7 @@ import csv
 #from curtsies import Input
 
 # Tiny helpers
+
 def group_it(data, num):
     '''
     input: list of data items of any types
@@ -41,7 +42,6 @@ def subject_info(header, data_path, path_only=False):
     # if not dlg.OK:
     #     core.quit()
 
-    subject_directory(info, data_path)
     return(info)
 
 def subject_directory(info, data_path, path_only=False):
@@ -53,7 +53,12 @@ def subject_directory(info, data_path, path_only=False):
 
     if not os.path.exists(dir_name):
         os.makedirs(dir_name)
+
+        with open(dir_name + 'buttons_full.csv','wb') as output:
+           wr = csv.writer(output, dialect='excel')
+           wr.writerows([['Buttons', 'Timestamps']])
         return(dir_name)
+
     else:
         return(dir_name)
         if not path_only:
@@ -142,9 +147,11 @@ def post_questionnaire(info, save=True, save_path='.'):
     postDlg.addField('4. Did you find one side easier to attend to? If so, which one?')
     postDlg.addField('5. What strategies did you use (if any) to help remember the attended images?')
 
+    dlg = gui.DlgFromDict(info)
+
     if not dlg.OK:
         core.quit()
-    end_data = preDlg.show()
+    end_data = postDlg.show()
 
     if save == True:
         name = save_path + 'post_questionnaire_' + info['participant'] + '.pkl'
@@ -397,7 +404,7 @@ def probe_stim(win, cued_side, validity, text):
     probe.setPos([cued_position, 0])
     return(probe)
 
-def display(win, stim_list, frames, accepted_keys=None, trial=0, df=None):
+def display(win, stim_list, frames, accepted_keys=None, trial=0, df=None, path=None):
     """
     inputs:
         win - visual window
@@ -424,48 +431,106 @@ def display(win, stim_list, frames, accepted_keys=None, trial=0, df=None):
         event.clearEvents()
 
     for frame_n in range(frames):
-        absolute_time = time.time()
 
+        absolute_time = time.time()
+        keys = event.getKeys()
+
+        #this is for pictures
         if df is not None:
+
+            if keys != []:
+                with open(path['subject'] + 'buttons_full.csv','a') as output:
+                    wr = csv.writer(output, dialect='excel')
+                    wr.writerows([[keys, absolute_time]])
             if frame_n == 0:
                 df.loc[trial, 'Stimulus Start'] = absolute_time
             if frame_n == range(frames)[-1]:
                 df.loc[trial, 'Stimulus End'] = absolute_time
 
-        if type(accepted_keys)==list:
+        #this is for the cross awaiting response
+        elif type(accepted_keys)==list:
+
+
             if frame_n == 0:
                 resp_clock.reset()
-                keys = event.getKeys(keyList = accepted_keys)
-            if len(keys) > 0:
-                resp = keys[0]
-                rt = resp_clock.getTime()
-                break
 
-            win.flip()
-            for x in stim_list:
-                x.setAutoDraw(False)
+            if keys != []:
+                if keys not in accepted_keys:
+                    with open(path['subject'] + 'buttons_full.csv','a') as output:
+                        wr = csv.writer(output, dialect='excel')
+                        wr.writerows([[keys, absolute_time]])
+                else:
+                    resp = keys
+                    rt = resp_clock.getTime()
+                    break
 
-            # if no response, wait until response
             if resp == None:
-                keys = event.waitKeys(keyList = accepted_keys)
-                resp = keys[0]
+                key_wait = event.waitKeys(keyList = accepted_keys)
+                resp = key_wait[0]
                 rt = resp_clock.getTime()
-
-            win.flip()
-
         else:
-            win.flip()
+            if keys != []:
+                with open(path['subject'] + 'buttons_full.csv','a') as output:
+                    wr = csv.writer(output, dialect='excel')
+                    wr.writerows([[keys, absolute_time]])
 
-    win.flip()
+
+        win.flip()
+
+
+    # win.flip()
     for x in stim_list:
         x.setAutoDraw(False)
         event.clearEvents()
 
+
         if type(x) is visual.RatingScale:
             choice_history = x.getHistory()
             df["Familiarity Rating"].loc[trial],df['Familiarity Reaction Time (s)'].loc[trial] = rating_pull(choice_history)
-
+    win.flip()
     return([rt, resp])
+
+
+        #     if keys ==
+        #
+        # if type(accepted_keys)==list:
+
+
+                # key_l = event.getKeys(keyList = accepted_keys)
+                # keys = event.getKeys()
+                # with open(path['subject'] + 'buttons_full.csv','a') as output:
+                #     wr = csv.writer(output, dialect='excel')
+                #     wr.writerows([[keys, absolute_time]])
+            #if len(key_l)>0:
+            # while keys[-1] not in accepted_keys:
+            #     resp = None
+            # resp = key_l[0]
+            # rt = resp_clock.getTime()
+            # break
+
+        # win.flip()
+        # for x in stim_list:
+        #     x.setAutoDraw(False)
+    #
+    #         # if no response, wait until response
+    #         # while resp == None:
+    #         #     keys = event.getKeys()
+    #         #     key_l = event.getKeys(keyList = accepted_keys)
+    #         #     with open(path['subject'] + 'buttons_full.csv','a') as output:
+    #         #         wr = csv.writer(output, dialect='excel')
+    #         #         wr.writerows([[keys, absolute_time]])
+    #         #     if len(key_l)>0:
+    #         #         resp = key_l[0]
+    #         #         rt = resp_clock.getTime()
+    #
+    #         win.flip()
+    #
+    #     else:
+    #         win.flip()
+
+
+
+
 
 def pause(win, frames):
     """
@@ -518,7 +583,7 @@ def presentation_run(win, run, pres_df, params, timing, paths, test = False):
     fixation = fix_stim(win)
 
     # flash cue
-    display(win, [cue1,cue2], timing['cue'])
+    display(win, [cue1,cue2], timing['cue'], path = paths)
     pause(win, timing['pause'])
 
     # start fixation
@@ -531,8 +596,8 @@ def presentation_run(win, run, pres_df, params, timing, paths, test = False):
         circle = probe_stim(win, pres_df['Cued Side'][trial], pres_df['Cue Validity'][trial], pres_df['Attention Probe'][trial])
 
         # display stim
-        display(win, images, timing['probe'], accepted_keys=None, trial=trial, df=pres_df)
-        pres_df['Attention Reaction Time (s)'].loc[trial], pres_df['Attention Button'].loc[trial] = display(win, [circle], timing['probe'], accepted_keys=['1','3'])
+        display(win, images, timing['probe'], accepted_keys=None, trial=trial, df=pres_df, path = paths)
+        pres_df['Attention Reaction Time (s)'].loc[trial], pres_df['Attention Button'].loc[trial] = display(win, [circle], timing['probe'], accepted_keys=['1','3'], path = paths)
         pause(win, timing['pause'])
 
         pres_df.to_csv(paths['subject']+'pres'+str(run)+'.csv')
@@ -547,7 +612,7 @@ def memory_run(win, run, mem_df, params, timing, paths, test = False):
 
     for trial in mem_df.index.values:
 
-        display(win, [fixation], timing['pause'])
+        display(win, [fixation], timing['pause'], path = paths)
 
         rating_scale = visual.RatingScale( win, low = 1, high = 4, labels=['unfamiliar','familiar'], scale='1               2               3               4',
                                             singleClick = True, pos = [0,-.42], acceptPreText = '-',
@@ -558,7 +623,7 @@ def memory_run(win, run, mem_df, params, timing, paths, test = False):
         image = memory_stim(win, mem_df['Memory Image'][trial], paths['stim_path'])
 
         # display(win, [fixation], timing['pause'])
-        display(win, [image, rating_scale], timing['mem'], accepted_keys=None, trial=trial, df=mem_df)
+        display(win, [image, rating_scale], timing['mem'], accepted_keys=None, trial=trial, df=mem_df, path = paths)
         mem_df.to_csv(paths['subject']+'mem'+str(run)+'.csv')
 
 
@@ -767,7 +832,7 @@ def pract_pres(win, paths, im_list, timing, circle=False):
     cue1.setPos([0, 2])
     cue2.setPos([0, 0])
 
-    display(win, [cue1,cue2], timing['cue'])
+    display(win, [cue1,cue2], timing['cue'], path = paths)
     pause(win, timing['pause'])
 
     fix = fix_stim(win)
@@ -777,11 +842,11 @@ def pract_pres(win, paths, im_list, timing, circle=False):
 
     for x in range(3):
         stim = composite_pair(win, im_list[x*2], im_list[x*2+1], '<', paths['stim_path'], practice=True)
-        display(win, stim, timing['probe'])
+        display(win, stim, timing['probe'], path = paths)
 
         if circle:
             circle = probe_stim(win, '<', validity_list[x], text=text[x])
-            display(win, [circle], timing['probe'], accepted_keys=['1','3'])
+            display(win, [circle], timing['probe'], accepted_keys=['1','3'], path = paths)
 
         pause(win, timing['pause'])
     fix.setAutoDraw(False)
@@ -799,7 +864,7 @@ def pract_mem(win, im_list, paths, timing):
                                             maxTime=3.0, minTime=0, marker = 'triangle', showAccept=False, acceptSize=0)
 
         image = memory_stim(win, im_list[trial], paths['stim_path'], practice_single=True)
-        display(win, [fixation], timing['pause'])
+        display(win, [fixation], timing['pause'], path = paths)
 
         event.getKeys(keyList = None)
         for frame_n in range(timing['mem']):
@@ -810,6 +875,8 @@ def pract_mem(win, im_list, paths, timing):
         rating_scale.setAutoDraw(False)
         image.setAutoDraw(False)
         win.flip()
+
+
 
 
 # Functions for Saving Timestamps for All Important Experiment Events
@@ -834,7 +901,6 @@ def pract_mem(win, im_list, paths, timing):
 #         main()
 
 #def button_end():
-
 
 
 
