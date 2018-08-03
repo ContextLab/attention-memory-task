@@ -52,6 +52,9 @@ def subject_directory(info, data_path, path_only=False):
 
     if not os.path.exists(dir_name) and not path_only:
         os.makedirs(dir_name)
+        with open(dir_name + 'buttons_full.csv','wb') as output:
+            wr = csv.writer(output, dialect='excel')
+            wr.writerows([['Button', 'Time']])
     else:
         if not path_only:
             print('WARNING: subject directory exists already!')
