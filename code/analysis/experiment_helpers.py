@@ -28,7 +28,7 @@ def flatten(the_list):
 
 # Data entry & organization functions
 
-def subject_info(header, data_path, path_only=False):
+def subject_info(header, data_path):
     '''
     Create pop up box to obtain subject# and run#
     Create subject directory, if not already existing
@@ -37,12 +37,11 @@ def subject_info(header, data_path, path_only=False):
     info = {}
     info['participant'] = ''
     info['run'] = ''
-    dlg = gui.DlgFromDict(info)
-
-    # if not dlg.OK:
-    #     core.quit()
-
-    return(info)
+    dlg = gui.DlgFromDict(dictionary=info, title=header)
+    if dlg.OK:
+        return(info)
+    else:
+        print("Error!")
 
 def subject_directory(info, data_path, path_only=False):
     '''
@@ -51,18 +50,12 @@ def subject_directory(info, data_path, path_only=False):
 
     dir_name = data_path + str(info['participant']) + '_' + data.getDateStr()[0:11] + '/'
 
-    if not os.path.exists(dir_name):
+    if not os.path.exists(dir_name) and not path_only:
         os.makedirs(dir_name)
-
-        with open(dir_name + 'buttons_full.csv','wb') as output:
-           wr = csv.writer(output, dialect='excel')
-           wr.writerows([['Buttons', 'Timestamps']])
-        return(dir_name)
-
     else:
-        return(dir_name)
         if not path_only:
             print('WARNING: subject directory exists already!')
+    return(dir_name)
 
 def pre_questionnaire(info, save=True, save_path='.'):
     '''
@@ -114,10 +107,6 @@ def pre_questionnaire(info, save=True, save_path='.'):
     preDlg.addText('')
     preDlg.addField('12. How alert are you feeling?:', choices=['--', "Very sluggish", "A little slugglish", "Neutral", "A little alert", "Very alert"])
 
-    dlg = gui.DlgFromDict(info)
-
-    if not dlg.OK:
-        core.quit()
     end_data = preDlg.show()
 
     if save == True:
@@ -159,6 +148,15 @@ def post_questionnaire(info, save=True, save_path='.'):
             pickle.dump(end_data, f)
     else:
         return(end_data)
+
+def buttons_full(paths, keys, absolute_time):
+    '''
+    appends key press and time stamp to subject's full button press csv
+    '''
+    with open(paths['subject'] + 'buttons_full.csv','a') as output:
+        wr = csv.writer(output, dialect='excel')
+        wr.writerows([[keys, absolute_time]])
+
 
 # Functions for Creating Trial Parameters & Visual Stimuli
 
@@ -421,124 +419,58 @@ def display(win, stim_list, frames, accepted_keys=None, trial=0, df=None, path=N
 
     rt = None
     resp = None
+    resp_clock = core.Clock()
 
     for x in stim_list:
-        print "CHANGING STATE"
         x.setAutoDraw(True)
         win.flip()
 
-    if type(accepted_keys)==list:
-        resp_clock = core.Clock()
-        win.callOnFlip(resp_clock.reset)
-        event.clearEvents()
-
     for frame_n in range(frames):
-
         absolute_time = time.time()
-        keys = event.getKeys()
+        if not any(type(x) is visual.RatingScale for x in stim_list):
+            keys = event.getKeys()
+        else:
+            keys=[]
 
-        #this is for pictures
         if df is not None:
-            #print "THIS IS AN IMAGE"
             if keys != []:
-                with open(path['subject'] + 'buttons_full.csv','a') as output:
-                    wr = csv.writer(output, dialect='excel')
-                    wr.writerows([[keys, absolute_time]])
+                buttons_full(path, keys, absolute_time)
             if frame_n == 0:
-                df.loc[trial, 'Stimulus Start'] = absolute_time
+                df.loc[trial, 'Stimulus Onset'] = absolute_time
             if frame_n == range(frames)[-1]:
                 df.loc[trial, 'Stimulus End'] = absolute_time
 
-        #this is for the cross awaiting response
-        elif type(accepted_keys)==list:
 
-            #print "THIS AN OX"
+        elif type(accepted_keys)==list:
             if frame_n == 0:
                 resp_clock.reset()
-
             if keys != []:
                 if any(x not in accepted_keys for x in keys):
-                    print "*************"
-                    print keys
-                    print "*************"
-                    with open(path['subject'] + 'buttons_full.csv','a') as output:
-                        wr = csv.writer(output, dialect='excel')
-                        wr.writerows([[keys, absolute_time]])
+                    buttons_full(paths, keys, absolute_time)
                 else:
-                    print "KEY IS IN ACCEPTED_KEYS"
-                    resp = keys
-                    rt = resp_clock.getTime()
-                    break
+                    if type(x) is not visual.RatingScale:
+                        resp = keys
+                        rt = resp_clock.getTime()
+                        break
 
-            if resp == None and frame_n == range(frames)[-1]:
-                print "STILL WAITING"
-                # hold while [desired keys not pressed]
+            if resp == None and frame_n == range(frames)[-1] and type(x) is not visual.RatingScale:
                 key_wait = event.waitKeys(keyList = accepted_keys)
                 resp = key_wait[0]
                 rt = resp_clock.getTime()
-        else:
-            #print "NOT AN OX"
-            if keys != []:
-                with open(path['subject'] + 'buttons_full.csv','a') as output:
-                    wr = csv.writer(output, dialect='excel')
-                    wr.writerows([[keys, absolute_time]])
-
 
         win.flip()
 
-
-    # win.flip()
     for x in stim_list:
         x.setAutoDraw(False)
-        event.clearEvents()
-
 
         if type(x) is visual.RatingScale:
             choice_history = x.getHistory()
             df["Familiarity Rating"].loc[trial],df['Familiarity Reaction Time (s)'].loc[trial] = rating_pull(choice_history)
+            print(choice_history)
+
     win.flip()
+
     return([rt, resp])
-
-
-        #     if keys ==
-        #
-        # if type(accepted_keys)==list:
-
-
-                # key_l = event.getKeys(keyList = accepted_keys)
-                # keys = event.getKeys()
-                # with open(path['subject'] + 'buttons_full.csv','a') as output:
-                #     wr = csv.writer(output, dialect='excel')
-                #     wr.writerows([[keys, absolute_time]])
-            #if len(key_l)>0:
-            # while keys[-1] not in accepted_keys:
-            #     resp = None
-            # resp = key_l[0]
-            # rt = resp_clock.getTime()
-            # break
-
-        # win.flip()
-        # for x in stim_list:
-        #     x.setAutoDraw(False)
-    #
-    #         # if no response, wait until response
-    #         # while resp == None:
-    #         #     keys = event.getKeys()
-    #         #     key_l = event.getKeys(keyList = accepted_keys)
-    #         #     with open(path['subject'] + 'buttons_full.csv','a') as output:
-    #         #         wr = csv.writer(output, dialect='excel')
-    #         #         wr.writerows([[keys, absolute_time]])
-    #         #     if len(key_l)>0:
-    #         #         resp = key_l[0]
-    #         #         rt = resp_clock.getTime()
-    #
-    #         win.flip()
-    #
-    #     else:
-    #         win.flip()
-
-
-
 
 
 def pause(win, frames):
@@ -593,7 +525,7 @@ def presentation_run(win, run, pres_df, params, timing, paths, test = False):
 
     # flash cue
     display(win, [cue1,cue2], timing['cue'], path = paths)
-    pause(win, timing['pause'])
+    display(win, [fixation], timing['pause'], path = paths)
 
     # start fixation
     fixation.setAutoDraw(True)
@@ -624,15 +556,14 @@ def memory_run(win, run, mem_df, params, timing, paths, test = False):
         display(win, [fixation], timing['pause'], path = paths)
 
         rating_scale = visual.RatingScale( win, low = 1, high = 4, labels=['unfamiliar','familiar'], scale='1               2               3               4',
-                                            singleClick = True, pos = [0,-.42], acceptPreText = '-',
-                                            maxTime=3.0, minTime=0, marker = 'triangle', showAccept=False, acceptSize=0)
+                                            pos = [0,-.42], acceptPreText = '-',
+                                            maxTime=3.0, minTime=0, marker = 'triangle', showAccept=False, acceptSize=0, singleClick = True)
 
         resp_clock = core.Clock()
         im_path = paths['stim_path']+'single/'+mem_df['Memory Image']
         image = memory_stim(win, mem_df['Memory Image'][trial], paths['stim_path'])
 
-        # display(win, [fixation], timing['pause'])
-        display(win, [image, rating_scale], timing['mem'], accepted_keys=None, trial=trial, df=mem_df, path = paths)
+        display(win, [image, rating_scale], timing['mem'], accepted_keys=['1','2','3','4'], trial=trial, df=mem_df, path = paths)
         mem_df.to_csv(paths['subject']+'mem'+str(run)+'.csv')
 
 
@@ -884,39 +815,3 @@ def pract_mem(win, im_list, paths, timing):
         rating_scale.setAutoDraw(False)
         image.setAutoDraw(False)
         win.flip()
-
-
-
-
-# Functions for Saving Timestamps for All Important Experiment Events
-
-# def button_init(paths):
-#     """
-#     makes data file and records any button press and timestamp of button press to csv
-#     """
-#
-#     filename = paths['subject'] + 'button_press.csv'
-#
-#     with open(filename, 'wb') as csvfile:
-#         filewriter = csv.writer(csvfile, delimiter=',',
-#                                 quotechar='|', quoting=csv.QUOTE_MINIMAL)
-#
-#     with Input(keynames='curses') as input_generator:
-#
-#         for e in input_generator:
-#             filewriter.writerow(repr(e))
-#
-#     if __name__ == '__main__':
-#         main()
-
-#def button_end():
-
-
-
-
-# def thank_text():
-#     """
-#     returns closing message text (str)
-#     """
-#     thanks = 'Thank you for your participation! '
-#     return(thanks)
