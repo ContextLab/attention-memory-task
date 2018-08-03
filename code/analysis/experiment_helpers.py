@@ -136,10 +136,6 @@ def post_questionnaire(info, save=True, save_path='.'):
     postDlg.addField('4. Did you find one side easier to attend to? If so, which one?')
     postDlg.addField('5. What strategies did you use (if any) to help remember the attended images?')
 
-    dlg = gui.DlgFromDict(info)
-
-    if not dlg.OK:
-        core.quit()
     end_data = postDlg.show()
 
     if save == True:
@@ -446,7 +442,7 @@ def display(win, stim_list, frames, accepted_keys=None, trial=0, df=None, path=N
                 resp_clock.reset()
             if keys != []:
                 if any(x not in accepted_keys for x in keys):
-                    buttons_full(paths, keys, absolute_time)
+                    buttons_full(path, keys, absolute_time)
                 else:
                     if type(x) is not visual.RatingScale:
                         resp = keys
@@ -525,10 +521,10 @@ def presentation_run(win, run, pres_df, params, timing, paths, test = False):
 
     # flash cue
     display(win, [cue1,cue2], timing['cue'], path = paths)
-    display(win, [fixation], timing['pause'], path = paths)
 
     # start fixation
     fixation.setAutoDraw(True)
+    pause(win, timing['pause'])
 
     for trial in pres_df.index.values:
 
@@ -696,7 +692,7 @@ def pres_text(trial):
     return(instructions[num])
 
 
-def text_present(win, text):
+def text_present(win, text, close=False):
     '''
     displays text on screen, given window (psychopy object) and text (str)
     '''
@@ -705,8 +701,12 @@ def text_present(win, text):
     win.flip()
 
     event.waitKeys(keyList=None)
-    instruction.setAutoDraw(False)
-    win.flip()
+
+    if close:
+        win.close()
+    else:
+        instruction.setAutoDraw(False)
+        win.flip()
 
 def practice_instructions(win, paths, text, pract_run, timing, acceptedKeys = [], practice=False):
     '''
