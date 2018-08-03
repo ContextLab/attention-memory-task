@@ -61,6 +61,7 @@ mask2 = df['Trial Type']=='Memory'
 
 # Pres & Mem runs #
 for run in range(params['runs']):
+#for run in range(0):
   
     # chunk dataframe
     mask3 = df['Run']==run
@@ -74,8 +75,8 @@ for run in range(params['runs']):
     memory_run(win, run, df.loc[mask2][mask3], params, timing, paths)
     
 # thanks for participating #
-text_present(win, 'Thank you for your participation!')
+text_present(win, 'Thank you for your participation!', close=True)
 
 # post questionnaire #
-post_info = post_questionnaire(info, save=save_data, save_path=paths['data_path'])
+post_info = post_questionnaire(info, save=save_data, save_path=paths['subject'])
 df.to_csv(paths['subject']+'final_df.csv')
