@@ -1,8 +1,6 @@
 
-
 # This experiment was created by Kirsten Ziman (Kirsten.K.Ziman.gr@Dartmouth.edu)
 # for more information, visit: www.context-lab.com
-
 
 # Imports ############################################################################################
 
@@ -20,9 +18,6 @@ from curtsies import Input
 
 # Set Up #############################################################################################
 
-# Experiment handler #dsf
-# exp = data.ExperimentHandler(name = 'Attention Memory', version = '1.0')
-
 # Parameters #
 experiment_title = 'Attention and Memory' 
 practice = False   # instructions & practice
@@ -35,7 +30,7 @@ paths = {'data_path':'../../data/', 'stim_path':'../../stim/'}
 
 # Obtain participant info (pop-up) and make subdir #
 info = subject_info(experiment_title, paths['data_path'])
-paths['subject'] = subject_directory(info, paths['data_path'], path_only=True)
+paths['subject'] = subject_directory(info, paths['data_path'])
 
 # Initiate clock #
 global_clock = core.Clock()
@@ -57,22 +52,12 @@ if practice:
     for x in range(11):
         practice_instructions(win, paths, pract_text(x), x, timing, acceptedKeys = [], practice=True)
 
-# MRI sync #
-# if MRI:
-
-# Initialize dataframe and savefiles #
+# Initialize dataframe #
 df = initialize_df(info, categories, paths, paths['subject'], params) 
-# button_init(paths)
 
 # create df masks #
 mask1 = df['Trial Type']=='Presentation'
 mask2 = df['Trial Type']=='Memory'
-
-# record all key presses #
-#all_keys = []
-#with Input() as input_generator:
-#    for x in Input():
-#        all_keys.append(x)
 
 # Pres & Mem runs #
 for run in range(params['runs']):
@@ -88,17 +73,9 @@ for run in range(params['runs']):
     text_present(win, mem_text(run))
     memory_run(win, run, df.loc[mask2][mask3], params, timing, paths)
     
-    # all_responses.append(response)
-    
 # thanks for participating #
 text_present(win, 'Thank you for your participation!')
 
 # post questionnaire #
-post_info = post_questio23nnaire(info, save=save_data, save_path=paths['data_path'])
+post_info = post_questionnaire(info, save=save_data, save_path=paths['data_path'])
 df.to_csv(paths['subject']+'final_df.csv')
-
-# save all button presses #
-#with open(path['subject'] + 'buttons_full.csv','a') as output:
-#   wr = csv.writer(output, dialect='excel')
-#   wr.writerows(all_keys)
-#    
