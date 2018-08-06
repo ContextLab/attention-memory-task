@@ -53,7 +53,7 @@ if practice:
         practice_instructions(win, paths, pract_text(x), x, timing, acceptedKeys = [], practice=True)
 
 # Initialize dataframe #
-df = initialize_df(info, categories, paths, paths['subject'], params) 
+df = initialize_df(info, categories, paths, params) 
 
 # create df masks #
 mask1 = df['Trial Type']=='Presentation'

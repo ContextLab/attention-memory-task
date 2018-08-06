@@ -15,7 +15,7 @@ import csv
 def group_it(data, num):
     '''
     input: list of data items of any types
-    output: ordered list of length num sublists of inputted data
+    output: ordered list containing length num sublists of inputted data
     '''
     return([data[i:i+num] for i in range(0, len(data), num)])
 
@@ -30,8 +30,11 @@ def flatten(the_list):
 
 def subject_info(header, data_path):
     '''
-    Create pop up box to obtain subject# and run#
-    Create subject directory, if not already existing
+    input: text to show at top of pop-up (string)
+           path to data directory (string)
+
+    Creates pop up box to obtain subject# and run#
+    Creates subject directory, if not already existing
     '''
 
     info = {}
@@ -45,7 +48,12 @@ def subject_info(header, data_path):
 
 def subject_directory(info, data_path, path_only=False):
     '''
-    Creates subject directory if does not exist
+    input:    info - subject information (dictionary)
+              data_path - path to data directory (string)
+
+    output:   path to subject-specific directory (string)
+
+    If NOT path_only --> Creates subject directory if does not exist
     '''
 
     dir_name = data_path + str(info['participant']) + '_' + data.getDateStr()[0:11] + '/'
@@ -64,12 +72,12 @@ def pre_questionnaire(info, save=True, save_path='.'):
     '''
     Create pop up box to obtain and save subject's demographic info
 
-    :param info: dictionary containing participant# and run#
-    :param save: boolean indicating whether to autosave
-    :param save_path: if save==True, path to data save location
+    input:    info - dictionary containing participant# and run#
+              save - boolean indicating whether to autosave
+              save_path - if save==True, path to data save location
 
-    :return: if save==True, save out data, return nothing
-             if save==False, return questionnaire data
+    output:   if save==True, save out data, return nothing
+              if save==False, return questionnaire data
     '''
 
     preDlg = gui.Dlg()
@@ -121,14 +129,14 @@ def pre_questionnaire(info, save=True, save_path='.'):
 
 def post_questionnaire(info, save=True, save_path='.'):
     '''
-    Create pop up box to obtain and save subject's post-study info
+    Create pop up box to obtain and save subject's demographic info
 
-    :param info: dictionary containing participant# and run#
-    :param save: boolean indicating whether to autosave
-    :param save_path: if save==True, path to data save location
+    input:    info - dictionary containing participant# and run#
+              save - boolean indicating whether to autosave
+              save_path - if save==True, path to data save location
 
-    :return: if save==True, save out data, return nothing
-             if save==False, return questionnaire data
+    output:   if save==True, save out data, return nothing
+              if save==False, return questionnaire data
     '''
 
     # end of task questionnaire
@@ -150,7 +158,11 @@ def post_questionnaire(info, save=True, save_path='.'):
 
 def buttons_full(paths, keys, absolute_time):
     '''
-    appends key press and time stamp to subject's full button press csv
+    Appends key press and time stamp to subject's key-press log (buttons_full.csv)
+
+    input:   paths - paths to relevant directories (dictionary)
+             keys - button presses to be saved to file (list of strings or nested lists of strings)
+             absolute_time - timestamp to be written to file with key press
     '''
     with open(paths['subject'] + 'buttons_full.csv','a') as output:
         wr = csv.writer(output, dialect='excel')
@@ -161,8 +173,9 @@ def buttons_full(paths, keys, absolute_time):
 
 def cue_create(params):
     '''
-    return three lists, total-tirals-in-experiment long, assigning cued side,
-    cued category, and cue validity for each trial
+    input:    params - experiment parameters (stimulus display times, etc.) (dictionary)
+    output:   three lists (length total-trials-in-experiment) assigning cued side,
+              cued category, and cue validity for each trial
     '''
 
     presentations_per_run = params['presentations_per_run']
@@ -202,10 +215,10 @@ def cue_create(params):
 
 def trial_setup(params):
     '''
-    returns lists to assign subject number, run number, and trial type to every row
-    of trial x parameter dataframe for single subject
+    input:    params - experiment parameters (stimulus display times, etc.) (dictionary)
+    output:   lists to assign subject number, run number, and trial type to every row
+              of trial x parameter dataframe for single subject
     '''
-
     run = []
     trial_type = []
 
@@ -218,7 +231,9 @@ def trial_setup(params):
 
 def presentation_images(presentation):
     '''
-    returns dict with keys 'Cued' and 'Uncued', each containing three lists (composites, single places, and single faces)
+    input:   list of composite images for display in presentation runs
+    output:  dict with keys 'Cued' and 'Uncued', each containing three lists
+             (composite images, single place images, and single face images)
     '''
     images = {}
     cued = presentation[0:int(len(presentation)/2)]
@@ -231,11 +246,11 @@ def presentation_images(presentation):
 
 def img_split(image_list, cat = False):
     '''
-    splits overlay image filenames into filenames of the original, single images
+    Splits overlay image filenames into filenames of the original, single images
 
-    input : list of image filenames
-    output : list of image filenames OR two lists, separated by category
-
+    input :    list of composite image filenames
+    output :   if cat==False, list of single image filenames
+               if cat==True, two lists of single image filenames (listed by category)
     '''
 
     split = [words for segments in image_list for words in segments.split('_')]
@@ -255,6 +270,7 @@ def memory_image(presentation, memory):
              list of all novel memory images
 
     outputs: list of all images for memory trials
+             (half novel, and even proportions of prev seen cued/uncued, face/house)
     '''
 
     # parse cued/uncued presentation composites
@@ -282,10 +298,18 @@ def memory_image(presentation, memory):
         all_singles.extend(singles)
     return(all_singles)
 
-def initialize_df(info, categories, paths, subject_directory, params, save=True):
+def initialize_df(info, categories, paths, params):
     '''
-    Creates trial x parameter dataframe for all trials (presentation and memory) for a single subject,
-    including all trial-wise parameters, and empty cells (None type) for experimental data
+    Creates dataframe for all trials (presentation and memory) for a single subject,
+    including all trial-wise parameters (with empty cells as placeholders (None type)
+    for impending data collection) and saves a copy to csv in subject's data directory
+
+    input:  info- subject information (dictionary)
+            categories- image categories information (dictionary)
+            paths- paths to subject-relevant directories (dictionary)
+            params- experiment parameters (dictionary)
+
+    output: dataframe containing parameters, image stim, and info, for all trials
     '''
 
     total_pres = params['presentations_per_run']*params['runs']
@@ -329,8 +353,9 @@ def initialize_df(info, categories, paths, subject_directory, params, save=True)
 
 def cue_stim(win, side, category, stim_dir):
     '''
-    inputs: win, cue side, cue cat, stimulus directory
-    outputs: appropriate cue or fixation stim for center screen
+    inputs: win (psychopy visual window), cue side (string),
+            cue category (string), stimulus directory (string)
+    outputs: appropriate cue or fixation stimulus for center screen
     '''
 
     stim1 = visual.ImageStim(win, image=stim_dir+'cue/'+category+'.png', size=2) #, name=category+'_icon')
@@ -343,7 +368,8 @@ def cue_stim(win, side, category, stim_dir):
 
 def fix_stim(win):
     """
-    returns fixation stimulus for display in window
+    input:  psychopy visual window
+    output: central fixation stimulus for display in window
     """
     stim1 = visual.TextStim(win=win, ori=0, name='fixation_cross', text='+', font='Arial',
                   height = 2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0)
@@ -351,7 +377,7 @@ def fix_stim(win):
 
 def cued_pos(side, validity=True):
     """
-    input: cued side in this trial (string), desired stimulus validity (bool)
+    input: cued side for a given trial (string), desired stimulus validity (bool)
     output: x-axis screen location for the stimulus (int)
     """
 
@@ -368,8 +394,10 @@ def cued_pos(side, validity=True):
 
 def composite_pair(win, cued, uncued, side, stim_dir, practice=False):
     """
-    returns list of two composite image stimuli (with stim location, size, etc)
-    for display in presentation trial
+    input:  win (psychopy visual window), cue side (string),
+            cue category (string), stimulus directory (string)
+    output: list of two composite image stimuli (with stim location, size, etc)
+            for display in presentation trial
     """
     cued_position = cued_pos(side)
 
@@ -403,6 +431,10 @@ def probe_stim(win, cued_side, validity, text):
 
 def display(win, stim_list, frames, accepted_keys=None, trial=0, df=None, path=None):
     """
+    Displays all stimuli (from stim_list) in window simultaneously, for desired number of frames.
+    If accepted_keys list passed, displays until key press; else, displays for 'frames' number of frames
+    if both dataframe and trial# passed, saves reaction time to corresponding trial row in df
+
     inputs:
         win - visual window
         stim_list - list of psychopy visual Stimuli
@@ -410,10 +442,6 @@ def display(win, stim_list, frames, accepted_keys=None, trial=0, df=None, path=N
         accepted_keys - list of strings, or None
         trial - int
         df - pandas dataframe of trial information
-
-    displays all stimuli in window simultaneously.
-    if accepted_keys list passed, displays until key press; else, displays for 'frames' number of frames
-    if both dataframe and trial# passed, saves reaction time to coorresponding trial row in df
     """
 
     rt = None
@@ -485,15 +513,17 @@ def display(win, stim_list, frames, accepted_keys=None, trial=0, df=None, path=N
 
 def pause(win, frames):
     """
-    pauses experiment in given window (win) for 'frames' (int) number of frames
-    without affecting the stimuli on display
+    Pauses experiment in given window (win) for 'frames' (int) number of frames
+
+    input:  win- psychopy visual window
+            frames- number of frames (int)
     """
     for frame_n in range(frames):
         win.flip()
 
 def memory_stim(win, image, stim_dir, practice=False, practice_single=False):
     """
-    return single image stimulus for display in memory trial
+    Return single image stimulus for display in memory trial
     """
     if practice:
         image = stim_dir+'practice_composite/'+image
@@ -508,7 +538,9 @@ def memory_stim(win, image, stim_dir, practice=False, practice_single=False):
 
 def rating_pull(rating_tuple):
     '''
-    pulls subject's rating out of rating tuple
+    Pulls subject's rating out of rating tuple
+
+    input- rating scale tuple
     '''
     if len(rating_tuple)>1:
         rating = rating_tuple[1][0]
@@ -520,9 +552,17 @@ def rating_pull(rating_tuple):
 
 # Functions to Execute Presentation & Memory Runs
 
-def presentation_run(win, run, pres_df, params, timing, paths, test = False):
+presentation_run(win, run, pres_df, params, timing, paths, test = False):
     """
-    displays a full presentation run, saves out data
+    Displays a full presentation run, saves out data to csv
+
+    inputs:
+        win - visual window
+        run - run number (int)
+        paths - paths to subject-relevant directories (dictionary)
+        params - experiment parameters (dictionary)
+        timing - stimulus display times (dictionary)
+        pres_df - all trial info for current presentation block (dataframe)
     """
 
     first_row = pres_df.index.values[0]
@@ -557,7 +597,15 @@ def presentation_run(win, run, pres_df, params, timing, paths, test = False):
 
 def memory_run(win, run, mem_df, params, timing, paths, test = False):
     """
-    displays full memory run, saves out data
+    Displays full memory run, saves out data to csv
+
+    inputs:
+        win - visual window
+        run - run number (int)
+        paths - paths to subject-relevant directories (dictionary)
+        params - experiment parameters (dictionary)
+        timing - stimulus display times (dictionary)
+        mem_df - all trial info for current memory block (dataframe)
     """
     fixation = fix_stim(win)
 
@@ -581,7 +629,8 @@ def memory_run(win, run, mem_df, params, timing, paths, test = False):
 
 def pract_text(trial):
     """
-    returns practice instruction text (string) for given practice trial, 'trial' (int)
+    input:  current practice trial # (int)
+    output: practice instruction text (string) for given practice trial
     """
 
     intro = '\n\n Thank you for participating in this experiment! ' \
@@ -648,7 +697,8 @@ def pract_text(trial):
 
 def mem_text(trial):
     """
-    returns memory instruction text (string) for given practice trial, 'trial' (int)
+    input:  current memory trial # (int)
+    output: memory instruction text (string) for given memory trial
     """
 
     mem1 = ' Now we\'re going to test your memory. ' \
@@ -676,7 +726,8 @@ def mem_text(trial):
 
 def pres_text(trial):
     """
-    returns presentation trial text (string) for given practice trial, 'trial' (int)
+    input:  current presentation trial # (int)
+    output: presentation instruction text (string) for given presentation trial
     """
 
     pres1 = ' Now we will begin the main experiment! ' \
@@ -708,7 +759,9 @@ def pres_text(trial):
 
 def text_present(win, text, close=False):
     '''
-    displays text on screen, given window (psychopy object) and text (str)
+    Displays text on screen, until button press
+
+    input: window (psychopy object) and text (str)
     '''
     instruction = visual.TextStim(win, text=text, wrapWidth=40)
     instruction.setAutoDraw(True)
@@ -724,8 +777,7 @@ def text_present(win, text, close=False):
 
 def practice_instructions(win, paths, text, pract_run, timing, acceptedKeys = [], practice=False):
     '''
-    Displays instruction text and instruction images that are not part of a practice loop
-    :param practice_round: indicates which text and image(s) to display
+    Sequentially presents instruction text, images, and practice trials
     '''
 
     # make list of stim for this practice_round
@@ -778,7 +830,7 @@ def practice_instructions(win, paths, text, pract_run, timing, acceptedKeys = []
 
 def pract_pres(win, paths, im_list, timing, circle=False):
     """
-    display practice presentation runs
+    Present dynamic practice presentation runs
     """
 
     cue1, cue2 = cue_stim(win, '>', 'Face', paths['stim_path'])
@@ -807,7 +859,7 @@ def pract_pres(win, paths, im_list, timing, circle=False):
 
 def pract_mem(win, im_list, paths, timing):
     """
-    display practice memory text
+    Display dynamic practice memory runs
     """
 
     fixation = fix_stim(win)
