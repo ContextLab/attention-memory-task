@@ -426,11 +426,14 @@ def display(win, stim_list, frames, accepted_keys=None, trial=0, df=None, path=N
 
     for frame_n in range(frames):
         absolute_time = time.time()
+
+        # if not visual rating scale
         if not any(type(x) is visual.RatingScale for x in stim_list):
-            keys = event.getKeys()
+            keys = event.getKeys(timeStamped=True)
         else:
             keys=[]
 
+        # if displaying images
         if df is not None:
             if keys != []:
                 buttons_full(path, keys, absolute_time)
@@ -439,23 +442,32 @@ def display(win, stim_list, frames, accepted_keys=None, trial=0, df=None, path=N
             if frame_n == range(frames)[-1]:
                 df.loc[trial, 'Stimulus End'] = absolute_time
 
-
+        # elif attention probe
         elif type(accepted_keys)==list:
+
             if frame_n == 0:
                 resp_clock.reset()
+
             if keys != []:
-                if any(x not in accepted_keys for x in keys):
-                    buttons_full(path, keys, absolute_time)
-                else:
-                    if type(x) is not visual.RatingScale:
-                        resp = keys
+                if any(x[0] in accepted_keys for x in keys):
+                    if not any(type(x) is visual.RatingScale for x in stim_list):
+                        resp = keys[0][0]
                         rt = resp_clock.getTime()
                         break
+                    else:
+                        buttons_full(path, keys, rt)
+                else:
+                    buttons_full(path, keys, absolute_time)
 
             if resp == None and frame_n == range(frames)[-1] and type(x) is not visual.RatingScale:
                 key_wait = event.waitKeys(keyList = accepted_keys)
                 resp = key_wait[0]
                 rt = resp_clock.getTime()
+
+        # fixation
+        else:
+            if keys != []:
+                buttons_full(path, keys, absolute_time)
 
         win.flip()
 
@@ -465,7 +477,6 @@ def display(win, stim_list, frames, accepted_keys=None, trial=0, df=None, path=N
         if type(x) is visual.RatingScale:
             choice_history = x.getHistory()
             df["Familiarity Rating"].loc[trial],df['Familiarity Reaction Time (s)'].loc[trial] = rating_pull(choice_history)
-            print(choice_history)
 
     win.flip()
 

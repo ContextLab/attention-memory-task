@@ -20,7 +20,7 @@ from curtsies import Input
 
 # Parameters #
 experiment_title = 'Attention and Memory' 
-practice = False   # instructions & practice
+practice = False  # instructions & practice
 save_data = True  # saves all data
 MRI = False       # for MRI sync
 
@@ -61,8 +61,7 @@ mask2 = df['Trial Type']=='Memory'
 
 # Pres & Mem runs #
 for run in range(params['runs']):
-#for run in range(0):
-  
+
     # chunk dataframe
     mask3 = df['Run']==run
     
