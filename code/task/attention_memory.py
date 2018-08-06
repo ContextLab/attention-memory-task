@@ -13,7 +13,7 @@ import csv
 
 # Parameters #
 experiment_title = 'Attention and Memory' 
-practice = False  # instructions & practice
+practice = True  # instructions & practice
 
 params = {'runs':8, 'presentations_per_run':10, 'invalid_cue_percentage':10, 'mem_to_pres':4, 'mem_pres_split':2}
 categories = {'cat1':'Faces', 'cat2':'Places', 'composites':'composites'}
