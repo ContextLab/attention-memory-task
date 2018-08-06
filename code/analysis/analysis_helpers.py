@@ -1,10 +1,8 @@
 # HELPER FUNCTIONS FOR ATTENTION AND MEMORY ANALYSES
 
-import seaborn
 import os
 import pickle
 import pandas as pd
-import numpy as np
 from matplotlib import pyplot as plt
 
 
