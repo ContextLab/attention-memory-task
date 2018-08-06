@@ -28,11 +28,11 @@ cliplimit = .01;    %contrast:  limit of contrast enhancement
 %% set up directories
 
 % where raw files are located 
-old_root_dir = '/Users/kirstenziman/Desktop/OBJECTSALL/';
+old_root_dir = '/Users/kirstenziman/Desktop/AM_STIM_ORIG/';
 % where new files will be written 
-new_root_dir = '/Users/kirstenziman/Desktop/OBJECTS/';
+new_root_dir = '/Users/kirstenziman/Desktop/AM_STIM_BW/';
 % subfolders containing image files
-folders =  {'obs'};
+folders =  {'SCENES_ORIG','FACES_ORIG'};
  
 
 %% image processing loop 
@@ -79,6 +79,5 @@ for folder=1:length(folders) % loop through each folder
         
         % write image
         imwrite(imad_eq_image, [new_folder '/' img_files(index).name], 'jpg');
-        
     end % end image loop
 end % end folder loop 
