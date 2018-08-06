@@ -8,7 +8,6 @@ import random
 import os
 import time
 import csv
-#from curtsies import Input
 
 # Tiny helpers
 
@@ -358,8 +357,7 @@ def cue_stim(win, side, category, stim_dir):
     outputs: appropriate cue or fixation stimulus for center screen
     '''
 
-    stim1 = visual.ImageStim(win, image=stim_dir+'cue/'+category+'.png', size=2) #, name=category+'_icon')
-    #stim1.setPos([-2.5, 0])
+    stim1 = visual.ImageStim(win, image=stim_dir+'cue/'+category+'.png', size=2)
 
     stim2 = visual.TextStim(win=win, ori=0, name='cue_side', text = side, font='Arial',
             height=2, color='lightGrey', colorSpace='rgb', opacity=1, depth=0.0)
@@ -470,7 +468,7 @@ def display(win, stim_list, frames, accepted_keys=None, trial=0, df=None, path=N
             if frame_n == range(frames)[-1]:
                 df.loc[trial, 'Stimulus End'] = absolute_time
 
-        # elif attention probe
+        # attention probe
         elif type(accepted_keys)==list:
 
             if frame_n == 0:

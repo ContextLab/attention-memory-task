@@ -1,7 +1,8 @@
+# HELPER FUNCTIONS FOR ATTENTION AND MEMORY ANALYSES
+
 import seaborn
 import os
 import pickle
-#import statistics
 import pandas as pd
 import numpy as np
 from matplotlib import pyplot as plt
@@ -183,9 +184,6 @@ def run_level(df):
 
         if row['Trial Type']=='Memory':
             mem_image = row['Memory Image']
-            # for mem_image in df[df['Trial Type']=='Memory']['Memory Image'].tolist():
-            # loop over rows in memory chunk and pull memory image from each
-
             for cue in ['Cued ', 'Uncued ']:
                 for cat in ['Face', 'Place']:
                     if df.loc[df[cue+cat] == mem_image].shape[0]!=0:
