@@ -4,25 +4,16 @@
 
 # Imports ############################################################################################
 
-import psychopy
 import sys
-import pandas as pd
-from psychopy import visual, event, core, data, gui, logging
-sys.path.append("/usr/local/lib/python3.6/site-packages")
 sys.path.insert(0, '../analysis/')
-from analysis_helpers import *
 from experiment_helpers import * # main functions in experiment_helpers.fpy
-import time
 import csv
-from curtsies import Input
 
 # Set Up #############################################################################################
 
 # Parameters #
 experiment_title = 'Attention and Memory' 
 practice = False  # instructions & practice
-save_data = True  # saves all data
-MRI = False       # for MRI sync
 
 params = {'runs':8, 'presentations_per_run':10, 'invalid_cue_percentage':10, 'mem_to_pres':4, 'mem_pres_split':2}
 categories = {'cat1':'Faces', 'cat2':'Places', 'composites':'composites'}
@@ -37,7 +28,7 @@ global_clock = core.Clock()
 logging.setDefaultClock(global_clock)
  
 # Pre questionnaire #
-pre_info = pre_questionnaire(info, save=save_data, save_path=paths['subject'])
+pre_info = pre_questionnaire(info, save_path=paths['subject'])
 
 # Window and Stimulus timing #
 win = visual.Window([1024,768], fullscr = True, monitor = 'testMonitor', units='deg', color = 'black')
@@ -62,14 +53,14 @@ mask2 = df['Trial Type']=='Memory'
 # Pres & Mem runs #
 for run in range(params['runs']):
 
-    # chunk dataframe
+    # chunk dataframe #
     mask3 = df['Run']==run
     
-    # presentation run
+    # presentation run #
     text_present(win, pres_text(run))
     presentation_run(win, run, df.loc[mask1][mask3], params, timing, paths) 
     
-    # memory run
+    # memory run #
     text_present(win, mem_text(run))
     memory_run(win, run, df.loc[mask2][mask3], params, timing, paths)
     
@@ -77,5 +68,5 @@ for run in range(params['runs']):
 text_present(win, 'Thank you for your participation!', close=True)
 
 # post questionnaire #
-post_info = post_questionnaire(info, save=save_data, save_path=paths['subject'])
+post_info = post_questionnaire(info, save_path=paths['subject'])
 df.to_csv(paths['subject']+'final_df.csv')

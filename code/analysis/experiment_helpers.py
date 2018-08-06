@@ -3,11 +3,11 @@
 # Imports
 import pandas as pd
 from psychopy import visual, event, core, data, gui, logging
-from analysis_helpers import *
 import random
 import os
 import time
 import csv
+import pickle
 
 # Tiny helpers
 
@@ -550,7 +550,7 @@ def rating_pull(rating_tuple):
 
 # Functions to Execute Presentation & Memory Runs
 
-presentation_run(win, run, pres_df, params, timing, paths, test = False):
+def presentation_run(win, run, pres_df, params, timing, paths):
     """
     Displays a full presentation run, saves out data to csv
 
@@ -675,8 +675,8 @@ def pract_text(trial):
     pract9 = ' Great job, let\'s try it one more time!' \
                       '\n\n This time will be the same, but after each pair, a letter ("x" or "o") will appear on one side.' \
                       '\n When you see the letter, you should immediately press a button! ' \
-                      '\n\n        If the "o" appears, press 1 ' \
-                      '\n        If the "x" appears, press 3 ' \
+                      '\n\n        If the "x" appears, press 1 ' \
+                      '\n        If the "o" appears, press 3 ' \
                       '\n\n Remember to respond as quickly as you can!' \
                       '\n Press any key to begin.'
 
@@ -721,28 +721,26 @@ def mem_text(trial):
 
     return(instructions[num])
 
-
 def pres_text(trial):
     """
     input:  current presentation trial # (int)
     output: presentation instruction text (string) for given presentation trial
     """
-
     pres1 = ' Now we will begin the main experiment! ' \
-                    'Again you will see cue icons, followed by a series of image pairs and circles (and a fixation cross).' \
+                    'Again you will see cue icons, followed by a series of image pairs and letters (and a fixation cross).' \
                     '\n\n Remember to: ' \
                     '\n\n        Keep your eyes staring at the cross' \
                     '\n        Shift your attention to the SAME cued side and part for EACH pair' \
-                    '\n        Immeditaely press 1 ("o") or 3 ("x") when you see the letter ' \
+                    '\n        Immeditaely press 1 ("x") or 3 ("o") when you see the letter ' \
                     '\n\n Do you have questions? Ask them now! ' \
                     '\n Otherwise, position your hand over the 1 and 3 buttons, clear your mind, and press any key to begin. '
 
     pres2 = ' Feel free to take a moment to rest, if you like! ' \
-                    ' When you\'re ready, we will do another round with a cue, followed by image pairs and circles (o).' \
+                    ' When you\'re ready, we will do another round with a cue, followed by image pairs and letters.' \
                     ' \n\n Remember to: ' \
                     '\n Keep your eyes staring at the cross' \
                     '\n Shift your attention to the SAME cued side and part for EACH pair' \
-                    '\n Immeditaely press 1 (Left) or 3 (Right) when you see the circle (o) ' \
+                    '\n Immeditaely press 1 ("x") or 3 ("o") when you see the letter ' \
                     '\n\n Press any key to begin. '
 
     instructions = [pres1, pres2]
