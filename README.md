@@ -2,7 +2,7 @@
 
 This repository contains the experiment and analysis code for a psychology experiment exploring the relationship between covert attention and recognition memory.  
 
-![Hypertools example](figs/attn_task.png)
+![attn task image](figs/attn_task.png)
 
 # Installation
 
