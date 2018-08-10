@@ -2,12 +2,14 @@
 
 This repository contains the [Psychopy](http://psychopy.org/) code for a psychology experiment exploring the relationship between covert attention and recognition memory. (Psychopy v1.90.3)
 
-The experiment has a block design. In Presentation blocks, the subject views ten pairs of composite image stimuli (overlayed images of faces and scenes), presented on the right and left of the screen. The subject is cued to attend one part of the composites presented on a particular side for the duration of the block, while keeping their eyes fixated at center (that is, they should employ covert attention).
+The experiment has a block design. In Presentation blocks, the subject views ten pairs of composite image stimuli (overlayed images of faces and scenes) like hte one shown below, presented on the right and left of the screen. The subject is cued to attend one part of the composites presented on a particular side for the duration of the block, while keeping their eyes fixated at center (that is, they should employ covert attention).
+
+<center>![Overlay](figures/00081941031fa_sunaaftlyfudyzuhqzf.jpg) </center>
 
 In Memory blocks, the subject views 40 single, non-composite images, and rates each image as being "familiar" or "unfamiliar" on a scale of 1-4. The images shown are 50% novel images and 50% images previously seen in the most recent Presentation trial (with an equal proportion of previously seen images pulled from each presentation side - R/L - and each image category - face/place).
 
-![Overlay](figures/00081941031fa_sunaaftlyfudyzuhqzf.jpg) 
- <img src="figures/attn_task.png" alt="Paradigm" width="650"> 
+
+ <center><img src="figures/attn_task.png" alt="Paradigm" width="650"> </center>
 
 
 The code directory contains scripts for running the main task, generating stmiuli (image processing and overlaying), and conducting cursory behavioral analyses (in the form of easily accesible .ipynb files, for use with [jupyter notebook](https://ipython.org/notebook.html)).
