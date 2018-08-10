@@ -11,7 +11,7 @@ with open('LICENSE') as f:
 
 setup(
     name='attention-memory-task',
-    version='1.0',
+    version='0.1.0',
     description='Attention and Memory Experiment',
     long_description='This repository contains the Psychopy code for a psychology experiment exploring the relationship between covert attention and recognition memory.',
     author='Contextual Dynamics Laboratory',
