@@ -8,6 +8,13 @@ In Memory blocks, the subject views 40 single, non-composite images, and rates e
 
 ![Paradigm Figure](figures/attn_task.png)
 
+The code driectory contains scripts for running the main task, generating stmiuli (image processing and overlaying), and conducting cursory behavioral analyses (easily accesible .ipynb files, for use with [jupyter notebook](https://ipython.org/notebook.html).
+
+The stim directory contains all necessary image stimuli, separated by image type (overlay, sinlge face, single place, practice images, etc.)
+
+The test directory contains code to run a basic data check to ensure all stimuli were displayed correctly, after data collection. To use the checker, run data_check.ipynb in jupyter notebook.
+
+
 
 # Running the task
 
