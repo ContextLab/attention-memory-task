@@ -20,13 +20,13 @@ The test directory contains code to run a basic data check to ensure all stimuli
 
 # Running the task
 
-To run a behavioral participant, simply open attention_memory.py in Psychopy, hit the green "run" button in the code viewer, and enter the subejct ID and run#!  For run #, always enter 0 unless you have a very specific reason to desire fewer than the total number of runs indicated in params dictionary.
+To run a behavioral participant, simply open attention_memory.py in Psychopy, hit the green "run" button in the code viewer, and enter the subejct ID and run#!  
 
 The subject name or number can be arbitrarily chosen by the experimenter (any number or string).
 
-The run number indicates on which run to start the experiment. For example, a run number of 0 will initiate the experiment ont he first run, and loop over presentation and memory runs until the total number of desired runs (outlined in the parameters in attention_memory.py) has been presented. 
+The run number indicates on which run to start the experiment. If the subject is just beginning the experiment, the run # should be 0. A run number of 0 will initiate the experiment on the first run, and loop over presentation and memory runs until the total number of desired runs (outlined in the parameters in attention_memory.py) has been presented. 
 
-If the experiment is started at run 5, the experiment will loop over runs 5:number-of-total-runs (the default setting is to have eight runs, 0-7, so starting on run 5 would loops over runs 5, 6, and 7).
+If the experiment is started at run 5, the experiment will loop over runs 5:number-of-total-runs (the default setting is to have eight runs, 0-7, so starting on run 5 would loop over runs 5, 6, and 7).
 
 If the subject self-reports moving their head from the chin rest during the experiment, the experiment window will close to allow for eye tracking recalibration, at which point the experimenter should recalibrate as needed, then restart the experiment entering the next run # (for example, if the subject reported taking a bathroom break after run 3, experimenter should recalibrate then initiate the experiment again entering the same IDENTICAL subject name and the NEXT desired run#: 4)
 
