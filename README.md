@@ -6,7 +6,7 @@ The experiment has a block design. In Presentation blocks, the subject views ten
 
 In Memory blocks, the subject views 40 single, non-composite images, and rates each image as being "familiar" or "unfamiliar" on a scale of 1-4. The images shown are 50% novel images and 50% images previously seen in the most recent Presentation trial (with an equal proportion of previously seen images pulled from each presentation side - R/L - and each image category - face/place).
 
-![Paradigm Figure](figures/attn_task.pdf)
+![Paradigm Figure](figures/attn_task.png)
 
 
 # Running the task
