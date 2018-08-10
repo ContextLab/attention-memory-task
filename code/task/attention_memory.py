@@ -77,5 +77,5 @@ for run in range(int(info['run']),params['runs']):
     if run == params['runs']-1:
         
         # closing message and post-questionnaire #
-        text_present(win, 'Thank you for your participation!', close=True)
+        text_present(win, 'Thank you for your participation!', timing=timing, close=True)
         post_info = post_questionnaire(info, save_path=paths['subject'])
