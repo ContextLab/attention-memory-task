@@ -8,7 +8,7 @@ In Memory blocks, the subject views 40 single, non-composite images, and rates e
 
 ![Paradigm Figure](figures/attn_task.png)
 
-The code driectory contains scripts for running the main task, generating stmiuli (image processing and overlaying), and conducting cursory behavioral analyses (easily accesible .ipynb files, for use with [jupyter notebook](https://ipython.org/notebook.html).
+The code directory contains scripts for running the main task, generating stmiuli (image processing and overlaying), and conducting cursory behavioral analyses (in the form of easily accesible .ipynb files, for use with [jupyter notebook](https://ipython.org/notebook.html)).
 
 The stim directory contains all necessary image stimuli, separated by image type (overlay, sinlge face, single place, practice images, etc.)
 
