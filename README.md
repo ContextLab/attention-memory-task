@@ -2,6 +2,8 @@
 
 This repository contains the [Psychopy](http://psychopy.org/) code for a psychology experiment exploring the relationship between covert attention and recognition memory. (Psychopy v1.90.3)
 
+# Paradigm
+
 The experiment has a block design. In Presentation blocks, the subject views ten pairs of composite image stimuli (overlayed images of faces and scenes) like the one shown below, presented on the right and left of the screen. The subject is cued to attend one part of the composites presented on a particular side for the duration of the block, while keeping their eyes fixated at center (that is, they should employ covert attention).
 
 ![Overlay](figures/00081941031fa_sunaaftlyfudyzuhqzf.jpg) \
