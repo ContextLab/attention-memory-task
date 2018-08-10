@@ -1,6 +1,6 @@
 # Overview
 
-This repository contains the Psychopy code for a psychology experiment exploring the relationship between covert attention and recognition memory.  
+This repository contains the [Psychopy](http://psychopy.org/). code for a psychology experiment exploring the relationship between covert attention and recognition memory. (Psychopy v1.90.3)
 
 # Running the task
 
