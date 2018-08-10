@@ -27,15 +27,13 @@ def flatten(the_list):
 
 # Data entry & organization functions
 
-def subject_info(header, data_path):
+def subject_info(header):
     '''
     input: text to show at top of pop-up (string)
            path to data directory (string)
 
     Creates pop up box to obtain subject# and run#
-    Creates subject directory, if not already existing
     '''
-
     info = {}
     info['participant'] = ''
     info['run'] = ''
@@ -81,7 +79,6 @@ def pre_questionnaire(info, save=True, save_path='.'):
 
     preDlg = gui.Dlg()
 
-    # second pop up (demographic info)
     preDlg.addField('1. age')
     preDlg.addField('2. sex:', choices=['--', "Male", "Female", "Other", "No Response"])
     preDlg.addField('3. Are you hispanic or latino?', choices=['--', "Yes", "No"])
@@ -753,7 +750,7 @@ def pres_text(trial):
     return(instructions[num])
 
 
-def text_present(win, text, close=False):
+def text_present(win, text, close=False, cali=False, timing=None):
     '''
     Displays text on screen, until button press
 
@@ -763,9 +760,16 @@ def text_present(win, text, close=False):
     instruction.setAutoDraw(True)
     win.flip()
 
-    event.waitKeys(keyList=None)
+    if cali:
+        keyList = ['y','n']
+    else:
+        keyList = None
 
-    if close:
+    key = event.waitKeys(keyList=keyList)
+
+    if close or (cali and key[0] == 'y'):
+        pause(win, timing['pause'])
+        print('***Experiment stopped for recalibration*** Stop this run, recalibrate, then start the next run.')
         win.close()
     else:
         instruction.setAutoDraw(False)
