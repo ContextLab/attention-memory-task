@@ -8,7 +8,7 @@ To run a behavioral participant, simply open attention_memory.py in Psychopy, hi
 
 
 # Acknowledgements
-Thanks to Megan deBettencourt for providing the image processing script available in this repository (code/stim/ProcessImages.m) and recommending stimulus sets. 
+Thanks to Megan deBettencourt for providing the image processing script available in this repository (code/stim/process_images.m) and recommending stimulus sets. 
 
 
 FACE STIMULI:
