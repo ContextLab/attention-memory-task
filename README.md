@@ -4,12 +4,17 @@ This repository contains the [Psychopy](http://psychopy.org/) code for a psychol
 
 The experiment has a block design. In Presentation blocks, the subject views ten pairs of composite image stimuli (overlayed images of faces and scenes) like the one shown below, presented on the right and left of the screen. The subject is cued to attend one part of the composites presented on a particular side for the duration of the block, while keeping their eyes fixated at center (that is, they should employ covert attention).
 
-![Overlay](figures/00081941031fa_sunaaftlyfudyzuhqzf.jpg) 
+![Overlay](figures/00081941031fa_sunaaftlyfudyzuhqzf.jpg) \
+<img src="figures/presentation.png" alt="Paradigm" width="400"> 
 
 In Memory blocks, the subject views 40 single, non-composite images, and rates each image as being "familiar" or "unfamiliar" on a scale of 1-4. The images shown are 50% novel images and 50% images previously seen in the most recent Presentation trial (with an equal proportion of previously seen images pulled from each presentation side - R/L - and each image category - face/place).
 
 
- <center><img src="figures/attn_task.png" alt="Paradigm" width="650"> </center>
+ <center><img src="figures/memory.png" alt="Paradigm" width="400"> </center>
+ 
+ # Full Paradigm Schematic
+ 
+  <center><img src="figures/attn_task.png" alt="Paradigm" width="650"> </center>
 
 
 The code directory contains scripts for running the main task, generating stmiuli (image processing and overlaying), and conducting cursory behavioral analyses (in the form of easily accesible .ipynb files, for use with [jupyter notebook](https://ipython.org/notebook.html)).
