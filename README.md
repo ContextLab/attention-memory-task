@@ -1,11 +1,21 @@
 # Overview
 
-This repository contains the [Psychopy](http://psychopy.org/). code for a psychology experiment exploring the relationship between covert attention and recognition memory. (Psychopy v1.90.3)
+This repository contains the [Psychopy](http://psychopy.org/) code for a psychology experiment exploring the relationship between covert attention and recognition memory. (Psychopy v1.90.3)
+
+The experiment has a block design. In Presentation blocks, the subject views ten pairs of composite stimuli, presented on the right and left of the screen, and is cued to attend one part of one composite image while keeping their eyes fixated center-screen (that is, they should employ covert attention).
+
+In Memory blocks, the subject views 40 single, non-composite images, and rates each image as being "familiar" or "unfamiliar" on a scale of 1-4. The images shown are 50% novel images and 50% images previously seen in the most recent Presentation trial (with an equal proportion of previously seen images pulled from each presentation side - R/L - and each image category - face/place).
+
 
 # Running the task
 
 To run a behavioral participant, simply open attention_memory.py in Psychopy, hit the green "run" button in the code viewer, and enter the subejct ID and run#!  For run #, always enter 0 unless you have a very specific reason to desire fewer than the total number of runs indicated in params dictionary.
 
+The subject name or number can be arbitrarily chosen by the experimenter (any number or string).
+
+The run number indicates on which run to start the experiment. For example, a run number of 0 will initiate the experiment ont he first run, and loop over presentation and memory runs until the total number of desired runs (outlined in the parameters in attention_memory.py) has been presented. 
+
+If the experiment is started at run 5, the experiment will loop over runs 5:number-of-total-runs (the default setting is to have eight runs, 0-7, so starting on run 5 would loops over runs 5, 6, and 7).
 
 # Acknowledgements
 Thanks to Megan deBettencourt for providing the image processing script available in this repository (code/stim/process_images.m) and recommending stimulus sets. 
