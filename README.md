@@ -16,6 +16,7 @@ In Memory blocks, the subject views 40 single, non-composite images, and rates e
  
   <center><img src="figures/attn_task.png" alt="Paradigm" width="650"> </center>
 
+# Directory Organization
 
 The code directory contains scripts for running the main task, generating stmiuli (image processing and overlaying), and conducting cursory behavioral analyses (in the form of easily accesible .ipynb files, for use with [jupyter notebook](https://ipython.org/notebook.html)).
 
