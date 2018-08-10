@@ -18,5 +18,5 @@ setup(
     author_email='contextualdynamics@gmail.com',
     url='https://github.com/ContextLab/attention-memory-task',
     license=license,
-    packages=find_packages(exclude=('tests', 'docs'))
+    packages=find_packages(exclude=('tests')
 )
