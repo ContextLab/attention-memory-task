@@ -4,7 +4,9 @@ This repository contains the [Psychopy](http://psychopy.org/) code for a psychol
 
 # Paradigm
 
-The experiment has a block design. In <b>Presentation blocks</b>, the subject views ten pairs of composite image stimuli (overlayed images of faces and scenes) like the one shown below, presented on the right and left of the screen. The subject is cued to attend one part of the composites presented on a particular side for the duration of the block, while keeping their eyes fixated at center (that is, they should employ covert attention). After each image pair, a letter ('x' or 'o') appears on screen and the subject presses a button (1 or 3, respectively) to indicate which letter they see.<br />
+The experiment has a block design. After an initial practice task to orient the participant to the task instructions, the subject beigns their first Presentation block.
+
+In <b>Presentation blocks</b>, the subject views ten pairs of composite image stimuli (overlayed images of faces and scenes) like the one shown below, presented on the right and left of the screen. The subject is cued to attend one part of the composites presented on a particular side for the duration of the block, while keeping their eyes fixated at center (that is, they should employ covert attention). After each image pair, a letter ('x' or 'o') appears on screen and the subject presses a button (1 or 3, respectively) to indicate which letter they see.<br />
 
 <img style="display: inline" src="figures/00081941031fa_sunaaftlyfudyzuhqzf.jpg" alt="Paradigm" width="350"> <img style="display: inline" src="figures/presentation.png" alt="Paradigm" width="450"> 
 
