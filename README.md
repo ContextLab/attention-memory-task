@@ -4,8 +4,6 @@ This repository contains the Psychopy code for a psychology experiment exploring
 
 # Running the task
 
-After full installation, running the task is simple!
-
 To run a behavioral participant, simply open attention_memory.py in Psychopy, hit the green "run" button in the code viewer, and enter the subejct ID and run#!  For run #, always enter 0 unless you have a very specific reason to desire fewer than the total number of runs indicated in params dictionary.
 
 
