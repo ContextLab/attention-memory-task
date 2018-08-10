@@ -6,7 +6,7 @@ This repository contains the [Psychopy](http://psychopy.org/) code for a psychol
 
 The experiment has a block design. In Presentation blocks, the subject views ten pairs of composite image stimuli (overlayed images of faces and scenes) like the one shown below, presented on the right and left of the screen. The subject is cued to attend one part of the composites presented on a particular side for the duration of the block, while keeping their eyes fixated at center (that is, they should employ covert attention).
 
-![Overlay](figures/00081941031fa_sunaaftlyfudyzuhqzf.jpg) \
+![Overlay](figures/00081941031fa_sunaaftlyfudyzuhqzf.jpg) 
 <img src="figures/presentation.png" alt="Paradigm" width="300"> 
 
 In Memory blocks, the subject views 40 single, non-composite images, and rates each image as being "familiar" or "unfamiliar" on a scale of 1-4. The images shown are 50% novel images and 50% images previously seen in the most recent Presentation trial (with an equal proportion of previously seen images pulled from each presentation side - R/L - and each image category - face/place).
