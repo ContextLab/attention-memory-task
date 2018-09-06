@@ -70,12 +70,12 @@ for run in range(int(info['run']),params['runs']):
     memory_run(win, run, df.loc[mask2][mask3], params, timing, paths)
     
     # if subject self reports head movement, experiment stops for recalibration) #
-    text_present(win, 'Have you removed your head from the chin rest, since we last set up the eye tracker? ( "y" / "n" )', 
-                 cali=True, timing = timing)
+    if run != params['runs']-1:
+        text_present(win, 'Have you removed your head from the chin rest, since we last set up the eye tracker? ( "y" / "n" )', 
+                     cali=True, timing = timing)
 
     # after last memory run #
-    if run == params['runs']-1:
-        
+    else:
         # closing message and post-questionnaire #
         text_present(win, 'Thank you for your participation!', timing=timing, close=True)
         post_info = post_questionnaire(info, save_path=paths['subject'])
