@@ -79,18 +79,21 @@ def ROC(df, plot=True):
 
     # for each attention level
     for attn in ['Novel', 'None','Side','Full','Category']:
-        ROC[attn] = [0]
+
+        ROC[attn] = [0, 1]
 
         # for each possible number rating
-        for num in range(len(ratings)):
+        for rate in ratings:
 
-            # proportion of times they rated that attn level & proportion of Novel that got that rating
-            num = df.loc[(df['Attention Level'] == attn) & df['Familiarity Rating'].isin(ratings[:num+1])].shape[0]
+            # proportion of images in that attn level rated this rating or higher
+            num = df.loc[(df['Attention Level'] == attn) & (df['Familiarity Rating'] >= rate)].shape[0]
             denom = df.loc[df['Attention Level'] == attn].shape[0]
             ROC[attn].append(float(num)/denom)
 
-        ROC[attn].append(1)
+        ROC[attn].sort()
 
+        # proportions of various attention-level images, by rating, on y-axis
+        # proportions of novel images, by rating, on x-axis
         if attn != 'Novel':
             ax1.plot(ROC['Novel'], ROC[attn], '-o', label=attn)
 
