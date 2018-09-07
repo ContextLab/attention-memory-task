@@ -71,8 +71,8 @@ for run in range(int(info['run']),params['runs']):
     
     # if subject self reports head movement, experiment stops for recalibration) #
     if run != params['runs']-1:
-        text_present(win, 'Have you removed your head from the chin rest, since we last set up the eye tracker? ( "y" / "n" )', 
-                     cali=True, timing = timing)
+        text_present(win, 'Next, we will pause to recalibrate the eye tracker. You can take a break and hit any key when you are ready for recalibration.', 
+                     close=True, timing = timing)
 
     # after last memory run #
     else:
