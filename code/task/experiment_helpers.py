@@ -750,7 +750,7 @@ def pres_text(trial):
     return(instructions[num])
 
 
-def text_present(win, text, close=False, cali=False, timing=None):
+def text_present(win, text, close=False, timing=None):
     '''
     Displays text on screen, until button press
 
@@ -760,16 +760,10 @@ def text_present(win, text, close=False, cali=False, timing=None):
     instruction.setAutoDraw(True)
     win.flip()
 
-    if cali:
-        keyList = ['y','n']
-    else:
-        keyList = None
+    key = event.waitKeys(keyList=None)
 
-    key = event.waitKeys(keyList=keyList)
-
-    if close or (cali and key[0] == 'y'):
+    if close:
         pause(win, timing['pause'])
-        print('***Experiment stopped for recalibration*** Stop this run, recalibrate, then start the next run.')
         win.close()
     else:
         instruction.setAutoDraw(False)
