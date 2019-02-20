@@ -826,21 +826,30 @@ def pract_pres(win, paths, im_list, timing, circle=False):
     """
     Present dynamic practice presentation runs
     """
+    random.choice(['Face','Place'])
 
-    cue1, cue2 = cue_stim(win, '>', 'Face', paths['stim_path'])
+    cue1, cue2 = cue_stim(win, random.choice(['>','<']), random.choice(['Face','Place']), paths['stim_path'])
+    cue3, cue4 = cue_stim(win, random.choice(['>','<']), random.choice(['Face','Place']), paths['stim_path'])
+    cue5, cue6 = cue_stim(win, random.choice(['>','<']), random.choice(['Face','Place']), paths['stim_path'])
 
     cue1.setPos([0, 2])
     cue2.setPos([0, 0])
-
-    display(win, [cue1,cue2], timing['cue'], path = paths)
-    pause(win, timing['pause'])
+    cue3.setPos([0, 2])
+    cue4.setPos([0, 0])
+    cue5.setPos([0, 2])
+    cue6.setPos([0, 0])
 
     fix = fix_stim(win)
-    fix.setAutoDraw(True)
-    text=['x','o','o']
-    validity_list = [1, 1, 0]
+    text=[random.choice(['x','o']), random.choice(['x','o']), random.choice(['x','o'])]
+    validity_list = [random.choice([1,3]), random.choice([1,3]), random.choice([1,3])]
 
-    for x in range(3):
+    for x,y in zip(range(3), [[cue1, cue2], [cue3, cue4], [cue5, cue6]]):
+
+        display(win, y, timing['cue'], path = paths)
+        fix.setAutoDraw(True)
+        pause(win, timing['pause'])
+
+
         stim = composite_pair(win, im_list[x*2], im_list[x*2+1], '<', paths['stim_path'], practice=True)
         display(win, stim, timing['probe'], path = paths)
 
@@ -849,7 +858,8 @@ def pract_pres(win, paths, im_list, timing, circle=False):
             display(win, [circle], timing['probe'], accepted_keys=['1','3'], path = paths)
 
         pause(win, timing['pause'])
-    fix.setAutoDraw(False)
+        fix.setAutoDraw(False)
+
 
 def pract_mem(win, im_list, paths, timing):
     """
