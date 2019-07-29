@@ -733,9 +733,9 @@ def pract_text(trial):
                     '\n\n First, you\'ll see a pair of cue icons: ' \
                     '\n One arrow icon pointing left or right (< or >) ' \
                     ' and one image icon (face or scene): ' \
-                    '\n\n\n\n\n\n After the cue icons, you will see a pair of images. You\'ll attend to the part of the image on the cued side.' \
-                    '\n This will happen several times in a row! Each time, you will see a cue, then a pair of images.'\
-                    ' Remember to keep your eyes fixated on the cross! ' \
+                    '\n\n\n\n\n\n After the cue icons, you will see a pari of images. You\'ll attend to the cued side and image part of that image pair.' \
+                    '\n\n This will happen several times in a row. Each time, you will see a cue, then a pair of images.' \
+                    '\n Remember to focus as best you can and always keep your eyes fixated on the cross! ' \
                     '\n\n Press any key to begin.'
 
     pract9 = ' Great job, let\'s try it one more time!' \
@@ -793,7 +793,7 @@ def pres_text(trial):
     output: presentation instruction text (string) for given presentation trial
     """
     pres1 = ' Now we will begin the main experiment! ' \
-                    'Again you will see cue icons, followed by image pairs and letters (and a fixation cross).' \
+                    'Again you will see cue icons, followed by a series of image pairs and letters (and a fixation cross).' \
                     '\n\n Remember to: ' \
                     '\n\n        Keep your eyes staring at the cross' \
                     '\n        Shift your attention to the cued side and part for EACH pair' \
@@ -852,12 +852,13 @@ def practice_instructions(win, paths, text, pract_run, timing, acceptedKeys = []
 
     # center composite
     if pract_run in [1,2,3]:
-        ims.append(memory_stim(win, composites[pract_run-1], paths['stim_path'], practice=True))
+        ims.append(memory_stim(win, composites[1], paths['stim_path'], practice=True))
 
     # composite pair, fixation
     elif pract_run in [5,7]:
         image1,image2 = [composites[pract_run-1], composites[pract_run-2]]
-        ims.extend(composite_pair(win, composites[pract_run-1], composites[pract_run-2], '>', paths['stim_path'], practice=True))
+        arrow  = random.choice(['<','>'])
+        ims.extend(composite_pair(win, composites[pract_run-1], composites[pract_run-2], arrow, paths['stim_path'], practice=True))
         ims.append(fix_stim(win))
 
     # face cue, place cue
