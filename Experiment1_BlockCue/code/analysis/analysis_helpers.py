@@ -13,6 +13,7 @@ import hypertools as hyp
 import numpy as np
 from matplotlib import patches as patches
 import seaborn as sb
+import scipy
 
 
 
@@ -421,6 +422,188 @@ def pres_gaze_image(subdir, eye_df, subject):
 
     return(pres_gaze)
 
+def apply_window(combo, window_length):
+    '''
+    input:  dataframe of behavioral data from an entire experiment
+    output: dataframe of same shape where raw values have been replaced by rolling window mean
+    '''
+
+    # select data from memory runs
+    data = combo[combo['Trial Type']=='Memory'][['Attention Level','Familiarity Rating','Trial','Subject','Run']]
+
+    # re strucutre data - each row is a trial, each col is an attn level
+    df = data.pivot_table(index=['Subject','Run','Trial'],
+                          columns='Attention Level',
+                         values='Familiarity Rating')
+
+    # apply rolling window, for each run in each subject
+    window_data = df.groupby(['Subject','Run']).apply(lambda x: x.rolling(window_length, min_periods=1, center = True).mean())
+
+    return(window_data)
+
+def add_nov_label(combo, column_name='Cued Category'):
+    '''
+    input:  dataframe of participant data, and the name of the column to use for cue info
+            for exp1 use 'Cued Category' (cue for that block)
+            for exp2 use 'Last Cued'     (last cue from presentation block)
+    output: dataframe where novel images are labeled by cued or uncued category
+    '''
+
+    combo.loc[combo['Attention Level']=='Novel','Attention Level'] = 'Nov_Un'
+
+    for snuffle in ['Face','Place']:
+
+        # for all 'Novel', if image in cued category, rename 'Novel_Cued'
+        combo.loc[(combo['Trial Type']=='Memory') & (combo[column_name]==snuffle) & (combo['Category']==snuffle)
+                  & (combo['Attention Level'].isin(['Nov_Un','Novel','Nov_Cued'])),
+                     'Attention Level'] = 'Nov_Cued'
+
+        combo.loc[(combo['Trial Type']=='Memory')
+                  & (combo[column_name]!=snuffle)
+                  & (combo['Category']==snuffle)
+                  & (combo['Attention Level'].isin(['Novel','Nov_Un','Nov_Cued'])),
+                     'Attention Level'] = 'Nov_Un'
+    return(combo)
+
+def sig_bars(cat, cats, stat_dict, adjust=0):
+    '''
+    input:  left-most category, ordered category list, dictionary of significant ttests
+    output: parameters for first significance line in descending cascade
+    '''
+
+    answer = []
+
+    colors = ['r','m','c','y','g','b']
+
+    cat_keys = [x for x in stat_dict.keys() if cat==x[0] and stat_dict[x]['t']>0]
+    # select all positive, sig, left-to-right relationships with that category
+
+    if len(cat_keys)==0:
+        answer =  [{'y':0, 'x_min': 0, 'x_max':0, 'width': 0, 'next':0, 'color': 'w', 'categories':np.nan}]
+
+    elif len(cat_keys)>0:
+        # if any exist
+
+        for iteration in range(0,len(cat_keys)):
+
+            # return info for all of them
+            #t_sign = stat_dict[cat_keys[iteration]]['t']
+            ttest  = stat_dict[cat_keys[iteration]]
+
+            # line params for this line
+
+            if   ttest['p'] < .001:
+                linewidth = 4
+            elif ttest['p'] < .01:
+                linewidth = 3
+            elif ttest['p'] < .05:
+                linewidth = 2
+            elif ttest['p'] < .056:
+                linewidth = 1
+            else:
+                linewidth = 0
+
+            first = .09
+            y_val = (-cats.index(cat)/len(cats))+ 5 - adjust
+            xmin = .09 + (.167 * cats.index(cat))
+            xmax = .09 + cats.index(cat_keys[iteration][1])*.167
+            second_cat = cat_keys[iteration][1]
+
+            answer.append( {'y': y_val, 'x_min': xmin, 'x_max': xmax, 'width': linewidth, 'next': second_cat,
+                       'color' : colors[cats.index(cat_keys[iteration][0])], 'categories': cat_keys[iteration]})
+
+    return(answer)
+
+def sig_bars_neg(cat, cats, stat_dict, adjust=0):
+    '''
+    input:  left-most category, ordered category list, dictionary of significant ttests
+    output: parameters for first significance line in descending cascade
+    '''
+
+    answer = []
+    colors = ['b','g','y','c','m','r']
+
+    #colors = ['r','m','c','y','g','b']
+
+    cat_keys = [x for x in stat_dict.keys() if cat==x[0] and stat_dict[x]['t']<0]
+    # select all positive, sig, left-to-right relationships with that category
+
+    if len(cat_keys)==0:
+        answer =  [{'y':0, 'x_min': 0, 'x_max':0, 'width': 0, 'next':0, 'color': 'w', 'categories':np.nan}]
+
+    elif len(cat_keys)>0:
+        # if any exist
+
+        for iteration in range(0,len(cat_keys)):
+
+            # return info for all of them
+            #t_sign = stat_dict[cat_keys[iteration]]['t']
+            ttest  = stat_dict[cat_keys[iteration]]
+
+            # line params for this line
+
+            if   ttest['p'] < .001:
+                linewidth = 4
+            elif ttest['p'] < .01:
+                linewidth = 3
+            elif ttest['p'] < .05:
+                linewidth = 2
+            elif ttest['p'] < .059:
+                linewidth = 1
+
+            first = .09
+            y_val = (-cats.index(cat)/len(cats))+ 5 - adjust
+            xmax = .09 + (.167 * cats.index(cat))
+            xmin = .09 + cats.index(cat_keys[iteration][1])*.167
+            second_cat = cat_keys[iteration][1]
+
+            answer.append( {'y': y_val, 'x_min': xmin, 'x_max': xmax, 'width': linewidth, 'next': second_cat,
+                       'color' : colors[cats.index(cat_keys[iteration][0])], 'categories': cat_keys[iteration]})
+
+    return(answer)
+
+
+def timepoint_ttest(data, columns, related=True):
+    '''
+    input  : dataframe of timecourse-formatted behavioral data
+             list with two strings, indicating which columns to compare
+    output : dataframe with column containing moment-by-moment pvals
+    '''
+
+    data['timepoint_ttest']   = np.nan
+    data['timepoint_t_truth'] = np.nan
+    data['timepoint_t_value'] = np.nan
+
+    for trial in data['Trial'].unique():
+
+        a = list(data[(data['Trial']==trial) & (data['Attention Level']==columns[0])]['value'])
+        b = list(data[(data['Trial']==trial) & (data['Attention Level']==columns[1])]['value'])
+
+        if related == False:
+            stat = scipy.stats.ttest_ind(a,b)
+        else:
+            stat = scipy.stats.ttest_rel(a,b)
+
+        if stat.pvalue <.05:
+            data.loc[(data['Attention Level'].isin(columns))
+                   & (data['Trial']==trial),'timepoint_ttest'] = stat.pvalue
+            data.loc[(data['Attention Level'].isin(columns))
+                   & (data['Trial']==trial),'timepoint_tvalue'] = stat.statistic
+            data.loc[(data['Attention Level'].isin(columns))
+                   & (data['Trial']==trial),'timepoint_t_truth'] = True
+        else:
+            data.loc[(data['Attention Level'].isin(columns))
+                   & (data['Trial']==trial),'timepoint_t_truth'] = False
+            data.loc[(data['Attention Level'].isin(columns))
+                   & (data['Trial']==trial),'timepoint_tvalue'] = stat.statistic
+            data.loc[(data['Attention Level'].isin(columns))
+                   & (data['Trial']==trial),'timepoint_ttest'] = stat.pvalue
+
+        #print(scipy.stats.ttest_ind(a,b))
+
+    return(data)
+
+
 
 # def pres_gaze(subdir, eye_df, interval='images'):
 #     '''
@@ -477,6 +660,44 @@ def pres_gaze_image(subdir, eye_df, subject):
 #                                             (eye_df['av_y_coord']<33.6)])
 #                 #stim.append()
 #     return(pres_gaze)
+
+
+
+def add_gaze(df):
+
+    '''
+    input: df containing pres and mem from single run
+    output: df with string in 'Attention Level' column in each Memory trial row
+    '''
+
+    for index,row in df.iterrows():
+        if row['Trial Type']=='Memory':
+            mem_image = row['Memory Image']
+            for cue in ['Cued ', 'Uncued ']:
+                for cat in ['Face', 'Place']:
+                    if df.loc[df[cue+cat] == mem_image].shape[0]!=0:
+                        df['av_x_coord'][index]=df.loc[df[cue+cat] == mem_image]['av_x_coord']
+                        df['Cued Side'][index] = df.loc[df[cue+cat] == mem_image]['Cued Side'].item()
+
+    mem_mask = df['Trial Type']=='Memory'
+    df.loc[mem_mask,'av_x_coord'] = df.loc[mem_mask,'av_x_coord'].fillna(np.nan)
+
+    return(df)
+# 
+# def add_gaze(df):
+#     for index,row in df.iterrows():
+#         if row['Trial Type']=='Memory':
+#             mem_image = row['Memory Image']
+#             for cue in ['Cued ', 'Uncued ']:
+#                 for cat in ['Face', 'Place']:
+#                     if df.loc[df[cue+cat] == mem_image].shape[0]!=0:
+#                         df['av_x_coord'][index]=df.loc[df[cue+cat] == mem_image]['av_x_coord']
+#                         df['Cued Side'][index] = df.loc[df[cue+cat] == mem_image]['Cued Side'].item()
+#
+#     mem_mask = df['Trial Type']=='Memory'
+#     df.loc[mem_mask,'av_x_coord'] = df.loc[mem_mask,'av_x_coord'].fillna(np.nan)
+#
+#     return(df)
 
 
 

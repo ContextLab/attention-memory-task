@@ -12,7 +12,7 @@ import csv
 
 # Parameters #
 experiment_title = 'Attention and Memory'
-practice = True  # instructions & practice
+practice = False # instructions & practice
 shuffle = True
 
 params = {'runs':8, 'presentations_per_run':10, 'invalid_cue_percentage':10, 'mem_to_pres':4, 'mem_pres_split':2}
