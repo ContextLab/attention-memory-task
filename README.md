@@ -14,7 +14,7 @@ In <b>Memory blocks</b>, the subject views 40 single, non-composite images, and 
  
  # Full Paradigm Schematic
  
-<center><img style="display: inline" src="figures/paradigm_and_key.pdf" alt="Paradigm" width="350"> <img style="display: inline" src="figures/presentation.png" alt="Paradigm" width="650"></center>
+<center><img style="display: inline" src="figures/paradigm_and_key.jpg" alt="Paradigm" width="350"> <img style="display: inline" src="figures/presentation.png" alt="Paradigm" width="650"></center>
 
 # Directory Organization
 
