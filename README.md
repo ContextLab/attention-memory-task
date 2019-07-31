@@ -1,23 +1,20 @@
 # Overview
 
-This repository contains the [Psychopy](http://psychopy.org/) code for a psychology experiment exploring the relationship between covert attention and recognition memory. (Psychopy v1.90.3)
+This repository contains the [Psychopy](http://psychopy.org/) code for a psychology experiment exploring the relationship between covert attention and recognition memory.
 
 # Paradigm
 
-The experiment has a block design. After an initial practice task to orient the participant to the task instructions, the subject beigns their first Presentation block.
+There are two versions of this experiment: a block design version (Sustained Attention Experiment), and a trial=wise cuing version (Variable Attention Experiment). Both begin with an initial practice task to orient the participant to the task instructions, then a Presentation block.
 
-In <b>Presentation blocks</b>, the subject views ten pairs of composite image stimuli (overlayed images of faces and scenes) like the one shown below, presented on the right and left of the screen. The subject is cued to attend one part of the composites presented on a particular side for the duration of the block, while keeping their eyes fixated at center (that is, they should employ covert attention). After each image pair, a letter ('x' or 'o') appears on screen and the subject presses a button (1 or 3, respectively) to indicate which letter they see.<br />
+In <b>Presentation blocks</b>, the subject views ten pairs of composite image stimuli (overlayed images of faces and scenes) like the one shown below, presented on the right and left of the screen. The subject is cued to attend one part of the composites presented on a particular side, while keeping their eyes fixated at center (that is, they should employ covert attention). After each image pair, a letter ('x' or 'o') appears on screen and the subject presses a button (1 or 3, respectively) to indicate which letter they see.<br />
 
-<img style="display: inline" src="figures/00081941031fa_sunaaftlyfudyzuhqzf.jpg" alt="Paradigm" width="350"> <img style="display: inline" src="figures/presentation.png" alt="Paradigm" width="450"> 
-
-In <b>Memory blocks</b>, the subject views 40 single, non-composite images, and rates each image as being "familiar" or "unfamiliar" on a scale of 1-4. The images shown are 50% novel images and 50% images previously seen in the most recent Presentation trial (with an equal proportion of previously seen images pulled from each presentation side - R/L - and each image category - face/place).
+In <b>Memory blocks</b>, the subject views 40 single, non-composite images, and rates each image as being "familiar" or "unfamiliar" on a scale of 1-4. The images shown are 50% novel images and 50% images previously seen in the most recent Presentation block (with an equal proportion of previously seen images pulled from each presentation side - R/L - and each image category - face/place).
 
 
- <center><img src="figures/memory.png" alt="Paradigm" width="600"> </center>
  
  # Full Paradigm Schematic
  
-  <center><img src="figures/attn_task.png" alt="Paradigm" width="650"> </center>
+<center><img style="display: inline" src="figures/paradigm_and_key.pdf" alt="Paradigm" width="350"> <img style="display: inline" src="figures/presentation.png" alt="Paradigm" width="650"></center>
 
 # Directory Organization
 
