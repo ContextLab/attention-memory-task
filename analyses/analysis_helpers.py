@@ -769,7 +769,7 @@ def gaze_box(trial, center, dims):
 
     return(box_num, proportion, df)
 
-def eye_intial(path):
+def eye_initial(path):
     ''' reads in raw eye gaze data
         outputs eye gaze dataframe, timestamps in GMT
     '''
