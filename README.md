@@ -1,6 +1,6 @@
 # Overview
 
-This repository contains the [Psychopy](http://psychopy.org/) code for a psychology experiment exploring the relationship between covert attention and recognition memory.
+This repository contains the [Psychopy](http://psychopy.org/) code for a two psychology experiments exploring the relationship between covert attention and recognition memory.
 
 # Paradigm
 
@@ -14,7 +14,7 @@ In <b>Memory blocks</b>, the subject views 40 single, non-composite images, and 
  
  # Full Paradigm Schematic
  
-<center><img style="display: inline" src="figures/paradigm_and_key.jpg" alt="Paradigm" width="350"> <img style="display: inline" src="figures/presentation.png" alt="Paradigm" width="1050"></center>
+<center><img style="display: inline" src="figures/paradigm_and_key.jpg" alt="Paradigm" width="800"> <img style="display: inline" src="figures/presentation.png" alt="Paradigm" width="1050"></center>
 
 # Directory Organization
 
