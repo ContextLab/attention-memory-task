@@ -246,8 +246,6 @@ def cue_create(params, shuffle=False):
     cue_tuples = flatten(cue_tuples)
     final = [[x[0] for x in cue_tuples],[x[1] for x in cue_tuples],validity]
 
-
-
     # return list for each
     return(final)
 
