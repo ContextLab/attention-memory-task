@@ -92,7 +92,7 @@ def pre_questionnaire(info, save=True, save_path='.'):
     preDlg.addField('Other', False)
     preDlg.addField('No Response', False)
     preDlg.addText('')
-    preDlg.addField('5. Highest Degree Achieved:', choices = ['--', 'some high school', 'high schoool graduate', 'some college', \
+    preDlg.addField('5. Highest Degree Achieved:', choices = ['--', 'some high school', 'high school graduate', 'some college', \
     'college graduate', 'some graduate training', "Master's", 'Doctorate'])
     preDlg.addText('')
     preDlg.addText('6. Do you have any reading impairments')
