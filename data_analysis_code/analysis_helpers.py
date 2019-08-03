@@ -605,64 +605,6 @@ def timepoint_ttest(data, columns, related=True):
 
 
 
-# def pres_gaze(subdir, eye_df, interval='images'):
-#     '''
-#     input: subject's experiment df and eye track df
-#     output: list of eye data df's
-#             each df is either eye data from full pres block, or from single pres trial (interval='images')
-#     '''
-#
-#     pres_gaze = []
-#
-#     for f in os.listdir(subdir):
-#
-#         stim=[]
-#
-#         if 'pres' in f:
-#
-#             pres_df = pd.read_csv(subdir+'/'+f)
-#
-#             if interval == 'images':
-#                 start = pres_df['Stimulus Onset']
-#                 end = pres_df['Stimulus End']
-#                 cued_f = pres_df['Cued Face']
-#                 cued_p = pres_df['Cued Place']
-#                 uncued_f = pres_df['Uncued Face']
-#                 uncued_p = pres_df['Uncued Place']
-#
-#
-#             else:
-#                 start = pres_df['Stimulus Onset'][0]
-#                 end = pres_df['Stimulus End'][9]
-#
-#             for x,y,cf,cp,uf,up in zip(start,end,cued_f,cued_p,uncued_f,uncued_p):
-#                 eye_df['Cued Side']=pres_df.iloc[0]['Cued Side']
-#                 eye_df['Cued Category']=pres_df.iloc[0]['Cued Category']
-#
-#                 eye_df['Cued Face']=cf
-#                 eye_df['Cued Place']=cp
-#                 eye_df['Uncued Face']=uf
-#                 eye_df['Uncued Place']=up
-#
-#
-#                 # eye_df.loc[(eye_df['timestamp']>x) &
-#                 #            (eye_df['timestamp']<y) &
-#                 #            (eye_df['xRaw_righteye']>0.0) &
-#                 #            (eye_df['xRaw_lefteye']>0.0)]['Image']=
-#
-#                 pres_gaze.append(eye_df.loc[(eye_df['timestamp']>x)&
-#                                             (eye_df['timestamp']<y)&
-#                                             (eye_df['xRaw_righteye']>0.0) &
-#                                             (eye_df['xRaw_lefteye']>0.0)&
-#                                             (eye_df['av_x_coord']<59.8)&
-#                                             (eye_df['yRaw_lefteye']>0.0)&
-#                                             (eye_df['yRaw_righteye']>0.0)&
-#                                             (eye_df['av_y_coord']<33.6)])
-#                 #stim.append()
-#     return(pres_gaze)
-
-
-
 def add_gaze(df):
 
     '''
@@ -683,21 +625,6 @@ def add_gaze(df):
     df.loc[mem_mask,'av_x_coord'] = df.loc[mem_mask,'av_x_coord'].fillna(np.nan)
 
     return(df)
-#
-# def add_gaze(df):
-#     for index,row in df.iterrows():
-#         if row['Trial Type']=='Memory':
-#             mem_image = row['Memory Image']
-#             for cue in ['Cued ', 'Uncued ']:
-#                 for cat in ['Face', 'Place']:
-#                     if df.loc[df[cue+cat] == mem_image].shape[0]!=0:
-#                         df['av_x_coord'][index]=df.loc[df[cue+cat] == mem_image]['av_x_coord']
-#                         df['Cued Side'][index] = df.loc[df[cue+cat] == mem_image]['Cued Side'].item()
-#
-#     mem_mask = df['Trial Type']=='Memory'
-#     df.loc[mem_mask,'av_x_coord'] = df.loc[mem_mask,'av_x_coord'].fillna(np.nan)
-#
-#     return(df)
 
 
 
