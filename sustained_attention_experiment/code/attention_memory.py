@@ -68,7 +68,7 @@ for run in range(int(info['run']),params['runs']):
     text_present(win, mem_text(run))
     memory_run(win, run, df.loc[mask2][mask3], params, timing, paths)
 
-    # if subject self reports head movement, experiment stops for recalibration) #
+    # experiment stops for recalibration) #
     if run != params['runs']-1:
         text_present(win, 'Next, we will pause to recalibrate the eye tracker. You can take a break and hit any key when you are ready for recalibration.',
                      close=True, timing = timing)
