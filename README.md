@@ -1,6 +1,6 @@
 # Overview
 
-This repository contains the [Psychopy](http://psychopy.org/) code, data, and analyses for the two psychology experiments reported in the following manuscript: <PREPRINT HERE>.
+This repository contains the [Psychopy](http://psychopy.org/) code, data, and analyses for the two psychology experiments reported in the following manuscript: PREPRINT HERE.
 
 # Paradigm
 
