@@ -36,7 +36,7 @@ The run number indicates which run to display next. If the subject is just begin
 
 
 # Acknowledgements
-Thanks to Megan deBettencourt for providing the image processing script available in this repository (code/stim/process_images.m) and recommending stimulus sets. 
+Thanks to Megan deBettencourt for providing the image processing script available in this repository (stimulus_generation_code/process_images.m) and recommending stimulus sets. 
 
 
 FACE STIMULI:
