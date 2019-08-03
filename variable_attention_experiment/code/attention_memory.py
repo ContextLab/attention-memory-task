@@ -64,11 +64,11 @@ for run in range(int(info['run']),params['runs']):
 
     # presentation run #
     text_present(win, pres_text(run))
-    #presentation_run(win, run, df.loc[mask1][mask3], params, timing, paths, shuffle=shuffle)
+    presentation_run(win, run, df.loc[mask1][mask3], params, timing, paths, shuffle=shuffle)
 
     # memory run #
     text_present(win, mem_text(run))
-    #memory_run(win, run, df.loc[mask2][mask3], params, timing, paths)
+    memory_run(win, run, df.loc[mask2][mask3], params, timing, paths)
 
     # if subject self reports head movement, experiment stops for recalibration) #
     if run != params['runs']-1:
