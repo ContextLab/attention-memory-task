@@ -633,8 +633,6 @@ def presentation_run(win, run, pres_df, params, timing, paths, shuffle=False):
             # flash cue
             display(win, [cue1,cue2], timing['cue'], path = paths)
 
-
-
             #show fixation
             fixation.setAutoDraw(True)
 
@@ -651,8 +649,6 @@ def presentation_run(win, run, pres_df, params, timing, paths, shuffle=False):
         pause(win, timing['pause'])
 
         pres_df.to_csv(paths['subject']+'pres'+str(run)+'.csv')
-
-
 
     fixation.setAutoDraw(False)
 
