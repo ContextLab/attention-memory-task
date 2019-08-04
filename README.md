@@ -28,7 +28,7 @@ In <b>Memory blocks</b>, the subject views 40 single, non-composite images, and 
 
 # Running the task
 
-To run a behavioral participant, simply open attention_memory.py in Psychopy (in either the `sustained_attention_experiment` or `variable_attention_experiment` directory, as desired), hit the green "run" button in the code viewer, and enter the subejct ID and run#! Make sure to set `practice = True` if you would like the participant to complete the practice trials before beginning (we strongly recommend this).
+To run a behavioral participant, first unzip `stim.zip` so you can access all of the stimuli for the experiment. Then, simply open attention_memory.py in Psychopy (in either the `sustained_attention_experiment` or `variable_attention_experiment` directory, as desired), hit the green "run" button in the code viewer, and enter the subejct ID and run#! Make sure to set `practice = True` if you would like the participant to complete the practice trials before beginning (we strongly recommend this).
 
 Note that the subject name or number can be arbitrarily chosen by the experimenter (any number or string), just be careful not to enter a subject number that exists in the data you've already collected.
 
