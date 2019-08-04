@@ -47,7 +47,6 @@ def add_level(df):
     return(df)
 
 
-
 def run_level(df):
     '''
     input: df containing pres and mem from single run
@@ -84,7 +83,7 @@ def run_level(df):
     return(df)
 
 
-# Functions for Simple Behavioral Analyses
+# Functions for behavioral analyses and plotting
 
 def success_prop(df):
     '''
@@ -101,8 +100,8 @@ def success_prop(df):
 def attn_success(dataframe, runs=False):
     '''
     input:  behavioral data, full experiment (pandas dataframe)
-    output: if runs==True -> run-wise proportions for each subject (list of lists)
-            if runs!=True -> averaged proportion correct for each subject (list of floats)
+    output: if runs==True -> run-wise proportions of correct attention probe responses for each subject (list of lists)
+            if runs!=True -> averaged proportion of correct responses for each subject (list of floats)
     '''
 
     prop = []
@@ -248,6 +247,7 @@ def AUC(x_vals, y_vals):
 
     return(AUC)
 
+
 def slide_window_plot(data, window_len, overlap):
 
     # re-label novel face and novel place images in full data
@@ -334,94 +334,6 @@ def slide_window_plot(data, window_len, overlap):
     print('Total number of trials : 40 ')
 
 
-# EYE GAZE DATA ANALYSIS FUNCTIONS
-
-class parseFile():
-    def __init__(self, file):
-        self.file = file
-    def parse(self):
-        data = open(self.file).read()
-        return(data)
-
-def load(path):
-    '''
-    input: path to directory containing eye track data
-    output: raw parsed eye data
-    '''
-
-    data = []
-    files = [f for f in os.listdir(path)]
-
-    for x in files:
-        #if os.path.isfile(path+x):
-        newFile = parseFile(path+x)
-        data1 = newFile.parse()
-
-        for a,b in zip(['true','false'], ['True', 'False']):
-            data1 = data1.replace(a, b)
-
-        data1 = data1.split('\n')
-        data1 = [x for x in data1 if "tracker" in x]
-        data.extend(data1)
-
-    return(data)
-
-
-def df_create(data):
-    """
-    input: raw parsed eye data
-    output: dataframe of eye data (screen location in centimeters)
-    """
-
-    dict_list = [ast.literal_eval(x) for x in data]
-    dict_list = [x['values']['frame'] for x in dict_list if 'frame' in x['values']]
-
-    df = pd.DataFrame(dict_list)
-
-    # right and left eye
-    for eye in ['righteye','lefteye']:
-        for coord in ['x','y']:
-            df[coord+'Raw_'+eye] = [df[eye][row]['raw'][coord] for row in df.index.values]
-
-    # convert to centimeters
-    df['av_x_coord'] = (59.8/2048)*(df[['xRaw_righteye', 'xRaw_lefteye']].mean(axis=1))
-    df['av_y_coord'] = (33.6/1152)*(df[['yRaw_righteye', 'yRaw_lefteye']].mean(axis=1))
-
-    # convert timestamp
-    df['timestamp']=[time.mktime(time.strptime(x[:], "%Y-%m-%d %H:%M:%S.%f")) for x in df['timestamp']]
-
-    return(df)
-
-
-def pres_gaze_image(subdir, eye_df, subject):
-    '''
-    input: subject's experiment df and eye track df
-    output: list of eye tracking df's, one for each presentation trial
-    '''
-
-    pres_gaze = {'0':[],'1':[],'2':[],'3':[],'4':[],'5':[],'6':[],'7':[]}
-
-    for f in os.listdir(subdir):
-        if 'pres' in f:
-
-            num = f[-5]
-            pres_df = pd.read_csv(subdir+'/'+f)
-            start = pres_df['Stimulus Onset']
-            end = pres_df['Stimulus End'] #+pres_df['Attention Reaction Time (s)'][9]
-            eye_df['Run']=num
-            eye_df['Subject'] = subject
-
-            trial = 0
-            for on,off in zip(start, end):
-                eye_df['Trial']=trial
-                pres_gaze[str(num)].append(eye_df.loc[(eye_df['timestamp']>on) &
-                                            (eye_df['timestamp']<off) &
-                                            (eye_df['xRaw_righteye']>0.0) &
-                                            (eye_df['xRaw_lefteye']>0.0)])
-                trial+=1
-
-    return(pres_gaze)
-
 def apply_window(combo, window_length):
     '''
     input:  dataframe of behavioral data from an entire experiment
@@ -440,6 +352,7 @@ def apply_window(combo, window_length):
     window_data = df.groupby(['Subject','Run']).apply(lambda x: x.rolling(window_length, min_periods=1, center = True).mean())
 
     return(window_data)
+
 
 def add_nov_label(combo, column_name='Cued Category'):
     '''
@@ -563,6 +476,18 @@ def sig_bars_neg(cat, cats, stat_dict, adjust=0):
     return(answer)
 
 
+def ranges(nums):
+    """
+    input  : nums - set of numbers (floats or ints)
+    output : list of tuples, one tuple for each string of consecutively increasing digits in nums
+             each tuple has the first and last values from each consecutively incresing string
+    """
+    nums = sorted(set(nums))
+    gaps = [[s, e] for s, e in zip(nums, nums[1:]) if s+1 < e]
+    edges = iter(nums[:1] + sum(gaps, []) + nums[-1:])
+    return list(zip(edges, edges))
+
+
 def timepoint_ttest(data, columns, related=True):
     '''
     input  : dataframe of timecourse-formatted behavioral data
@@ -603,6 +528,96 @@ def timepoint_ttest(data, columns, related=True):
 
     return(data)
 
+
+
+
+# EYE GAZE DATA ANALYSIS FUNCTIONS
+
+class parseFile():
+    def __init__(self, file):
+        self.file = file
+    def parse(self):
+        data = open(self.file).read()
+        return(data)
+
+def load(path):
+    '''
+    input: path to directory containing eye track data
+    output: raw parsed eye data
+    '''
+
+    data = []
+    files = [f for f in os.listdir(path)]
+
+    for x in files:
+        #if os.path.isfile(path+x):
+        newFile = parseFile(path+x)
+        data1 = newFile.parse()
+
+        for a,b in zip(['true','false'], ['True', 'False']):
+            data1 = data1.replace(a, b)
+
+        data1 = data1.split('\n')
+        data1 = [x for x in data1 if "tracker" in x]
+        data.extend(data1)
+
+    return(data)
+
+
+def df_create(data):
+    '''
+    input: raw parsed eye data
+    output: dataframe of eye data (screen location in centimeters)
+    '''
+
+    dict_list = [ast.literal_eval(x) for x in data]
+    dict_list = [x['values']['frame'] for x in dict_list if 'frame' in x['values']]
+
+    df = pd.DataFrame(dict_list)
+
+    # right and left eye
+    for eye in ['righteye','lefteye']:
+        for coord in ['x','y']:
+            df[coord+'Raw_'+eye] = [df[eye][row]['raw'][coord] for row in df.index.values]
+
+    # convert to centimeters
+    df['av_x_coord'] = (59.8/2048)*(df[['xRaw_righteye', 'xRaw_lefteye']].mean(axis=1))
+    df['av_y_coord'] = (33.6/1152)*(df[['yRaw_righteye', 'yRaw_lefteye']].mean(axis=1))
+
+    # convert timestamp
+    df['timestamp']=[time.mktime(time.strptime(x[:], "%Y-%m-%d %H:%M:%S.%f")) for x in df['timestamp']]
+
+    return(df)
+
+
+def pres_gaze_image(subdir, eye_df, subject):
+    '''
+    input: subject's experiment df and eye track df
+    output: list of eye tracking df's, one for each presentation trial
+    '''
+
+    pres_gaze = {'0':[],'1':[],'2':[],'3':[],'4':[],'5':[],'6':[],'7':[]}
+
+    for f in os.listdir(subdir):
+        if 'pres' in f:
+
+            num = f[-5]
+            pres_df = pd.read_csv(subdir+'/'+f)
+            start = pres_df['Stimulus Onset']
+            end = pres_df['Stimulus End'] #+pres_df['Attention Reaction Time (s)'][9]
+            eye_df['Run']=num
+            eye_df['Subject'] = subject
+
+            trial = 0
+            for on,off in zip(start, end):
+                eye_df['Trial']=trial
+                pres_gaze[str(num)].append(eye_df.loc[(eye_df['timestamp']>on) &
+                                            (eye_df['timestamp']<off) &
+                                            (eye_df['xRaw_righteye']>0.0) &
+                                            (eye_df['xRaw_lefteye']>0.0)])
+                trial+=1
+
+    return(pres_gaze)
 
 
 def add_gaze(df):
