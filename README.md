@@ -1,6 +1,6 @@
 # Overview
 
-This repository contains the [Psychopy](http://psychopy.org/) code, data, and analyses for the two psychology experiments reported in the following manuscript: PREPRINT HERE.
+This repository contains the [Psychopy](http://psychopy.org/) code, data, and analyses for the two psychology experiments reported in [our manuscript](https://psyarxiv.com/2ps6e), <i>Feature-based and location-based volitional covert attention are mediated by different mechanisms and affect memory at different timescales.</i>
 
 # Paradigm
 
@@ -10,7 +10,6 @@ In <b>Presentation blocks</b>, the subject views ten pairs of composite image st
 
 In <b>Memory blocks</b>, the subject views 40 single, non-composite images, and rates each image as being "familiar" or "unfamiliar" on a scale of 1-4. The images shown are 50% novel images and 50% images previously seen in the most recent Presentation block (with an equal proportion of previously seen images pulled from each presentation side - R/L - and each image category - face/place).
 
-
  
  # Full Paradigm Schematic
  
@@ -18,13 +17,9 @@ In <b>Memory blocks</b>, the subject views 40 single, non-composite images, and 
 
 # Directory Organization
 
-<!--The code directory contains scripts for running the main task, generating stmiuli (image processing and overlaying), and conducting cursory behavioral analyses (in the form of easily accesible .ipynb files, for use with [jupyter notebook](https://ipython.org/notebook.html)).-->
+The `sustained_attention_experiment` and `variable_attention_experiment` directories contain the code for running the experiments, as well as the raw participant data for each experiment (in the `code` and `data` subdirectories, respectively). This raw data is read in by code in the `data_analysis_code` directory, which organizes and compiles it, outputting the parsed data files into the `parsed_data` directory. Then, different code from the `data analysis` directory loads in the preprocessed data (from `parsed_data`) and analyzes it, generating the statistics and figures from the paper. Specifically, the statistics and figures pretaining to participants' behavioral responses (Figures 2, 4, 5, and 6) are generated in `data_analysis_code/analyze_behavioral_data.ipynb`, and the statistics and figure incorporating participants' gaze data (Figure 3) are generated in `data_analysis_code/analyze_gaze_data.ipynb`.
 
-<!--The stim directory contains all necessary image stimuli, separated by image type (overlay, sinlge face, single place, practice images, etc.)-->
-
-<!--The test directory contains code to run a basic data check to ensure all stimuli were displayed correctly, after data collection. To use the checker, run data_check.ipynb in jupyter notebook.-->
-
-
+Lastly, the `stimulus_generation` directory contains the code to process the single images and to create the composite image stimuli that appear in the experiments, and the paradigm figure directory simply contains an image of the schematic displayed above. 
 
 # Running the task
 
