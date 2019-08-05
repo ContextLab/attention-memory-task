@@ -1,4 +1,4 @@
-<h3> Behavioral Data </ h3>
+<h3> Behavioral Data </h3>
 To start exploring the behavioral data from the experiments, we first ran the code in the `compile_behavioral_data` notebook. This code organizes and compiles the raw behavioral data from all of the participants in each experiment. It outputs a single dataframe for each experiment, containing all of that experiment's behavioral data, into the `../parsed_data` directory. <br />
 
 Then, we ran the code in `analyze_behavioral_data` to generate statistics on participants' memory for attended and unattended images. We also used the code in this notebook to generate the violin plot figure (Figure 2) and timecourse figures (Figures 4, 5, and 6) shown in our manuscript. <br />
