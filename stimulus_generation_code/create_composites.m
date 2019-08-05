@@ -28,7 +28,7 @@ for x = 1:length(file_list_1);
     composite = imfuse(im1, im2, 'blend','Scaling','joint');
 
     % composite image filename (combo of original file names)
-    comp_name = strcat('/Users/kirstenziman/Desktop/COMPOSITES/', file_list_1(x).name(1:length(file_list_1(x).name)-length(file_ext)), '_', file_list_2(x).name);
+    comp_name = strcat('COMPOSITES/', file_list_1(x).name(1:length(file_list_1(x).name)-length(file_ext)), '_', file_list_2(x).name);
 
     % save composite
     imwrite(composite, comp_name);
