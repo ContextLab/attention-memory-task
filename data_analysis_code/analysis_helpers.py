@@ -121,219 +121,6 @@ def attn_success(dataframe, runs=False):
     return(prop)
 
 
-
-def ROC_prop(df, rate, attn, novel='matched'):
-    '''
-    input: subject df
-           rating - Familiarity score (float between 1.0 and 4.0)
-           attn - at time of encoding (string)
-
-    output: proportion of images encoded at ATTENTION LEVEL
-            given a score of RATE or higher, sorted by
-            CATEGORY (if category == True)
-    '''
-
-    # proportions
-    combined = float(df.loc[(df['Attention Level'] == attn) & (df['Familiarity Rating'] >= rate)].shape[0])/(df.loc[(df['Attention Level'] == attn) & (df['Familiarity Rating'] > 0)].shape[0])
-
-    if novel == 'all':
-        # all novel images for desired ratings in both categories
-        denom_f = df.loc[(df['Attention Level'] == attn) & (df['Familiarity Rating'] > 0)].shape[0]
-        denom_p = denom_f
-
-    else:
-        if novel   == 'matched':
-            f_nov,p_nov = 'Face','Place'
-        elif novel == 'opposite':
-            p_nov,f_nov = 'Place','Face'
-
-        denom_p = df.loc[(df['Attention Level'] == attn) & (df['Category'] == p_nov) & (df['Familiarity Rating'] > 0)].shape[0]
-        denom_f = (df.loc[(df['Attention Level'] == attn) & (df['Category'] == f_nov) & (df['Familiarity Rating'] > 0)].shape[0])
-
-    if df.loc[(df['Attention Level'] == attn) & (df['Category'] == 'Face')].shape[0] > 0:
-        face = float(df.loc[(df['Attention Level'] == attn) & (df['Familiarity Rating'] >= rate) & (df['Category'] == 'Face')].shape[0])/denom_f
-    else:
-        face = np.nan
-
-    if df.loc[(df['Attention Level'] == attn) & (df['Category'] == 'Place')].shape[0] > 0:
-        house = float(df.loc[(df['Attention Level'] == attn) & (df['Familiarity Rating'] >= rate) & (df['Category'] == 'Place')].shape[0])/denom_p
-    else:
-        house = np.nan
-
-    props = [combined, face, house]
-    return(props)
-
-
-
-def ROC_data(df, novel='matched'):
-    '''
-    input: subject df
-    output: list of three ROC proportion sets (list of dicts): 1) all images, 2) faces, 3) places
-    '''
-
-    ratings = [4.0, 3.0, 2.0, 1.0]
-    ROC, ROC_f, ROC_h = {},{},{}
-
-    # for each attention level
-    for attn in ['Novel', 'None', 'Side', 'Full', 'Category']:
-        for idx,roc in enumerate([ROC, ROC_f, ROC_h]):
-            roc[attn] = [0]
-            #roc[attn] = []
-
-            # for each possible number rating
-            for rate in ratings:
-                roc[attn].append(ROC_prop(df, rate, attn, novel=novel)[idx])
-
-    return(ROC, ROC_f, ROC_h)
-
-
-
-def ROC_plot(ROC_data):
-    '''
-    input: ROC proportions (dictionary)
-    output: displays plot of ROC curve
-    '''
-
-    fig, ax = plt.subplots()
-
-    for attn,color in zip(['Category', 'Full', 'None', 'Side'],['purple','blue','orange','red']):
-        ax.plot(ROC_data['Novel'], ROC_data[attn], '-o', label=attn, color=color)
-
-    plt.legend(loc='upper left');
-    plt.ylim(0, 1)
-    plt.xlim(0, 1)
-    plt.gca().set_aspect('equal', adjustable='box')
-    plt.show()
-
-
-
-def ROC_df(df):
-
-    '''
-    input:  full df
-    output: list of subject df's with run-wise ROC data
-    '''
-
-    subject_list = []
-
-    for sub in df['Subject'].unique():
-        subject=[]
-
-        for run in df['Run'].unique():
-            subject.append(ROC_data(df[(df['Run']==run) & (df['Subject']==sub)]))
-        subject_list.append(subject)
-
-    return(subject_list)
-
-
-
-def AUC(x_vals, y_vals):
-    '''
-    input:
-    x_vals - x values for ROC curve, arranged left to right (list of floats)
-    y_vals - y values for ROC curve, index matched to x_vals (list of floats)
-
-    output:
-    Area under the curve (AUC)
-    '''
-
-    AUC = 0
-
-    for i,(x,y) in enumerate(zip(x_vals, y_vals)):
-        if i>0:
-            x_delt = x - x_vals[i-1]
-            y_delt = y - y_vals[i-1]
-            AUC += (y_vals[i-1] * x_delt) + (.5 * x_delt * y_delt)
-
-    return(AUC)
-
-
-def slide_window_plot(data, window_len, overlap):
-
-    # re-label novel face and novel place images in full data
-    # change to 'NovelF' and 'NovelP'
-
-    data.loc[(data['Attention Level']=='Novel')
-             &(data['Category']=='Face'),'Attention Level'] = 'Novel_F'
-
-    data.loc[(data['Attention Level']=='Novel')
-             &(data['Category']=='Place'),'Attention Level'] = 'Novel_P'
-
-    all_subjects = {}
-
-    # within each subject
-    for s in data['Subject'].unique():
-
-        sub_runs = {}
-        # dictionary for windows in this subject's runs
-
-        face_nov_idx = data[(data['Category']=='Face') &
-                      (data['Trial Type']=='Memory') &
-                      (data['Attention Level']=='Novel') &
-                      (data['Subject']==s)].index
-
-        place_nov_idx = data[(data['Category']=='Face') &
-                       (data['Trial Type']=='Memory') &
-                       (data['Attention Level']=='Novel') &
-                       (data['Subject']==s)].index
-
-        # within each run
-        for r in data['Run'].unique():
-
-            run_ratios = []
-
-            # obtain cued category from last presentation in the pres block
-            cat = data[(data['Subject'] == s) &
-                        (data['Run'] == r)]['Cued Category']
-
-            # grab cued cateogry from last presentation trial
-            cued_letter = cat.iloc[-1][0]
-
-            if cued_letter == 'F':
-                uncued_letter = 'P'
-
-            if cued_letter == 'P':
-                uncued_letter = 'F'
-
-            # get chunk of Attn Levels + Ratings
-            level = data[(data['Subject'] == s) & (data['Run'] == r)]['Attention Level']
-            rating = data[(data['Subject'] == s) & (data['Run'] == r)]['Familiarity Rating']
-
-            novel_face_index = level[level=='Novel_F'].index
-            novel_place_index = level[level=='Novel_P'].index
-            memory_index = data[(data['Subject'] == s) & (data['Run'] == r)& (data['Trial Type']=='Memory')].index
-
-            windows = sliding_window(memory_index, window_len, overlap)
-
-            for window in windows:
-
-                face_win  = list(set(novel_face_index) & set(window))
-                place_win = list(set(novel_place_index) & set(window))
-
-                if cued_letter == 'F':
-                    ratio = rating[face_win].mean()/rating[place_win].mean()
-                else:
-                    ratio = rating[place_win].mean()/rating[face_win].mean()
-
-                run_ratios.append(ratio)
-                # list of cued / uncued ratios for this run (one per window)
-
-            sub_runs['run'+str(r)] = run_ratios
-
-            all_subjects['subj_'+str(s)] = pd.DataFrame.from_dict(sub_runs).T.mean()
-
-    melted = pd.melt(pd.DataFrame(all_subjects).T)
-
-    ax = sns.lineplot(x="variable", y="value", data=melted)
-
-    ax.set(xlabel='Time Window', ylabel='Mean Cued / Uncued Familiarity')
-    plt.show()
-
-    # print('Ratio of mean familiarity score for cued category novel images over uncued cateogry novel images, over time.')
-    print('Sliding window length: '+ str(window_len)+' with overlap of '+str(overlap)+'. Confidence interval over subject means.')
-    print('Total number of trials : 40 ')
-
-
 def apply_window(combo, window_length):
     '''
     input:  dataframe of behavioral data from an entire experiment
@@ -377,6 +164,8 @@ def add_nov_label(combo, column_name='Cued Category'):
                   & (combo['Attention Level'].isin(['Novel','Nov_Un','Nov_Cued'])),
                      'Attention Level'] = 'Nov_Un'
     return(combo)
+
+
 
 def sig_bars(cat, cats, stat_dict, adjust=0):
     '''
@@ -426,6 +215,7 @@ def sig_bars(cat, cats, stat_dict, adjust=0):
                        'color' : colors[cats.index(cat_keys[iteration][0])], 'categories': cat_keys[iteration]})
 
     return(answer)
+
 
 def sig_bars_neg(cat, cats, stat_dict, adjust=0):
     '''
@@ -478,9 +268,9 @@ def sig_bars_neg(cat, cats, stat_dict, adjust=0):
 
 def ranges(nums):
     """
-    input  : nums - set of numbers (floats or ints)
-    output : list of tuples, one tuple for each string of consecutively increasing digits in nums
-             each tuple has the first and last values from each consecutively incresing string
+    input  : a set of numbers (floats or ints)
+    output : list of tuples, one tuple for each string of consecutively increasing numbers in nums
+             each tuple contains two numbers: the first and last values from each consecutively incresing string
     """
     nums = sorted(set(nums))
     gaps = [[s, e] for s, e in zip(nums, nums[1:]) if s+1 < e]
@@ -527,7 +317,6 @@ def timepoint_ttest(data, columns, related=True):
         #print(scipy.stats.ttest_ind(a,b))
 
     return(data)
-
 
 
 
@@ -640,7 +429,6 @@ def add_gaze(df):
     df.loc[mem_mask,'av_x_coord'] = df.loc[mem_mask,'av_x_coord'].fillna(np.nan)
 
     return(df)
-
 
 
 def gaze_plot(df_list):
