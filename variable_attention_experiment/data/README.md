@@ -3,8 +3,8 @@ When you run the experiment, the code will create a directory in the `data` dire
 
 By the end of the experiment, the participant will have three main file types in their directory: two pickle (`.pkl`) files containing the pre and post questionnaire data, respectively; csv files containing all of the information from the presentation trials the participant has completed (pres#.csv); csv files containing information from the memory trials the participant has completed (`mem#.csv`); an `initial_df.csv` file containing every stimulus that the participant saw over the course of the experiment (in temporal order), and a `buttons_full.csv` file which contains the key press and timestamp info for key presses made when the participant was not instructed to make a key press. <br />
 
-The `pres#` and `mem#` csv files each have one row per trial, in temporal order, from a single presentation or memory block, respectively (indicated by the number in the filename). Each row contains all of the pertinent information from that trial (images displayed, stimulus onset time, key press responses, etc.) <br />
+The `pres#` and `mem#` csv files each have one row per trial, in temporal order, from a single presentation or memory block, respectively (indicated by the number in the filename). Each row contains all of the pertinent information from that trial (images displayed, stimulus onset and offset times, key press responses, etc.), as indicated by the column headings in the csv. <br />
 
-The `initial_df` file contains all of the stimuli the participant saw over the course of the experiment in termporal order. It does not contain participant data and has empty cells in the columns for the display timing (onset and offset times), key press responses, etc.<br />
+The `initial_df` file contains all of the stimuli the participant saw over the course of the experiment in temporal order. It does not contain participant data and has empty cells in the columns for the display timing (onset and offset times), key press responses, etc.<br />
 
-The `buttons_full.csv` file 
+The `buttons_full.csv` file has a single column with timestamped key presses the participant made at times when they were not instructed to press a key.
