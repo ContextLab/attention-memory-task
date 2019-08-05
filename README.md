@@ -1,6 +1,6 @@
 # Overview
 
-This repository contains the [Psychopy](http://psychopy.org/) code, data, and analyses for the two psychology experiments reported in the following manuscript: [Feature-based and location-based volitional covert attention are mediated by different mechanisms and affect memory at different timescales.](https://psyarxiv.com/2ps6e)
+This repository contains the [Psychopy](http://psychopy.org/) code, data, and analyses for the two psychology experiments reported in [our manuscript](https://psyarxiv.com/2ps6e), entitled Feature-based and location-based volitional covert attention are mediated by different mechanisms and affect memory at different timescales.
 
 # Paradigm
 
