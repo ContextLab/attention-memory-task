@@ -3,7 +3,7 @@
 
 %% variables and path names
 
-main_dir = '/Users/kirstenziman/Desktop/AM_STIM_BW/';
+main_dir = 'AM_STIM_BW/';
 
 subdir_1 = 'FACES_ORIG/';
 subdir_2 = 'SCENES_ORIG/';
