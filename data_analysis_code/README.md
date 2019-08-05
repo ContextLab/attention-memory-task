@@ -1,4 +1,4 @@
-Run the code in the `compile_behavioral_data` notebook to organize and compile the raw behavioral data. <br />
+To start exploring the behavioral data from the experiments, you will first want to run the code in the `compile_behavioral_data` notebook. This code organizes and compiles the raw behavioral data from the participants in each experiment into to a single dataframe containing all of that experiment's data (outputted to `../parsed_data`). Then, you can run the code in `analyze_behavioral_data` to generate statistics on participants' memory for attended and unattended images. This notebook also generates the violin plot (Figure 2) and timecourse figures (Figures 4, 5, and 6) from our manuscript. <br />
 
 Run the code in the `compile_gaze_data_exp1` notebook to organize and compile the raw gaze data from experiment 1. <br />
 
