@@ -727,7 +727,7 @@ def pract_text(trial):
                     '\n\n First, you\'ll see a pair of cue icons: ' \
                     '\n One arrow icon pointing left or right (< or >) ' \
                     ' and one image icon (face or scene): ' \
-                    '\n\n\n\n\n\n After the cue icons, you will see a pari of images. You\'ll attend to the cued side and image part of that image pair.' \
+                    '\n\n\n\n\n\n After the cue icons, you will see a pair of images. You\'ll attend to the cued side and image part of that image pair.' \
                     '\n\n This will happen several times in a row. Each time, you will see a cue, then a pair of images.' \
                     '\n Remember to focus as best you can and always keep your eyes fixated on the cross! ' \
                     '\n\n Press any key to begin.'
