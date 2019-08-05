@@ -319,7 +319,6 @@ def timepoint_ttest(data, columns, related=True):
     return(data)
 
 
-
 # EYE GAZE DATA ANALYSIS FUNCTIONS
 
 class parseFile():
@@ -430,74 +429,6 @@ def add_gaze(df):
 
     return(df)
 
-
-def gaze_plot(df_list):
-
-    middle = 2048/2.0
-    quarter = (1304-744)/4.0
-
-    fig = plt.figure()
-    ax1 = fig.add_subplot(111, aspect='equal')
-
-    for x in df_list:
-        if x['Cued Side'].all()=='>' and x['Cued Category'].all()=='Place':
-            color='green'
-        elif x['Cued Side'].all()=='>' and x['Cued Category'].all()=='Face':
-            color='blue'
-        elif x['Cued Side'].all()=='<' and x['Cued Category'].all()=='Place':
-            color='orange'
-        else:
-            color='red'
-
-        x['Color']=color
-
-        ax1.plot(x['av_x_coord'], x['av_y_coord'], '.', color=color)
-        #props.append(x.loc[(x['av_x_coord']>middle-quarter) & (x['av_x_coord']<middle+quarter)])
-
-    rect1 = patches.Rectangle(((59.8/2.0)-8-3.5,(33.6/2)-3.5),7,7,linewidth=1,edgecolor='black',facecolor='none')
-    rect2 = patches.Rectangle(((59.8/2.0)+8-3.5,(33.6/2)-3.5),7,7,linewidth=1,edgecolor='black',facecolor='none')
-
-    # Add the patch to the Axes
-    ax1.add_patch(rect1)
-    ax1.add_patch(rect2)
-
-    # plt.legend(loc='upper left');
-    plt.ylim(0, 33.6)
-    plt.xlim(0, 59.8)
-    plt.show()
-
-    return(fig)
-
-
-
-def gaze_box(trial, center, dims):
-    '''
-    inputs:  center - tuple indicating center of ROI (x,y)
-             dims - tuple indicating dimensions of rectangle (width, height)
-             trial - dataframe for single presentation trial (or block)
-
-    outputs: box_num - raw number of gazepoints within box (int)
-             proportion - proportion of this trial's gaze points within box (float)
-             df - dataframe of all gazepoints within the box, including timestamps
-    '''
-
-    total_num = trial.shape[0]
-
-    trial = trial[(trial['av_y_coord']>=(center[1]-dims[1]/2))&
-                  (trial['av_y_coord']<=(center[1]+dims[1]/2))&
-                  (trial['av_x_coord']>=(center[0]-dims[0]/2))&
-                  (trial['av_x_coord']<=(center[0]+dims[0]/2))]
-
-    df = trial
-
-    if total_num>0:
-        box_num = trial.shape[0]
-        proportion = box_num/total_num
-    else:
-        box_num = np.nan
-        proportion = np.nan
-
-    return(box_num, proportion, df)
 
 def eye_intial(path):
     ''' reads in raw eye gaze data
