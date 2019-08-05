@@ -10,7 +10,6 @@ In <b>Presentation blocks</b>, the subject views ten pairs of composite image st
 
 In <b>Memory blocks</b>, the subject views 40 single, non-composite images, and rates each image as being "familiar" or "unfamiliar" on a scale of 1-4. The images shown are 50% novel images and 50% images previously seen in the most recent Presentation block (with an equal proportion of previously seen images pulled from each presentation side - R/L - and each image category - face/place).
 
-
  
  # Full Paradigm Schematic
  
@@ -18,13 +17,7 @@ In <b>Memory blocks</b>, the subject views 40 single, non-composite images, and 
 
 # Directory Organization
 
-<!--The code directory contains scripts for running the main task, generating stmiuli (image processing and overlaying), and conducting cursory behavioral analyses (in the form of easily accesible .ipynb files, for use with [jupyter notebook](https://ipython.org/notebook.html)).-->
-
-<!--The stim directory contains all necessary image stimuli, separated by image type (overlay, sinlge face, single place, practice images, etc.)-->
-
-<!--The test directory contains code to run a basic data check to ensure all stimuli were displayed correctly, after data collection. To use the checker, run data_check.ipynb in jupyter notebook.-->
-
-
+The `sustained_attention_experiment` and `variable_attention_experiment` contain the code for running each experiments as well as the raw participant data (in the `code` and `data` subdirectories, respectively). The `data_analysis` directory contains the code for analyzing the data and reproducing the statistics and and plots in the manuscript.
 
 # Running the task
 
