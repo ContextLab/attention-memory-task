@@ -1,3 +1,4 @@
+This directory contains the code needed to generate the stimuli used in our experiment from the raw images (subsampled from the SUN and FERET databases, cited below)
 
 <h3>Acknowledgments</h3>
 Thanks to Megan deBettencourt for providing the image processing script available in this repository (stimulus_generation_code/process_images.m) and recommending stimulus sets. <br /><br />
