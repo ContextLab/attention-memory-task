@@ -28,9 +28,9 @@ cliplimit = .01;    %contrast:  limit of contrast enhancement
 %% set up directories
 
 % where raw files are located 
-old_root_dir = '/Users/kirstenziman/Desktop/AM_STIM_ORIG/';
+old_root_dir = 'AM_STIM_ORIG/';
 % where new files will be written 
-new_root_dir = '/Users/kirstenziman/Desktop/AM_STIM_BW/';
+new_root_dir = 'AM_STIM_BW/';
 % subfolders containing image files
 folders =  {'SCENES_ORIG','FACES_ORIG'};
  
