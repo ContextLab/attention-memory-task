@@ -4,8 +4,8 @@ By the end of the experiment, the participant will have three main file types in
 
 The `pres#` and `mem#` csv files each have one row per trial, in temporal order, from a single presentation or memory block, respectively (indicated by the number in the filename). Each row contains all of the pertinent information from that trial (images displayed, stimulus onset and offset times, key press responses, etc.), as indicated by the column headings in the csv. 
 
-The initial_df file contains all of the stimuli the participant saw over the course of the experiment in temporal order. It does not contain participant data and has empty cells in the columns for the display timing (onset and offset times), key press responses, etc. 
+The `initial_df` file contains all of the stimuli the participant saw over the course of the experiment in temporal order. It does not contain participant data and has empty cells in the columns for the display timing (onset and offset times), key press responses, etc. 
 
-The buttons_full.csv file has a single column with timestamped key presses the participant made at times when they were not instructed to press a key. 
+The `buttons_full.csv` file has a single column with timestamped key presses the participant made at times when they were not instructed to press a key. 
 
 We also collected eye gaze data from participants while they completed each run (a presentation block followed by a memory block) of the task. This data collection was done manually through the EyeTribe GUI, and resulted in a single csv file for each run. The outputted files from this collection were place into the `eye_data` directory for each participant, which was then added to the participant's data directory. These files contain the raw data from the eye tracker, and have the subject number and run number in the file name (`subject#_run#.csv`).
