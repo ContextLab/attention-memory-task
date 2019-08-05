@@ -1,0 +1,5 @@
+This directory contains the full experiment code and data from the Sustained Attention Experiment. The main experiment code is written in `attention_memory_experiment.py` and the functions the experiment calls on (to do things like display images and record responses) are written in `experiment_helpers.py`.
+
+To run the experiment, you will first want to unzip `../stim.zip` so that you can access the image stimuli for the experiment. Then, you should open `attention_memory.py` in Psychopy, set `Practice = True` if you would like the participant to see the instructions and complete practice runs, then hit the green run button in the psychopy window.
+
+
