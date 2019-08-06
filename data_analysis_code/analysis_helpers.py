@@ -14,6 +14,8 @@ import numpy as np
 from matplotlib import patches as patches
 import seaborn as sb
 import scipy
+from statistics import mean, stdev
+from math import sqrt
 
 
 
@@ -317,6 +319,18 @@ def timepoint_ttest(data, columns, related=True):
         #print(scipy.stats.ttest_ind(a,b))
 
     return(data)
+
+
+def cohen_d(a, b):
+    '''
+    input  : two lists of data
+    output : cohens d statistic
+    '''
+
+    cohen_d = (mean(a) - mean(b)) / (sqrt((stdev(a) ** 2 + stdev(b) ** 2) / 2))
+
+    return(cohen_d)
+
 
 
 # EYE GAZE DATA ANALYSIS FUNCTIONS
