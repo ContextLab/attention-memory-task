@@ -55,7 +55,8 @@ def run_level(df):
     output: df with string in 'Attention Level' column in each Memory trial row
     '''
 
-    cued_cat = df[df['Trial Type']=='Presentation']['Cued Category'].tolist()[0]
+    # cued_cat = df[df['Trial Type']=='Presentation']['Cued Category'].tolist()[0]
+    # ^^ this line selected the first cued category in the block
 
     for index,row in df.iterrows():
 
@@ -64,6 +65,8 @@ def run_level(df):
             for cue in ['Cued ', 'Uncued ']:
                 for cat in ['Face', 'Place']:
                     if df.loc[df[cue+cat] == mem_image].shape[0]!=0:
+                        cued_cat = df.loc[df[cue+cat] == mem_image]['Cued Category'].item()
+                        # ^^ this line selects the cued category from the specific trial in the block
                         if cat == cued_cat:
                             df['Category'][index]=cued_cat
                             if cue == 'Cued ':
