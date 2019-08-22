@@ -18,7 +18,6 @@ from statistics import mean, stdev
 from math import sqrt
 
 
-
 # BEHAVIORAL DATA ANALYSIS FUNCTIONS
 
 # Functions to Aggregate Subject Data and Verify Correct Stimuli were Presented
@@ -29,8 +28,13 @@ def sum_pd(subdir):
     output: full experiment info (dataframe)
     '''
 
+    # list all files in the subject's directory that contain pres or mem run data
     files = [ x for x in os.listdir(subdir) if 'pres' in x or 'mem' in x ]
+
+    # read in the data from each of these files
     df_list = [ pd.read_csv(subdir+'/'+x) for x in files ]
+
+    # concatenate into a single dataframe
     df = pd.concat(df_list, ignore_index=True)
 
     return(df)
@@ -41,8 +45,13 @@ def add_level(df):
     input: subject dataframe
     output: subject dataframe w/ Attention Level string for each Memory trial row
     '''
+    # for each run
     for x in df.Run.unique():
+
+        # select the data only from that run
         mask = df['Run']==x
+
+        # pass the data for that run through run_level to add attention levels to memory images
         df[mask] = run_level(df[mask])
 
     return(df)
@@ -55,51 +64,57 @@ def run_level(df):
     '''
 
     # loop over the trials in this run
-    for index,row in df.iterrows():
+    for index,row in df[df['Trial Type']=='Memory'].iterrows():
 
-        # for every trial that is a memory trial
-        if row['Trial Type']=='Memory':
+        # obtain the image presented in the memory run
+        mem_image = row['Memory Image']
 
-            # obtain the image presented in the memory run
-            mem_image = row['Memory Image']
+        # obtain the category of the image from its filename
+        # (SUN database images -- places -- contain the string 'sun')
+        if 'sun' in mem_image:
+            mem_image_category = 'Place'
+        else:
+            mem_image_category = 'Face'
 
-            # look in the columns for previouly presented images
-            # (Cued Face, Cued Place, Uncued Face, Uncued Place)
-            for cue in ['Cued ', 'Uncued ']:
-                for cat in ['Face', 'Place']:
+        # add the image category to the memory trial row
+        df['Category'][index] = mem_image_category
 
-                    # if one of these columns contains the memory image
-                    if df.loc[df[cue+cat] == mem_image].shape[0]!=0:
+        # look in the columns for previously presented composites
+        for composite in ['Cued Composite', 'Uncued Composite']:
 
-                        # pull the cued category from that row
-                        cued_cat = df.loc[df[cue+cat] == mem_image]['Cued Category'].item()
+            # if one of the previously seen composites contains the memory image file name (minus the last 4 chars: '.jpg')
+            if df[df[composite].str.contains(mem_image[:-4], na=False)].shape[0]!=0:
 
-                        # if the category from that image's column (Cued Face, Cued Place, etc.) matches the cued category for the trial
-                        if cat == cued_cat:
+                # pull the cued category from that row/presentation trial
+                cued_cat = df[df[composite].str.contains(mem_image[:-4], na=False)]['Cued Category'].item()
 
-                            # AND it was presented on the Cued Side
-                            if cue == 'Cued ':
-                                # label "Full" attention
-                                attention = "Full"
+                # if the image category matches the cued category for the presentation trial
+                if mem_image_category == cued_cat:
 
-                            # AND it was presented on the Uncued Side
-                            elif cue == 'Uncued ':
-                                # label "Category" attention
-                                attention = "Category"
+                    # AND the image was presented on the Cued Side
+                    if composite == 'Cued Composite':
+                        # label "Full" attention
+                        attention = "Full"
 
-                        # else, if category from that image's column (Cued Face, Cued Place, etc.) does NOT match the cued category for the trial
-                        else:
-                            # AND it was presented in the Uncued location
-                            if cue == 'Uncued ':
-                                # label "None" attention
-                                attention = "None"
-                            # AND it was presented in the Cued location
-                            elif cue == 'Cued ':
-                                # labbel "Cued" attention
-                                attention = "Side"
+                    # AND it was presented on the Uncued Side
+                    elif composite == 'Uncued Composite':
+                        # label "Category" attention
+                        attention = "Category"
 
-                        df['Attention Level'][index] = attention
-                        df['Cued Category'][index] = cued_cat
+                # else, if the image category does NOT match the cued category for the trial
+                else:
+                    # AND it was presented in the Cued location
+                    if composite == 'Cued Composite':
+                        # labbel "Cued" attention
+                        attention = "Side"
+
+                    # AND the image was presented in the Uncued location
+                    elif composite == 'Uncued Composite':
+                        # label "None" attention
+                        attention = "None"
+
+                # add the attention level to the memory trial row
+                df['Attention Level'][index] = attention
 
     mem_mask = df['Trial Type']=='Memory'
     df.loc[mem_mask,'Attention Level'] = df.loc[mem_mask,'Attention Level'].fillna('Novel')
@@ -120,29 +135,30 @@ def success_prop(df):
     return(prop)
 
 
+# check if this function is used any more
 
-def attn_success(dataframe, runs=False):
-    '''
-    input:  behavioral data, full experiment (pandas dataframe)
-    output: if runs==True -> run-wise proportions of correct attention probe responses for each subject (list of lists)
-            if runs!=True -> averaged proportion of correct responses for each subject (list of floats)
-    '''
-
-    prop = []
-    for sub in dataframe['Subject'].unique():
-
-        if runs == False:
-            df = dataframe[dataframe['Subject']==sub]
-            prop.append(success_prop(df))
-
-        else:
-            sub_props=[]
-            for run in range(0,8):
-                df = dataframe[(dataframe['Subject']==sub) & (dataframe['Run']==run)]
-                sub_props.append(success_prop(df))
-            prop.append(sub_props)
-
-    return(prop)
+# def attn_success(dataframe, runs=False):
+#     '''
+#     input:  behavioral data, full experiment (pandas dataframe)
+#     output: if runs==True -> run-wise proportions of correct attention probe responses for each subject (list of lists)
+#             if runs!=True -> averaged proportion of correct responses for each subject (list of floats)
+#     '''
+#
+#     prop = []
+#     for sub in dataframe['Subject'].unique():
+#
+#         if runs == False:
+#             df = dataframe[dataframe['Subject']==sub]
+#             prop.append(success_prop(df))
+#
+#         else:
+#             sub_props=[]
+#             for run in range(0,8):
+#                 df = dataframe[(dataframe['Subject']==sub) & (dataframe['Run']==run)]
+#                 sub_props.append(success_prop(df))
+#             prop.append(sub_props)
+#
+#     return(prop)
 
 
 def apply_window(combo, window_length):
@@ -154,10 +170,8 @@ def apply_window(combo, window_length):
     # select data from memory runs
     data = combo[combo['Trial Type']=='Memory'][['Attention Level','Familiarity Rating','Trial','Subject','Run']]
 
-    # re strucutre data - each row is a trial, each col is an attn level
-    df = data.pivot_table(index=['Subject','Run','Trial'],
-                          columns='Attention Level',
-                         values='Familiarity Rating')
+    # re-structure the data - each row is a trial, each column is an attn level
+    df = data.pivot_table(index=['Subject','Run','Trial'], columns='Attention Level', values='Familiarity Rating')
 
     # apply rolling window, for each run in each subject
     window_data = df.groupby(['Subject','Run']).apply(lambda x: x.rolling(window_length, min_periods=1, center = True).mean())
@@ -165,16 +179,20 @@ def apply_window(combo, window_length):
     return(window_data)
 
 
+# REWRITE THIS FUNCTION
+
 def add_nov_label(combo, column_name='Cued Category'):
     '''
-    input:  dataframe of participant data, and the name of the column to use for cue info
+    input:  dataframe of participant data, and the name of the column to use for last-cued category info
             for exp1 use 'Cued Category' (cue for that block)
             for exp2 use 'Last Cued'     (last cue from presentation block)
     output: dataframe where novel images are labeled by cued or uncued category
     '''
 
+    # assign all Novel images to be labeled Novel Uncued
     combo.loc[combo['Attention Level']=='Novel','Attention Level'] = 'Nov_Un'
 
+    # then, for each image category (Face and Place)
     for snuffle in ['Face','Place']:
 
         # for all 'Novel', if image in cued category, rename 'Novel_Cued'
@@ -182,6 +200,7 @@ def add_nov_label(combo, column_name='Cued Category'):
                   & (combo['Attention Level'].isin(['Nov_Un','Novel','Nov_Cued'])),
                      'Attention Level'] = 'Nov_Cued'
 
+        # else, rename it Novel Uncued
         combo.loc[(combo['Trial Type']=='Memory')
                   & (combo[column_name]!=snuffle)
                   & (combo['Category']==snuffle)
@@ -191,101 +210,64 @@ def add_nov_label(combo, column_name='Cued Category'):
 
 
 
-def sig_bars(cat, cats, stat_dict, adjust=0):
+def sig_bars(cat, cats, stat_dict, adjust=0, sign='pos'):
     '''
-    input:  left-most category, ordered category list, dictionary of significant ttests
-    output: parameters for first significance line in descending cascade
+    input:  left-most category in the significance relations to test, ordered category list, dictionary of significant ttests
+    output: parameters for significance line cascade extending from this category to any other categories that are significantly different
     '''
 
     answer = []
 
-    colors = ['r','m','c','y','g','b']
+    if sign =='pos':
+        # select all positive, left-to-right relationships from this category to each other violin / image category
+        cat_keys = [x for x in stat_dict.keys() if cat==x[0] and stat_dict[x]['t']>0]
+        colors = ['r','m','c','y','g','b']
 
-    cat_keys = [x for x in stat_dict.keys() if cat==x[0] and stat_dict[x]['t']>0]
-    # select all positive, sig, left-to-right relationships with that category
+    if sign == 'neg':
+        # select all negative left-to-right relationships from this category to each other violin / image category
+        cat_keys = [x for x in stat_dict.keys() if cat==x[0] and stat_dict[x]['t']<0]
+        colors = ['b','g','y','c','m','r']
 
     if len(cat_keys)==0:
+    # if there aren't any relationships for this sign (pos or neg), make a line with no width, no length, etc
         answer =  [{'y':0, 'x_min': 0, 'x_max':0, 'width': 0, 'next':0, 'color': 'w', 'categories':np.nan}]
 
     elif len(cat_keys)>0:
-        # if any exist
+    # if there are relationships for this sign
 
         for iteration in range(0,len(cat_keys)):
+        # for each relationship
 
-            # return info for all of them
-            #t_sign = stat_dict[cat_keys[iteration]]['t']
+            # select the ttest info for the relationship from stat_dict
             ttest  = stat_dict[cat_keys[iteration]]
 
-            # line params for this line
-
+            # use the ttest p-value to assign the width of the line that will show this relationship
             if   ttest['p'] < .001:
                 linewidth = 7
             elif ttest['p'] < .01:
                 linewidth = 5
             elif ttest['p'] < .05:
                 linewidth = 3
-            elif ttest['p'] < .056:
+            elif ttest['p'] <= .0551:
                 linewidth = 1
             else:
                 linewidth = 0
 
-            first = .09
-            y_val = (-cats.index(cat)/len(cats))+ 5 - adjust
+            # at first, assign all lines the same height (this gets adjusted later when we plot)
+            y_val = 8
+
+            # assign min x value: minimum x value is .09 + .167*location_of_the_first_category
             xmin = .09 + (.167 * cats.index(cat))
+
+            # assign max x value:  .09 + .167 * location_of_the_second_category
             xmax = .09 + cats.index(cat_keys[iteration][1])*.167
-            second_cat = cat_keys[iteration][1]
 
-            answer.append( {'y': y_val, 'x_min': xmin, 'x_max': xmax, 'width': linewidth, 'next': second_cat,
+            # append each line to the output as a dicitonary containing all of the line parameters
+            # (line width, the categories it is drawn between, etc.)
+            answer.append( {'y': y_val, 'x_min': xmin, 'x_max': xmax, 'width': linewidth, 'next': cat_keys[iteration][1],
                        'color' : colors[cats.index(cat_keys[iteration][0])], 'categories': cat_keys[iteration]})
-
-    return(answer)
-
-
-def sig_bars_neg(cat, cats, stat_dict, adjust=0):
-    '''
-    input:  left-most category, ordered category list, dictionary of significant ttests
-    output: parameters for first significance line in descending cascade
-    '''
-
-    answer = []
-    colors = ['b','g','y','c','m','r']
-
-    #colors = ['r','m','c','y','g','b']
-
-    cat_keys = [x for x in stat_dict.keys() if cat==x[0] and stat_dict[x]['t']<0]
-    # select all positive, sig, left-to-right relationships with that category
-
-    if len(cat_keys)==0:
-        answer =  [{'y':0, 'x_min': 0, 'x_max':0, 'width': 0, 'next':0, 'color': 'w', 'categories':np.nan}]
-
-    elif len(cat_keys)>0:
-        # if any exist
-
-        for iteration in range(0,len(cat_keys)):
-
-            # return info for all of them
-            #t_sign = stat_dict[cat_keys[iteration]]['t']
-            ttest  = stat_dict[cat_keys[iteration]]
-
-            # line params for this line
-
-            if   ttest['p'] < .001:
-                linewidth = 7
-            elif ttest['p'] < .01:
-                linewidth = 5
-            elif ttest['p'] < .05:
-                linewidth = 3
-            elif ttest['p'] < .059:
-                linewidth = 1
-
-            first = .09
-            y_val = (-cats.index(cat)/len(cats))+ 5 - adjust
-            xmax = .09 + (.167 * cats.index(cat))
-            xmin = .09 + cats.index(cat_keys[iteration][1])*.167
-            second_cat = cat_keys[iteration][1]
-
-            answer.append( {'y': y_val, 'x_min': xmin, 'x_max': xmax, 'width': linewidth, 'next': second_cat,
-                       'color' : colors[cats.index(cat_keys[iteration][0])], 'categories': cat_keys[iteration]})
+                        # 'next' is the category that we have just drawn the line to, from the starting category
+                        # when we make a left-to-right cascade, it tells us the next category to look at
 
     return(answer)
 
