@@ -36,7 +36,6 @@ def sum_pd(subdir):
     return(df)
 
 
-
 def add_level(df):
     '''
     input: subject dataframe
@@ -55,30 +54,50 @@ def run_level(df):
     output: df with string in 'Attention Level' column in each Memory trial row
     '''
 
-    # cued_cat = df[df['Trial Type']=='Presentation']['Cued Category'].tolist()[0]
-    # ^^ this line selected the first cued category in the block
-
+    # loop over the trials in this run
     for index,row in df.iterrows():
 
+        # for every trial that is a memory trial
         if row['Trial Type']=='Memory':
+
+            # obtain the image presented in the memory run
             mem_image = row['Memory Image']
+
+            # look in the columns for previouly presented images
+            # (Cued Face, Cued Place, Uncued Face, Uncued Place)
             for cue in ['Cued ', 'Uncued ']:
                 for cat in ['Face', 'Place']:
+
+                    # if one of these columns contains the memory image
                     if df.loc[df[cue+cat] == mem_image].shape[0]!=0:
+
+                        # pull the cued category from that row
                         cued_cat = df.loc[df[cue+cat] == mem_image]['Cued Category'].item()
-                        # ^^ this line selects the cued category from the specific trial in the block
+
+                        # if the category from that image's column (Cued Face, Cued Place, etc.) matches the cued category for the trial
                         if cat == cued_cat:
-                            df['Category'][index]=cued_cat
+
+                            # AND it was presented on the Cued Side
                             if cue == 'Cued ':
+                                # label "Full" attention
                                 attention = "Full"
+
+                            # AND it was presented on the Uncued Side
                             elif cue == 'Uncued ':
+                                # label "Category" attention
                                 attention = "Category"
+
+                        # else, if category from that image's column (Cued Face, Cued Place, etc.) does NOT match the cued category for the trial
                         else:
-                            df['Category'][index]=cat
+                            # AND it was presented in the Uncued location
                             if cue == 'Uncued ':
+                                # label "None" attention
                                 attention = "None"
+                            # AND it was presented in the Cued location
                             elif cue == 'Cued ':
+                                # labbel "Cued" attention
                                 attention = "Side"
+
                         df['Attention Level'][index] = attention
                         df['Cued Category'][index] = cued_cat
 
@@ -200,11 +219,11 @@ def sig_bars(cat, cats, stat_dict, adjust=0):
             # line params for this line
 
             if   ttest['p'] < .001:
-                linewidth = 4
+                linewidth = 7
             elif ttest['p'] < .01:
-                linewidth = 3
+                linewidth = 5
             elif ttest['p'] < .05:
-                linewidth = 2
+                linewidth = 3
             elif ttest['p'] < .056:
                 linewidth = 1
             else:
@@ -251,11 +270,11 @@ def sig_bars_neg(cat, cats, stat_dict, adjust=0):
             # line params for this line
 
             if   ttest['p'] < .001:
-                linewidth = 4
+                linewidth = 7
             elif ttest['p'] < .01:
-                linewidth = 3
+                linewidth = 5
             elif ttest['p'] < .05:
-                linewidth = 2
+                linewidth = 3
             elif ttest['p'] < .059:
                 linewidth = 1
 
