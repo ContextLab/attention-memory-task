@@ -171,41 +171,26 @@ def apply_window(combo, window_length):
     data = combo[combo['Trial Type']=='Memory'][['Attention Level','Familiarity Rating','Trial','Subject','Run']]
 
     # re-structure the data - each row is a trial, each column is an attn level
-    df = data.pivot_table(index=['Subject','Run','Trial'], columns='Attention Level', values='Familiarity Rating')
+    df = data.pivot_table(index=['Subject', 'Trial'], columns='Attention Level', values='Familiarity Rating')
 
-    # apply rolling window, for each run in each subject
-    window_data = df.groupby(['Subject','Run']).apply(lambda x: x.rolling(window_length, min_periods=1, center = True).mean())
+    # apply rolling window, for each subject
+    window_data = df.groupby(['Subject']).apply(lambda x: x.rolling(window_length, min_periods=1, center=True).mean())
 
     return(window_data)
 
 
-# REWRITE THIS FUNCTION
-
-def add_nov_label(combo, column_name='Cued Category'):
+def add_nov_label(combo, column_name='Last Cued'):
     '''
     input:  dataframe of participant data, and the name of the column to use for last-cued category info
-            for exp1 use 'Cued Category' (cue for that block)
-            for exp2 use 'Last Cued'     (last cue from presentation block)
-    output: dataframe where novel images are labeled by cued or uncued category
+    output: dataframe with unlabeled novel images
     '''
 
-    # assign all Novel images to be labeled Novel Uncued
-    combo.loc[combo['Attention Level']=='Novel','Attention Level'] = 'Nov_Un'
+    # for all 'Novel' images in memory trials, if Category == Last_Cued category, rename 'Novel_Cued'\n",
+    combo.loc[(combo['Trial Type']=='Memory') & (combo['Attention Level']=='Novel') & (combo[column_name] == combo['Category']),'Attention Level'] = 'Nov_Cued'
 
-    # then, for each image category (Face and Place)
-    for snuffle in ['Face','Place']:
+    # for all 'Novel' images in memory trials, if Category != Last_Cued category, rename 'Novel_Cued'\n",
+    combo.loc[(combo['Trial Type']=='Memory') & (combo['Attention Level']=='Novel') & (combo[column_name] != combo['Category']),'Attention Level'] = 'Nov_Un'
 
-        # for all 'Novel', if image in cued category, rename 'Novel_Cued'
-        combo.loc[(combo['Trial Type']=='Memory') & (combo[column_name]==snuffle) & (combo['Category']==snuffle)
-                  & (combo['Attention Level'].isin(['Nov_Un','Novel','Nov_Cued'])),
-                     'Attention Level'] = 'Nov_Cued'
-
-        # else, rename it Novel Uncued
-        combo.loc[(combo['Trial Type']=='Memory')
-                  & (combo[column_name]!=snuffle)
-                  & (combo['Category']==snuffle)
-                  & (combo['Attention Level'].isin(['Novel','Nov_Un','Nov_Cued'])),
-                     'Attention Level'] = 'Nov_Un'
     return(combo)
 
 
@@ -370,58 +355,69 @@ def load(path):
     return(data)
 
 
-def df_create(data):
-    '''
-    input: raw parsed eye data
-    output: dataframe of eye data (screen location in centimeters)
-    '''
+# def df_create(data):
+#     '''
+#     input: raw parsed eye data
+#     output: dataframe of eye data (screen location in centimeters)
+#     '''
+#
+#     dict_list = [ast.literal_eval(x) for x in data]
+#     dict_list = [x['values']['frame'] for x in dict_list if 'frame' in x['values']]
+#
+#     df = pd.DataFrame(dict_list)
+#
+#     # right and left eye
+#     for eye in ['righteye','lefteye']:
+#         for coord in ['x','y']:
+#             df[coord+'Raw_'+eye] = [df[eye][row]['raw'][coord] for row in df.index.values]
+#
+#     # convert to centimeters
+#     df['av_x_coord'] = (59.8/2048)*(df[['xRaw_righteye', 'xRaw_lefteye']].mean(axis=1))
+#     df['av_y_coord'] = (33.6/1152)*(df[['yRaw_righteye', 'yRaw_lefteye']].mean(axis=1))
+#
+#     # convert timestamp
+#     df['timestamp']=[time.mktime(time.strptime(x[:], "%Y-%m-%d %H:%M:%S.%f")) for x in df['timestamp']]
+#
+#     return(df)
 
-    dict_list = [ast.literal_eval(x) for x in data]
-    dict_list = [x['values']['frame'] for x in dict_list if 'frame' in x['values']]
 
-    df = pd.DataFrame(dict_list)
-
-    # right and left eye
-    for eye in ['righteye','lefteye']:
-        for coord in ['x','y']:
-            df[coord+'Raw_'+eye] = [df[eye][row]['raw'][coord] for row in df.index.values]
-
-    # convert to centimeters
-    df['av_x_coord'] = (59.8/2048)*(df[['xRaw_righteye', 'xRaw_lefteye']].mean(axis=1))
-    df['av_y_coord'] = (33.6/1152)*(df[['yRaw_righteye', 'yRaw_lefteye']].mean(axis=1))
-
-    # convert timestamp
-    df['timestamp']=[time.mktime(time.strptime(x[:], "%Y-%m-%d %H:%M:%S.%f")) for x in df['timestamp']]
-
-    return(df)
-
-
-def pres_gaze_image(subdir, eye_df, subject):
+def pres_gaze_image(subdir, eye_df):
     '''
     input: subject's experiment df and eye track df
     output: list of eye tracking df's, one for each presentation trial
     '''
 
-    pres_gaze = {'0':[],'1':[],'2':[],'3':[],'4':[],'5':[],'6':[],'7':[]}
+    pres_gaze = []
 
+    # for each file in this subject directory
     for f in os.listdir(subdir):
+
+        # for every behavioral data file from a presentation run
         if 'pres' in f:
 
-            num = f[-5]
+            # read in the presentation data
             pres_df = pd.read_csv(subdir+'/'+f)
-            start = pres_df['Stimulus Onset']
-            end = pres_df['Stimulus End'] #+pres_df['Attention Reaction Time (s)'][9]
-            eye_df['Run']=num
-            eye_df['Subject'] = subject
 
+            # pull the stimulus start and end times from this run
+            start = pres_df['Stimulus Onset']
+            end = pres_df['Stimulus End']
+
+            # loop through the start and end times and pull gazepoints that fall within them
             trial = 0
             for on,off in zip(start, end):
-                eye_df['Trial']=trial
-                pres_gaze[str(num)].append(eye_df.loc[(eye_df['timestamp']>on) &
-                                            (eye_df['timestamp']<off) &
-                                            (eye_df['xRaw_righteye']>0.0) &
-                                            (eye_df['xRaw_lefteye']>0.0)])
+
+                chunk = eye_df.loc[(eye_df['timestamp']>=on) & (eye_df['timestamp']<=off)]
+
+                chunk['Trial'] = trial
+                chunk['Run']   = f[-5] # run number from filename ('pres#.csv')
+
+                # append the gaze data for each trial to a list
+                pres_gaze.append(chunk)
+
                 trial+=1
+
+    # concat data from all runs and trials
+    pres_gaze = pd.concat(pres_gaze)
 
     return(pres_gaze)
 
@@ -448,9 +444,9 @@ def add_gaze(df):
     return(df)
 
 
-def eye_intial(path):
+def eye_initial(path):
     ''' reads in raw eye gaze data
-        outputs eye gaze dataframe, timestamps in GMT
+        outputs eye gaze dataframe, timestamps in UTC
     '''
 
     data = []
@@ -459,23 +455,29 @@ def eye_intial(path):
         newFile = parseFile(path+x)
         data1 = newFile.parse()
 
+        # replace with Python friendly True/False
         for a,b in zip(['true','false'], ['True', 'False']):
             data1 = data1.replace(a, b)
 
+        # select eye tracking rows (ignore occasional "heartbeat" rows; we did not monitor heart rate)
         data1 = data1.split('\n')
         data1 = [x for x in data1 if "tracker" in x]
         data.extend(data1)
 
+    # evaluate each row and subselect the frame data
     dict_list = [ast.literal_eval(x) for x in data]
     dict_list = [x['values']['frame'] for x in dict_list if 'values' in x and 'frame' in x['values']]
     df = pd.DataFrame(dict_list)
 
+    # label the raw average gaze values
     for eye in ['righteye','lefteye']:
         for coord in ['x','y']:
             df[coord+'Raw_'+eye] = [df[eye][row]['raw'][coord] for row in df.index.values]
 
+    # take the averages
     df['av_x_coord'] = df[['xRaw_righteye', 'xRaw_lefteye']].mean(axis=1)
     df['av_y_coord'] = df[['yRaw_righteye', 'yRaw_lefteye']].mean(axis=1)
-    df['timestamp']=[time.mktime(time.strptime(x[:], "%Y-%m-%d %H:%M:%S.%f")) for x in df['timestamp']]
+    df['timestamp']=[datetime.timestamp(datetime.strptime(x,"%Y-%m-%d %H:%M:%S.%f" )) for x in df['timestamp']]
+    #df['timestamp']=[time.mktime(time.strptime(x[:], "%Y-%m-%d %H:%M:%S.%f")) for x in df['timestamp']]
 
     return(df)
