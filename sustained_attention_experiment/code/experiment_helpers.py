@@ -378,7 +378,7 @@ def cued_pos(side, validity=True):
 
     return(pos)
 
-def composite_pair(win, cued, uncued, side, stim_dir, practice=False):
+def composite_pair(win, cued, uncued, side, stim_dir, practice=False, mem_practice=False):
     """
     input:  win (psychopy visual window), cue side (string),
             cue category (string), stimulus directory (string)
@@ -389,6 +389,8 @@ def composite_pair(win, cued, uncued, side, stim_dir, practice=False):
 
     if practice:
         dir = 'practice_composite/'
+    elif mem_practice:
+        dir = 'practice_mem_composite/'
     else:
         dir = 'composite/'
 
@@ -415,99 +417,6 @@ def probe_stim(win, cued_side, validity, text):
     probe.setPos([cued_position, 0])
     return(probe)
 
-def display(win, stim_list, frames, accepted_keys=None, trial=0, df=None, path=None):
-    """
-    Displays all stimuli (from stim_list) in window simultaneously, for desired number of frames.
-    If accepted_keys list passed, displays until key press; else, displays for 'frames' number of frames
-    if both dataframe and trial# passed, saves reaction time to corresponding trial row in df
-    inputs:
-        win           - visual window
-        stim_list     - list of psychopy visual Stimuli
-        frames        - int
-        accepted_keys - list of strings, or None
-        trial         - int
-        df            - pandas dataframe of trial information
-    """
-
-    rt = None
-    resp = None
-    resp_clock = core.Clock()
-
-    names = [x.name for x in stim_list]
-
-    for x in stim_list:
-        x.setAutoDraw(True)
-    win.logOnFlip(level=logging.EXP, msg='WIN FLIP : STIMULUS' +str(names)+' ON')
-    #win.flip()
-    
-
-    for frame_n in range(frames):
-        #absolute_time = time.time()
-
-        # if not visual rating scale
-        if not any(type(x) is visual.RatingScale for x in stim_list):
-            keys = event.getKeys(timeStamped=True)
-        else:
-            keys=[]
-
-        # if displaying images
-#        if df is not None:
-#            if keys != []:
-#                buttons_full(path, keys, absolute_time)
-#            if frame_n == 0:
-#                df.loc[trial, 'Stimulus Onset'] = absolute_time
-#            if frame_n == range(frames)[-1]:
-#                df.loc[trial, 'Stimulus End'] = absolute_time
-
-        # attention probe
-        if type(accepted_keys)==list:
-
-#            if frame_n == 0:
-#                resp_clock.reset()
-
-            if keys != []:
-                if any(x[0] in accepted_keys for x in keys):
-                    if not any(type(x) is visual.RatingScale for x in stim_list):
-                        #resp = keys[0][0]
-                        #rt = resp_clock.getTime()
-                        break
-                    #else:
-                       #buttons_full(path, keys, rt)
-                #else:
-                   #buttons_full(path, keys, absolute_time)
-
-            if resp == None and frame_n == range(frames)[-1] and type(x) is not visual.RatingScale:
-                key_wait = event.waitKeys(keyList = accepted_keys)
-#                resp = key_wait[0]
-#                rt = resp_clock.getTime()
-
-        # fixation
-#        else:
-#            if keys != []:
-#                buttons_full(path, keys, absolute_time)
-#                
-#        if df is not None:
-#            if frame_n == range(frames)[-1]:
-#                df.loc[trial, 'Stimulus End'] = absolute_time
-
-        win.flip()
-
-    for x in stim_list:
-        x.setAutoDraw(False)
-        
-    win.logOnFlip(level=logging.EXP, msg='WIN FLIP : STIMULI OFF '+str(names)+' '+str(time.time()))
-    #win.flip()
-    
-#    for x in stim_list:
-#        
-#        if type(x) is visual.RatingScale:
-#            
-#            choice_history = x.getHistory()
-#            df["Familiarity Rating"].loc[trial],df['Familiarity Reaction Time (s)'].loc[trial] = rating_pull(choice_history)
-    
-    logging.flush()
-    #return([rt, resp])
-
 
 def pause(win, frames):
     """
@@ -518,7 +427,7 @@ def pause(win, frames):
     for frame_n in range(frames):
         win.flip()
 
-def memory_stim(win, image, stim_dir, practice=False, practice_single=False):
+def memory_stim(win, image, stim_dir, practice=False, practice_single=False, practice_single_mem=False, practice_comp_mem=False):
     """
     Return single image stimulus for display in memory trial
     """
@@ -526,6 +435,10 @@ def memory_stim(win, image, stim_dir, practice=False, practice_single=False):
         image = stim_dir+'practice_composite/'+image
     elif practice_single:
         image = stim_dir+'practice_single/'+image
+    elif practice_single_mem:
+        image = stim_dir+'practice_mem_single/'+image
+    elif practice_comp_mem:
+        image = stim_dir+'practice_mem_composite/'+image
     else:
         image = stim_dir+'single/'+image
 
@@ -869,6 +782,11 @@ def practice_instructions(win, paths, text, pract_run, timing, acceptedKeys = []
     cat_cues = [paths['stim_path']+'cue/'+x for x in ['Face.png', 'Place.png']]
     composites = os.listdir(paths['stim_path']+'practice_composite')
     singles = os.listdir(paths['stim_path']+'practice_single')
+    
+    mem_composites = os.listdir(paths['stim_path']+'practice_mem_composite')
+    l = os.listdir(paths['stim_path']+'practice_mem_single')
+    mem_single = random.sample(l, k=len(l))
+    
     instruction = visual.TextStim(win, text=text, wrapWidth=40)
     ims = [instruction]
 
@@ -903,17 +821,17 @@ def practice_instructions(win, paths, text, pract_run, timing, acceptedKeys = []
     # dynamic practice trials
     # pract_pres1
     if pract_run ==8:
-        pract_pres(win, paths, composites[-12:-6], timing, circle=False, cat = cat, sid = sid)
+        pract_pres(win, paths, composites[-6:], timing, circle=False, cat = cat, sid = sid)
 
     # pract_pres2
     if pract_run == 9:
-        pract_pres(win, paths, composites[-6:], timing, circle=True, cat = cat, sid = sid)
+        pract_pres(win, paths, mem_composites, timing, circle=True, cat = cat, sid = sid, mem=True)
 
     # pract_mem
     elif pract_run == 10:
-        pract_mem(win, singles, paths, timing)
+        pract_mem(win, mem_single, paths, timing)
 
-def pract_pres(win, paths, im_list, timing, circle=False, cat = 'cat', sid= 'sid'):
+def pract_pres(win, paths, im_list, timing, circle=False, cat = 'cat', sid= 'sid', mem=False):
     """
     Present dynamic practice presentation runs
     """
@@ -942,10 +860,13 @@ def pract_pres(win, paths, im_list, timing, circle=False, cat = 'cat', sid= 'sid
     text=[random.choice(['x','o']) for _ in range(3)]
     validity_list = random.sample([1, 1, 0], k=3)
     
-    stims = [composite_pair(win, im_list[x*2], im_list[x*2+1], sid, paths['stim_path'], practice=True) for x in range(3)]
+    if mem == False:
+        stims = [composite_pair(win, im_list[x*2], im_list[x*2+1], sid, paths['stim_path'], practice=True) for x in range(3)]
+    
+    else:
+        stims = [composite_pair(win, im_list[x*2], im_list[x*2+1], sid, paths['stim_path'], mem_practice=True) for x in range(3)]
 
     for idx,x in enumerate(range(3)):
-        #stim = composite_pair(win, im_list[x*2], im_list[x*2+1], a, paths['stim_path'], practice=True)
         
         stims[idx][0].setAutoDraw(True)
         stims[idx][1].setAutoDraw(True)
@@ -954,14 +875,10 @@ def pract_pres(win, paths, im_list, timing, circle=False, cat = 'cat', sid= 'sid
         
         ISI.start(3)
         
-        #display(win, stim, timing['probe'], path = paths)
-
         if circle:
             circle = probe_stim(win, sid, validity_list[x], text=text[x])
             circle.setAutoDraw(True)
-            
-            #display(win, [circle], timing['probe'], accepted_keys=['1','3'], path = paths)
-        
+                    
         stims[idx][0].setAutoDraw(False)
         stims[idx][1].setAutoDraw(False)
         ISI.complete()
@@ -977,11 +894,7 @@ def pract_pres(win, paths, im_list, timing, circle=False, cat = 'cat', sid= 'sid
         
         ISI.start(1)
         
-        #pause(win, timing['pause'])
-        
     fix.setAutoDraw(False)
-    
-    
 
 
 def pract_mem(win, im_list, paths, timing):
@@ -996,7 +909,7 @@ def pract_mem(win, im_list, paths, timing):
     
     # create fixation and image stimuli
     fixation = fix_stim(win)
-    images = [memory_stim(win, x, paths['stim_path'], practice_single=True) for x in im_list] 
+    images = [memory_stim(win, x, paths['stim_path'], practice_single_mem=True) for x in im_list] 
 
     # auto draw fixation
     fixation.setAutoDraw(True)
@@ -1029,9 +942,6 @@ def pract_mem(win, im_list, paths, timing):
         images[idx].setAutoDraw(True)
         win.logOnFlip(level=logging.EXP, msg='WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON')
         
-        # update memory file
-        #mem_df.to_csv(paths['subject']+'mem'+str(run)+'.csv')
-        
         # flush what we have so far to the log
         logging.flush()
         ISI.complete()
@@ -1052,3 +962,4 @@ def pract_mem(win, im_list, paths, timing):
     fixation.setAutoDraw(False)
     win.logOnFlip(level=logging.EXP, msg='WIN FLIP : FIXATION OFF')
     win.flip()
+
