@@ -473,9 +473,7 @@ def presentation_run(win, run, pres_df, params, timing, paths):
         pres_df - all trial info for current presentation block (dataframe)
     """
     
-#    single_frame = math.floor((1/win.getActualFrameRate()))
-    # obtain so we can adjust for the time of a single flip
- 
+    event.Mouse(visible=False)
     first_row = pres_df.index.values[0]
 
     # Create cue, fixation, and validity stim
@@ -547,6 +545,7 @@ def presentation_run(win, run, pres_df, params, timing, paths):
 
 
 def memory_run(win, run, mem_df, params, timing, paths, test = False):
+    
     """
     Displays full memory run, saves out data to csv
     inputs:
@@ -557,7 +556,7 @@ def memory_run(win, run, mem_df, params, timing, paths, test = False):
         timing - stimulus display times (dictionary)
         mem_df - all trial info for current memory block (dataframe)
     """
-    
+    event.Mouse(visible=False)
     ISI = core.StaticPeriod(screenHz=win.getActualFrameRate())
     # set up ISI for timing precision
     
@@ -836,6 +835,7 @@ def pract_pres(win, paths, im_list, timing, circle=False, cat = 'cat', sid= 'sid
     Present dynamic practice presentation runs
     """
     
+    event.Mouse(visible=False)
     # set up ISI for timing precision
     ISI = core.StaticPeriod(screenHz=win.getActualFrameRate())
     
@@ -901,7 +901,7 @@ def pract_mem(win, im_list, paths, timing):
     """
     Display dynamic practice memory runs
     """
-
+    event.Mouse(visible=False)
     fixation = fix_stim(win)     
         
     ISI = core.StaticPeriod(screenHz=win.getActualFrameRate())
@@ -962,3 +962,4 @@ def pract_mem(win, im_list, paths, timing):
     fixation.setAutoDraw(False)
     win.logOnFlip(level=logging.EXP, msg='WIN FLIP : FIXATION OFF')
     win.flip()
+
