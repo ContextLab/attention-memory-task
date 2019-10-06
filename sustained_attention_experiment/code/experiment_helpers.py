@@ -496,7 +496,7 @@ def presentation_run(win, run, pres_df, params, timing, paths):
     win.flip()
     
     # start 1s period
-    ISI.start(1.0)   
+    ISI.start(1.5)   
     cue1.setAutoDraw(False)  
     cue2.setAutoDraw(False)
     fixation.setAutoDraw(True)
@@ -509,7 +509,7 @@ def presentation_run(win, run, pres_df, params, timing, paths):
     
     for idx,trial in enumerate(pres_df.index.values):
         
-        ISI.start(1.0)  # start a period of 0.5s
+        ISI.start(1)  
         logging.flush()
         if idx>0:
             pres_df['Attention Response Time (s)'].loc[trial-1], pres_df['Attention Button'].loc[trial-1] = response[0][1],response[0][0]
@@ -519,9 +519,9 @@ def presentation_run(win, run, pres_df, params, timing, paths):
         images_all[idx][1].setAutoDraw(True)
         win.logOnFlip(level=logging.EXP, msg='WIN FLIP : COMPOSITES ON')
         ISI.complete() 
+        
         win.flip()
-
-        ISI.start(3.0)
+        ISI.start(3)
         images_all[idx][0].setAutoDraw(False)
         images_all[idx][1].setAutoDraw(False)
         circle_all[idx].setAutoDraw(True)
@@ -570,13 +570,10 @@ def memory_run(win, run, mem_df, params, timing, paths, test = False):
 
     # for every trial
     for idx,trial in enumerate(mem_df.index.values):
-        
         # win flip (fixation on)
         win.flip()
-        
         # start 1s period
         ISI.start(1.0) 
-        
         # update memory csv
         if idx > 0 :
            mem_df["Familiarity Rating"].loc[trial-1],mem_df['Familiarity Reaction Time (s)'].loc[trial-1] = rating_pull(rating_scale.getHistory())
@@ -588,12 +585,7 @@ def memory_run(win, run, mem_df, params, timing, paths, test = False):
         rating_scale = visual.RatingScale( win, low = 1, high = 4, labels=['unfamiliar','familiar'], scale='1               2               3               4', 
         pos = [0,-.42], acceptPreText = '-',
         maxTime=2.0, minTime = 0, marker = 'triangle', showAccept=False, singleClick = True,
-        disappear = False )
-
-        # auto draw scale and image, remover auto draw of fixation
-        rating_scale.setAutoDraw(True)
-        images[idx].setAutoDraw(True)
-        win.logOnFlip(level=logging.EXP, msg='WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON')
+        disappear = False, markerStart=None, noMouse = True, markerColor = 'Black' )
         
         # update memory file
         mem_df.to_csv(paths['subject']+'mem'+str(run)+'.csv')
@@ -603,12 +595,20 @@ def memory_run(win, run, mem_df, params, timing, paths, test = False):
         ISI.complete()
      
         event.getKeys(keyList = None)
+        
         # start timer for displaying rating scale (2 seconds)
         rating_timer = core.CountdownTimer(2)
-        while rating_timer.getTime() > .016: # while time greater than the timing for a single flip
+        
+        rating_scale.setAutoDraw(True)
+        images[idx].setAutoDraw(True)
+        win.logOnFlip(level=logging.EXP, msg='WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON')
+        
+        while rating_timer.getTime() > 0: # while time greater than the approx timing for a single flip
             # flip scale and image on
-            win.flip()
+                    # auto draw scale and image, remover auto draw of fixation
 
+            win.flip()
+        
         win.logOnFlip(level=logging.EXP, msg='WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON')
         rating_scale.setAutoDraw(False)
         images[idx].setAutoDraw(False)
@@ -762,9 +762,9 @@ def text_present(win, text, close=False, timing=None):
     instruction = visual.TextStim(win, text=text, wrapWidth=40, name='INSTRCUCTION TEXT')
     instruction.setAutoDraw(True)
     win.flip()
-
+    
     key = event.waitKeys(keyList=None)
-
+    
     if close:
         pause(win, timing['pause'])
         win.close()
@@ -811,6 +811,7 @@ def practice_instructions(win, paths, text, pract_run, timing, acceptedKeys = []
         x.setAutoDraw(True)
 
     win.flip()
+    
     event.waitKeys(keyList=None)
 
     for x in ims:
@@ -935,7 +936,7 @@ def pract_mem(win, im_list, paths, timing):
         rating_scale = visual.RatingScale( win, low = 1, high = 4, labels=['unfamiliar','familiar'], scale='1               2               3               4', 
         pos = [0,-.42], acceptPreText = '-',
         maxTime=2.0, minTime = 0, marker = 'triangle', showAccept=False, singleClick = True,
-        disappear = False )
+        disappear = False, noMouse=True, markerStart=None, markerColor='Black' )
 
         # auto draw scale and image, remover auto draw of fixation
         rating_scale.setAutoDraw(True)
@@ -962,4 +963,5 @@ def pract_mem(win, im_list, paths, timing):
     fixation.setAutoDraw(False)
     win.logOnFlip(level=logging.EXP, msg='WIN FLIP : FIXATION OFF')
     win.flip()
+
 
