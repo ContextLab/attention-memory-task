@@ -3,7 +3,7 @@
 
 # Imports ############################################################################################
 
-from experiment_helpers_sustained_logfile import * # main functions in experiment_helpers.fpy
+from experiment_helpers import * # main functions in experiment_helpers.fpy
 import pandas as pd
 import csv
 import random
@@ -27,7 +27,7 @@ global_clock = core.Clock()
 logging.setDefaultClock(global_clock)
 
 # initiate log file
-logDat = logging.LogFile(paths['subject']+'_'+info['run']+'_log'+'.log', filemode='w', level = logging.DEBUG)
+logDat = logging.LogFile(paths['subject']+'-'+info['run']+'.log', filemode='w', level = logging.DEBUG)
 logging.log(level=logging.WARN, msg='warning')
 logging.log(level=logging.EXP , msg='experiment')
 logging.log(level=logging.DATA, msg='data')
@@ -37,13 +37,15 @@ logging.log(level=logging.INFO, msg='info')
 logging.info('current time: '+str(time.time()))
 
 # Pre questionnaire #
-if int(info['run'])==0:
+if int(info['run'])==-1:
     pre_info = pre_questionnaire(info, save_path=paths['subject'])
 else:
     practice = False
 
 # Window and Stimulus timing #
-win = visual.Window([1024,768], fullscr = True, monitor = 'testMonitor', units='deg', color = 'black')
+win = visual.Window([1024,768], fullscr = True, monitor = 'testMonitor', units='deg', color = 'black', allowGUI=False)
+win.setMouseVisible = False
+
 rate = win.getActualFrameRate()
 timing = {'cue':int(round(1.5 * rate)), 'probe':int(round(3.0 * rate)), 'mem':int(round(2 * rate)), 'pause':int(round(1 *rate))}
 
@@ -72,9 +74,14 @@ if practice:
         else:
             practice_instructions(win, paths, pract_text(x), x, timing, acceptedKeys = [], practice=True)
      
+    logging.info('PRACTICE END: '+str(time.time()))
+    
+    # experiment stops for recalibration) #
+    text_present(win, 'Next, we will pause to set up the eye tracker. You can take a break and hit any key when you are ready.',
+                     close=True, timing = timing)
 
 # Initialize dataframe #
-if int(info['run'])==0:
+if int(info['run'])==-1:
     df = initialize_df(info, categories, paths, params)
 else:
     df = pd.DataFrame.from_csv(paths['subject']+'intial_df.csv')
@@ -106,5 +113,5 @@ for run in range(int(info['run']),params['runs']):
     else:
         # closing message and post-questionnaire #
         text_present(win, 'Thank you for your participation!', timing=timing, close=True)
-        event.Mouse(visible=True)
         post_info = post_questionnaire(info, save_path=paths['subject'])
+
