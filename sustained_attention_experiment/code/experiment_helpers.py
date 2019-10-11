@@ -160,7 +160,7 @@ def buttons_full(paths, keys, absolute_time):
 
 # Functions for Creating Trial Parameters & Visual Stimuli
 
-def cue_create(params):
+def cue_create(params, shuffle=False):
     '''
     input:    params - experiment parameters (stimulus display times, etc.) (dictionary)
     output:   three lists (length total-trials-in-experiment) assigning cued side,
@@ -182,25 +182,81 @@ def cue_create(params):
 
     # chunk trials by block and randomize
     cue_tuples_0 = list(zip(cued_side, cued_category))
-    chunk_tuples = [cue_tuples_0[i:i+presentations_per_run] for i in range(0, len(cue_tuples_0), presentations_per_run)]
+    if shuffle == True:
+        chunk_tuples = trial_shuffle(presentations_per_run, runs)
+    #    chunk_tuples = [cue_tuples_0[i:i+presentations_per_run] for i in range(0, len(cue_tuples_0), presentations_per_run)]
+
+    else:
+        chunk_tuples = [cue_tuples_0[i:i+presentations_per_run] for i in range(0, len(cue_tuples_0), presentations_per_run)]
 
     # while any blocks repeat cues back-to-back, reshuffle
     cue_tuples = random.sample(chunk_tuples, len(chunk_tuples))
+
     reshuffle = True
 
     while reshuffle==True:
-        for idx,x in enumerate(cue_tuples[1:-1]):
-            if x[0]==cue_tuples[idx+1][0] or x[0]==cue_tuples[idx-1][0]:
-                cue_tuples = random.sample(chunk_tuples, len(chunk_tuples))
-                pass
-            elif idx==len(cue_tuples[1:-1])-1 and not (x[0]==cue_tuples[idx+1][0] or x[0]==cue_tuples[idx-1][0]):
-                reshuffle=False
+        
+        cue_tuples = random.sample(chunk_tuples, len(chunk_tuples))
+        shuff_count = 0
+
+        for idx,x in enumerate(cue_tuples):
+            
+            if idx != 0:
+
+                if x[0]==cue_tuples[idx-1][0]:
+                    shuff_count += 1
+
+        if shuff_count == 0:
+            
+            reshuffle = False
 
     cue_tuples = flatten(cue_tuples)
     final = [[x[0] for x in cue_tuples],[x[1] for x in cue_tuples],validity]
 
     # return list for each
-    return(final)
+    return(cue_tuples)
+
+# def cue_create(params):
+#     '''
+#     input:    params - experiment parameters (stimulus display times, etc.) (dictionary)
+#     output:   three lists (length total-trials-in-experiment) assigning cued side,
+#               cued category, and cue validity for each trial
+#     '''
+
+#     presentations_per_run = params['presentations_per_run']
+#     runs = params['runs']
+
+#     # create tuples, one per trial, chunked by block, that assign: cued side, cued category
+#     cued_side = ['<']*int(presentations_per_run*runs/2)+['>']*int(presentations_per_run*runs/2)
+#     cued_category = flatten([['Face']*int(presentations_per_run*runs/4)+['Place']*int(presentations_per_run*runs/4)]*2)
+
+#     # validity (attention RT)
+#     raw_invalid = int(params['invalid_cue_percentage']*presentations_per_run*runs/100)
+#     num = (presentations_per_run*runs)-raw_invalid
+#     validity = [0]*raw_invalid+[1]*num
+#     validity = random.sample(validity, len(validity))
+
+#     # chunk trials by block and randomize
+#     cue_tuples_0 = list(zip(cued_side, cued_category))
+#     chunk_tuples = [cue_tuples_0[i:i+presentations_per_run] for i in range(0, len(cue_tuples_0), presentations_per_run)]
+
+#     # while any blocks repeat cues back-to-back, reshuffle
+#     cue_tuples = random.sample(chunk_tuples, len(chunk_tuples))
+#     reshuffle = True
+
+#     while reshuffle==True:
+#         for idx,x in enumerate(cue_tuples[1:-1]):
+#             if x[0]==cue_tuples[idx+1][0] or x[0]==cue_tuples[idx-1][0]:
+#                 cue_tuples = random.sample(chunk_tuples, len(chunk_tuples))
+#                 pass
+#             elif idx==len(cue_tuples[1:-1])-1 and not (x[0]==cue_tuples[idx+1][0] or x[0]==cue_tuples[idx-1][0]):
+#                 reshuffle=False
+
+#     cue_tuples = flatten(cue_tuples)
+#     final = [[x[0] for x in cue_tuples],[x[1] for x in cue_tuples],validity]
+
+#     # return list for each
+#     return(final)
 
 def trial_setup(params):
     '''
