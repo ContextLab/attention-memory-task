@@ -68,7 +68,6 @@ if practice:
                  close=True, timing = timing)
 
 # Create df masks #
-
 mask1 = df['Trial Type']=='Presentation'
 mask2 = df['Trial Type']=='Memory'
 
