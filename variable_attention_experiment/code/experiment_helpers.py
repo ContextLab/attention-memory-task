@@ -644,7 +644,7 @@ def presentation_run(win, run, pres_df, params, timing, paths):
         win.logOnFlip(level=logging.EXP, msg='WIN FLIP : CUES ON')
         win.flip()
 
-        # start 1s period
+        # start 1.5s period
         ISI.start(1.5)
         cue1.setAutoDraw(False)
         cue2.setAutoDraw(False)
@@ -679,6 +679,9 @@ def presentation_run(win, run, pres_df, params, timing, paths):
         circle_all[idx].setAutoDraw(False)
         win.logOnFlip(level=logging.EXP, msg='WIN FLIP : ATTENTION PROBE OFF')
         win.flip()
+        
+        ISI.start(1)
+        ISI.complete()
 
     fixation.setAutoDraw(False)
     win.logOnFlip(level=logging.EXP, msg='WIN FLIP : FIXATION OFF')
