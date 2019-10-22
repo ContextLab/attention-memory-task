@@ -8,6 +8,7 @@ import os
 import time
 import csv
 import pickle
+import math
 
 # Tiny helpers
 
@@ -136,6 +137,7 @@ def post_questionnaire(info, save=True, save_path='.'):
     '''
 
     # end of task questionnaire
+    # end of task questionnaire
     postDlg = gui.Dlg(title="Post Questionnaire")
     postDlg.addField('1. How engaging did you find this experiment?', choices=['--', "Very engaging", "A little engaging", "Neutral", "A little boring", "Very boring"])
     postDlg.addField('2. How tired do you feel?', choices=['--', "Very tired", "A little tired", "Neutral", "A little alert", "Very alert"])
@@ -165,38 +167,61 @@ def buttons_full(paths, keys, absolute_time):
         wr.writerows([[keys, absolute_time]])
 
 def trial_shuffle(presentations_per_run, runs):
-    FL = ('<', 'Face')
-    FR = ('>', 'Face')
-    PL = ('<', 'Place')
-    PR = ('>', 'Place')
-    chunk_result = []
-    all_cats = [FL, FR, PL, PR]
-    for index in range(runs):
-        trial = []
-        for each in range(presentations_per_run):
-            if each == 0 or each == 1:
-                trial.append(FL)
-            elif each == 2 or each == 3:
-                trial.append(FR)
-            elif each == 4 or each == 5:
-                trial.append(PL)
-            elif each == 6 or each == 7:
-                trial.append(PR)
-            elif each == 8:
-                trial.append(random.choice(all_cats))
-            elif each == 9:
-                if trial[each-1] == FL:
-                    trial.append(PR)
-                elif trial[each-1] == FR:
-                    trial.append(PL)
-                elif trial[each-1] == PL:
-                    trial.append(FR)
-                else:
-                    trial.append(FL)
-
-        random.shuffle(trial)
-        chunk_result.append(trial)
-    return(chunk_result)
+    
+    '''
+    This function reads in run parameters and outputs attention cues and attention 
+    probe validity for the entire experiment.
+    
+    input  - runs                   - number of runs/blocks in the experiment (int or float)
+           - presentations_per_run  - number of trials per run (int or float)
+    
+    output - chunk_result           - side and category cues for the whole experiment, chunked by run
+                                    - list containing three lists, each with length runs*presentations_per_run
+                                    - first list  : side cues (str)
+                                      second list : category cues (str)
+                                      third list  : attention probe validity (bool)
+    '''
+    
+    # first, make a cue sequence with as many balanced groups of cues as possible
+    unique_cues  = [('<', 'Face' ), ('>', 'Place'), ('>', 'Face' ), ('<', 'Place')]
+    cue_base     = unique_cues * int(math.floor(presentations_per_run/4))
+    extras       = presentations_per_run % len(unique_cues)
+    
+    # then, fill up the 'extras' such that there is:  1) equal number of R/L and Face/Place, per trial
+    #                                                 2) equal number each unique cue tuple across exp
+    
+    cue_list = []
+    
+    if extras % 2 != 0 :
+        print('Not possible to subject directory exists already have equal proportion of cue types within blocks. (Odd number of trials per block.)')
+        
+    elif extras == 2:
+        a, b = cue_base + unique_cues[0:2], cue_base + unique_cues[2:4]
+        
+        for r in range(0,(runs/2)):
+            for l in [a,b]:
+                random.shuffle(l)
+                
+                # while loop to prevent adjacent repeats
+                reshuffle = True
+                while reshuffle==True:
+                    l = random.sample(l, len(l))
+                    shuff_count = 0
+                    for idx,x in enumerate(l):
+                        if idx != 0:
+                            if x==l[idx-1]:
+                                shuff_count += 1
+                    if shuff_count == 0:
+                        reshuffle = False
+                
+                cue_list.append(l)
+                
+        random.shuffle(cue_list)
+        
+    else:
+        print('This experiment was originally run with four unique cue types, 8 experimental blocks, and ten trials per block. Are you sure you want to change? (If yes, please adjust the `trial_shuffle` function in analysis_helpers.py')
+        
+    return(cue_list)
 
 
 # Functions for Creating Trial Parameters & Visual Stimuli
@@ -230,20 +255,7 @@ def cue_create(params, shuffle=False):
     else:
         chunk_tuples = [cue_tuples_0[i:i+presentations_per_run] for i in range(0, len(cue_tuples_0), presentations_per_run)]
 
-    # while any blocks repeat cues back-to-back, reshuffle
-    cue_tuples = random.sample(chunk_tuples, len(chunk_tuples))
-
-    reshuffle = True
-
-    while reshuffle==True:
-        for idx,x in enumerate(cue_tuples[1:-1]):
-            if x[0]==cue_tuples[idx+1][0] or x[0]==cue_tuples[idx-1][0]:
-                cue_tuples = random.sample(chunk_tuples, len(chunk_tuples))
-                pass
-            elif idx==len(cue_tuples[1:-1])-1 and not (x[0]==cue_tuples[idx+1][0] or x[0]==cue_tuples[idx-1][0]):
-                reshuffle=False
-
-    cue_tuples = flatten(cue_tuples)
+    cue_tuples = flatten(chunk_tuples)
     final = [[x[0] for x in cue_tuples],[x[1] for x in cue_tuples],validity]
 
     # return list for each
@@ -304,7 +316,6 @@ def memory_image(presentation, memory):
     '''
     inputs:  list of all presentation images
              list of all novel memory images
-
     outputs: list of all images for memory trials
              (half novel, and even proportions of prev seen cued/uncued, face/house)
     '''
@@ -353,7 +364,7 @@ def initialize_df(info, categories, paths, params, shuffle=False):
     # create column names
     columns = ['Subject', 'Trial Type', 'Run', 'Cued Composite', 'Uncued Composite', 'Cued Face',
                 'Cued Place', 'Uncued Face', 'Uncued Place', 'Memory Image', 'Category', 'Cued Side',
-                'Cued Category', 'Attention Reaction Time (s)', 'Familiarity Reaction Time (s)',
+                'Cued Category', 'Attention Response Time (s)', 'Familiarity Reaction Time (s)',
                 'Familiarity Rating', 'Attention Level', 'Cue Validity', 'Post Invalid Cue', 'Pre Invalid Cue',
                 'Attention Button', 'Rating History', 'Stimulus Onset', 'Stimulus End', 'Attention Probe']
 
@@ -376,8 +387,8 @@ def initialize_df(info, categories, paths, params, shuffle=False):
 
     for cue in ['Cued','Uncued']:
         df.loc[mask, cue+' Composite']=pres_dict[cue]['composite']
-        df.loc[mask, cue+' Face']=pres_dict[cue]['face']
-        df.loc[mask, cue+' Place']=pres_dict[cue]['place']
+#        df.loc[mask, cue+' Face']=pres_dict[cue]['face']
+#        df.loc[mask, cue+' Place']=pres_dict[cue]['place']
 
     # add memory images
     mask2 = df['Trial Type']=='Memory'
@@ -419,16 +430,16 @@ def cued_pos(side, validity=True):
 
     if side == '>' and validity==True:
         pos = 8
-    if side == '>' and validity==False:
+    elif side == '>' and validity==False:
         pos = -8
-    if side == '<' and validity==True:
+    elif side == '<' and validity==True:
         pos = -8
-    else:
+    elif side == '<' and validity==False:
         pos = 8
 
     return(pos)
 
-def composite_pair(win, cued, uncued, side, stim_dir, practice=False):
+def composite_pair(win, cued, uncued, side, stim_dir, practice=False, mem_practice=False):
     """
     input:  win (psychopy visual window), cue side (string),
             cue category (string), stimulus directory (string)
@@ -439,16 +450,18 @@ def composite_pair(win, cued, uncued, side, stim_dir, practice=False):
 
     if practice:
         dir = 'practice_composite/'
+    elif mem_practice:
+        dir = 'practice_mem_composite/'
     else:
         dir = 'composite/'
 
     cued = stim_dir+dir+cued
     uncued = stim_dir+dir+uncued
 
-    probe1 = visual.ImageStim(win, cued, size=7, name='Probe1')
+    probe1 = visual.ImageStim(win, cued, size=7, name='CUED COMPOSITE '+cued, autoLog=True)
     probe1.setPos( [cued_position, 0] )
 
-    probe2 = visual.ImageStim(win, uncued, size=7, name='Probe2')
+    probe2 = visual.ImageStim(win, uncued, size=7, name='UNCUED COMPOSITE '+uncued, autoLog=True)
     probe2.setPos( [-cued_position, 0] )
 
     return(probe1, probe2)
@@ -557,7 +570,7 @@ def pause(win, frames):
     for frame_n in range(frames):
         win.flip()
 
-def memory_stim(win, image, stim_dir, practice=False, practice_single=False):
+def memory_stim(win, image, stim_dir, practice=False, practice_single=False, practice_single_mem=False, practice_comp_mem=False):
     """
     Return single image stimulus for display in memory trial
     """
@@ -565,12 +578,17 @@ def memory_stim(win, image, stim_dir, practice=False, practice_single=False):
         image = stim_dir+'practice_composite/'+image
     elif practice_single:
         image = stim_dir+'practice_single/'+image
+    elif practice_single_mem:
+        image = stim_dir+'practice_mem_single/'+image
+    elif practice_comp_mem:
+        image = stim_dir+'practice_mem_composite/'+image
     else:
         image = stim_dir+'single/'+image
 
-    im = visual.ImageStim(win, image, size=7, name='mem_image')
+    im = visual.ImageStim(win, image, size=7, name='MEMORY IMAGE '+str(image), autoLog=True)
     im.setPos([0, 0])
     return(im)
+
 
 def rating_pull(rating_tuple):
     '''
@@ -588,98 +606,199 @@ def rating_pull(rating_tuple):
 
 # Functions to Execute Presentation & Memory Runs
 
-def presentation_run(win, run, pres_df, params, timing, paths, shuffle=False):
+def presentation_run(win, run, pres_df, params, timing, paths):
     """
     Displays a full presentation run, saves out data to csv
-
     inputs:
-        win - visual window
-        run - run number (int)
-        paths - paths to subject-relevant directories (dictionary)
-        params - experiment parameters (dictionary)
-        timing - stimulus display times (dictionary)
+        win     - visual window
+        run     - run number (int)
+        paths   - paths to subject-relevant directories (dictionary)
+        params  - experiment parameters (dictionary)
+        timing  - stimulus display times (dictionary)
         pres_df - all trial info for current presentation block (dataframe)
     """
-    first_row = pres_df.index.values[0]
 
-    if shuffle == False:
+    # create image pair and attention probe stim
+    images_all = [composite_pair(win, pres_df['Cued Composite'].loc[trial],pres_df['Uncued Composite'].loc[trial], pres_df['Cued Side'][trial], paths['stim_path']) for trial in pres_df.index.values]
+    circle_all = [probe_stim(win, pres_df['Cued Side'][trial], pres_df['Cue Validity'][trial], pres_df['Attention Probe'][trial]) for trial in pres_df.index.values]
+    fixation = fix_stim(win)
+    
+    # set up ISI for timing precision
+    ISI = core.StaticPeriod(screenHz=win.getActualFrameRate())
+
+    for idx,trial in enumerate(pres_df.index.values):
+        
         # Create cue, fixation, and validity stim
-        cue1, cue2 = cue_stim(win, pres_df['Cued Side'][first_row], pres_df['Cued Category'][first_row], paths['stim_path'])
-
+        cue1, cue2 = cue_stim(win, pres_df['Cued Side'].loc[trial], pres_df['Cued Category'].loc[trial], paths['stim_path'])
         cue1.setPos( [0, 2] )
         cue2.setPos( [0, 0] )
-        fixation = fix_stim(win)
+        logging.flush()
+        
+        if idx>0:
+            pres_df['Attention Response Time (s)'].loc[trial-1], pres_df['Attention Button'].loc[trial-1] = response[0][1],response[0][0]
 
-        #flash cue
-        display(win, [cue1,cue2], timing['cue'], path = paths)
+        # flip cues on
+        cue1.setAutoDraw(True)
+        cue2.setAutoDraw(True)
+        fixation.setAutoDraw(False)
+        win.logOnFlip(level=logging.EXP, msg='WIN FLIP : CUES ON')
+        win.flip()
 
-        #show fixation
+        # start 1s period
+        ISI.start(1.5)
+        cue1.setAutoDraw(False)
+        cue2.setAutoDraw(False)
         fixation.setAutoDraw(True)
-        pause(win, timing['pause'])
+        logging.flush()
+        win.logOnFlip(level=logging.EXP, msg='WIN FLIP : CUES OFF, FIXATION ON')
+        ISI.complete()
 
+        # flip cues off and fixation on
+        win.flip()
 
-    else:
-        fixation = fix_stim(win)
+        ISI.start(1)
+        # composite images - 3 seconds
+        images_all[idx][0].setAutoDraw(True)
+        images_all[idx][1].setAutoDraw(True)
+        win.logOnFlip(level=logging.EXP, msg='WIN FLIP : COMPOSITES ON')
+        ISI.complete()
+        
+        # flip fixation off and composites on
+        win.flip()
+        
+        ISI.start(3)
+        images_all[idx][0].setAutoDraw(False)
+        images_all[idx][1].setAutoDraw(False)
+        circle_all[idx].setAutoDraw(True)
+        win.logOnFlip(level=logging.EXP, msg='WIN FLIP : COMPOSITES OFF, ATTNTION PROBE ON')
+        ISI.complete()
+        win.flip()
+        response = event.waitKeys(keyList = ['1','3'], timeStamped=True, clearEvents=True)
 
-
-    for trial in pres_df.index.values:
-        if shuffle == True:
-            cue1, cue2 = cue_stim(win, pres_df['Cued Side'][trial], pres_df['Cued Category'][trial], paths['stim_path'])
-
-            cue1.setPos( [0, 2] )
-            cue2.setPos( [0, 0] )
-            #get rid of fixation
-            fixation.setAutoDraw(False)
-            # flash cue
-            display(win, [cue1,cue2], timing['cue'], path = paths)
-
-            #show fixation
-            fixation.setAutoDraw(True)
-
-            #pause
-            pause(win, timing['pause'])
-
-        # make stim
-        images = composite_pair(win, pres_df['Cued Composite'].loc[trial],pres_df['Uncued Composite'].loc[trial], pres_df['Cued Side'][trial], paths['stim_path'])
-        circle = probe_stim(win, pres_df['Cued Side'][trial], pres_df['Cue Validity'][trial], pres_df['Attention Probe'][trial])
-
-        # display images
-        display(win, images, timing['probe'], accepted_keys=None, trial=trial, df=pres_df, path = paths)
-        pres_df['Attention Reaction Time (s)'].loc[trial], pres_df['Attention Button'].loc[trial] = display(win, [circle], timing['probe'], accepted_keys=['1','3'], path = paths)
-        pause(win, timing['pause'])
-
-        pres_df.to_csv(paths['subject']+'pres'+str(run)+'.csv')
+        # attention probe, until button press
+        circle_all[idx].setAutoDraw(False)
+        win.logOnFlip(level=logging.EXP, msg='WIN FLIP : ATTENTION PROBE OFF')
+        win.flip()
 
     fixation.setAutoDraw(False)
+    win.logOnFlip(level=logging.EXP, msg='WIN FLIP : FIXATION OFF')
+    win.flip()
 
+    #save data from last one
+    pres_df['Attention Response Time (s)'].loc[trial], pres_df['Attention Button'].loc[trial] = response[0][1],response[0][0]
+    pres_df.to_csv(paths['subject']+'pres'+str(run)+'.csv')
+    
+    
 def memory_run(win, run, mem_df, params, timing, paths, test = False):
+
     """
     Displays full memory run, saves out data to csv
-
     inputs:
-        win - visual window
-        run - run number (int)
-        paths - paths to subject-relevant directories (dictionary)
+        win    - visual window
+        run    - run number (int)
+        paths  - paths to subject-relevant directories (dictionary)
         params - experiment parameters (dictionary)
         timing - stimulus display times (dictionary)
         mem_df - all trial info for current memory block (dataframe)
     """
+    event.Mouse(visible=False)
+    ISI = core.StaticPeriod(screenHz=win.getActualFrameRate())
+    # set up ISI for timing precision
+
+    # create fixation and image stimuli
     fixation = fix_stim(win)
+    images = [memory_stim(win, mem_df['Memory Image'][x], paths['stim_path']) for x in mem_df.index.values]
 
-    for trial in mem_df.index.values:
+    # auto draw fixation
+    fixation.setAutoDraw(True)
+    win.logOnFlip(level=logging.EXP, msg='WIN FLIP : FIXATION ON')
 
-        display(win, [fixation], timing['pause'], path = paths)
+    # for every trial
+    for idx,trial in enumerate(mem_df.index.values):
+        # win flip (fixation on)
+        win.flip()
+        # start 1s period
+        ISI.start(1.0)
+        # update memory csv
+        if idx > 0 :
+           mem_df["Familiarity Rating"].loc[trial-1],mem_df['Familiarity Reaction Time (s)'].loc[trial-1] = rating_pull(rating_scale.getHistory())
 
+        # fixation auto draw False
+        fixation.setAutoDraw(False)
+
+        # create rating scale stim
         rating_scale = visual.RatingScale( win, low = 1, high = 4, labels=['unfamiliar','familiar'], scale='1               2               3               4',
-                                            pos = [0,-.42], acceptPreText = '-',
-                                            maxTime=3.0, minTime=0, marker = 'triangle', showAccept=False, acceptSize=0, singleClick = True)
+        pos = [0,-.42], acceptPreText = '-',
+        maxTime=2.0, minTime = 0, marker = 'triangle', showAccept=False, singleClick = True,
+        disappear = False, markerStart=None, noMouse = True, markerColor = 'Black' )
 
-        resp_clock = core.Clock()
-        im_path = paths['stim_path']+'single/'+mem_df['Memory Image']
-        image = memory_stim(win, mem_df['Memory Image'][trial], paths['stim_path'])
-
-        display(win, [image, rating_scale], timing['mem'], accepted_keys=['1','2','3','4'], trial=trial, df=mem_df, path = paths)
+        # update memory file
         mem_df.to_csv(paths['subject']+'mem'+str(run)+'.csv')
+
+        # flush what we have so far to the log
+        logging.flush()
+        ISI.complete()
+
+        event.getKeys(keyList = None)
+
+        # start timer for displaying rating scale (2 seconds)
+        rating_timer = core.CountdownTimer(2)
+
+        rating_scale.setAutoDraw(True)
+        images[idx].setAutoDraw(True)
+        win.logOnFlip(level=logging.EXP, msg='WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON')
+
+        while rating_timer.getTime() > 0: # while time greater than the approx timing for a single flip
+            # flip scale and image on
+                    # auto draw scale and image, remover auto draw of fixation
+
+            win.flip()
+
+        win.logOnFlip(level=logging.EXP, msg='WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON')
+        rating_scale.setAutoDraw(False)
+        images[idx].setAutoDraw(False)
+        fixation.setAutoDraw(True)
+        #win.flip()
+
+    fixation.setAutoDraw(False)
+    win.logOnFlip(level=logging.EXP, msg='WIN FLIP : FIXATION OFF')
+    win.flip()
+
+    # save from last trial
+    mem_df["Familiarity Rating"].loc[trial],mem_df['Familiarity Reaction Time (s)'].loc[trial] = rating_pull(rating_scale.getHistory())
+    mem_df.to_csv(paths['subject']+'mem'+str(run)+'.csv')
+    
+    
+#
+#def memory_run(win, run, mem_df, params, timing, paths, test = False):
+#    """
+#    Displays full memory run, saves out data to csv
+#
+#    inputs:
+#        win - visual window
+#        run - run number (int)
+#        paths - paths to subject-relevant directories (dictionary)
+#        params - experiment parameters (dictionary)
+#        timing - stimulus display times (dictionary)
+#        mem_df - all trial info for current memory block (dataframe)
+#    """
+#    fixation = fix_stim(win)
+#
+#    for trial in mem_df.index.values:
+#
+#        display(win, [fixation], timing['pause'], path = paths)
+#
+#        rating_scale = visual.RatingScale( win, low = 1, high = 4, labels=['unfamiliar','familiar'], scale='1               2               3               4',
+#                                            pos = [0,-.42], acceptPreText = '-',
+#                                            maxTime=3.0, minTime=0, marker = 'triangle', showAccept=False, acceptSize=0, singleClick = True,
+#                                            noMouse = True, markerColor = 'Black')
+#
+#        resp_clock = core.Clock()
+#        im_path = paths['stim_path']+'single/'+mem_df['Memory Image']
+#        image = memory_stim(win, mem_df['Memory Image'][trial], paths['stim_path'])
+#
+#        display(win, [image, rating_scale], timing['mem'], accepted_keys=['1','2','3','4'], trial=trial, df=mem_df, path = paths)
+#        mem_df.to_csv(paths['subject']+'mem'+str(run)+'.csv')
 
 
 # Functions to Display Instruction Text and Practice Trials
@@ -812,7 +931,6 @@ def pres_text(trial):
 
     return(instructions[num])
 
-
 def text_present(win, text, close=False, timing=None):
     '''
     Displays text on screen, until button press
@@ -831,8 +949,8 @@ def text_present(win, text, close=False, timing=None):
     else:
         instruction.setAutoDraw(False)
         win.flip()
-
-def practice_instructions(win, paths, text, pract_run, timing, acceptedKeys = [], practice=False):
+        
+def practice_instructions(win, paths, text, pract_run, timing, acceptedKeys = [], practice=False, cat = 'cat', sid = 'sid'):
     '''
     Sequentially presents instruction text, images, and practice trials
     '''
@@ -841,6 +959,11 @@ def practice_instructions(win, paths, text, pract_run, timing, acceptedKeys = []
     cat_cues = [paths['stim_path']+'cue/'+x for x in ['Face.png', 'Place.png']]
     composites = os.listdir(paths['stim_path']+'practice_composite')
     singles = os.listdir(paths['stim_path']+'practice_single')
+
+    mem_composites = os.listdir(paths['stim_path']+'practice_mem_composite')
+    l = os.listdir(paths['stim_path']+'practice_mem_single')
+    mem_single = random.sample(l, k=len(l))
+
     instruction = visual.TextStim(win, text=text, wrapWidth=40)
     ims = [instruction]
 
@@ -857,7 +980,7 @@ def practice_instructions(win, paths, text, pract_run, timing, acceptedKeys = []
     # face cue, place cue
     elif pract_run == 8:
         for x,pos in zip(cat_cues, [2.5, -2.5]):
-            cue = visual.ImageStim(win, x, size=2)
+            cue = visual.ImageStim(win, x, size=2, autoLog=True, name = 'CATEGORY CUE')
             cue.setPos([pos, 0])
             ims.append(cue)
 
@@ -866,6 +989,7 @@ def practice_instructions(win, paths, text, pract_run, timing, acceptedKeys = []
         x.setAutoDraw(True)
 
     win.flip()
+
     event.waitKeys(keyList=None)
 
     for x in ims:
@@ -875,74 +999,266 @@ def practice_instructions(win, paths, text, pract_run, timing, acceptedKeys = []
     # dynamic practice trials
     # pract_pres1
     if pract_run ==8:
-        pract_pres(win, paths, composites[-12:-6], timing, circle=False)
+        pract_pres(win, paths, composites[-6:], timing, circle=False)
 
     # pract_pres2
     if pract_run == 9:
-        pract_pres(win, paths, composites[-6:], timing, circle=True)
+        pract_pres(win, paths, mem_composites, timing, circle=True, mem=True)
 
     # pract_mem
     elif pract_run == 10:
-        pract_mem(win, singles, paths, timing)
+        pract_mem(win, mem_single, paths, timing)
 
-def pract_pres(win, paths, im_list, timing, circle=False):
+
+#def practice_instructions(win, paths, text, pract_run, timing, acceptedKeys = [], practice=False):
+#    '''
+#    Sequentially presents instruction text, images, and practice trials
+#    '''
+#
+#    ############################
+#    
+#    # make list of stim for this practice_round
+#    cat_cues = [paths['stim_path']+'cue/'+x for x in ['Face.png', 'Place.png']]
+#    composites = os.listdir(paths['stim_path']+'practice_composite')
+#    singles = os.listdir(paths['stim_path']+'practice_single')
+#
+#    mem_composites = os.listdir(paths['stim_path']+'practice_mem_composite')
+#    l = os.listdir(paths['stim_path']+'practice_mem_single')
+#    mem_single = random.sample(l, k=len(l))
+#    
+#    ############################
+#
+#    # make list of stim for this practice_round
+#    cat_cues = [paths['stim_path']+'cue/'+x for x in ['Face.png', 'Place.png']]
+#    composites = os.listdir(paths['stim_path']+'practice_composite')
+#    singles = os.listdir(paths['stim_path']+'practice_single')
+#    instruction = visual.TextStim(win, text=text, wrapWidth=40)
+#    ims = [instruction]
+#
+#    # center composite
+#    if pract_run in [1,2,3]:
+#        ims.append(memory_stim(win, composites[pract_run-1], paths['stim_path'], practice=True))
+#
+#    # composite pair, fixation
+#    elif pract_run in [5,7]:
+#        image1,image2 = [composites[pract_run-1], composites[pract_run-2]]
+#        ims.extend(composite_pair(win, composites[pract_run-1], composites[pract_run-2], '>', paths['stim_path'], practice=True))
+#        ims.append(fix_stim(win))
+#
+#    # face cue, place cue
+#    elif pract_run == 8:
+#        for x,pos in zip(cat_cues, [2.5, -2.5]):
+#            cue = visual.ImageStim(win, x, size=2)
+#            cue.setPos([pos, 0])
+#            ims.append(cue)
+#
+#    # display stim until button press
+#    for x in ims:
+#        x.setAutoDraw(True)
+#
+#    win.flip()
+#    event.waitKeys(keyList=None)
+#
+#    for x in ims:
+#        x.setAutoDraw(False)
+#    win.flip()
+#
+#    # dynamic practice trials
+#    # pract_pres1
+#    if pract_run ==8:
+#        pract_pres(win, paths, composites[-12:-6], timing, circle=False)
+#
+#    # pract_pres2
+#    if pract_run == 9:
+#        pract_pres(win, paths, composites[-6:], timing, circle=True)
+#
+#    # pract_mem
+#    elif pract_run == 10:
+#        pract_mem(win, singles, paths, timing)
+
+#def pract_pres(win, paths, im_list, timing, circle=False):
+#    """
+#    Present dynamic practice presentation runs
+#    """
+#
+#    cue1,cue2 = cue_stim(win, random.choice(['>','<']), random.choice(['Face','Place']), paths['stim_path'])
+#    cue3,cue4 = cue_stim(win, random.choice(['>','<']), random.choice(['Face','Place']), paths['stim_path'])
+#    cue5,cue6 = cue_stim(win, random.choice(['>','<']), random.choice(['Face','Place']), paths['stim_path'])
+#
+#    cue1.setPos([0, 2])
+#    cue2.setPos([0, 0])
+#    cue3.setPos([0, 2])
+#    cue4.setPos([0, 0])
+#    cue5.setPos([0, 2])
+#    cue6.setPos([0, 0])
+#    
+#    ISI = core.StaticPeriod(screenHz=win.getActualFrameRate())
+#    
+#    fix  = fix_stim(win)
+#    text = [random.choice(['x','o']), random.choice(['x','o']), random.choice(['x','o'])]
+#    validity_list = [random.choice([1, 0]), random.choice([1, 0]), random.choice([1, 0])]
+#
+#    for x,y in zip(range(3), [[cue1, cue2], [cue3, cue4], [cue5, cue6]]):
+#
+#        # flip cues on
+#        ISI.start(1.5)
+#        
+#        
+#        display(win, y, timing['cue'], path = paths)
+#        fix.setAutoDraw(True)
+#        
+#        # flip cues off, flip fixation on
+#        pause(win, timing['pause'])
+#        
+#        # flip composites on
+#        stim = composite_pair(win, im_list[x*2], im_list[x*2+1], '<', paths['stim_path'], practice=True)
+#        display(win, stim, timing['probe'], path = paths)
+#
+#        if circle:
+#            circle = probe_stim(win, '<', validity_list[x], text=text[x])
+#            display(win, [circle], timing['probe'], accepted_keys=['1','3'], path = paths)
+#
+#        pause(win, timing['pause'])
+#        fix.setAutoDraw(False)
+        
+        
+def pract_pres(win, paths, im_list, timing, circle=False, mem=False):
     """
     Present dynamic practice presentation runs
     """
-
-    cue1,cue2 = cue_stim(win, random.choice(['>','<']), random.choice(['Face','Place']), paths['stim_path'])
-    cue3,cue4 = cue_stim(win, random.choice(['>','<']), random.choice(['Face','Place']), paths['stim_path'])
-    cue5,cue6 = cue_stim(win, random.choice(['>','<']), random.choice(['Face','Place']), paths['stim_path'])
-
-    cue1.setPos([0, 2])
-    cue2.setPos([0, 0])
-    cue3.setPos([0, 2])
-    cue4.setPos([0, 0])
-    cue5.setPos([0, 2])
-    cue6.setPos([0, 0])
-
-
+    
+    event.Mouse(visible=False)
+    # set up ISI for timing precision
+    ISI = core.StaticPeriod(screenHz=win.getActualFrameRate())
+    
     fix = fix_stim(win)
-    text=[random.choice(['x','o']), random.choice(['x','o']), random.choice(['x','o'])]
-    validity_list = [random.choice([1, 0]), random.choice([1, 0]), random.choice([1, 0])]
+    text=[random.choice(['x','o']) for _ in range(3)]
+    validity_list = random.sample([1, 1, 0], k=3)
+    
+    if mem == False:
+        # note: the 'cued side' we pass here doesn't particularly matter
+        # it dictates which side the different composites display on, but not the probe itself
+        stims = [composite_pair(win, im_list[x*2], im_list[x*2+1], '>', paths['stim_path'], practice=True) for x in range(3)]
+    else:
+        stims = [composite_pair(win, im_list[x*2], im_list[x*2+1], '>', paths['stim_path'], mem_practice=True) for x in range(3)]
+    
+    for idx,x in enumerate(range(3)):
+        
+        sid = random.choice(['>','<'])
+        cat = random.choice(['Face','Place'])
+        
+        cue1, cue2 = cue_stim(win, sid, cat, paths['stim_path'])
+        cue1.setPos([0, 2])
+        cue2.setPos([0, 0])
+        fix.setAutoDraw(False)
+        cue1.setAutoDraw(True)
+        cue2.setAutoDraw(True)
+        win.logOnFlip(level=logging.EXP, msg='FIXATION OFF, CUES ON')
+        win.flip()
 
-    for x,y in zip(range(3), [[cue1, cue2], [cue3, cue4], [cue5, cue6]]):
-
-        display(win, y, timing['cue'], path = paths)
+        ISI.start(1.5)
+        cue1.setAutoDraw(False)
+        cue2.setAutoDraw(False)
         fix.setAutoDraw(True)
-        pause(win, timing['pause'])
-
-        stim = composite_pair(win, im_list[x*2], im_list[x*2+1], '<', paths['stim_path'], practice=True)
-        display(win, stim, timing['probe'], path = paths)
+        win.logOnFlip(level=logging.EXP, msg='CUES OFF, FIXATION ON')
+        ISI.complete()
+        win.flip()
+        
+        ISI.start(1)
+        stims[idx][0].setAutoDraw(True)
+        stims[idx][1].setAutoDraw(True)
+        ISI.complete()
+        win.logOnFlip(level=logging.EXP, msg='FIXATION OFF, COMPOSITES ON')
+        win.flip()
+        
+        ISI.start(3)
 
         if circle:
-            circle = probe_stim(win, '<', validity_list[x], text=text[x])
-            display(win, [circle], timing['probe'], accepted_keys=['1','3'], path = paths)
+            circle = probe_stim(win, sid, validity_list[x], text=text[x])
+            circle.setAutoDraw(True)
 
-        pause(win, timing['pause'])
-        fix.setAutoDraw(False)
+        stims[idx][0].setAutoDraw(False)
+        stims[idx][1].setAutoDraw(False)
+        win.logOnFlip(level=logging.EXP, msg='COMPOSITES OFF')
+        ISI.complete()
+        win.flip()
+
+        if circle:
+            response = event.waitKeys(keyList = ['1','3'], timeStamped=True, clearEvents=True)
+
+            # attention probe, until button press
+            circle.setAutoDraw(False)
+            win.logOnFlip(level=logging.EXP, msg='WIN FLIP : ATTENTION PROBE OFF')
+            win.flip()
+
+        ISI.start(1)
+        ISI.complete()
+        
+    fix.setAutoDraw(False)
+
 
 def pract_mem(win, im_list, paths, timing):
     """
     Display dynamic practice memory runs
     """
-
+    event.Mouse(visible=False)
     fixation = fix_stim(win)
 
-    for trial in range(4):
-        rating_scale = visual.RatingScale( win, low = 1, high = 4, labels=['unfamiliar','familiar'], scale='1               2               3               4',
-                                            singleClick = True, pos = [0,-.42], acceptPreText = '-',
-                                            maxTime=3.0, minTime=0, marker = 'triangle', showAccept=False, acceptSize=0)
+    ISI = core.StaticPeriod(screenHz=win.getActualFrameRate())
+    # set up ISI for timing precision
 
-        image = memory_stim(win, im_list[trial], paths['stim_path'], practice_single=True)
-        display(win, [fixation], timing['pause'], path = paths)
+    # create fixation and image stimuli
+    fixation = fix_stim(win)
+    images = [memory_stim(win, x, paths['stim_path'], practice_single_mem=True) for x in im_list]
+
+    # auto draw fixation
+    fixation.setAutoDraw(True)
+    win.logOnFlip(level=logging.EXP, msg='WIN FLIP : FIXATION ON')
+
+    # for every trial
+    for idx,trial in enumerate(range(4)):
+
+        # win flip (fixation on)
+        win.flip()
+
+        # start 1s period
+        ISI.start(1.0)
+
+        # update memory csv
+        #if idx > 0 :
+        #   mem_df["Familiarity Rating"].loc[trial-1],mem_df['Familiarity Reaction Time (s)'].loc[trial-1] = rating_pull(rating_scale.getHistory())
+
+        # fixation auto draw False
+        fixation.setAutoDraw(False)
+
+        # create rating scale stim
+        rating_scale = visual.RatingScale( win, low = 1, high = 4, labels=['unfamiliar','familiar'], scale='1               2               3               4',
+        pos = [0,-.42], acceptPreText = '-',
+        maxTime=2.0, minTime = 0, marker = 'triangle', showAccept=False, singleClick = True,
+        disappear = False, noMouse=True, markerStart=None, markerColor='Black' )
+
+        # auto draw scale and image, remove auto draw of fixation
+        rating_scale.setAutoDraw(True)
+        images[idx].setAutoDraw(True)
+        win.logOnFlip(level=logging.EXP, msg='WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON')
+
+        # flush what we have so far to the log
+        logging.flush()
+        ISI.complete()
 
         event.getKeys(keyList = None)
-        for frame_n in range(timing['mem']):
-            image.setAutoDraw(True)
-            rating_scale.setAutoDraw(True)
+        # start timer for displaying rating scale (2 seconds)
+        rating_timer = core.CountdownTimer(2)
+        while rating_timer.getTime() > .016: # while time greater than the timing for a single flip
+            # flip scale and image on
             win.flip()
-        choice_history = rating_scale.getHistory()
+
+        win.logOnFlip(level=logging.EXP, msg='WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON')
         rating_scale.setAutoDraw(False)
-        image.setAutoDraw(False)
-        win.flip()
+        images[idx].setAutoDraw(False)
+        fixation.setAutoDraw(True)
+        #win.flip()
+
+    fixation.setAutoDraw(False)
+    win.logOnFlip(level=logging.EXP, msg='WIN FLIP : FIXATION OFF')
+    win.flip()
