@@ -135,32 +135,6 @@ def success_prop(df):
     return(prop)
 
 
-# check if this function is used any more
-
-# def attn_success(dataframe, runs=False):
-#     '''
-#     input:  behavioral data, full experiment (pandas dataframe)
-#     output: if runs==True -> run-wise proportions of correct attention probe responses for each subject (list of lists)
-#             if runs!=True -> averaged proportion of correct responses for each subject (list of floats)
-#     '''
-#
-#     prop = []
-#     for sub in dataframe['Subject'].unique():
-#
-#         if runs == False:
-#             df = dataframe[dataframe['Subject']==sub]
-#             prop.append(success_prop(df))
-#
-#         else:
-#             sub_props=[]
-#             for run in range(0,8):
-#                 df = dataframe[(dataframe['Subject']==sub) & (dataframe['Run']==run)]
-#                 sub_props.append(success_prop(df))
-#             prop.append(sub_props)
-#
-#     return(prop)
-
-
 def apply_window(combo, window_length):
     '''
     input:  dataframe of behavioral data from an entire experiment
@@ -355,32 +329,6 @@ def load(path):
     return(data)
 
 
-# def df_create(data):
-#     '''
-#     input: raw parsed eye data
-#     output: dataframe of eye data (screen location in centimeters)
-#     '''
-#
-#     dict_list = [ast.literal_eval(x) for x in data]
-#     dict_list = [x['values']['frame'] for x in dict_list if 'frame' in x['values']]
-#
-#     df = pd.DataFrame(dict_list)
-#
-#     # right and left eye
-#     for eye in ['righteye','lefteye']:
-#         for coord in ['x','y']:
-#             df[coord+'Raw_'+eye] = [df[eye][row]['raw'][coord] for row in df.index.values]
-#
-#     # convert to centimeters
-#     df['av_x_coord'] = (59.8/2048)*(df[['xRaw_righteye', 'xRaw_lefteye']].mean(axis=1))
-#     df['av_y_coord'] = (33.6/1152)*(df[['yRaw_righteye', 'yRaw_lefteye']].mean(axis=1))
-#
-#     # convert timestamp
-#     df['timestamp']=[time.mktime(time.strptime(x[:], "%Y-%m-%d %H:%M:%S.%f")) for x in df['timestamp']]
-#
-#     return(df)
-
-
 def pres_gaze_image(subdir, eye_df):
     '''
     input: subject's experiment df and eye track df
@@ -481,3 +429,39 @@ def eye_initial(path):
     #df['timestamp']=[time.mktime(time.strptime(x[:], "%Y-%m-%d %H:%M:%S.%f")) for x in df['timestamp']]
 
     return(df)
+
+# Log File Parsing Functions
+
+def list_logs(data_dir):
+    '''
+    input : path to participant data directory  (str)
+    output: participant's full behavioral log   (df)
+    '''
+
+    participant = []
+    for f in os.listdir(data_dir):
+
+        if f !='--1.log' and ('.log' in f):
+
+            with open(data_dir+f) as file:
+
+                    lines = file.read().splitlines()
+                    lines = [[lines[x]] for x in range(0, len(lines))]
+                    #lines.insert(0,['DATA'])
+
+                    log_file = pd.DataFrame(lines).reset_index()
+
+                    log_file['Subject'] = sub_dir.split('_')[0]
+                    log_file['Run'] = int(f.split('.')[-2][-1])
+                    log_file['TIME'],log_file['WARNING'],log_file['MESSAGE'] = log_file[0].str.split('\t', 4).str
+                    log_file = log_file.fillna('NAN VALUE')
+                    log_file['TIME'] = log_file['TIME'].str.replace(' ','')
+                    log_file['TIME'] = log_file['TIME'].astype(float, errors='ignore')
+
+                    a = log_file[log_file[0].str.contains('current')][0].str.split(' ', expand=True)
+                    log_file['TIME'] = log_file[['TIME']].applymap(lambda x: np.nan if isinstance(x, str) else float(x))
+
+                    participant.append(log_file)
+
+    participant = pd.concat(participant)
+    return(participant)
