@@ -331,8 +331,9 @@ def load(path):
 
 def pres_gaze_image(subdir, eye_df):
     '''
-    input: subject's experiment df and eye track df
-    output: list of eye tracking df's, one for each presentation trial
+    input: path to participant's data directory
+            participants eye track df
+    output: single df of gaze data for this participant, when pres images on screen
     '''
 
     pres_gaze = []
@@ -451,7 +452,8 @@ def list_logs(data_dir):
 
                     log_file = pd.DataFrame(lines).reset_index()
 
-                    log_file['Subject'] = sub_dir.split('_')[0]
+                    s = data_dir.split('/')[-2]
+                    log_file['Subject'] = s.split('_')[0]
                     log_file['Run'] = int(f.split('.')[-2][-1])
                     log_file['TIME'],log_file['WARNING'],log_file['MESSAGE'] = log_file[0].str.split('\t', 4).str
                     log_file = log_file.fillna('NAN VALUE')

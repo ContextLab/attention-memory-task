@@ -12,3 +12,15 @@ To start exploring the gaze data, and incorporating it into the analysis of the 
 Then, we ran the code in `analyze_gaze_data` to generate statistics on participants' shifts in gaze along the horizontal axis during image viewing, and to plot these gaze shifts with respect to participants' later memory for the images (Figure 3). Further, this code generates our data "check" statistics, where we conduct the same key analyses as in `compile_behavioral_data`, but using only the subset of the data where participants followed our instructions to keep their gaze *between* the images on the screen. 
 
 To explore the gaze data yourself, you can follow these same steps (compiling the data, then analyzing it), or you can start by simply running the code in `analyze_gaze_data`, since the output from the first step has already been saved for you.
+
+
+Order of operations:
+
++ Compile behavioral and gaze data
++ behavioral checks
++ gaze checks
+
++ main behavioral analyses
++ main gaze analyses
+
++ compare across groups, etc
