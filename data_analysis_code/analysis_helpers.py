@@ -329,10 +329,41 @@ def load(path):
     return(data)
 
 
-def pres_gaze_image(subdir, eye_df):
+def pres_gaze_from_df(behavioral_df, eye_df):
     '''
     input: path to participant's data directory
-            participants eye track df
+           participants eye track df
+    output: single df of gaze data for this participant, when pres images on screen
+    '''
+
+    pres_gaze = []
+
+    # for each presentation row in the behavioral df
+    for idx,x in behavioral_df[behavioral_df['Trial Type']=='Presentation'].iterrows():
+
+        # select times when visual stimuli appear & disappear
+        start,end = x['Stimulus Onset'],x['Stimulus End']
+
+        # select gaze data from interval stim was on screen
+        chunk = eye_df.loc[(eye_df['timestamp']>=start) & (eye_df['timestamp']<=end)]
+        chunk['Trial'] = np.nan
+        chunk['Run']   = np.nan
+        chunk['Trial'] = x['Trial']
+        chunk['Run']   = x['Run']
+
+        # append the gaze data for each trial to a list
+        pres_gaze.append(chunk)
+
+    # concat data from all runs and trials
+    pres_gaze = pd.concat(pres_gaze)
+
+    return(pres_gaze)
+
+
+def pres_gaze_from_path(subdir, eye_df):
+    '''
+    input: path to participant's data directory
+           participants eye track df
     output: single df of gaze data for this participant, when pres images on screen
     '''
 
