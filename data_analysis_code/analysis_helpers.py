@@ -221,7 +221,7 @@ def sig_bars(cat, cats, stat_dict, adjust=0, sign='pos'):
             # assign max x value:  .09 + .167 * location_of_the_second_category
             xmax = .09 + cats.index(cat_keys[iteration][1])*.167
 
-            # append each line to the output as a dicitonary containing all of the line parameters
+            # append each line to the output as a dictionary containing all of the line parameters
             # (line width, the categories it is drawn between, etc.)
             answer.append( {'y': y_val, 'x_min': xmin, 'x_max': xmax, 'width': linewidth, 'next': cat_keys[iteration][1],
                        'color' : colors[cats.index(cat_keys[iteration][0])], 'categories': cat_keys[iteration]})
