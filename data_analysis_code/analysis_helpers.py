@@ -63,7 +63,7 @@ def run_level(df):
     output: df with string in 'Attention Level' column in each Memory trial row
     '''
 
-    # loop over the trials in this run
+    # loop over the memory trials in this run
     for index,row in df[df['Trial Type']=='Memory'].iterrows():
 
         # obtain the image presented in the memory run
@@ -331,12 +331,13 @@ def load(path):
 
 def pres_gaze_from_df(behavioral_df, eye_df):
     '''
-    input: path to participant's data directory
-           participants eye track df
+    input: participant's behavioral df
+           participant's eye track df
     output: single df of gaze data for this participant, when pres images on screen
     '''
-
+    # empty lists for pres_gaze and no_gaze (runs w/ very few recorded datapoints)
     pres_gaze = []
+    no_gaze = []
 
     # for each presentation row in the behavioral df
     for idx,x in behavioral_df[behavioral_df['Trial Type']=='Presentation'].iterrows():
@@ -346,18 +347,28 @@ def pres_gaze_from_df(behavioral_df, eye_df):
 
         # select gaze data from interval stim was on screen
         chunk = eye_df.loc[(eye_df['timestamp']>=start) & (eye_df['timestamp']<=end)]
+
+        # add trial and run numbers
         chunk['Trial'] = np.nan
         chunk['Run']   = np.nan
         chunk['Trial'] = x['Trial']
         chunk['Run']   = x['Run']
+
+        # add start times to separate row
+        chunk['Behavior_Image_Start'] = start
+
+        # if there are fewer than five gazepoints, also add this chunk to no_gaze
+        if chunk.shape[0] <5:
+            no_gaze.append(chunk)
 
         # append the gaze data for each trial to a list
         pres_gaze.append(chunk)
 
     # concat data from all runs and trials
     pres_gaze = pd.concat(pres_gaze)
+    # no_gaze = pd.concat(no_gaze)
 
-    return(pres_gaze)
+    return(pres_gaze, no_gaze)
 
 
 def pres_gaze_from_path(subdir, eye_df):
@@ -424,6 +435,7 @@ def add_gaze(df):
     return(df)
 
 
+
 def eye_initial(path):
     ''' reads in raw eye gaze data
         outputs eye gaze dataframe, timestamps in UTC
@@ -431,36 +443,113 @@ def eye_initial(path):
 
     data = []
 
+    # for each gaaze file in this paraticipant's gaze directory
     for x in os.listdir(path):
+
+        # parse the file
         newFile = parseFile(path+x)
         data1 = newFile.parse()
 
-        # replace with Python friendly True/False
+        # replace true/false with Python friendly True/False
         for a,b in zip(['true','false'], ['True', 'False']):
             data1 = data1.replace(a, b)
 
         # select eye tracking rows (ignore occasional "heartbeat" rows; we did not monitor heart rate)
         data1 = data1.split('\n')
+
+        # data1 is a list of rows from this file
         data1 = [x for x in data1 if "tracker" in x]
-        data.extend(data1)
 
-    # evaluate each row and subselect the frame data
-    dict_list = [ast.literal_eval(x) for x in data]
-    dict_list = [x['values']['frame'] for x in dict_list if 'values' in x and 'frame' in x['values']]
-    df = pd.DataFrame(dict_list)
+        # convert strings to python
+        data1 = [ast.literal_eval(x) for x in data1]
 
-    # label the raw average gaze values
+        # select the ones that have gaze values
+        data1 = [x['values']['frame'] for x in data1 if 'values' in x and 'frame' in x['values']]
+
+
+        # convert list of relevant gaze dicts to a dataframe
+        data1 = pd.DataFrame(data1)
+        run_num = re.findall(r'\d+', x)
+
+        # find run nums
+        if len(run_num)==1:
+            run_num = run_num[0]
+        elif len(run_num)==2:
+            run_num=run_num[1]
+
+        # assign run_num column
+        data1['Run'] = run_num
+
+        # append this df to data; data is a list of df's
+        data.append(data1)
+
+    # df is be a big, concatenated df
+    df = pd.concat(data)
+    df = df.reset_index(drop=True)
+
+    # extract raw average gaze values
     for eye in ['righteye','lefteye']:
         for coord in ['x','y']:
             df[coord+'Raw_'+eye] = [df[eye][row]['raw'][coord] for row in df.index.values]
 
-    # take the averages
+    # average x coord and y coord values from right and left eyes
     df['av_x_coord'] = df[['xRaw_righteye', 'xRaw_lefteye']].mean(axis=1)
     df['av_y_coord'] = df[['yRaw_righteye', 'yRaw_lefteye']].mean(axis=1)
+    # timestamp conversion
     df['timestamp']=[datetime.timestamp(datetime.strptime(x,"%Y-%m-%d %H:%M:%S.%f" )) for x in df['timestamp']]
-    #df['timestamp']=[time.mktime(time.strptime(x[:], "%Y-%m-%d %H:%M:%S.%f")) for x in df['timestamp']]
 
     return(df)
+
+
+# def eye_initial(path):
+#     ''' reads in raw eye gaze data
+#         outputs eye gaze dataframe, timestamps in UTC
+#     '''
+#
+#     data = []
+#
+#     for x in os.listdir(path):
+#         newFile = parseFile(path+x)
+#         data1 = newFile.parse()
+#
+#         # replace with Python friendly True/False
+#         for a,b in zip(['true','false'], ['True', 'False']):
+#             data1 = data1.replace(a, b)
+#
+#         # select eye tracking rows (ignore occasional "heartbeat" rows; we did not monitor heart rate)
+#         data1 = data1.split('\n')
+#         data1 = [x for x in data1 if "tracker" in x]
+#
+#         l = len(data1)
+#         if l ==0:
+#             print(x + ' no gazepoints')
+#         elif l < 10:
+#             print(x + ' less than ten points')
+#         elif l < 20:
+#             print(x + ' less than twenty points')
+#         elif l < 30:
+#             print(x + ' less than thirty points')
+#
+#         data.extend(data1)
+#
+#     # evaluate each row and subselect the frame data
+#     dict_list = [ast.literal_eval(x) for x in data]
+#     dict_list = [x['values']['frame'] for x in dict_list if 'values' in x and 'frame' in x['values']]
+#     df = pd.DataFrame(dict_list)
+#
+#     # label the raw average gaze values
+#     for eye in ['righteye','lefteye']:
+#         for coord in ['x','y']:
+#             df[coord+'Raw_'+eye] = [df[eye][row]['raw'][coord] for row in df.index.values]
+#
+#     # take the averages
+#     df['av_x_coord'] = df[['xRaw_righteye', 'xRaw_lefteye']].mean(axis=1)
+#     df['av_y_coord'] = df[['yRaw_righteye', 'yRaw_lefteye']].mean(axis=1)
+#     df['timestamp']=[datetime.timestamp(datetime.strptime(x,"%Y-%m-%d %H:%M:%S.%f" )) for x in df['timestamp']]
+#     #df['timestamp']=[time.mktime(time.strptime(x[:], "%Y-%m-%d %H:%M:%S.%f")) for x in df['timestamp']]
+#
+#     return(df)
+
 
 # Log File Parsing Functions
 
