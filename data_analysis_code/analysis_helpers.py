@@ -302,6 +302,7 @@ def cohen_d(a, b):
     cohen = (Ma-Mb)/pooledSd
 
     return(cohen)
+    
 
 # def cohen_d(a, b):
 #     '''
