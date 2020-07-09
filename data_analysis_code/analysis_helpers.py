@@ -286,14 +286,32 @@ def timepoint_ttest(data, columns, related=True):
 
 def cohen_d(a, b):
     '''
-    input  : two lists of data
-    output : cohens d statistic
+    :param a: some distribution of data a
+    :param b: some distribution of data b
+    :return: the effect size according to cohens D calculation
     '''
+    Na = len(a) # number
+    Nb = len(b)
+    Ma = mean(a) # mean
+    Mb = mean(b)
+    Sa = stdev(a) # standard dev
+    Sb = stdev(b)
 
-    cohen_d = (mean(a) - mean(b)) / (sqrt((stdev(a) ** 2 + stdev(b) ** 2) / 2))
+    # pooled standard dev for 2 distributions
+    pooledSd = sqrt( ((Na-1)*na**2 + (Mb-1)*Ma**2)/(Na + Ma -2) )
+    cohen = (Ma-Mb)/pooledSd
 
-    return(cohen_d)
+    return(cohen)
 
+# def cohen_d(a, b):
+#     '''
+#     input  : two lists of data
+#     output : cohens d statistic
+#     '''
+#
+#     cohen_d = (mean(a) - mean(b)) / (sqrt((stdev(a) ** 2 + stdev(b) ** 2) / 2))
+#
+#     return(cohen_d)
 
 
 # EYE GAZE DATA ANALYSIS FUNCTIONS
