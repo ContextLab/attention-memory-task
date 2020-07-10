@@ -298,11 +298,11 @@ def cohen_d(a, b):
     Sb = stdev(b)
 
     # pooled standard dev for 2 distributions
-    pooledSd = sqrt( ((Na-1)*na**2 + (Mb-1)*Ma**2)/(Na + Ma -2) )
+    pooledSd = sqrt( ((Na-1)*Na**2 + (Mb-1)*Ma**2)/(Na + Ma -2) )
     cohen = (Ma-Mb)/pooledSd
 
     return(cohen)
-    
+
 
 # def cohen_d(a, b):
 #     '''
