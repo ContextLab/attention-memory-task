@@ -3,10 +3,9 @@
 
 # Imports ############################################################################################
 
-from experiment_helpers_sustained_logfile import * # main functions in experiment_helpers.fpy
+from experiment_helpers import * # main functions in experiment_helpers.fpy
 import pandas as pd
 import csv
-import random
 
 # Set Up #############################################################################################
 
@@ -26,16 +25,6 @@ paths['subject'] = subject_directory(info, paths['data_path'])
 global_clock = core.Clock()
 logging.setDefaultClock(global_clock)
 
-# initiate log file
-logDat = logging.LogFile(paths['subject']+'_'+info['run']+'_log'+'.log', filemode='w', level = logging.DEBUG)
-logging.log(level=logging.WARN, msg='warning')
-logging.log(level=logging.EXP , msg='experiment')
-logging.log(level=logging.DATA, msg='data')
-logging.log(level=logging.INFO, msg='info')
-
-# timestamp for reference
-logging.info('current time: '+str(time.time()))
-
 # Pre questionnaire #
 if int(info['run'])==0:
     pre_info = pre_questionnaire(info, save_path=paths['subject'])
@@ -50,28 +39,10 @@ timing = {'cue':int(round(1.5 * rate)), 'probe':int(round(3.0 * rate)), 'mem':in
 
 # Run Experiment #####################################################################################
 
-# Hide mouse
-event.Mouse(visible=False)
-
 # Instructions & Practice #
 if practice:
-    
-    cats = random.sample(['Face','Place'], k=2)
-    sids = random.sample(['<','>'], k=2)
-    
     for x in range(11):
-        if x ==8:
-            practice_instructions(win, paths, pract_text(x), x, timing, acceptedKeys = [], practice=True, 
-            cat = cats[0], sid = sids[0])
-            
-        
-        elif x == 9:
-            practice_instructions(win, paths, pract_text(x), x, timing, acceptedKeys = [], practice=True, 
-            cat = cats[1], sid = sids[1])
-        
-        else:
-            practice_instructions(win, paths, pract_text(x), x, timing, acceptedKeys = [], practice=True)
-     
+        practice_instructions(win, paths, pract_text(x), x, timing, acceptedKeys = [], practice=True)
 
 # Initialize dataframe #
 if int(info['run'])==0:

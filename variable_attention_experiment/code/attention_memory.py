@@ -24,51 +24,35 @@ info = subject_info(experiment_title)
 paths['subject'] = subject_directory(info, paths['data_path'])
 
 # Initiate clock #
-global_clock = core.Clock ()
+global_clock = core.Clock()
 logging.setDefaultClock(global_clock)
 
-# initiate log file
-logDat = logging.LogFile(paths['subject']+'-'+info['run']+'.log', filemode='w', level = logging.DEBUG)
-logging.log(level=logging.WARN, msg='warning')
-logging.log(level=logging.EXP , msg='experiment')
-logging.log(level=logging.DATA, msg='data')
-logging.log(level=logging.INFO, msg='info')
-
 # Pre questionnaire #
-if int(info['run'])==-1:
+if int(info['run'])==0:
     pre_info = pre_questionnaire(info, save_path=paths['subject'])
 else:
     practice = False
 
 # Window and Stimulus timing #
 win = visual.Window([1024,768], fullscr = True, monitor = 'testMonitor', units='deg', color = 'black')
-win.setMouseVisible = False
 rate = win.getActualFrameRate()
 timing = {'cue':int(round(1.5 * rate)), 'probe':int(round(3.0 * rate)), 'mem':int(round(2 * rate)), 'pause':int(round(1 *rate))}
 
 
 # Run Experiment #####################################################################################
 
-# mouse invisible
-event.Mouse(visible=False)
-
-# Initialize dataframe #
-if int(info['run'])==-1:
-    df = initialize_df(info, categories, paths, params, shuffle=shuffle)
-else:
-    df = pd.DataFrame.from_csv(paths['subject']+'intial_df.csv')
-
 # Instructions & Practice #
 if practice:
     for x in range(11):
         practice_instructions(win, paths, pract_text(x), x, timing, acceptedKeys = [], practice=True)
 
-    # experiment stops for recalibration) #
-    text_present(win, 'Next, we will pause to set up the eye tracker. You can take a break and hit any key when you are ready.',
-                 close=True, timing = timing)
+# Initialize dataframe #
+if int(info['run'])==0:
+    df = initialize_df(info, categories, paths, params, shuffle=shuffle)
+else:
+    df = pd.DataFrame.from_csv(paths['subject']+'intial_df.csv')
 
 # Create df masks #
-
 mask1 = df['Trial Type']=='Presentation'
 mask2 = df['Trial Type']=='Memory'
 
@@ -77,16 +61,16 @@ for run in range(int(info['run']),params['runs']):
 
     # chunk dataframe #
     mask3 = df['Run']==run
-#
+
     # presentation run #
     text_present(win, pres_text(run))
-    presentation_run(win, run, df.loc[mask1][mask3], params, timing, paths)
+    presentation_run(win, run, df.loc[mask1][mask3], params, timing, paths, shuffle=shuffle)
 
     # memory run #
     text_present(win, mem_text(run))
     memory_run(win, run, df.loc[mask2][mask3], params, timing, paths)
 
-    # experiment stops for recalibration #
+    # if subject self reports head movement, experiment stops for recalibration) #
     if run != params['runs']-1:
         text_present(win, 'Next, we will pause to recalibrate the eye tracker. You can take a break and hit any key when you are ready for recalibration.',
                      close=True, timing = timing)
