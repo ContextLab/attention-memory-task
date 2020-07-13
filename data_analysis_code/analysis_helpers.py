@@ -361,6 +361,7 @@ def load(path):
     return(data)
 
 
+<<<<<<< HEAD
 def pres_gaze_from_df(behavioral_df, eye_df):
     '''
     input: participant's behavioral df
@@ -407,6 +408,12 @@ def pres_gaze_from_path(subdir, eye_df):
     '''
     input: path to participant's data directory
            participants eye track df
+=======
+def pres_gaze_image(subdir, eye_df):
+    '''
+    input: path to participant's data directory
+            participants eye track df
+>>>>>>> 6d729aa13dc8cd666332aa6ba2aaf15520192cd3
     output: single df of gaze data for this participant, when pres images on screen
     '''
 
@@ -532,7 +539,10 @@ def eye_initial(path):
 
     return(df)
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6d729aa13dc8cd666332aa6ba2aaf15520192cd3
 # Log File Parsing Functions
 
 def list_logs(data_dir):
