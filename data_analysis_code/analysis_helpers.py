@@ -363,6 +363,7 @@ def load(path):
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 def pres_gaze_from_df(behavioral_df, eye_df):
     '''
     input: participant's behavioral df
@@ -412,11 +413,16 @@ def pres_gaze_from_path(subdir, eye_df):
 =======
 =======
 >>>>>>> 6d729aa13dc8cd666332aa6ba2aaf15520192cd3
+=======
+>>>>>>> 6d729aa13dc8cd666332aa6ba2aaf15520192cd3
 def pres_gaze_image(subdir, eye_df):
     '''
     input: path to participant's data directory
             participants eye track df
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 6d729aa13dc8cd666332aa6ba2aaf15520192cd3
+=======
 >>>>>>> 6d729aa13dc8cd666332aa6ba2aaf15520192cd3
 =======
 >>>>>>> 6d729aa13dc8cd666332aa6ba2aaf15520192cd3
@@ -547,7 +553,10 @@ def eye_initial(path):
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6d729aa13dc8cd666332aa6ba2aaf15520192cd3
 =======
 >>>>>>> 6d729aa13dc8cd666332aa6ba2aaf15520192cd3
 =======

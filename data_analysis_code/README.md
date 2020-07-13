@@ -25,7 +25,11 @@ Order of operations:
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 + compare across groups, etc
+=======
++ compare across groups, etc
+>>>>>>> 6d729aa13dc8cd666332aa6ba2aaf15520192cd3
 =======
 + compare across groups, etc
 >>>>>>> 6d729aa13dc8cd666332aa6ba2aaf15520192cd3
