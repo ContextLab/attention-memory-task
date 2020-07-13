@@ -284,35 +284,48 @@ def timepoint_ttest(data, columns, related=True):
     return(data)
 
 
-def cohen_d(a, b):
+def cohen_d(a, b, repeated=False):
     '''
     :param a: some distribution of data a
     :param b: some distribution of data b
-    :return: the effect size according to cohens D calculation
+    :repeated: boolean, is the data a repeated collection
+    :return: the effect size according to cohens D calculated
     '''
-    Na = len(a) # number
+    Na = len(a)  # number
     Nb = len(b)
-    Ma = mean(a) # mean
+    Ma = mean(a)  # mean
     Mb = mean(b)
-    Sa = stdev(a) # standard dev
+    Sa = stdev(a)  # standard dev
     Sb = stdev(b)
+    # pooled standard deviation
+    pooledSd = sqrt(((Na - 1) * Sa ** 2 + (Nb - 1) * Sb ** 2) / (Na + Nb - 2))
+    #print("Mean a= "+str(Ma)+" Std a= "+str(Sa))
+    #print("Mean b= " + str(Mb) + " Std b= " + str(Sb))
+    if repeated:
+        r = covar(a, b)/(Sa*Sb) # linear correlation
+       # print("Covar= "+str(covar(a,b)))
+        #print("R= "+str(r))
+        CD = abs(Ma-Mb)/sqrt(Sa**2 + Sb**2 - 2*r*Sa*Sb) # new cohens D
+    else:
+        #print("Pooled sd= " + str(pooledSd))
+        # pooled standard dev for 2 distributions
+        CD = abs((Ma-Mb)/pooledSd)
+    return CD
 
-    # pooled standard dev for 2 distributions
-    pooledSd = sqrt( ((Na-1)*Na**2 + (Mb-1)*Ma**2)/(Na + Ma -2) )
-    cohen = (Ma-Mb)/pooledSd
 
-    return(cohen)
-
-
-# def cohen_d(a, b):
-#     '''
-#     input  : two lists of data
-#     output : cohens d statistic
-#     '''
-#
-#     cohen_d = (mean(a) - mean(b)) / (sqrt((stdev(a) ** 2 + stdev(b) ** 2) / 2))
-#
-#     return(cohen_d)
+def covar(a, b):
+    # helper function for covariance
+    # len of a and b must be the same
+    Ma = mean(a)
+    Mb = mean(b)
+    Na = len(a)
+    cov = 0
+    if len(a) != len(b):
+        print('error: data do not have the same length')
+    else:
+        for i in range(0,Na):
+            cov += (a[i]-Ma)*(b[i]-Mb)/(Na-1)
+    return cov
 
 
 # EYE GAZE DATA ANALYSIS FUNCTIONS
@@ -518,56 +531,6 @@ def eye_initial(path):
     df['timestamp']=[datetime.timestamp(datetime.strptime(x,"%Y-%m-%d %H:%M:%S.%f" )) for x in df['timestamp']]
 
     return(df)
-
-
-# def eye_initial(path):
-#     ''' reads in raw eye gaze data
-#         outputs eye gaze dataframe, timestamps in UTC
-#     '''
-#
-#     data = []
-#
-#     for x in os.listdir(path):
-#         newFile = parseFile(path+x)
-#         data1 = newFile.parse()
-#
-#         # replace with Python friendly True/False
-#         for a,b in zip(['true','false'], ['True', 'False']):
-#             data1 = data1.replace(a, b)
-#
-#         # select eye tracking rows (ignore occasional "heartbeat" rows; we did not monitor heart rate)
-#         data1 = data1.split('\n')
-#         data1 = [x for x in data1 if "tracker" in x]
-#
-#         l = len(data1)
-#         if l ==0:
-#             print(x + ' no gazepoints')
-#         elif l < 10:
-#             print(x + ' less than ten points')
-#         elif l < 20:
-#             print(x + ' less than twenty points')
-#         elif l < 30:
-#             print(x + ' less than thirty points')
-#
-#         data.extend(data1)
-#
-#     # evaluate each row and subselect the frame data
-#     dict_list = [ast.literal_eval(x) for x in data]
-#     dict_list = [x['values']['frame'] for x in dict_list if 'values' in x and 'frame' in x['values']]
-#     df = pd.DataFrame(dict_list)
-#
-#     # label the raw average gaze values
-#     for eye in ['righteye','lefteye']:
-#         for coord in ['x','y']:
-#             df[coord+'Raw_'+eye] = [df[eye][row]['raw'][coord] for row in df.index.values]
-#
-#     # take the averages
-#     df['av_x_coord'] = df[['xRaw_righteye', 'xRaw_lefteye']].mean(axis=1)
-#     df['av_y_coord'] = df[['yRaw_righteye', 'yRaw_lefteye']].mean(axis=1)
-#     df['timestamp']=[datetime.timestamp(datetime.strptime(x,"%Y-%m-%d %H:%M:%S.%f" )) for x in df['timestamp']]
-#     #df['timestamp']=[time.mktime(time.strptime(x[:], "%Y-%m-%d %H:%M:%S.%f")) for x in df['timestamp']]
-#
-#     return(df)
 
 
 # Log File Parsing Functions
