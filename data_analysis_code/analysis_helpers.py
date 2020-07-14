@@ -361,10 +361,6 @@ def load(path):
     return(data)
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 def pres_gaze_from_df(behavioral_df, eye_df):
     '''
     input: participant's behavioral df
@@ -405,69 +401,6 @@ def pres_gaze_from_df(behavioral_df, eye_df):
     # no_gaze = pd.concat(no_gaze)
 
     return(pres_gaze, no_gaze)
-
-
-def pres_gaze_from_path(subdir, eye_df):
-    '''
-    input: path to participant's data directory
-           participants eye track df
-=======
-=======
->>>>>>> 6d729aa13dc8cd666332aa6ba2aaf15520192cd3
-=======
->>>>>>> 6d729aa13dc8cd666332aa6ba2aaf15520192cd3
-=======
->>>>>>> 6d729aa13dc8cd666332aa6ba2aaf15520192cd3
-def pres_gaze_image(subdir, eye_df):
-    '''
-    input: path to participant's data directory
-            participants eye track df
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 6d729aa13dc8cd666332aa6ba2aaf15520192cd3
-=======
->>>>>>> 6d729aa13dc8cd666332aa6ba2aaf15520192cd3
-=======
->>>>>>> 6d729aa13dc8cd666332aa6ba2aaf15520192cd3
-=======
->>>>>>> 6d729aa13dc8cd666332aa6ba2aaf15520192cd3
-    output: single df of gaze data for this participant, when pres images on screen
-    '''
-
-    pres_gaze = []
-
-    # for each file in this subject directory
-    for f in os.listdir(subdir):
-
-        # for every behavioral data file from a presentation run
-        if 'pres' in f:
-
-            # read in the presentation data
-            pres_df = pd.read_csv(subdir+'/'+f)
-
-            # pull the stimulus start and end times from this run
-            start = pres_df['Stimulus Onset']
-            end = pres_df['Stimulus End']
-
-            # loop through the start and end times and pull gazepoints that fall within them
-            trial = 0
-            for on,off in zip(start, end):
-
-                chunk = eye_df.loc[(eye_df['timestamp']>=on) & (eye_df['timestamp']<=off)]
-
-                chunk['Trial'] = trial
-                chunk['Run']   = f[-5] # run number from filename ('pres#.csv')
-
-                # append the gaze data for each trial to a list
-                pres_gaze.append(chunk)
-
-                trial+=1
-
-    # concat data from all runs and trials
-    pres_gaze = pd.concat(pres_gaze)
-
-    return(pres_gaze)
 
 
 def add_gaze(df):
@@ -557,19 +490,6 @@ def eye_initial(path):
 
     return(df)
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> 6d729aa13dc8cd666332aa6ba2aaf15520192cd3
-=======
->>>>>>> 6d729aa13dc8cd666332aa6ba2aaf15520192cd3
-=======
->>>>>>> 6d729aa13dc8cd666332aa6ba2aaf15520192cd3
-=======
->>>>>>> 6d729aa13dc8cd666332aa6ba2aaf15520192cd3
 # Log File Parsing Functions
 
 def list_logs(data_dir):
