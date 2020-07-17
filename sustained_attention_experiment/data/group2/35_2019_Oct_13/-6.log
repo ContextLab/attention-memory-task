@@ -1,0 +1,885 @@
+0.0005 	WARNING 	warning
+0.0005 	EXP 	experiment
+0.0005 	DATA 	data
+0.0005 	INFO 	info
+0.0005 	INFO 	current time: 1570974617.04
+0.0373 	INFO 	Loaded monitor calibration from ['2016_07_13 13:20']
+0.0439 	WARNING 	User requested fullscreen with size [1024  768], but screen is actually [2048, 1152]. Using actual size
+0.6331 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, args=UNKNOWN, autoLog=True, bitsMode=UNKNOWN, blendMode='avg', color='black', colorSpace='named', fullscr=UNKNOWN, gamma=None, kwargs=UNKNOWN, lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x10e4dc590>, multiSample=False, name='window1', numSamples=2, pos=[-1024, -576], screen=0, size=array([4096, 2304]), stereo=False, units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType=u'pyglet')
+0.6332 	EXP 	window1: recordFrameIntervals = False
+0.8031 	EXP 	window1: recordFrameIntervals = True
+0.8709 	WARNING 	t of last frame was 21.94ms (=1/45)
+1.0493 	DEBUG 	Screen (0) actual frame rate measured at 59.83
+1.0493 	EXP 	window1: recordFrameIntervals = False
+1.0493 	INFO 	Mouse: using default window
+1.3245 	EXP 	Created INSTRCUCTION TEXT = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=1.0, italic=False, name='INSTRCUCTION TEXT', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=array([1., 1., 1.]), text=newstr(...), units='deg', win=Window(...), wrapWidth=40)
+1.3385 	EXP 	INSTRCUCTION TEXT: autoDraw = True
+6.4369 	DATA 	Keypress: 2
+6.4701 	EXP 	INSTRCUCTION TEXT: autoDraw = False
+6.4721 	INFO 	Mouse: using default window
+6.5495 	EXP 	Created CATEGORY CUE: Face = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/cue/Face.png', interpolate=False, mask=None, maskParams=None, name='CATEGORY CUE: Face', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([2., 2.]), texRes=128, units='deg', win=Window(...))
+6.5578 	EXP 	Created SIDE CUE: > = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='lightGrey', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=2, italic=False, name='SIDE CUE: >', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([211., 211., 211.]), text='>', units='deg', win=Window(...), wrapWidth=15.0)
+6.5615 	EXP 	Created FIXATION CROSS = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='lightGrey', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=2, italic=False, name='FIXATION CROSS', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([211., 211., 211.]), text='+', units='deg', win=Window(...), wrapWidth=15.0)
+6.5801 	EXP 	Created CUED COMPOSITE ../../stim/composite/00766960620fa_sunafijbgncijwykrnl.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+6.6015 	EXP 	Created UNCUED COMPOSITE ../../stim/composite/00543940519fa_sunacepzfrmtkiqonpy.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+6.6213 	EXP 	Created CUED COMPOSITE ../../stim/composite/00847940307fa_sunaivdjruhkrfywfed.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+6.6259 	EXP 	Created UNCUED COMPOSITE ../../stim/composite/00963960627fa_sunayaepykrqvenaqqy.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+6.6489 	EXP 	Created CUED COMPOSITE ../../stim/composite/00723941201fa_sunaedtgwjvvziytspa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+6.6542 	EXP 	Created UNCUED COMPOSITE ../../stim/composite/00966960627fa_sunaygrtwrwfezqjizr.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+6.6668 	EXP 	Created CUED COMPOSITE ../../stim/composite/00944960627fa_sunasbbntuiheekqyaq.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+6.6738 	EXP 	Created UNCUED COMPOSITE ../../stim/composite/00889960530fa_sunaletopenvvozhpxc.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+6.6808 	EXP 	Created CUED COMPOSITE ../../stim/composite/00676941121fa_sunadpnqovzckyikrjo.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+6.6852 	EXP 	Created UNCUED COMPOSITE ../../stim/composite/00557940519fa_sunachtuarilwyqnvjx.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+6.7027 	EXP 	Created CUED COMPOSITE ../../stim/composite/00070940307fa_sunaaeplwsfslcbtojr.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+6.7187 	EXP 	Created UNCUED COMPOSITE ../../stim/composite/00990960627fa_sunbpflsdaxnddnwcqi.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+6.7234 	EXP 	Created CUED COMPOSITE ../../stim/composite/00807941205fa_sunahawfngukizslzsd.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+6.7279 	EXP 	Created UNCUED COMPOSITE ../../stim/composite/00965960627fa_sunaydywdmvlfddbxbk.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+6.7454 	EXP 	Created CUED COMPOSITE ../../stim/composite/00158931230fb_sunaavchcbptaerhcfy.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+6.7631 	EXP 	Created UNCUED COMPOSITE ../../stim/composite/00746941201fa_sunaetydippjxikifsb.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+6.7875 	EXP 	Created CUED COMPOSITE ../../stim/composite/00211940128fa_sunabasphceswhwwqvv.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+6.7915 	EXP 	Created UNCUED COMPOSITE ../../stim/composite/00858940307fa_sunaixpqndlwhwjtjek.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+6.7963 	EXP 	Created CUED COMPOSITE ../../stim/composite/00906960530fa_sunantryfbloeaomfta.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+6.8171 	EXP 	Created UNCUED COMPOSITE ../../stim/composite/00986960627fa_sunbgzjryivyczuvkvm.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+6.8210 	EXP 	Created ATTENTION PROBE = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='lightGrey', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=2, italic=False, name='ATTENTION PROBE', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([211., 211., 211.]), text='x', units='deg', win=Window(...), wrapWidth=15.0)
+6.8239 	EXP 	Created ATTENTION PROBE = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='lightGrey', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=2, italic=False, name='ATTENTION PROBE', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([211., 211., 211.]), text='x', units='deg', win=Window(...), wrapWidth=15.0)
+6.8270 	EXP 	Created ATTENTION PROBE = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='lightGrey', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=2, italic=False, name='ATTENTION PROBE', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([211., 211., 211.]), text='x', units='deg', win=Window(...), wrapWidth=15.0)
+6.8305 	EXP 	Created ATTENTION PROBE = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='lightGrey', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=2, italic=False, name='ATTENTION PROBE', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([211., 211., 211.]), text='o', units='deg', win=Window(...), wrapWidth=15.0)
+6.8339 	EXP 	Created ATTENTION PROBE = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='lightGrey', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=2, italic=False, name='ATTENTION PROBE', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([211., 211., 211.]), text='x', units='deg', win=Window(...), wrapWidth=15.0)
+6.8371 	EXP 	Created ATTENTION PROBE = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='lightGrey', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=2, italic=False, name='ATTENTION PROBE', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([211., 211., 211.]), text='o', units='deg', win=Window(...), wrapWidth=15.0)
+6.8404 	EXP 	Created ATTENTION PROBE = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='lightGrey', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=2, italic=False, name='ATTENTION PROBE', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([211., 211., 211.]), text='x', units='deg', win=Window(...), wrapWidth=15.0)
+6.8437 	EXP 	Created ATTENTION PROBE = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='lightGrey', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=2, italic=False, name='ATTENTION PROBE', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([211., 211., 211.]), text='x', units='deg', win=Window(...), wrapWidth=15.0)
+6.8471 	EXP 	Created ATTENTION PROBE = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='lightGrey', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=2, italic=False, name='ATTENTION PROBE', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([211., 211., 211.]), text='o', units='deg', win=Window(...), wrapWidth=15.0)
+6.8502 	EXP 	Created ATTENTION PROBE = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='lightGrey', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=2, italic=False, name='ATTENTION PROBE', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([211., 211., 211.]), text='x', units='deg', win=Window(...), wrapWidth=15.0)
+6.8505 	EXP 	window1: recordFrameIntervals = False
+6.8880 	EXP 	CATEGORY CUE: Face: pos = array([0., 2.])
+6.8880 	EXP 	SIDE CUE: >: pos = array([0., 0.])
+6.8880 	EXP 	CUED COMPOSITE ../../stim/composite/00766960620fa_sunafijbgncijwykrnl.jpg: pos = array([8., 0.])
+6.8880 	EXP 	UNCUED COMPOSITE ../../stim/composite/00543940519fa_sunacepzfrmtkiqonpy.jpg: pos = array([-8.,  0.])
+6.8880 	EXP 	CUED COMPOSITE ../../stim/composite/00847940307fa_sunaivdjruhkrfywfed.jpg: pos = array([8., 0.])
+6.8880 	EXP 	UNCUED COMPOSITE ../../stim/composite/00963960627fa_sunayaepykrqvenaqqy.jpg: pos = array([-8.,  0.])
+6.8880 	EXP 	CUED COMPOSITE ../../stim/composite/00723941201fa_sunaedtgwjvvziytspa.jpg: pos = array([8., 0.])
+6.8880 	EXP 	UNCUED COMPOSITE ../../stim/composite/00966960627fa_sunaygrtwrwfezqjizr.jpg: pos = array([-8.,  0.])
+6.8880 	EXP 	CUED COMPOSITE ../../stim/composite/00944960627fa_sunasbbntuiheekqyaq.jpg: pos = array([8., 0.])
+6.8880 	EXP 	UNCUED COMPOSITE ../../stim/composite/00889960530fa_sunaletopenvvozhpxc.jpg: pos = array([-8.,  0.])
+6.8880 	EXP 	CUED COMPOSITE ../../stim/composite/00676941121fa_sunadpnqovzckyikrjo.jpg: pos = array([8., 0.])
+6.8880 	EXP 	UNCUED COMPOSITE ../../stim/composite/00557940519fa_sunachtuarilwyqnvjx.jpg: pos = array([-8.,  0.])
+6.8880 	EXP 	CUED COMPOSITE ../../stim/composite/00070940307fa_sunaaeplwsfslcbtojr.jpg: pos = array([8., 0.])
+6.8880 	EXP 	UNCUED COMPOSITE ../../stim/composite/00990960627fa_sunbpflsdaxnddnwcqi.jpg: pos = array([-8.,  0.])
+6.8880 	EXP 	CUED COMPOSITE ../../stim/composite/00807941205fa_sunahawfngukizslzsd.jpg: pos = array([8., 0.])
+6.8880 	EXP 	UNCUED COMPOSITE ../../stim/composite/00965960627fa_sunaydywdmvlfddbxbk.jpg: pos = array([-8.,  0.])
+6.8880 	EXP 	CUED COMPOSITE ../../stim/composite/00158931230fb_sunaavchcbptaerhcfy.jpg: pos = array([8., 0.])
+6.8880 	EXP 	UNCUED COMPOSITE ../../stim/composite/00746941201fa_sunaetydippjxikifsb.jpg: pos = array([-8.,  0.])
+6.8880 	EXP 	CUED COMPOSITE ../../stim/composite/00211940128fa_sunabasphceswhwwqvv.jpg: pos = array([8., 0.])
+6.8880 	EXP 	UNCUED COMPOSITE ../../stim/composite/00858940307fa_sunaixpqndlwhwjtjek.jpg: pos = array([-8.,  0.])
+6.8880 	EXP 	CUED COMPOSITE ../../stim/composite/00906960530fa_sunantryfbloeaomfta.jpg: pos = array([8., 0.])
+6.8880 	EXP 	UNCUED COMPOSITE ../../stim/composite/00986960627fa_sunbgzjryivyczuvkvm.jpg: pos = array([-8.,  0.])
+6.8880 	EXP 	ATTENTION PROBE: pos = array([8., 0.])
+6.8880 	EXP 	ATTENTION PROBE: pos = array([8., 0.])
+6.8880 	EXP 	ATTENTION PROBE: pos = array([8., 0.])
+6.8880 	EXP 	ATTENTION PROBE: pos = array([8., 0.])
+6.8880 	EXP 	ATTENTION PROBE: pos = array([8., 0.])
+6.8880 	EXP 	ATTENTION PROBE: pos = array([-8.,  0.])
+6.8880 	EXP 	ATTENTION PROBE: pos = array([8., 0.])
+6.8880 	EXP 	ATTENTION PROBE: pos = array([8., 0.])
+6.8880 	EXP 	ATTENTION PROBE: pos = array([-8.,  0.])
+6.8880 	EXP 	ATTENTION PROBE: pos = array([8., 0.])
+7.0337 	EXP 	window1: recordFrameIntervals = True
+7.2173 	DEBUG 	Screen (0) actual frame rate measured at 59.82
+7.2174 	EXP 	window1: recordFrameIntervals = False
+7.2352 	EXP 	CATEGORY CUE: Face: autoDraw = True
+7.2352 	EXP 	SIDE CUE: >: autoDraw = True
+7.2352 	EXP 	WIN FLIP : CUES ON
+8.7387 	EXP 	CATEGORY CUE: Face: autoDraw = False
+8.7387 	EXP 	SIDE CUE: >: autoDraw = False
+8.7387 	EXP 	FIXATION CROSS: autoDraw = True
+8.7387 	EXP 	WIN FLIP : CUES OFF, FIXATION ON
+9.7395 	EXP 	CUED COMPOSITE ../../stim/composite/00766960620fa_sunafijbgncijwykrnl.jpg: autoDraw = True
+9.7395 	EXP 	UNCUED COMPOSITE ../../stim/composite/00543940519fa_sunacepzfrmtkiqonpy.jpg: autoDraw = True
+9.7395 	EXP 	WIN FLIP : COMPOSITES ON
+12.7549 	EXP 	CUED COMPOSITE ../../stim/composite/00766960620fa_sunafijbgncijwykrnl.jpg: autoDraw = False
+12.7549 	EXP 	UNCUED COMPOSITE ../../stim/composite/00543940519fa_sunacepzfrmtkiqonpy.jpg: autoDraw = False
+12.7549 	EXP 	ATTENTION PROBE: autoDraw = True
+12.7549 	EXP 	WIN FLIP : COMPOSITES OFF, ATTNTION PROBE ON
+13.5711 	DATA 	Keypress: 1
+13.6028 	EXP 	ATTENTION PROBE: autoDraw = False
+13.6028 	EXP 	WIN FLIP : ATTENTION PROBE OFF
+14.6229 	EXP 	CUED COMPOSITE ../../stim/composite/00847940307fa_sunaivdjruhkrfywfed.jpg: autoDraw = True
+14.6229 	EXP 	UNCUED COMPOSITE ../../stim/composite/00963960627fa_sunayaepykrqvenaqqy.jpg: autoDraw = True
+14.6229 	EXP 	WIN FLIP : COMPOSITES ON
+17.6393 	EXP 	CUED COMPOSITE ../../stim/composite/00847940307fa_sunaivdjruhkrfywfed.jpg: autoDraw = False
+17.6393 	EXP 	UNCUED COMPOSITE ../../stim/composite/00963960627fa_sunayaepykrqvenaqqy.jpg: autoDraw = False
+17.6393 	EXP 	ATTENTION PROBE: autoDraw = True
+17.6393 	EXP 	WIN FLIP : COMPOSITES OFF, ATTNTION PROBE ON
+19.0428 	DATA 	Keypress: 1
+19.0739 	EXP 	ATTENTION PROBE: autoDraw = False
+19.0739 	EXP 	WIN FLIP : ATTENTION PROBE OFF
+20.0898 	EXP 	CUED COMPOSITE ../../stim/composite/00723941201fa_sunaedtgwjvvziytspa.jpg: autoDraw = True
+20.0898 	EXP 	UNCUED COMPOSITE ../../stim/composite/00966960627fa_sunaygrtwrwfezqjizr.jpg: autoDraw = True
+20.0898 	EXP 	WIN FLIP : COMPOSITES ON
+23.1085 	EXP 	CUED COMPOSITE ../../stim/composite/00723941201fa_sunaedtgwjvvziytspa.jpg: autoDraw = False
+23.1085 	EXP 	UNCUED COMPOSITE ../../stim/composite/00966960627fa_sunaygrtwrwfezqjizr.jpg: autoDraw = False
+23.1085 	EXP 	ATTENTION PROBE: autoDraw = True
+23.1085 	EXP 	WIN FLIP : COMPOSITES OFF, ATTNTION PROBE ON
+23.9068 	DATA 	Keypress: 1
+23.9387 	EXP 	ATTENTION PROBE: autoDraw = False
+23.9387 	EXP 	WIN FLIP : ATTENTION PROBE OFF
+24.9587 	EXP 	CUED COMPOSITE ../../stim/composite/00944960627fa_sunasbbntuiheekqyaq.jpg: autoDraw = True
+24.9587 	EXP 	UNCUED COMPOSITE ../../stim/composite/00889960530fa_sunaletopenvvozhpxc.jpg: autoDraw = True
+24.9587 	EXP 	WIN FLIP : COMPOSITES ON
+27.9757 	EXP 	CUED COMPOSITE ../../stim/composite/00944960627fa_sunasbbntuiheekqyaq.jpg: autoDraw = False
+27.9757 	EXP 	UNCUED COMPOSITE ../../stim/composite/00889960530fa_sunaletopenvvozhpxc.jpg: autoDraw = False
+27.9757 	EXP 	ATTENTION PROBE: autoDraw = True
+27.9757 	EXP 	WIN FLIP : COMPOSITES OFF, ATTNTION PROBE ON
+28.7148 	DATA 	Keypress: 3
+28.7431 	EXP 	ATTENTION PROBE: autoDraw = False
+28.7431 	EXP 	WIN FLIP : ATTENTION PROBE OFF
+29.7594 	EXP 	CUED COMPOSITE ../../stim/composite/00676941121fa_sunadpnqovzckyikrjo.jpg: autoDraw = True
+29.7594 	EXP 	UNCUED COMPOSITE ../../stim/composite/00557940519fa_sunachtuarilwyqnvjx.jpg: autoDraw = True
+29.7594 	EXP 	WIN FLIP : COMPOSITES ON
+32.7767 	EXP 	CUED COMPOSITE ../../stim/composite/00676941121fa_sunadpnqovzckyikrjo.jpg: autoDraw = False
+32.7767 	EXP 	UNCUED COMPOSITE ../../stim/composite/00557940519fa_sunachtuarilwyqnvjx.jpg: autoDraw = False
+32.7767 	EXP 	ATTENTION PROBE: autoDraw = True
+32.7767 	EXP 	WIN FLIP : COMPOSITES OFF, ATTNTION PROBE ON
+33.4749 	DATA 	Keypress: 1
+33.5101 	EXP 	ATTENTION PROBE: autoDraw = False
+33.5101 	EXP 	WIN FLIP : ATTENTION PROBE OFF
+34.5270 	EXP 	CUED COMPOSITE ../../stim/composite/00070940307fa_sunaaeplwsfslcbtojr.jpg: autoDraw = True
+34.5270 	EXP 	UNCUED COMPOSITE ../../stim/composite/00990960627fa_sunbpflsdaxnddnwcqi.jpg: autoDraw = True
+34.5270 	EXP 	WIN FLIP : COMPOSITES ON
+37.5445 	EXP 	CUED COMPOSITE ../../stim/composite/00070940307fa_sunaaeplwsfslcbtojr.jpg: autoDraw = False
+37.5445 	EXP 	UNCUED COMPOSITE ../../stim/composite/00990960627fa_sunbpflsdaxnddnwcqi.jpg: autoDraw = False
+37.5445 	EXP 	ATTENTION PROBE: autoDraw = True
+37.5445 	EXP 	WIN FLIP : COMPOSITES OFF, ATTNTION PROBE ON
+38.2429 	DATA 	Keypress: 1
+38.2788 	EXP 	ATTENTION PROBE: autoDraw = False
+38.2788 	EXP 	WIN FLIP : ATTENTION PROBE OFF
+39.0641 	DATA 	Keypress: 3
+39.2943 	EXP 	CUED COMPOSITE ../../stim/composite/00807941205fa_sunahawfngukizslzsd.jpg: autoDraw = True
+39.2943 	EXP 	UNCUED COMPOSITE ../../stim/composite/00965960627fa_sunaydywdmvlfddbxbk.jpg: autoDraw = True
+39.2943 	EXP 	WIN FLIP : COMPOSITES ON
+42.3130 	EXP 	CUED COMPOSITE ../../stim/composite/00807941205fa_sunahawfngukizslzsd.jpg: autoDraw = False
+42.3130 	EXP 	UNCUED COMPOSITE ../../stim/composite/00965960627fa_sunaydywdmvlfddbxbk.jpg: autoDraw = False
+42.3130 	EXP 	ATTENTION PROBE: autoDraw = True
+42.3130 	EXP 	WIN FLIP : COMPOSITES OFF, ATTNTION PROBE ON
+43.0830 	DATA 	Keypress: 1
+43.1124 	EXP 	ATTENTION PROBE: autoDraw = False
+43.1124 	EXP 	WIN FLIP : ATTENTION PROBE OFF
+44.1299 	EXP 	CUED COMPOSITE ../../stim/composite/00158931230fb_sunaavchcbptaerhcfy.jpg: autoDraw = True
+44.1299 	EXP 	UNCUED COMPOSITE ../../stim/composite/00746941201fa_sunaetydippjxikifsb.jpg: autoDraw = True
+44.1299 	EXP 	WIN FLIP : COMPOSITES ON
+47.1461 	EXP 	CUED COMPOSITE ../../stim/composite/00158931230fb_sunaavchcbptaerhcfy.jpg: autoDraw = False
+47.1461 	EXP 	UNCUED COMPOSITE ../../stim/composite/00746941201fa_sunaetydippjxikifsb.jpg: autoDraw = False
+47.1461 	EXP 	ATTENTION PROBE: autoDraw = True
+47.1461 	EXP 	WIN FLIP : COMPOSITES OFF, ATTNTION PROBE ON
+47.8909 	DATA 	Keypress: 1
+47.9302 	EXP 	ATTENTION PROBE: autoDraw = False
+47.9302 	EXP 	WIN FLIP : ATTENTION PROBE OFF
+48.9465 	EXP 	CUED COMPOSITE ../../stim/composite/00211940128fa_sunabasphceswhwwqvv.jpg: autoDraw = True
+48.9465 	EXP 	UNCUED COMPOSITE ../../stim/composite/00858940307fa_sunaixpqndlwhwjtjek.jpg: autoDraw = True
+48.9465 	EXP 	WIN FLIP : COMPOSITES ON
+51.9646 	EXP 	CUED COMPOSITE ../../stim/composite/00211940128fa_sunabasphceswhwwqvv.jpg: autoDraw = False
+51.9646 	EXP 	UNCUED COMPOSITE ../../stim/composite/00858940307fa_sunaixpqndlwhwjtjek.jpg: autoDraw = False
+51.9646 	EXP 	ATTENTION PROBE: autoDraw = True
+51.9646 	EXP 	WIN FLIP : COMPOSITES OFF, ATTNTION PROBE ON
+52.7948 	DATA 	Keypress: 3
+52.8306 	EXP 	ATTENTION PROBE: autoDraw = False
+52.8306 	EXP 	WIN FLIP : ATTENTION PROBE OFF
+53.8483 	EXP 	CUED COMPOSITE ../../stim/composite/00906960530fa_sunantryfbloeaomfta.jpg: autoDraw = True
+53.8483 	EXP 	UNCUED COMPOSITE ../../stim/composite/00986960627fa_sunbgzjryivyczuvkvm.jpg: autoDraw = True
+53.8483 	EXP 	WIN FLIP : COMPOSITES ON
+56.8657 	EXP 	CUED COMPOSITE ../../stim/composite/00906960530fa_sunantryfbloeaomfta.jpg: autoDraw = False
+56.8657 	EXP 	UNCUED COMPOSITE ../../stim/composite/00986960627fa_sunbgzjryivyczuvkvm.jpg: autoDraw = False
+56.8657 	EXP 	ATTENTION PROBE: autoDraw = True
+56.8657 	EXP 	WIN FLIP : COMPOSITES OFF, ATTNTION PROBE ON
+57.6426 	DATA 	Keypress: 1
+57.6824 	EXP 	ATTENTION PROBE: autoDraw = False
+57.6824 	EXP 	WIN FLIP : ATTENTION PROBE OFF
+57.7056 	EXP 	FIXATION CROSS: autoDraw = False
+57.7056 	EXP 	WIN FLIP : FIXATION OFF
+57.8489 	EXP 	Created INSTRCUCTION TEXT = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=1.0, italic=False, name='INSTRCUCTION TEXT', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=array([1., 1., 1.]), text=' MEMORY BLOCK. \n\n Press any key to begin.', units='deg', win=Window(...), wrapWidth=40)
+57.8834 	EXP 	INSTRCUCTION TEXT: autoDraw = True
+59.6186 	DATA 	Keypress: 2
+59.6498 	EXP 	INSTRCUCTION TEXT: autoDraw = False
+59.6514 	INFO 	Mouse: using default window
+59.6515 	EXP 	window1: recordFrameIntervals = False
+59.8135 	EXP 	window1: recordFrameIntervals = True
+59.9973 	DEBUG 	Screen (0) actual frame rate measured at 60.06
+59.9973 	EXP 	window1: recordFrameIntervals = False
+60.0003 	EXP 	Created FIXATION CROSS = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='lightGrey', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=2, italic=False, name='FIXATION CROSS', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([211., 211., 211.]), text='+', units='deg', win=Window(...), wrapWidth=15.0)
+60.0357 	EXP 	Created MEMORY IMAGE ../../stim/single/00723941201fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00723941201fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.0520 	EXP 	Created MEMORY IMAGE ../../stim/single/sunafpfpiiujzoesnqg.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunafpfpiiujzoesnqg.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.0747 	EXP 	Created MEMORY IMAGE ../../stim/single/sunaetydippjxikifsb.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunaetydippjxikifsb.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.0790 	EXP 	Created MEMORY IMAGE ../../stim/single/00149931230fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00149931230fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.1022 	EXP 	Created MEMORY IMAGE ../../stim/single/00746941201fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00746941201fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.1184 	EXP 	Created MEMORY IMAGE ../../stim/single/sunachtuarilwyqnvjx.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunachtuarilwyqnvjx.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.1275 	EXP 	Created MEMORY IMAGE ../../stim/single/00944960627fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00944960627fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.1504 	EXP 	Created MEMORY IMAGE ../../stim/single/sunayaepykrqvenaqqy.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunayaepykrqvenaqqy.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.1546 	EXP 	Created MEMORY IMAGE ../../stim/single/sundbixjudsgeuuehrn.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sundbixjudsgeuuehrn.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.1667 	EXP 	Created MEMORY IMAGE ../../stim/single/00557940519fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00557940519fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.1754 	EXP 	Created MEMORY IMAGE ../../stim/single/01207940128fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/01207940128fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.1968 	EXP 	Created MEMORY IMAGE ../../stim/single/sunasbbntuiheekqyaq.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunasbbntuiheekqyaq.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.2371 	EXP 	Created MEMORY IMAGE ../../stim/single/00836940307fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00836940307fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.2411 	EXP 	Created MEMORY IMAGE ../../stim/single/sunaauglwmctnkxyird.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunaauglwmctnkxyird.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.2547 	EXP 	Created MEMORY IMAGE ../../stim/single/sunbgzjryivyczuvkvm.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunbgzjryivyczuvkvm.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.2592 	EXP 	Created MEMORY IMAGE ../../stim/single/sunaauueuhhvklldjik.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunaauueuhhvklldjik.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.2677 	EXP 	Created MEMORY IMAGE ../../stim/single/sunaixpqndlwhwjtjek.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunaixpqndlwhwjtjek.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.2849 	EXP 	Created MEMORY IMAGE ../../stim/single/00772941201fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00772941201fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.2992 	EXP 	Created MEMORY IMAGE ../../stim/single/sunaajuzribjrizdshh.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunaajuzribjrizdshh.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.3205 	EXP 	Created MEMORY IMAGE ../../stim/single/sunainqelldeebvxtcz.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunainqelldeebvxtcz.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.3243 	EXP 	Created MEMORY IMAGE ../../stim/single/00741941201fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00741941201fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.3434 	EXP 	Created MEMORY IMAGE ../../stim/single/00154931230fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00154931230fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.3650 	EXP 	Created MEMORY IMAGE ../../stim/single/00847940307fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00847940307fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.3871 	EXP 	Created MEMORY IMAGE ../../stim/single/00986960627fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00986960627fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.4043 	EXP 	Created MEMORY IMAGE ../../stim/single/00858940307fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00858940307fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.4167 	EXP 	Created MEMORY IMAGE ../../stim/single/sunaemcowdozyphwknd.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunaemcowdozyphwknd.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.4375 	EXP 	Created MEMORY IMAGE ../../stim/single/sunaanptmsknhirrzed.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunaanptmsknhirrzed.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.4496 	EXP 	Created MEMORY IMAGE ../../stim/single/sunbdycacjfaujxitbw.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunbdycacjfaujxitbw.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.4720 	EXP 	Created MEMORY IMAGE ../../stim/single/sunantryfbloeaomfta.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunantryfbloeaomfta.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.4911 	EXP 	Created MEMORY IMAGE ../../stim/single/00109931230fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00109931230fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.5127 	EXP 	Created MEMORY IMAGE ../../stim/single/00969960627fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00969960627fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.5195 	EXP 	Created MEMORY IMAGE ../../stim/single/sunbaoizrfijvhpnnjn.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunbaoizrfijvhpnnjn.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.5241 	EXP 	Created MEMORY IMAGE ../../stim/single/sunaivdjruhkrfywfed.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunaivdjruhkrfywfed.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.5466 	EXP 	Created MEMORY IMAGE ../../stim/single/00979960627fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00979960627fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.5506 	EXP 	Created MEMORY IMAGE ../../stim/single/00070940307fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00070940307fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.5584 	EXP 	Created MEMORY IMAGE ../../stim/single/sunaaeplwsfslcbtojr.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunaaeplwsfslcbtojr.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.5820 	EXP 	Created MEMORY IMAGE ../../stim/single/00906960530fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00906960530fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.5866 	EXP 	Created MEMORY IMAGE ../../stim/single/00136931230fb.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00136931230fb.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.5906 	EXP 	Created MEMORY IMAGE ../../stim/single/00963960627fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00963960627fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.6142 	EXP 	Created MEMORY IMAGE ../../stim/single/sunaedtgwjvvziytspa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunaedtgwjvvziytspa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/00723941201fa.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/sunafpfpiiujzoesnqg.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/sunaetydippjxikifsb.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/00149931230fa.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/00746941201fa.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/sunachtuarilwyqnvjx.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/00944960627fa.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/sunayaepykrqvenaqqy.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/sundbixjudsgeuuehrn.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/00557940519fa.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/01207940128fa.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/sunasbbntuiheekqyaq.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/00836940307fa.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/sunaauglwmctnkxyird.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/sunbgzjryivyczuvkvm.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/sunaauueuhhvklldjik.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/sunaixpqndlwhwjtjek.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/00772941201fa.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/sunaajuzribjrizdshh.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/sunainqelldeebvxtcz.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/00741941201fa.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/00154931230fa.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/00847940307fa.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/00986960627fa.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/00858940307fa.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/sunaemcowdozyphwknd.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/sunaanptmsknhirrzed.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/sunbdycacjfaujxitbw.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/sunantryfbloeaomfta.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/00109931230fa.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/00969960627fa.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/sunbaoizrfijvhpnnjn.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/sunaivdjruhkrfywfed.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/00979960627fa.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/00070940307fa.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/sunaaeplwsfslcbtojr.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/00906960530fa.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/00136931230fb.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/00963960627fa.jpg: pos = array([0., 0.])
+60.6345 	EXP 	MEMORY IMAGE ../../stim/single/sunaedtgwjvvziytspa.jpg: pos = array([0., 0.])
+60.6345 	EXP 	FIXATION CROSS: autoDraw = True
+60.6345 	EXP 	WIN FLIP : FIXATION ON
+60.7082 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+61.6518 	EXP 	FIXATION CROSS: autoDraw = False
+61.6518 	EXP 	unnamed RatingScale: flipVert = False
+61.6518 	EXP 	unnamed RatingScale: autoLog = True
+61.6518 	EXP 	unnamed RatingScale: autoDraw = True
+61.6518 	EXP 	MEMORY IMAGE ../../stim/single/00723941201fa.jpg: autoDraw = True
+61.6518 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+63.0858 	DATA 	Keypress: 2
+63.0862 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=2
+63.0862 	DATA 	RatingScale unnamed RatingScale: rating RT=1.467
+63.0862 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (2, 1.467)]
+63.6524 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+63.6524 	EXP 	unnamed RatingScale: autoDraw = False
+63.6524 	EXP 	MEMORY IMAGE ../../stim/single/00723941201fa.jpg: autoDraw = False
+63.6524 	EXP 	FIXATION CROSS: autoDraw = True
+63.8095 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+64.6527 	EXP 	FIXATION CROSS: autoDraw = False
+64.6527 	EXP 	unnamed RatingScale: flipVert = False
+64.6527 	EXP 	unnamed RatingScale: autoLog = True
+64.6527 	EXP 	unnamed RatingScale: autoDraw = True
+64.6527 	EXP 	MEMORY IMAGE ../../stim/single/sunafpfpiiujzoesnqg.jpg: autoDraw = True
+64.6527 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+66.0008 	DATA 	Keypress: 1
+66.0012 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+66.0013 	DATA 	RatingScale unnamed RatingScale: rating RT=1.365
+66.0013 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 1.365)]
+66.6660 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+66.6660 	EXP 	unnamed RatingScale: autoDraw = False
+66.6660 	EXP 	MEMORY IMAGE ../../stim/single/sunafpfpiiujzoesnqg.jpg: autoDraw = False
+66.6660 	EXP 	FIXATION CROSS: autoDraw = True
+66.8228 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+67.6690 	EXP 	FIXATION CROSS: autoDraw = False
+67.6690 	EXP 	unnamed RatingScale: flipVert = False
+67.6690 	EXP 	unnamed RatingScale: autoLog = True
+67.6690 	EXP 	unnamed RatingScale: autoDraw = True
+67.6690 	EXP 	MEMORY IMAGE ../../stim/single/sunaetydippjxikifsb.jpg: autoDraw = True
+67.6690 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+69.6201 	DATA 	Keypress: 1
+69.6205 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+69.6205 	DATA 	RatingScale unnamed RatingScale: rating RT=1.971
+69.6205 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 1.971)]
+69.6680 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+69.6680 	EXP 	unnamed RatingScale: autoDraw = False
+69.6680 	EXP 	MEMORY IMAGE ../../stim/single/sunaetydippjxikifsb.jpg: autoDraw = False
+69.6680 	EXP 	FIXATION CROSS: autoDraw = True
+69.8270 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+70.6702 	EXP 	FIXATION CROSS: autoDraw = False
+70.6702 	EXP 	unnamed RatingScale: flipVert = False
+70.6702 	EXP 	unnamed RatingScale: autoLog = True
+70.6702 	EXP 	unnamed RatingScale: autoDraw = True
+70.6702 	EXP 	MEMORY IMAGE ../../stim/single/00149931230fa.jpg: autoDraw = True
+70.6702 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+72.1197 	DATA 	Keypress: 2
+72.1201 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=2
+72.1201 	DATA 	RatingScale unnamed RatingScale: rating RT=1.468
+72.1201 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (2, 1.468)]
+72.6828 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+72.6828 	EXP 	unnamed RatingScale: autoDraw = False
+72.6828 	EXP 	MEMORY IMAGE ../../stim/single/00149931230fa.jpg: autoDraw = False
+72.6828 	EXP 	FIXATION CROSS: autoDraw = True
+72.8407 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+73.6873 	EXP 	FIXATION CROSS: autoDraw = False
+73.6873 	EXP 	unnamed RatingScale: flipVert = False
+73.6873 	EXP 	unnamed RatingScale: autoLog = True
+73.6873 	EXP 	unnamed RatingScale: autoDraw = True
+73.6873 	EXP 	MEMORY IMAGE ../../stim/single/00746941201fa.jpg: autoDraw = True
+73.6873 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+75.6840 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+75.6840 	EXP 	unnamed RatingScale: autoDraw = False
+75.6840 	EXP 	MEMORY IMAGE ../../stim/single/00746941201fa.jpg: autoDraw = False
+75.6840 	EXP 	FIXATION CROSS: autoDraw = True
+75.8394 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+76.6981 	EXP 	FIXATION CROSS: autoDraw = False
+76.6981 	EXP 	unnamed RatingScale: flipVert = False
+76.6981 	EXP 	unnamed RatingScale: autoLog = True
+76.6981 	EXP 	unnamed RatingScale: autoDraw = True
+76.6981 	EXP 	MEMORY IMAGE ../../stim/single/sunachtuarilwyqnvjx.jpg: autoDraw = True
+76.6981 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+78.2207 	DATA 	Keypress: 3
+78.2211 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=3
+78.2212 	DATA 	RatingScale unnamed RatingScale: rating RT=1.553
+78.2212 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (3, 1.553)]
+78.6857 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+78.6857 	EXP 	unnamed RatingScale: autoDraw = False
+78.6857 	EXP 	MEMORY IMAGE ../../stim/single/sunachtuarilwyqnvjx.jpg: autoDraw = False
+78.6857 	EXP 	FIXATION CROSS: autoDraw = True
+78.8447 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+79.6995 	EXP 	FIXATION CROSS: autoDraw = False
+79.6995 	EXP 	unnamed RatingScale: flipVert = False
+79.6995 	EXP 	unnamed RatingScale: autoLog = True
+79.6995 	EXP 	unnamed RatingScale: autoDraw = True
+79.6995 	EXP 	MEMORY IMAGE ../../stim/single/00944960627fa.jpg: autoDraw = True
+79.6995 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+80.8562 	DATA 	Keypress: 3
+80.8567 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=3
+80.8567 	DATA 	RatingScale unnamed RatingScale: rating RT=1.187
+80.8568 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (3, 1.187)]
+81.7023 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+81.7023 	EXP 	unnamed RatingScale: autoDraw = False
+81.7023 	EXP 	MEMORY IMAGE ../../stim/single/00944960627fa.jpg: autoDraw = False
+81.7023 	EXP 	FIXATION CROSS: autoDraw = True
+81.8567 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+82.7162 	EXP 	FIXATION CROSS: autoDraw = False
+82.7162 	EXP 	unnamed RatingScale: flipVert = False
+82.7162 	EXP 	unnamed RatingScale: autoLog = True
+82.7162 	EXP 	unnamed RatingScale: autoDraw = True
+82.7162 	EXP 	MEMORY IMAGE ../../stim/single/sunayaepykrqvenaqqy.jpg: autoDraw = True
+82.7162 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+83.7898 	DATA 	Keypress: 2
+83.7902 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=2
+83.7903 	DATA 	RatingScale unnamed RatingScale: rating RT=1.104
+83.7903 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (2, 1.104)]
+84.7033 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+84.7033 	EXP 	unnamed RatingScale: autoDraw = False
+84.7033 	EXP 	MEMORY IMAGE ../../stim/single/sunayaepykrqvenaqqy.jpg: autoDraw = False
+84.7033 	EXP 	FIXATION CROSS: autoDraw = True
+84.8578 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+85.7171 	EXP 	FIXATION CROSS: autoDraw = False
+85.7171 	EXP 	unnamed RatingScale: flipVert = False
+85.7171 	EXP 	unnamed RatingScale: autoLog = True
+85.7171 	EXP 	unnamed RatingScale: autoDraw = True
+85.7171 	EXP 	MEMORY IMAGE ../../stim/single/sundbixjudsgeuuehrn.jpg: autoDraw = True
+85.7171 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+86.9722 	DATA 	Keypress: 2
+86.9726 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=2
+86.9726 	DATA 	RatingScale unnamed RatingScale: rating RT=1.285
+86.9726 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (2, 1.285)]
+87.7203 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+87.7203 	EXP 	unnamed RatingScale: autoDraw = False
+87.7203 	EXP 	MEMORY IMAGE ../../stim/single/sundbixjudsgeuuehrn.jpg: autoDraw = False
+87.7203 	EXP 	FIXATION CROSS: autoDraw = True
+87.8764 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+88.7333 	EXP 	FIXATION CROSS: autoDraw = False
+88.7333 	EXP 	unnamed RatingScale: flipVert = False
+88.7333 	EXP 	unnamed RatingScale: autoLog = True
+88.7333 	EXP 	unnamed RatingScale: autoDraw = True
+88.7333 	EXP 	MEMORY IMAGE ../../stim/single/00557940519fa.jpg: autoDraw = True
+88.7333 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+89.7566 	DATA 	Keypress: 3
+89.7570 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=3
+89.7570 	DATA 	RatingScale unnamed RatingScale: rating RT=1.053
+89.7570 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (3, 1.053)]
+90.7368 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+90.7368 	EXP 	unnamed RatingScale: autoDraw = False
+90.7368 	EXP 	MEMORY IMAGE ../../stim/single/00557940519fa.jpg: autoDraw = False
+90.7368 	EXP 	FIXATION CROSS: autoDraw = True
+90.8927 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+91.7528 	EXP 	FIXATION CROSS: autoDraw = False
+91.7528 	EXP 	unnamed RatingScale: flipVert = False
+91.7528 	EXP 	unnamed RatingScale: autoLog = True
+91.7528 	EXP 	unnamed RatingScale: autoDraw = True
+91.7528 	EXP 	MEMORY IMAGE ../../stim/single/01207940128fa.jpg: autoDraw = True
+91.7528 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+93.2100 	DATA 	Keypress: 2
+93.2104 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=2
+93.2104 	DATA 	RatingScale unnamed RatingScale: rating RT=1.490
+93.2104 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (2, 1.49)]
+93.7374 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+93.7374 	EXP 	unnamed RatingScale: autoDraw = False
+93.7374 	EXP 	MEMORY IMAGE ../../stim/single/01207940128fa.jpg: autoDraw = False
+93.7374 	EXP 	FIXATION CROSS: autoDraw = True
+93.8920 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+94.7528 	EXP 	FIXATION CROSS: autoDraw = False
+94.7528 	EXP 	unnamed RatingScale: flipVert = False
+94.7528 	EXP 	unnamed RatingScale: autoLog = True
+94.7528 	EXP 	unnamed RatingScale: autoDraw = True
+94.7528 	EXP 	MEMORY IMAGE ../../stim/single/sunasbbntuiheekqyaq.jpg: autoDraw = True
+94.7528 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+95.6267 	DATA 	Keypress: 4
+95.6274 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=4
+95.6274 	DATA 	RatingScale unnamed RatingScale: rating RT=0.906
+95.6274 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (4, 0.906)]
+96.7387 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+96.7387 	EXP 	unnamed RatingScale: autoDraw = False
+96.7387 	EXP 	MEMORY IMAGE ../../stim/single/sunasbbntuiheekqyaq.jpg: autoDraw = False
+96.7387 	EXP 	FIXATION CROSS: autoDraw = True
+96.8954 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+97.7528 	EXP 	FIXATION CROSS: autoDraw = False
+97.7528 	EXP 	unnamed RatingScale: flipVert = False
+97.7528 	EXP 	unnamed RatingScale: autoLog = True
+97.7528 	EXP 	unnamed RatingScale: autoDraw = True
+97.7528 	EXP 	MEMORY IMAGE ../../stim/single/00836940307fa.jpg: autoDraw = True
+97.7528 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+99.0917 	DATA 	Keypress: 2
+99.0921 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=2
+99.0921 	DATA 	RatingScale unnamed RatingScale: rating RT=1.369
+99.0921 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (2, 1.369)]
+99.7397 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+99.7397 	EXP 	unnamed RatingScale: autoDraw = False
+99.7397 	EXP 	MEMORY IMAGE ../../stim/single/00836940307fa.jpg: autoDraw = False
+99.7397 	EXP 	FIXATION CROSS: autoDraw = True
+99.8944 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+100.7591 	EXP 	FIXATION CROSS: autoDraw = False
+100.7591 	EXP 	unnamed RatingScale: flipVert = False
+100.7591 	EXP 	unnamed RatingScale: autoLog = True
+100.7591 	EXP 	unnamed RatingScale: autoDraw = True
+100.7591 	EXP 	MEMORY IMAGE ../../stim/single/sunaauglwmctnkxyird.jpg: autoDraw = True
+100.7591 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+102.0596 	DATA 	Keypress: 2
+102.0600 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=2
+102.0600 	DATA 	RatingScale unnamed RatingScale: rating RT=1.336
+102.0600 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (2, 1.336)]
+102.7444 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+102.7444 	EXP 	unnamed RatingScale: autoDraw = False
+102.7444 	EXP 	MEMORY IMAGE ../../stim/single/sunaauglwmctnkxyird.jpg: autoDraw = False
+102.7444 	EXP 	FIXATION CROSS: autoDraw = True
+102.9034 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+103.7446 	EXP 	FIXATION CROSS: autoDraw = False
+103.7446 	EXP 	unnamed RatingScale: flipVert = False
+103.7446 	EXP 	unnamed RatingScale: autoLog = True
+103.7446 	EXP 	unnamed RatingScale: autoDraw = True
+103.7446 	EXP 	MEMORY IMAGE ../../stim/single/sunbgzjryivyczuvkvm.jpg: autoDraw = True
+103.7446 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+104.9307 	DATA 	Keypress: 2
+104.9311 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=2
+104.9312 	DATA 	RatingScale unnamed RatingScale: rating RT=1.202
+104.9312 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (2, 1.202)]
+105.7576 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+105.7576 	EXP 	unnamed RatingScale: autoDraw = False
+105.7576 	EXP 	MEMORY IMAGE ../../stim/single/sunbgzjryivyczuvkvm.jpg: autoDraw = False
+105.7576 	EXP 	FIXATION CROSS: autoDraw = True
+105.9136 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+106.7625 	EXP 	FIXATION CROSS: autoDraw = False
+106.7625 	EXP 	unnamed RatingScale: flipVert = False
+106.7625 	EXP 	unnamed RatingScale: autoLog = True
+106.7625 	EXP 	unnamed RatingScale: autoDraw = True
+106.7625 	EXP 	MEMORY IMAGE ../../stim/single/sunaauueuhhvklldjik.jpg: autoDraw = True
+106.7625 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+108.1639 	DATA 	Keypress: 2
+108.1642 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=2
+108.1643 	DATA 	RatingScale unnamed RatingScale: rating RT=1.422
+108.1643 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (2, 1.422)]
+108.7606 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+108.7606 	EXP 	unnamed RatingScale: autoDraw = False
+108.7606 	EXP 	MEMORY IMAGE ../../stim/single/sunaauueuhhvklldjik.jpg: autoDraw = False
+108.7606 	EXP 	FIXATION CROSS: autoDraw = True
+108.9202 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+109.7635 	EXP 	FIXATION CROSS: autoDraw = False
+109.7635 	EXP 	unnamed RatingScale: flipVert = False
+109.7635 	EXP 	unnamed RatingScale: autoLog = True
+109.7635 	EXP 	unnamed RatingScale: autoDraw = True
+109.7635 	EXP 	MEMORY IMAGE ../../stim/single/sunaixpqndlwhwjtjek.jpg: autoDraw = True
+109.7635 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+111.1623 	DATA 	Keypress: 2
+111.1627 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=2
+111.1628 	DATA 	RatingScale unnamed RatingScale: rating RT=1.418
+111.1628 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (2, 1.418)]
+111.7774 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+111.7774 	EXP 	unnamed RatingScale: autoDraw = False
+111.7774 	EXP 	MEMORY IMAGE ../../stim/single/sunaixpqndlwhwjtjek.jpg: autoDraw = False
+111.7774 	EXP 	FIXATION CROSS: autoDraw = True
+111.9337 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+112.7808 	EXP 	FIXATION CROSS: autoDraw = False
+112.7808 	EXP 	unnamed RatingScale: flipVert = False
+112.7808 	EXP 	unnamed RatingScale: autoLog = True
+112.7808 	EXP 	unnamed RatingScale: autoDraw = True
+112.7808 	EXP 	MEMORY IMAGE ../../stim/single/00772941201fa.jpg: autoDraw = True
+112.7808 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+114.5299 	DATA 	Keypress: 3
+114.5305 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=3
+114.5305 	DATA 	RatingScale unnamed RatingScale: rating RT=1.769
+114.5306 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (3, 1.769)]
+114.7948 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+114.7948 	EXP 	unnamed RatingScale: autoDraw = False
+114.7948 	EXP 	MEMORY IMAGE ../../stim/single/00772941201fa.jpg: autoDraw = False
+114.7948 	EXP 	FIXATION CROSS: autoDraw = True
+114.9518 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+115.7988 	EXP 	FIXATION CROSS: autoDraw = False
+115.7988 	EXP 	unnamed RatingScale: flipVert = False
+115.7988 	EXP 	unnamed RatingScale: autoLog = True
+115.7988 	EXP 	unnamed RatingScale: autoDraw = True
+115.7988 	EXP 	MEMORY IMAGE ../../stim/single/sunaajuzribjrizdshh.jpg: autoDraw = True
+115.7988 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+116.9799 	DATA 	Keypress: 2
+116.9804 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=2
+116.9804 	DATA 	RatingScale unnamed RatingScale: rating RT=1.201
+116.9805 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (2, 1.201)]
+117.7969 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+117.7969 	EXP 	unnamed RatingScale: autoDraw = False
+117.7969 	EXP 	MEMORY IMAGE ../../stim/single/sunaajuzribjrizdshh.jpg: autoDraw = False
+117.7969 	EXP 	FIXATION CROSS: autoDraw = True
+117.9544 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+118.7990 	EXP 	FIXATION CROSS: autoDraw = False
+118.7990 	EXP 	unnamed RatingScale: flipVert = False
+118.7990 	EXP 	unnamed RatingScale: autoLog = True
+118.7990 	EXP 	unnamed RatingScale: autoDraw = True
+118.7990 	EXP 	MEMORY IMAGE ../../stim/single/sunainqelldeebvxtcz.jpg: autoDraw = True
+118.7990 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+120.4182 	DATA 	Keypress: 3
+120.4187 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=3
+120.4187 	DATA 	RatingScale unnamed RatingScale: rating RT=1.637
+120.4187 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (3, 1.637)]
+120.8128 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+120.8128 	EXP 	unnamed RatingScale: autoDraw = False
+120.8128 	EXP 	MEMORY IMAGE ../../stim/single/sunainqelldeebvxtcz.jpg: autoDraw = False
+120.8128 	EXP 	FIXATION CROSS: autoDraw = True
+120.9703 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+121.8166 	EXP 	FIXATION CROSS: autoDraw = False
+121.8166 	EXP 	unnamed RatingScale: flipVert = False
+121.8166 	EXP 	unnamed RatingScale: autoLog = True
+121.8166 	EXP 	unnamed RatingScale: autoDraw = True
+121.8166 	EXP 	MEMORY IMAGE ../../stim/single/00741941201fa.jpg: autoDraw = True
+121.8166 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+123.3378 	DATA 	Keypress: 3
+123.3382 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=3
+123.3382 	DATA 	RatingScale unnamed RatingScale: rating RT=1.541
+123.3382 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (3, 1.541)]
+123.8170 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+123.8170 	EXP 	unnamed RatingScale: autoDraw = False
+123.8170 	EXP 	MEMORY IMAGE ../../stim/single/00741941201fa.jpg: autoDraw = False
+123.8170 	EXP 	FIXATION CROSS: autoDraw = True
+123.9738 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+124.8176 	EXP 	FIXATION CROSS: autoDraw = False
+124.8176 	EXP 	unnamed RatingScale: flipVert = False
+124.8176 	EXP 	unnamed RatingScale: autoLog = True
+124.8176 	EXP 	unnamed RatingScale: autoDraw = True
+124.8176 	EXP 	MEMORY IMAGE ../../stim/single/00154931230fa.jpg: autoDraw = True
+124.8176 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+126.8346 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+126.8346 	EXP 	unnamed RatingScale: autoDraw = False
+126.8346 	EXP 	MEMORY IMAGE ../../stim/single/00154931230fa.jpg: autoDraw = False
+126.8346 	EXP 	FIXATION CROSS: autoDraw = True
+126.9909 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+127.6192 	DATA 	Keypress: 3
+127.8349 	EXP 	FIXATION CROSS: autoDraw = False
+127.8349 	EXP 	unnamed RatingScale: flipVert = False
+127.8349 	EXP 	unnamed RatingScale: autoLog = True
+127.8349 	EXP 	unnamed RatingScale: autoDraw = True
+127.8349 	EXP 	MEMORY IMAGE ../../stim/single/00847940307fa.jpg: autoDraw = True
+127.8349 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+129.6163 	DATA 	Keypress: 2
+129.6167 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=2
+129.6167 	DATA 	RatingScale unnamed RatingScale: rating RT=1.798
+129.6167 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (2, 1.798)]
+129.8509 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+129.8509 	EXP 	unnamed RatingScale: autoDraw = False
+129.8509 	EXP 	MEMORY IMAGE ../../stim/single/00847940307fa.jpg: autoDraw = False
+129.8509 	EXP 	FIXATION CROSS: autoDraw = True
+130.0117 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+130.8518 	EXP 	FIXATION CROSS: autoDraw = False
+130.8518 	EXP 	unnamed RatingScale: flipVert = False
+130.8518 	EXP 	unnamed RatingScale: autoLog = True
+130.8518 	EXP 	unnamed RatingScale: autoDraw = True
+130.8518 	EXP 	MEMORY IMAGE ../../stim/single/00986960627fa.jpg: autoDraw = True
+130.8518 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+132.8650 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+132.8650 	EXP 	unnamed RatingScale: autoDraw = False
+132.8650 	EXP 	MEMORY IMAGE ../../stim/single/00986960627fa.jpg: autoDraw = False
+132.8650 	EXP 	FIXATION CROSS: autoDraw = True
+133.0205 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+133.6501 	DATA 	Keypress: 2
+133.8688 	EXP 	FIXATION CROSS: autoDraw = False
+133.8688 	EXP 	unnamed RatingScale: flipVert = False
+133.8688 	EXP 	unnamed RatingScale: autoLog = True
+133.8688 	EXP 	unnamed RatingScale: autoDraw = True
+133.8688 	EXP 	MEMORY IMAGE ../../stim/single/00858940307fa.jpg: autoDraw = True
+133.8688 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+135.4392 	DATA 	Keypress: 2
+135.4396 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=2
+135.4396 	DATA 	RatingScale unnamed RatingScale: rating RT=1.590
+135.4397 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (2, 1.59)]
+135.8666 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+135.8666 	EXP 	unnamed RatingScale: autoDraw = False
+135.8666 	EXP 	MEMORY IMAGE ../../stim/single/00858940307fa.jpg: autoDraw = False
+135.8666 	EXP 	FIXATION CROSS: autoDraw = True
+136.0228 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+136.8702 	EXP 	FIXATION CROSS: autoDraw = False
+136.8702 	EXP 	unnamed RatingScale: flipVert = False
+136.8702 	EXP 	unnamed RatingScale: autoLog = True
+136.8702 	EXP 	unnamed RatingScale: autoDraw = True
+136.8702 	EXP 	MEMORY IMAGE ../../stim/single/sunaemcowdozyphwknd.jpg: autoDraw = True
+136.8702 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+137.8191 	DATA 	Keypress: 2
+137.8196 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=2
+137.8196 	DATA 	RatingScale unnamed RatingScale: rating RT=0.968
+137.8196 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (2, 0.968)]
+138.8825 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+138.8825 	EXP 	unnamed RatingScale: autoDraw = False
+138.8825 	EXP 	MEMORY IMAGE ../../stim/single/sunaemcowdozyphwknd.jpg: autoDraw = False
+138.8825 	EXP 	FIXATION CROSS: autoDraw = True
+139.0405 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+139.8870 	EXP 	FIXATION CROSS: autoDraw = False
+139.8870 	EXP 	unnamed RatingScale: flipVert = False
+139.8870 	EXP 	unnamed RatingScale: autoLog = True
+139.8870 	EXP 	unnamed RatingScale: autoDraw = True
+139.8870 	EXP 	MEMORY IMAGE ../../stim/single/sunaanptmsknhirrzed.jpg: autoDraw = True
+139.8870 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+140.7905 	DATA 	Keypress: 2
+140.7910 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=2
+140.7910 	DATA 	RatingScale unnamed RatingScale: rating RT=0.925
+140.7910 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (2, 0.925)]
+141.2030 	DATA 	Keypress: 2
+141.8831 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+141.8831 	EXP 	unnamed RatingScale: autoDraw = False
+141.8831 	EXP 	MEMORY IMAGE ../../stim/single/sunaanptmsknhirrzed.jpg: autoDraw = False
+141.8831 	EXP 	FIXATION CROSS: autoDraw = True
+142.0401 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+142.8885 	EXP 	FIXATION CROSS: autoDraw = False
+142.8885 	EXP 	unnamed RatingScale: flipVert = False
+142.8885 	EXP 	unnamed RatingScale: autoLog = True
+142.8885 	EXP 	unnamed RatingScale: autoDraw = True
+142.8885 	EXP 	MEMORY IMAGE ../../stim/single/sunbdycacjfaujxitbw.jpg: autoDraw = True
+142.8885 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+144.3213 	DATA 	Keypress: 2
+144.3217 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=2
+144.3217 	DATA 	RatingScale unnamed RatingScale: rating RT=1.454
+144.3217 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (2, 1.454)]
+144.8894 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+144.8894 	EXP 	unnamed RatingScale: autoDraw = False
+144.8894 	EXP 	MEMORY IMAGE ../../stim/single/sunbdycacjfaujxitbw.jpg: autoDraw = False
+144.8894 	EXP 	FIXATION CROSS: autoDraw = True
+145.0509 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+145.8882 	EXP 	FIXATION CROSS: autoDraw = False
+145.8882 	EXP 	unnamed RatingScale: flipVert = False
+145.8882 	EXP 	unnamed RatingScale: autoLog = True
+145.8882 	EXP 	unnamed RatingScale: autoDraw = True
+145.8882 	EXP 	MEMORY IMAGE ../../stim/single/sunantryfbloeaomfta.jpg: autoDraw = True
+145.8882 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+147.2029 	DATA 	Keypress: 2
+147.2033 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=2
+147.2033 	DATA 	RatingScale unnamed RatingScale: rating RT=1.330
+147.2033 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (2, 1.33)]
+147.4908 	DATA 	Keypress: 3
+147.9019 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+147.9019 	EXP 	unnamed RatingScale: autoDraw = False
+147.9019 	EXP 	MEMORY IMAGE ../../stim/single/sunantryfbloeaomfta.jpg: autoDraw = False
+147.9019 	EXP 	FIXATION CROSS: autoDraw = True
+148.0615 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+148.6867 	DATA 	Keypress: 3
+148.9057 	EXP 	FIXATION CROSS: autoDraw = False
+148.9057 	EXP 	unnamed RatingScale: flipVert = False
+148.9057 	EXP 	unnamed RatingScale: autoLog = True
+148.9057 	EXP 	unnamed RatingScale: autoDraw = True
+148.9057 	EXP 	MEMORY IMAGE ../../stim/single/00109931230fa.jpg: autoDraw = True
+148.9057 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+150.2554 	DATA 	Keypress: 3
+150.2559 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=3
+150.2559 	DATA 	RatingScale unnamed RatingScale: rating RT=1.370
+150.2559 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (3, 1.37)]
+150.9060 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+150.9060 	EXP 	unnamed RatingScale: autoDraw = False
+150.9060 	EXP 	MEMORY IMAGE ../../stim/single/00109931230fa.jpg: autoDraw = False
+150.9060 	EXP 	FIXATION CROSS: autoDraw = True
+151.0642 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+151.9073 	EXP 	FIXATION CROSS: autoDraw = False
+151.9073 	EXP 	unnamed RatingScale: flipVert = False
+151.9073 	EXP 	unnamed RatingScale: autoLog = True
+151.9073 	EXP 	unnamed RatingScale: autoDraw = True
+151.9073 	EXP 	MEMORY IMAGE ../../stim/single/00969960627fa.jpg: autoDraw = True
+151.9073 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+153.2717 	DATA 	Keypress: 3
+153.2723 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=3
+153.2723 	DATA 	RatingScale unnamed RatingScale: rating RT=1.382
+153.2723 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (3, 1.382)]
+153.9205 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+153.9205 	EXP 	unnamed RatingScale: autoDraw = False
+153.9205 	EXP 	MEMORY IMAGE ../../stim/single/00969960627fa.jpg: autoDraw = False
+153.9205 	EXP 	FIXATION CROSS: autoDraw = True
+154.0774 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+154.9243 	EXP 	FIXATION CROSS: autoDraw = False
+154.9243 	EXP 	unnamed RatingScale: flipVert = False
+154.9243 	EXP 	unnamed RatingScale: autoLog = True
+154.9243 	EXP 	unnamed RatingScale: autoDraw = True
+154.9243 	EXP 	MEMORY IMAGE ../../stim/single/sunbaoizrfijvhpnnjn.jpg: autoDraw = True
+154.9243 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+156.4078 	DATA 	Keypress: 2
+156.4083 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=2
+156.4083 	DATA 	RatingScale unnamed RatingScale: rating RT=1.503
+156.4083 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (2, 1.503)]
+156.9247 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+156.9247 	EXP 	unnamed RatingScale: autoDraw = False
+156.9247 	EXP 	MEMORY IMAGE ../../stim/single/sunbaoizrfijvhpnnjn.jpg: autoDraw = False
+156.9247 	EXP 	FIXATION CROSS: autoDraw = True
+157.0812 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+157.9253 	EXP 	FIXATION CROSS: autoDraw = False
+157.9253 	EXP 	unnamed RatingScale: flipVert = False
+157.9253 	EXP 	unnamed RatingScale: autoLog = True
+157.9253 	EXP 	unnamed RatingScale: autoDraw = True
+157.9253 	EXP 	MEMORY IMAGE ../../stim/single/sunaivdjruhkrfywfed.jpg: autoDraw = True
+157.9253 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+159.6434 	DATA 	Keypress: 2
+159.6438 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=2
+159.6438 	DATA 	RatingScale unnamed RatingScale: rating RT=1.735
+159.6439 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (2, 1.735)]
+159.9378 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+159.9378 	EXP 	unnamed RatingScale: autoDraw = False
+159.9378 	EXP 	MEMORY IMAGE ../../stim/single/sunaivdjruhkrfywfed.jpg: autoDraw = False
+159.9378 	EXP 	FIXATION CROSS: autoDraw = True
+160.0939 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+160.9578 	EXP 	FIXATION CROSS: autoDraw = False
+160.9578 	EXP 	unnamed RatingScale: flipVert = False
+160.9578 	EXP 	unnamed RatingScale: autoLog = True
+160.9578 	EXP 	unnamed RatingScale: autoDraw = True
+160.9578 	EXP 	MEMORY IMAGE ../../stim/single/00979960627fa.jpg: autoDraw = True
+160.9578 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+162.6906 	DATA 	Keypress: 2
+162.6910 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=2
+162.6910 	DATA 	RatingScale unnamed RatingScale: rating RT=1.769
+162.6911 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (2, 1.769)]
+162.9559 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+162.9559 	EXP 	unnamed RatingScale: autoDraw = False
+162.9559 	EXP 	MEMORY IMAGE ../../stim/single/00979960627fa.jpg: autoDraw = False
+162.9559 	EXP 	FIXATION CROSS: autoDraw = True
+163.1130 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+163.9601 	EXP 	FIXATION CROSS: autoDraw = False
+163.9601 	EXP 	unnamed RatingScale: flipVert = False
+163.9601 	EXP 	unnamed RatingScale: autoLog = True
+163.9601 	EXP 	unnamed RatingScale: autoDraw = True
+163.9601 	EXP 	MEMORY IMAGE ../../stim/single/00070940307fa.jpg: autoDraw = True
+163.9601 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+165.4602 	DATA 	Keypress: 2
+165.4608 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=2
+165.4608 	DATA 	RatingScale unnamed RatingScale: rating RT=1.520
+165.4608 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (2, 1.52)]
+165.9741 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+165.9741 	EXP 	unnamed RatingScale: autoDraw = False
+165.9741 	EXP 	MEMORY IMAGE ../../stim/single/00070940307fa.jpg: autoDraw = False
+165.9741 	EXP 	FIXATION CROSS: autoDraw = True
+166.1340 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+166.9777 	EXP 	FIXATION CROSS: autoDraw = False
+166.9777 	EXP 	unnamed RatingScale: flipVert = False
+166.9777 	EXP 	unnamed RatingScale: autoLog = True
+166.9777 	EXP 	unnamed RatingScale: autoDraw = True
+166.9777 	EXP 	MEMORY IMAGE ../../stim/single/sunaaeplwsfslcbtojr.jpg: autoDraw = True
+166.9777 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+168.2087 	DATA 	Keypress: 2
+168.2092 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=2
+168.2092 	DATA 	RatingScale unnamed RatingScale: rating RT=1.251
+168.2092 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (2, 1.251)]
+168.9926 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+168.9926 	EXP 	unnamed RatingScale: autoDraw = False
+168.9926 	EXP 	MEMORY IMAGE ../../stim/single/sunaaeplwsfslcbtojr.jpg: autoDraw = False
+168.9926 	EXP 	FIXATION CROSS: autoDraw = True
+169.1517 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+169.9946 	EXP 	FIXATION CROSS: autoDraw = False
+169.9946 	EXP 	unnamed RatingScale: flipVert = False
+169.9946 	EXP 	unnamed RatingScale: autoLog = True
+169.9946 	EXP 	unnamed RatingScale: autoDraw = True
+169.9946 	EXP 	MEMORY IMAGE ../../stim/single/00906960530fa.jpg: autoDraw = True
+169.9946 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+170.7441 	DATA 	Keypress: 3
+170.7445 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=3
+170.7445 	DATA 	RatingScale unnamed RatingScale: rating RT=0.768
+170.7446 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (3, 0.768)]
+171.9947 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+171.9947 	EXP 	unnamed RatingScale: autoDraw = False
+171.9947 	EXP 	MEMORY IMAGE ../../stim/single/00906960530fa.jpg: autoDraw = False
+171.9947 	EXP 	FIXATION CROSS: autoDraw = True
+172.1562 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+172.9950 	EXP 	FIXATION CROSS: autoDraw = False
+172.9950 	EXP 	unnamed RatingScale: flipVert = False
+172.9950 	EXP 	unnamed RatingScale: autoLog = True
+172.9950 	EXP 	unnamed RatingScale: autoDraw = True
+172.9950 	EXP 	MEMORY IMAGE ../../stim/single/00136931230fb.jpg: autoDraw = True
+172.9950 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+174.5804 	DATA 	Keypress: 3
+174.5808 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=3
+174.5808 	DATA 	RatingScale unnamed RatingScale: rating RT=1.602
+174.5808 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (3, 1.602)]
+175.0087 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+175.0087 	EXP 	unnamed RatingScale: autoDraw = False
+175.0087 	EXP 	MEMORY IMAGE ../../stim/single/00136931230fb.jpg: autoDraw = False
+175.0087 	EXP 	FIXATION CROSS: autoDraw = True
+175.1682 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+176.0125 	EXP 	FIXATION CROSS: autoDraw = False
+176.0125 	EXP 	unnamed RatingScale: flipVert = False
+176.0125 	EXP 	unnamed RatingScale: autoLog = True
+176.0125 	EXP 	unnamed RatingScale: autoDraw = True
+176.0125 	EXP 	MEMORY IMAGE ../../stim/single/00963960627fa.jpg: autoDraw = True
+176.0125 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+178.0097 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+178.0097 	EXP 	unnamed RatingScale: autoDraw = False
+178.0097 	EXP 	MEMORY IMAGE ../../stim/single/00963960627fa.jpg: autoDraw = False
+178.0097 	EXP 	FIXATION CROSS: autoDraw = True
+178.1691 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+179.0131 	EXP 	FIXATION CROSS: autoDraw = False
+179.0131 	EXP 	unnamed RatingScale: flipVert = False
+179.0131 	EXP 	unnamed RatingScale: autoLog = True
+179.0131 	EXP 	unnamed RatingScale: autoDraw = True
+179.0131 	EXP 	MEMORY IMAGE ../../stim/single/sunaedtgwjvvziytspa.jpg: autoDraw = True
+179.0131 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+180.2013 	DATA 	Keypress: 2
+180.2019 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=2
+180.2019 	DATA 	RatingScale unnamed RatingScale: rating RT=1.208
+180.2019 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (2, 1.208)]
+181.0108 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+181.0108 	EXP 	unnamed RatingScale: autoDraw = False
+181.0108 	EXP 	MEMORY IMAGE ../../stim/single/sunaedtgwjvvziytspa.jpg: autoDraw = False
+181.0108 	EXP 	FIXATION CROSS: autoDraw = True
+181.0108 	EXP 	FIXATION CROSS: autoDraw = False
+181.0108 	EXP 	WIN FLIP : FIXATION OFF
+181.1876 	EXP 	Created INSTRCUCTION TEXT = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=1.0, italic=False, name='INSTRCUCTION TEXT', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=array([1., 1., 1.]), text=newstr(...), units='deg', win=Window(...), wrapWidth=40)
+181.1978 	EXP 	INSTRCUCTION TEXT: autoDraw = True
+188.8103 	DATA 	Keypress: 3
+190.0933 	EXP 	window1: mouseVisible = True

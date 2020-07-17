@@ -1,0 +1,1164 @@
+0.0002 	WARNING 	warning
+0.0002 	EXP 	experiment
+0.0002 	DATA 	data
+0.0002 	INFO 	info
+0.0002 	INFO 	current time: 1571076747.59
+0.0014 	INFO 	Loaded monitor calibration from ['2016_07_13 13:20']
+0.0076 	WARNING 	User requested fullscreen with size [1024  768], but screen is actually [2048, 1152]. Using actual size
+0.6011 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, args=UNKNOWN, autoLog=True, bitsMode=UNKNOWN, blendMode='avg', color='black', colorSpace='named', fullscr=UNKNOWN, gamma=None, kwargs=UNKNOWN, lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x10e096690>, multiSample=False, name='window1', numSamples=2, pos=[-1024, -576], screen=0, size=array([4096, 2304]), stereo=False, units='deg', useFBO=False, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType=u'pyglet')
+0.6011 	EXP 	window1: recordFrameIntervals = False
+0.7714 	EXP 	window1: recordFrameIntervals = True
+0.9677 	DEBUG 	Screen (0) actual frame rate measured at 59.92
+0.9677 	EXP 	window1: recordFrameIntervals = False
+0.9677 	INFO 	Mouse: using default window
+1.2182 	EXP 	Created INSTRCUCTION TEXT = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=1.0, italic=False, name='INSTRCUCTION TEXT', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=array([1., 1., 1.]), text=newstr(...), units='deg', win=Window(...), wrapWidth=40)
+1.2399 	EXP 	INSTRCUCTION TEXT: autoDraw = True
+7.0674 	DATA 	Keypress: space
+7.1066 	EXP 	INSTRCUCTION TEXT: autoDraw = False
+7.1081 	INFO 	Mouse: using default window
+7.1615 	EXP 	Created CATEGORY CUE: Place = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/cue/Place.png', interpolate=False, mask=None, maskParams=None, name='CATEGORY CUE: Place', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([2., 2.]), texRes=128, units='deg', win=Window(...))
+7.1695 	EXP 	Created SIDE CUE: > = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='lightGrey', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=2, italic=False, name='SIDE CUE: >', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([211., 211., 211.]), text='>', units='deg', win=Window(...), wrapWidth=15.0)
+7.1746 	EXP 	Created FIXATION CROSS = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='lightGrey', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=2, italic=False, name='FIXATION CROSS', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([211., 211., 211.]), text='+', units='deg', win=Window(...), wrapWidth=15.0)
+7.2071 	EXP 	Created CUED COMPOSITE ../../stim/composite/00949960627fb_sunasnqkkyhilqkxiqm.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+7.3003 	EXP 	Created UNCUED COMPOSITE ../../stim/composite/00142931230fb_sunaapxkpvrhpjplsok.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+7.3052 	EXP 	Created CUED COMPOSITE ../../stim/composite/00783941205fa_sunagjeesomrwjsfqie.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+7.3270 	EXP 	Created UNCUED COMPOSITE ../../stim/composite/01000960627fa_sunbvzmgrdvaakxusbu.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+7.3312 	EXP 	Created CUED COMPOSITE ../../stim/composite/00773960620fa_sunafvsxtzaizojicxx.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+7.3520 	EXP 	Created UNCUED COMPOSITE ../../stim/composite/00077931230fb_sunaafgqutfaishsxyu.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+7.3605 	EXP 	Created CUED COMPOSITE ../../stim/composite/00747941201fa_sunaeutbrtswvsozxyk.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+7.3697 	EXP 	Created UNCUED COMPOSITE ../../stim/composite/00581940928fa_sunacvzhvcksnwqcqbw.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+7.3909 	EXP 	Created CUED COMPOSITE ../../stim/composite/00906960530fa_sunantryfbloeaomfta.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+7.4246 	EXP 	Created UNCUED COMPOSITE ../../stim/composite/00799941205fa_sunagutjvdvnhxejerz.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+7.4447 	EXP 	Created CUED COMPOSITE ../../stim/composite/00675941121fa_sunadoxcchtmsxewsau.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+7.4645 	EXP 	Created UNCUED COMPOSITE ../../stim/composite/00481940519fa_sunabxsuqbleluwczoy.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+7.4751 	EXP 	Created CUED COMPOSITE ../../stim/composite/00996960627fa_sunbpvgllfdejxcpjqp.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+7.4794 	EXP 	Created UNCUED COMPOSITE ../../stim/composite/00841940307fa_sunaisiwfgppimtnmxl.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+7.4979 	EXP 	Created CUED COMPOSITE ../../stim/composite/00908960530fa_sunanwjjyqqwzqrqagd.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+7.5163 	EXP 	Created UNCUED COMPOSITE ../../stim/composite/00705960530fa_sunaduslxfzlbxlllnz.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+7.5207 	EXP 	Created CUED COMPOSITE ../../stim/composite/00098931230fa_sunaajpqmulidejvjsr.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+7.5246 	EXP 	Created UNCUED COMPOSITE ../../stim/composite/00568940928fa_sunacsdhbbsybcyxnel.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+7.5337 	EXP 	Created CUED COMPOSITE ../../stim/composite/00208940128fa_sunaazzyhbvqjpmazjq.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+7.5383 	EXP 	Created UNCUED COMPOSITE ../../stim/composite/00968960627fa_sunbagfpovqwbuexqdn.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=str(...), interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+7.5424 	EXP 	Created ATTENTION PROBE = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='lightGrey', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=2, italic=False, name='ATTENTION PROBE', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([211., 211., 211.]), text='o', units='deg', win=Window(...), wrapWidth=15.0)
+7.5460 	EXP 	Created ATTENTION PROBE = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='lightGrey', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=2, italic=False, name='ATTENTION PROBE', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([211., 211., 211.]), text='x', units='deg', win=Window(...), wrapWidth=15.0)
+7.5491 	EXP 	Created ATTENTION PROBE = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='lightGrey', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=2, italic=False, name='ATTENTION PROBE', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([211., 211., 211.]), text='x', units='deg', win=Window(...), wrapWidth=15.0)
+7.5523 	EXP 	Created ATTENTION PROBE = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='lightGrey', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=2, italic=False, name='ATTENTION PROBE', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([211., 211., 211.]), text='o', units='deg', win=Window(...), wrapWidth=15.0)
+7.5552 	EXP 	Created ATTENTION PROBE = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='lightGrey', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=2, italic=False, name='ATTENTION PROBE', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([211., 211., 211.]), text='o', units='deg', win=Window(...), wrapWidth=15.0)
+7.5580 	EXP 	Created ATTENTION PROBE = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='lightGrey', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=2, italic=False, name='ATTENTION PROBE', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([211., 211., 211.]), text='x', units='deg', win=Window(...), wrapWidth=15.0)
+7.5610 	EXP 	Created ATTENTION PROBE = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='lightGrey', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=2, italic=False, name='ATTENTION PROBE', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([211., 211., 211.]), text='o', units='deg', win=Window(...), wrapWidth=15.0)
+7.5641 	EXP 	Created ATTENTION PROBE = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='lightGrey', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=2, italic=False, name='ATTENTION PROBE', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([211., 211., 211.]), text='x', units='deg', win=Window(...), wrapWidth=15.0)
+7.5674 	EXP 	Created ATTENTION PROBE = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='lightGrey', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=2, italic=False, name='ATTENTION PROBE', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([211., 211., 211.]), text='x', units='deg', win=Window(...), wrapWidth=15.0)
+7.5708 	EXP 	Created ATTENTION PROBE = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='lightGrey', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=2, italic=False, name='ATTENTION PROBE', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([211., 211., 211.]), text='x', units='deg', win=Window(...), wrapWidth=15.0)
+7.5711 	EXP 	window1: recordFrameIntervals = False
+7.6071 	EXP 	CATEGORY CUE: Place: pos = array([0., 2.])
+7.6071 	EXP 	SIDE CUE: >: pos = array([0., 0.])
+7.6071 	EXP 	CUED COMPOSITE ../../stim/composite/00949960627fb_sunasnqkkyhilqkxiqm.jpg: pos = array([8., 0.])
+7.6071 	EXP 	UNCUED COMPOSITE ../../stim/composite/00142931230fb_sunaapxkpvrhpjplsok.jpg: pos = array([-8.,  0.])
+7.6071 	EXP 	CUED COMPOSITE ../../stim/composite/00783941205fa_sunagjeesomrwjsfqie.jpg: pos = array([8., 0.])
+7.6071 	EXP 	UNCUED COMPOSITE ../../stim/composite/01000960627fa_sunbvzmgrdvaakxusbu.jpg: pos = array([-8.,  0.])
+7.6071 	EXP 	CUED COMPOSITE ../../stim/composite/00773960620fa_sunafvsxtzaizojicxx.jpg: pos = array([8., 0.])
+7.6071 	EXP 	UNCUED COMPOSITE ../../stim/composite/00077931230fb_sunaafgqutfaishsxyu.jpg: pos = array([-8.,  0.])
+7.6071 	EXP 	CUED COMPOSITE ../../stim/composite/00747941201fa_sunaeutbrtswvsozxyk.jpg: pos = array([8., 0.])
+7.6071 	EXP 	UNCUED COMPOSITE ../../stim/composite/00581940928fa_sunacvzhvcksnwqcqbw.jpg: pos = array([-8.,  0.])
+7.6071 	EXP 	CUED COMPOSITE ../../stim/composite/00906960530fa_sunantryfbloeaomfta.jpg: pos = array([8., 0.])
+7.6071 	EXP 	UNCUED COMPOSITE ../../stim/composite/00799941205fa_sunagutjvdvnhxejerz.jpg: pos = array([-8.,  0.])
+7.6071 	EXP 	CUED COMPOSITE ../../stim/composite/00675941121fa_sunadoxcchtmsxewsau.jpg: pos = array([8., 0.])
+7.6071 	EXP 	UNCUED COMPOSITE ../../stim/composite/00481940519fa_sunabxsuqbleluwczoy.jpg: pos = array([-8.,  0.])
+7.6071 	EXP 	CUED COMPOSITE ../../stim/composite/00996960627fa_sunbpvgllfdejxcpjqp.jpg: pos = array([8., 0.])
+7.6071 	EXP 	UNCUED COMPOSITE ../../stim/composite/00841940307fa_sunaisiwfgppimtnmxl.jpg: pos = array([-8.,  0.])
+7.6071 	EXP 	CUED COMPOSITE ../../stim/composite/00908960530fa_sunanwjjyqqwzqrqagd.jpg: pos = array([8., 0.])
+7.6071 	EXP 	UNCUED COMPOSITE ../../stim/composite/00705960530fa_sunaduslxfzlbxlllnz.jpg: pos = array([-8.,  0.])
+7.6071 	EXP 	CUED COMPOSITE ../../stim/composite/00098931230fa_sunaajpqmulidejvjsr.jpg: pos = array([8., 0.])
+7.6071 	EXP 	UNCUED COMPOSITE ../../stim/composite/00568940928fa_sunacsdhbbsybcyxnel.jpg: pos = array([-8.,  0.])
+7.6071 	EXP 	CUED COMPOSITE ../../stim/composite/00208940128fa_sunaazzyhbvqjpmazjq.jpg: pos = array([8., 0.])
+7.6071 	EXP 	UNCUED COMPOSITE ../../stim/composite/00968960627fa_sunbagfpovqwbuexqdn.jpg: pos = array([-8.,  0.])
+7.6071 	EXP 	ATTENTION PROBE: pos = array([8., 0.])
+7.6071 	EXP 	ATTENTION PROBE: pos = array([8., 0.])
+7.6071 	EXP 	ATTENTION PROBE: pos = array([-8.,  0.])
+7.6071 	EXP 	ATTENTION PROBE: pos = array([8., 0.])
+7.6071 	EXP 	ATTENTION PROBE: pos = array([8., 0.])
+7.6071 	EXP 	ATTENTION PROBE: pos = array([-8.,  0.])
+7.6071 	EXP 	ATTENTION PROBE: pos = array([8., 0.])
+7.6071 	EXP 	ATTENTION PROBE: pos = array([8., 0.])
+7.6071 	EXP 	ATTENTION PROBE: pos = array([-8.,  0.])
+7.6071 	EXP 	ATTENTION PROBE: pos = array([8., 0.])
+7.7526 	EXP 	window1: recordFrameIntervals = True
+7.9359 	DEBUG 	Screen (0) actual frame rate measured at 60.01
+7.9359 	EXP 	window1: recordFrameIntervals = False
+7.9523 	EXP 	CATEGORY CUE: Place: autoDraw = True
+7.9523 	EXP 	SIDE CUE: >: autoDraw = True
+7.9523 	EXP 	WIN FLIP : CUES ON
+9.4579 	EXP 	CATEGORY CUE: Place: autoDraw = False
+9.4579 	EXP 	SIDE CUE: >: autoDraw = False
+9.4579 	EXP 	FIXATION CROSS: autoDraw = True
+9.4579 	EXP 	WIN FLIP : CUES OFF, FIXATION ON
+10.4586 	EXP 	CUED COMPOSITE ../../stim/composite/00949960627fb_sunasnqkkyhilqkxiqm.jpg: autoDraw = True
+10.4586 	EXP 	UNCUED COMPOSITE ../../stim/composite/00142931230fb_sunaapxkpvrhpjplsok.jpg: autoDraw = True
+10.4586 	EXP 	WIN FLIP : COMPOSITES ON
+13.4751 	EXP 	CUED COMPOSITE ../../stim/composite/00949960627fb_sunasnqkkyhilqkxiqm.jpg: autoDraw = False
+13.4751 	EXP 	UNCUED COMPOSITE ../../stim/composite/00142931230fb_sunaapxkpvrhpjplsok.jpg: autoDraw = False
+13.4751 	EXP 	ATTENTION PROBE: autoDraw = True
+13.4751 	EXP 	WIN FLIP : COMPOSITES OFF, ATTNTION PROBE ON
+15.0185 	DATA 	Keypress: 3
+15.0595 	EXP 	ATTENTION PROBE: autoDraw = False
+15.0595 	EXP 	WIN FLIP : ATTENTION PROBE OFF
+16.0748 	EXP 	CUED COMPOSITE ../../stim/composite/00783941205fa_sunagjeesomrwjsfqie.jpg: autoDraw = True
+16.0748 	EXP 	UNCUED COMPOSITE ../../stim/composite/01000960627fa_sunbvzmgrdvaakxusbu.jpg: autoDraw = True
+16.0748 	EXP 	WIN FLIP : COMPOSITES ON
+19.0926 	EXP 	CUED COMPOSITE ../../stim/composite/00783941205fa_sunagjeesomrwjsfqie.jpg: autoDraw = False
+19.0926 	EXP 	UNCUED COMPOSITE ../../stim/composite/01000960627fa_sunbvzmgrdvaakxusbu.jpg: autoDraw = False
+19.0926 	EXP 	ATTENTION PROBE: autoDraw = True
+19.0926 	EXP 	WIN FLIP : COMPOSITES OFF, ATTNTION PROBE ON
+20.2181 	DATA 	Keypress: 1
+20.2429 	EXP 	ATTENTION PROBE: autoDraw = False
+20.2429 	EXP 	WIN FLIP : ATTENTION PROBE OFF
+21.2594 	EXP 	CUED COMPOSITE ../../stim/composite/00773960620fa_sunafvsxtzaizojicxx.jpg: autoDraw = True
+21.2594 	EXP 	UNCUED COMPOSITE ../../stim/composite/00077931230fb_sunaafgqutfaishsxyu.jpg: autoDraw = True
+21.2594 	EXP 	WIN FLIP : COMPOSITES ON
+24.2783 	EXP 	CUED COMPOSITE ../../stim/composite/00773960620fa_sunafvsxtzaizojicxx.jpg: autoDraw = False
+24.2783 	EXP 	UNCUED COMPOSITE ../../stim/composite/00077931230fb_sunaafgqutfaishsxyu.jpg: autoDraw = False
+24.2783 	EXP 	ATTENTION PROBE: autoDraw = True
+24.2783 	EXP 	WIN FLIP : COMPOSITES OFF, ATTNTION PROBE ON
+25.0824 	DATA 	Keypress: 1
+25.1107 	EXP 	ATTENTION PROBE: autoDraw = False
+25.1107 	EXP 	WIN FLIP : ATTENTION PROBE OFF
+26.1276 	EXP 	CUED COMPOSITE ../../stim/composite/00747941201fa_sunaeutbrtswvsozxyk.jpg: autoDraw = True
+26.1276 	EXP 	UNCUED COMPOSITE ../../stim/composite/00581940928fa_sunacvzhvcksnwqcqbw.jpg: autoDraw = True
+26.1276 	EXP 	WIN FLIP : COMPOSITES ON
+29.1460 	EXP 	CUED COMPOSITE ../../stim/composite/00747941201fa_sunaeutbrtswvsozxyk.jpg: autoDraw = False
+29.1460 	EXP 	UNCUED COMPOSITE ../../stim/composite/00581940928fa_sunacvzhvcksnwqcqbw.jpg: autoDraw = False
+29.1460 	EXP 	ATTENTION PROBE: autoDraw = True
+29.1460 	EXP 	WIN FLIP : COMPOSITES OFF, ATTNTION PROBE ON
+30.3062 	DATA 	Keypress: 3
+30.3452 	EXP 	ATTENTION PROBE: autoDraw = False
+30.3452 	EXP 	WIN FLIP : ATTENTION PROBE OFF
+31.3622 	EXP 	CUED COMPOSITE ../../stim/composite/00906960530fa_sunantryfbloeaomfta.jpg: autoDraw = True
+31.3622 	EXP 	UNCUED COMPOSITE ../../stim/composite/00799941205fa_sunagutjvdvnhxejerz.jpg: autoDraw = True
+31.3622 	EXP 	WIN FLIP : COMPOSITES ON
+34.3800 	EXP 	CUED COMPOSITE ../../stim/composite/00906960530fa_sunantryfbloeaomfta.jpg: autoDraw = False
+34.3800 	EXP 	UNCUED COMPOSITE ../../stim/composite/00799941205fa_sunagutjvdvnhxejerz.jpg: autoDraw = False
+34.3800 	EXP 	ATTENTION PROBE: autoDraw = True
+34.3800 	EXP 	WIN FLIP : COMPOSITES OFF, ATTNTION PROBE ON
+35.4338 	DATA 	Keypress: 1
+35.4640 	EXP 	ATTENTION PROBE: autoDraw = False
+35.4640 	EXP 	WIN FLIP : ATTENTION PROBE OFF
+36.4803 	EXP 	CUED COMPOSITE ../../stim/composite/00675941121fa_sunadoxcchtmsxewsau.jpg: autoDraw = True
+36.4803 	EXP 	UNCUED COMPOSITE ../../stim/composite/00481940519fa_sunabxsuqbleluwczoy.jpg: autoDraw = True
+36.4803 	EXP 	WIN FLIP : COMPOSITES ON
+39.4982 	EXP 	CUED COMPOSITE ../../stim/composite/00675941121fa_sunadoxcchtmsxewsau.jpg: autoDraw = False
+39.4982 	EXP 	UNCUED COMPOSITE ../../stim/composite/00481940519fa_sunabxsuqbleluwczoy.jpg: autoDraw = False
+39.4982 	EXP 	ATTENTION PROBE: autoDraw = True
+39.4982 	EXP 	WIN FLIP : COMPOSITES OFF, ATTNTION PROBE ON
+40.6660 	DATA 	Keypress: 1
+40.6987 	EXP 	ATTENTION PROBE: autoDraw = False
+40.6987 	EXP 	WIN FLIP : ATTENTION PROBE OFF
+41.7148 	EXP 	CUED COMPOSITE ../../stim/composite/00996960627fa_sunbpvgllfdejxcpjqp.jpg: autoDraw = True
+41.7148 	EXP 	UNCUED COMPOSITE ../../stim/composite/00841940307fa_sunaisiwfgppimtnmxl.jpg: autoDraw = True
+41.7148 	EXP 	WIN FLIP : COMPOSITES ON
+44.7332 	EXP 	CUED COMPOSITE ../../stim/composite/00996960627fa_sunbpvgllfdejxcpjqp.jpg: autoDraw = False
+44.7332 	EXP 	UNCUED COMPOSITE ../../stim/composite/00841940307fa_sunaisiwfgppimtnmxl.jpg: autoDraw = False
+44.7332 	EXP 	ATTENTION PROBE: autoDraw = True
+44.7332 	EXP 	WIN FLIP : COMPOSITES OFF, ATTNTION PROBE ON
+45.6979 	DATA 	Keypress: 3
+45.7332 	EXP 	ATTENTION PROBE: autoDraw = False
+45.7332 	EXP 	WIN FLIP : ATTENTION PROBE OFF
+46.7491 	EXP 	CUED COMPOSITE ../../stim/composite/00908960530fa_sunanwjjyqqwzqrqagd.jpg: autoDraw = True
+46.7491 	EXP 	UNCUED COMPOSITE ../../stim/composite/00705960530fa_sunaduslxfzlbxlllnz.jpg: autoDraw = True
+46.7491 	EXP 	WIN FLIP : COMPOSITES ON
+49.7674 	EXP 	CUED COMPOSITE ../../stim/composite/00908960530fa_sunanwjjyqqwzqrqagd.jpg: autoDraw = False
+49.7674 	EXP 	UNCUED COMPOSITE ../../stim/composite/00705960530fa_sunaduslxfzlbxlllnz.jpg: autoDraw = False
+49.7674 	EXP 	ATTENTION PROBE: autoDraw = True
+49.7674 	EXP 	WIN FLIP : COMPOSITES OFF, ATTNTION PROBE ON
+50.7058 	DATA 	Keypress: 1
+50.7344 	EXP 	ATTENTION PROBE: autoDraw = False
+50.7344 	EXP 	WIN FLIP : ATTENTION PROBE OFF
+51.7512 	EXP 	CUED COMPOSITE ../../stim/composite/00098931230fa_sunaajpqmulidejvjsr.jpg: autoDraw = True
+51.7512 	EXP 	UNCUED COMPOSITE ../../stim/composite/00568940928fa_sunacsdhbbsybcyxnel.jpg: autoDraw = True
+51.7512 	EXP 	WIN FLIP : COMPOSITES ON
+54.7683 	EXP 	CUED COMPOSITE ../../stim/composite/00098931230fa_sunaajpqmulidejvjsr.jpg: autoDraw = False
+54.7683 	EXP 	UNCUED COMPOSITE ../../stim/composite/00568940928fa_sunacsdhbbsybcyxnel.jpg: autoDraw = False
+54.7683 	EXP 	ATTENTION PROBE: autoDraw = True
+54.7683 	EXP 	WIN FLIP : COMPOSITES OFF, ATTNTION PROBE ON
+56.5776 	DATA 	Keypress: 1
+56.6181 	EXP 	ATTENTION PROBE: autoDraw = False
+56.6181 	EXP 	WIN FLIP : ATTENTION PROBE OFF
+57.6361 	EXP 	CUED COMPOSITE ../../stim/composite/00208940128fa_sunaazzyhbvqjpmazjq.jpg: autoDraw = True
+57.6361 	EXP 	UNCUED COMPOSITE ../../stim/composite/00968960627fa_sunbagfpovqwbuexqdn.jpg: autoDraw = True
+57.6361 	EXP 	WIN FLIP : COMPOSITES ON
+60.6531 	EXP 	CUED COMPOSITE ../../stim/composite/00208940128fa_sunaazzyhbvqjpmazjq.jpg: autoDraw = False
+60.6531 	EXP 	UNCUED COMPOSITE ../../stim/composite/00968960627fa_sunbagfpovqwbuexqdn.jpg: autoDraw = False
+60.6531 	EXP 	ATTENTION PROBE: autoDraw = True
+60.6531 	EXP 	WIN FLIP : COMPOSITES OFF, ATTNTION PROBE ON
+61.6097 	DATA 	Keypress: 1
+61.6369 	EXP 	ATTENTION PROBE: autoDraw = False
+61.6369 	EXP 	WIN FLIP : ATTENTION PROBE OFF
+61.6590 	EXP 	FIXATION CROSS: autoDraw = False
+61.6590 	EXP 	WIN FLIP : FIXATION OFF
+61.8002 	EXP 	Created INSTRCUCTION TEXT = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=1.0, italic=False, name='INSTRCUCTION TEXT', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=array([1., 1., 1.]), text=' MEMORY BLOCK. \n\n Press any key to begin.', units='deg', win=Window(...), wrapWidth=40)
+61.8368 	EXP 	INSTRCUCTION TEXT: autoDraw = True
+62.6179 	DATA 	Keypress: space
+62.6539 	EXP 	INSTRCUCTION TEXT: autoDraw = False
+62.6552 	INFO 	Mouse: using default window
+62.6553 	EXP 	window1: recordFrameIntervals = False
+62.8155 	EXP 	window1: recordFrameIntervals = True
+62.9997 	DEBUG 	Screen (0) actual frame rate measured at 59.89
+62.9997 	EXP 	window1: recordFrameIntervals = False
+63.0027 	EXP 	Created FIXATION CROSS = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='lightGrey', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=2, italic=False, name='FIXATION CROSS', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([211., 211., 211.]), text='+', units='deg', win=Window(...), wrapWidth=15.0)
+63.0200 	EXP 	Created MEMORY IMAGE ../../stim/single/sunacxeheuiigkcgquf.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunacxeheuiigkcgquf.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.0310 	EXP 	Created MEMORY IMAGE ../../stim/single/00747941201fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00747941201fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.0396 	EXP 	Created MEMORY IMAGE ../../stim/single/00077931230fb.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00077931230fb.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.0608 	EXP 	Created MEMORY IMAGE ../../stim/single/sunaafgqutfaishsxyu.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunaafgqutfaishsxyu.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.0721 	EXP 	Created MEMORY IMAGE ../../stim/single/00770941201fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00770941201fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.0925 	EXP 	Created MEMORY IMAGE ../../stim/single/00968960627fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00968960627fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.1118 	EXP 	Created MEMORY IMAGE ../../stim/single/sunagjeesomrwjsfqie.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunagjeesomrwjsfqie.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.1420 	EXP 	Created MEMORY IMAGE ../../stim/single/sunaflojskatpeqyzqp.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunaflojskatpeqyzqp.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.1543 	EXP 	Created MEMORY IMAGE ../../stim/single/sunavxokzybtomhbmvm.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunavxokzybtomhbmvm.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.1640 	EXP 	Created MEMORY IMAGE ../../stim/single/01010960627fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/01010960627fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.1683 	EXP 	Created MEMORY IMAGE ../../stim/single/sunahmhrncocyhsjpxk.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunahmhrncocyhsjpxk.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.1808 	EXP 	Created MEMORY IMAGE ../../stim/single/00089931230fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00089931230fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.1847 	EXP 	Created MEMORY IMAGE ../../stim/single/sunaivdylrawbmhryfp.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunaivdylrawbmhryfp.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.1937 	EXP 	Created MEMORY IMAGE ../../stim/single/sunaagcpoejbuzyvddd.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunaagcpoejbuzyvddd.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.1980 	EXP 	Created MEMORY IMAGE ../../stim/single/sunanmoqeyprjjjfxjt.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunanmoqeyprjjjfxjt.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.2064 	EXP 	Created MEMORY IMAGE ../../stim/single/00996960627fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00996960627fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.2143 	EXP 	Created MEMORY IMAGE ../../stim/single/sunabxsuqbleluwczoy.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunabxsuqbleluwczoy.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.2367 	EXP 	Created MEMORY IMAGE ../../stim/single/sunacsdhbbsybcyxnel.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunacsdhbbsybcyxnel.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.2410 	EXP 	Created MEMORY IMAGE ../../stim/single/00816941205fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00816941205fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.2658 	EXP 	Created MEMORY IMAGE ../../stim/single/00949960627fb.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00949960627fb.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.2903 	EXP 	Created MEMORY IMAGE ../../stim/single/sunaafjszryxyavjzln.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunaafjszryxyavjzln.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.3024 	EXP 	Created MEMORY IMAGE ../../stim/single/suncnkvbhypnivcohyx.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/suncnkvbhypnivcohyx.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.3174 	EXP 	Created MEMORY IMAGE ../../stim/single/00905960530fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00905960530fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.3441 	EXP 	Created MEMORY IMAGE ../../stim/single/00959960627fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00959960627fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.3492 	EXP 	Created MEMORY IMAGE ../../stim/single/00598940928fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00598940928fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.3535 	EXP 	Created MEMORY IMAGE ../../stim/single/00080931230fb.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00080931230fb.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.3602 	EXP 	Created MEMORY IMAGE ../../stim/single/sunasnqkkyhilqkxiqm.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunasnqkkyhilqkxiqm.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.3807 	EXP 	Created MEMORY IMAGE ../../stim/single/00568940928fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00568940928fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.3931 	EXP 	Created MEMORY IMAGE ../../stim/single/00908960530fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00908960530fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.3973 	EXP 	Created MEMORY IMAGE ../../stim/single/00481940519fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00481940519fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.4090 	EXP 	Created MEMORY IMAGE ../../stim/single/01000960627fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/01000960627fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.4137 	EXP 	Created MEMORY IMAGE ../../stim/single/sunbagfpovqwbuexqdn.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunbagfpovqwbuexqdn.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.4184 	EXP 	Created MEMORY IMAGE ../../stim/single/sunaeutbrtswvsozxyk.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunaeutbrtswvsozxyk.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.4363 	EXP 	Created MEMORY IMAGE ../../stim/single/sunanwjjyqqwzqrqagd.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunanwjjyqqwzqrqagd.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.4589 	EXP 	Created MEMORY IMAGE ../../stim/single/sunbpvgllfdejxcpjqp.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunbpvgllfdejxcpjqp.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.4747 	EXP 	Created MEMORY IMAGE ../../stim/single/00955960627fb.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00955960627fb.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.4910 	EXP 	Created MEMORY IMAGE ../../stim/single/00783941205fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00783941205fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.4957 	EXP 	Created MEMORY IMAGE ../../stim/single/sunauburywlkjszngcq.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunauburywlkjszngcq.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.5056 	EXP 	Created MEMORY IMAGE ../../stim/single/00848940307fa.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/00848940307fa.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.5093 	EXP 	Created MEMORY IMAGE ../../stim/single/sunbvzmgrdvaakxusbu.jpg = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image='../../stim/single/sunbvzmgrdvaakxusbu.jpg', interpolate=False, mask=None, maskParams=None, name=str(...), opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([7., 7.]), texRes=128, units='deg', win=Window(...))
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/sunacxeheuiigkcgquf.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/00747941201fa.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/00077931230fb.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/sunaafgqutfaishsxyu.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/00770941201fa.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/00968960627fa.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/sunagjeesomrwjsfqie.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/sunaflojskatpeqyzqp.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/sunavxokzybtomhbmvm.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/01010960627fa.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/sunahmhrncocyhsjpxk.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/00089931230fa.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/sunaivdylrawbmhryfp.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/sunaagcpoejbuzyvddd.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/sunanmoqeyprjjjfxjt.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/00996960627fa.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/sunabxsuqbleluwczoy.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/sunacsdhbbsybcyxnel.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/00816941205fa.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/00949960627fb.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/sunaafjszryxyavjzln.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/suncnkvbhypnivcohyx.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/00905960530fa.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/00959960627fa.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/00598940928fa.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/00080931230fb.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/sunasnqkkyhilqkxiqm.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/00568940928fa.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/00908960530fa.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/00481940519fa.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/01000960627fa.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/sunbagfpovqwbuexqdn.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/sunaeutbrtswvsozxyk.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/sunanwjjyqqwzqrqagd.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/sunbpvgllfdejxcpjqp.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/00955960627fb.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/00783941205fa.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/sunauburywlkjszngcq.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/00848940307fa.jpg: pos = array([0., 0.])
+63.5213 	EXP 	MEMORY IMAGE ../../stim/single/sunbvzmgrdvaakxusbu.jpg: pos = array([0., 0.])
+63.5213 	EXP 	FIXATION CROSS: autoDraw = True
+63.5213 	EXP 	WIN FLIP : FIXATION ON
+63.5901 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+64.5379 	EXP 	FIXATION CROSS: autoDraw = False
+64.5379 	EXP 	unnamed RatingScale: flipVert = False
+64.5379 	EXP 	unnamed RatingScale: autoLog = True
+64.5379 	EXP 	unnamed RatingScale: autoDraw = True
+64.5379 	EXP 	MEMORY IMAGE ../../stim/single/sunacxeheuiigkcgquf.jpg: autoDraw = True
+64.5379 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+65.4701 	DATA 	Keypress: 1
+65.4706 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+65.4706 	DATA 	RatingScale unnamed RatingScale: rating RT=0.965
+65.4706 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 0.965)]
+66.5365 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+66.5365 	EXP 	unnamed RatingScale: autoDraw = False
+66.5365 	EXP 	MEMORY IMAGE ../../stim/single/sunacxeheuiigkcgquf.jpg: autoDraw = False
+66.5365 	EXP 	FIXATION CROSS: autoDraw = True
+66.6979 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+67.3215 	DATA 	Keypress: 3
+67.5393 	EXP 	FIXATION CROSS: autoDraw = False
+67.5393 	EXP 	unnamed RatingScale: flipVert = False
+67.5393 	EXP 	unnamed RatingScale: autoLog = True
+67.5393 	EXP 	unnamed RatingScale: autoDraw = True
+67.5393 	EXP 	MEMORY IMAGE ../../stim/single/00747941201fa.jpg: autoDraw = True
+67.5393 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+68.2089 	DATA 	Keypress: 1
+68.2092 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+68.2092 	DATA 	RatingScale unnamed RatingScale: rating RT=0.689
+68.2093 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 0.689)]
+69.5378 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+69.5378 	EXP 	unnamed RatingScale: autoDraw = False
+69.5378 	EXP 	MEMORY IMAGE ../../stim/single/00747941201fa.jpg: autoDraw = False
+69.5378 	EXP 	FIXATION CROSS: autoDraw = True
+69.6952 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+70.5387 	EXP 	FIXATION CROSS: autoDraw = False
+70.5387 	EXP 	unnamed RatingScale: flipVert = False
+70.5387 	EXP 	unnamed RatingScale: autoLog = True
+70.5387 	EXP 	unnamed RatingScale: autoDraw = True
+70.5387 	EXP 	MEMORY IMAGE ../../stim/single/00077931230fb.jpg: autoDraw = True
+70.5387 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+71.0589 	DATA 	Keypress: 1
+71.0593 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+71.0593 	DATA 	RatingScale unnamed RatingScale: rating RT=0.537
+71.0594 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 0.537)]
+72.5514 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+72.5514 	EXP 	unnamed RatingScale: autoDraw = False
+72.5514 	EXP 	MEMORY IMAGE ../../stim/single/00077931230fb.jpg: autoDraw = False
+72.5514 	EXP 	FIXATION CROSS: autoDraw = True
+72.7117 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+73.5571 	EXP 	FIXATION CROSS: autoDraw = False
+73.5571 	EXP 	unnamed RatingScale: flipVert = False
+73.5571 	EXP 	unnamed RatingScale: autoLog = True
+73.5571 	EXP 	unnamed RatingScale: autoDraw = True
+73.5571 	EXP 	MEMORY IMAGE ../../stim/single/sunaafgqutfaishsxyu.jpg: autoDraw = True
+73.5571 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+74.7416 	DATA 	Keypress: 1
+74.7420 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+74.7420 	DATA 	RatingScale unnamed RatingScale: rating RT=1.207
+74.7420 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 1.207)]
+75.5687 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+75.5687 	EXP 	unnamed RatingScale: autoDraw = False
+75.5687 	EXP 	MEMORY IMAGE ../../stim/single/sunaafgqutfaishsxyu.jpg: autoDraw = False
+75.5687 	EXP 	FIXATION CROSS: autoDraw = True
+75.7252 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+76.5745 	EXP 	FIXATION CROSS: autoDraw = False
+76.5745 	EXP 	unnamed RatingScale: flipVert = False
+76.5745 	EXP 	unnamed RatingScale: autoLog = True
+76.5745 	EXP 	unnamed RatingScale: autoDraw = True
+76.5745 	EXP 	MEMORY IMAGE ../../stim/single/00770941201fa.jpg: autoDraw = True
+76.5745 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+77.6083 	DATA 	Keypress: 1
+77.6088 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+77.6088 	DATA 	RatingScale unnamed RatingScale: rating RT=1.056
+77.6088 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 1.056)]
+78.5714 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+78.5714 	EXP 	unnamed RatingScale: autoDraw = False
+78.5714 	EXP 	MEMORY IMAGE ../../stim/single/00770941201fa.jpg: autoDraw = False
+78.5714 	EXP 	FIXATION CROSS: autoDraw = True
+78.7290 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+79.5747 	EXP 	FIXATION CROSS: autoDraw = False
+79.5747 	EXP 	unnamed RatingScale: flipVert = False
+79.5747 	EXP 	unnamed RatingScale: autoLog = True
+79.5747 	EXP 	unnamed RatingScale: autoDraw = True
+79.5747 	EXP 	MEMORY IMAGE ../../stim/single/00968960627fa.jpg: autoDraw = True
+79.5747 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+80.9738 	DATA 	Keypress: 1
+80.9743 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+80.9743 	DATA 	RatingScale unnamed RatingScale: rating RT=1.419
+80.9743 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 1.419)]
+81.5726 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+81.5726 	EXP 	unnamed RatingScale: autoDraw = False
+81.5726 	EXP 	MEMORY IMAGE ../../stim/single/00968960627fa.jpg: autoDraw = False
+81.5726 	EXP 	FIXATION CROSS: autoDraw = True
+81.7287 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+82.5758 	EXP 	FIXATION CROSS: autoDraw = False
+82.5758 	EXP 	unnamed RatingScale: flipVert = False
+82.5758 	EXP 	unnamed RatingScale: autoLog = True
+82.5758 	EXP 	unnamed RatingScale: autoDraw = True
+82.5758 	EXP 	MEMORY IMAGE ../../stim/single/sunagjeesomrwjsfqie.jpg: autoDraw = True
+82.5758 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+83.9564 	DATA 	Keypress: 3
+83.9569 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=3
+83.9569 	DATA 	RatingScale unnamed RatingScale: rating RT=1.400
+83.9569 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (3, 1.4)]
+84.5913 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+84.5913 	EXP 	unnamed RatingScale: autoDraw = False
+84.5913 	EXP 	MEMORY IMAGE ../../stim/single/sunagjeesomrwjsfqie.jpg: autoDraw = False
+84.5913 	EXP 	FIXATION CROSS: autoDraw = True
+84.7479 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+85.5933 	EXP 	FIXATION CROSS: autoDraw = False
+85.5933 	EXP 	unnamed RatingScale: flipVert = False
+85.5933 	EXP 	unnamed RatingScale: autoLog = True
+85.5933 	EXP 	unnamed RatingScale: autoDraw = True
+85.5933 	EXP 	MEMORY IMAGE ../../stim/single/sunaflojskatpeqyzqp.jpg: autoDraw = True
+85.5933 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+86.3894 	DATA 	Keypress: 1
+86.3899 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+86.3899 	DATA 	RatingScale unnamed RatingScale: rating RT=0.815
+86.3899 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 0.815)]
+87.6053 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+87.6053 	EXP 	unnamed RatingScale: autoDraw = False
+87.6053 	EXP 	MEMORY IMAGE ../../stim/single/sunaflojskatpeqyzqp.jpg: autoDraw = False
+87.6053 	EXP 	FIXATION CROSS: autoDraw = True
+87.7692 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+88.6108 	EXP 	FIXATION CROSS: autoDraw = False
+88.6108 	EXP 	unnamed RatingScale: flipVert = False
+88.6108 	EXP 	unnamed RatingScale: autoLog = True
+88.6108 	EXP 	unnamed RatingScale: autoDraw = True
+88.6108 	EXP 	MEMORY IMAGE ../../stim/single/sunavxokzybtomhbmvm.jpg: autoDraw = True
+88.6108 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+89.2407 	DATA 	Keypress: 3
+89.2413 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=3
+89.2413 	DATA 	RatingScale unnamed RatingScale: rating RT=0.652
+89.2413 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (3, 0.652)]
+89.2578 	DATA 	Keypress: 2
+90.6226 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+90.6226 	EXP 	unnamed RatingScale: autoDraw = False
+90.6226 	EXP 	MEMORY IMAGE ../../stim/single/sunavxokzybtomhbmvm.jpg: autoDraw = False
+90.6226 	EXP 	FIXATION CROSS: autoDraw = True
+90.7827 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+91.6277 	EXP 	FIXATION CROSS: autoDraw = False
+91.6277 	EXP 	unnamed RatingScale: flipVert = False
+91.6277 	EXP 	unnamed RatingScale: autoLog = True
+91.6277 	EXP 	unnamed RatingScale: autoDraw = True
+91.6277 	EXP 	MEMORY IMAGE ../../stim/single/01010960627fa.jpg: autoDraw = True
+91.6277 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+92.4929 	DATA 	Keypress: 1
+92.4934 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+92.4934 	DATA 	RatingScale unnamed RatingScale: rating RT=0.886
+92.4934 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 0.886)]
+93.6394 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+93.6394 	EXP 	unnamed RatingScale: autoDraw = False
+93.6394 	EXP 	MEMORY IMAGE ../../stim/single/01010960627fa.jpg: autoDraw = False
+93.6394 	EXP 	FIXATION CROSS: autoDraw = True
+93.7992 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+94.6620 	EXP 	FIXATION CROSS: autoDraw = False
+94.6620 	EXP 	unnamed RatingScale: flipVert = False
+94.6620 	EXP 	unnamed RatingScale: autoLog = True
+94.6620 	EXP 	unnamed RatingScale: autoDraw = True
+94.6620 	EXP 	MEMORY IMAGE ../../stim/single/sunahmhrncocyhsjpxk.jpg: autoDraw = True
+94.6620 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+95.4469 	DATA 	Keypress: 1
+95.4474 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+95.4474 	DATA 	RatingScale unnamed RatingScale: rating RT=0.824
+95.4475 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 0.824)]
+96.6396 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+96.6396 	EXP 	unnamed RatingScale: autoDraw = False
+96.6396 	EXP 	MEMORY IMAGE ../../stim/single/sunahmhrncocyhsjpxk.jpg: autoDraw = False
+96.6396 	EXP 	FIXATION CROSS: autoDraw = True
+96.7964 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+97.6463 	EXP 	FIXATION CROSS: autoDraw = False
+97.6463 	EXP 	unnamed RatingScale: flipVert = False
+97.6463 	EXP 	unnamed RatingScale: autoLog = True
+97.6463 	EXP 	unnamed RatingScale: autoDraw = True
+97.6463 	EXP 	MEMORY IMAGE ../../stim/single/00089931230fa.jpg: autoDraw = True
+97.6463 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+98.2936 	DATA 	Keypress: 1
+98.2942 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+98.2942 	DATA 	RatingScale unnamed RatingScale: rating RT=0.670
+98.2943 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 0.67)]
+99.6467 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+99.6467 	EXP 	unnamed RatingScale: autoDraw = False
+99.6467 	EXP 	MEMORY IMAGE ../../stim/single/00089931230fa.jpg: autoDraw = False
+99.6467 	EXP 	FIXATION CROSS: autoDraw = True
+99.8065 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+100.6464 	EXP 	FIXATION CROSS: autoDraw = False
+100.6464 	EXP 	unnamed RatingScale: flipVert = False
+100.6464 	EXP 	unnamed RatingScale: autoLog = True
+100.6464 	EXP 	unnamed RatingScale: autoDraw = True
+100.6464 	EXP 	MEMORY IMAGE ../../stim/single/sunaivdylrawbmhryfp.jpg: autoDraw = True
+100.6464 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+101.4609 	DATA 	Keypress: 1
+101.4614 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+101.4614 	DATA 	RatingScale unnamed RatingScale: rating RT=0.830
+101.4614 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 0.83)]
+102.6600 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+102.6600 	EXP 	unnamed RatingScale: autoDraw = False
+102.6600 	EXP 	MEMORY IMAGE ../../stim/single/sunaivdylrawbmhryfp.jpg: autoDraw = False
+102.6600 	EXP 	FIXATION CROSS: autoDraw = True
+102.8221 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+103.6639 	EXP 	FIXATION CROSS: autoDraw = False
+103.6639 	EXP 	unnamed RatingScale: flipVert = False
+103.6639 	EXP 	unnamed RatingScale: autoLog = True
+103.6639 	EXP 	unnamed RatingScale: autoDraw = True
+103.6639 	EXP 	MEMORY IMAGE ../../stim/single/sunaagcpoejbuzyvddd.jpg: autoDraw = True
+103.6639 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+105.0130 	DATA 	Keypress: 1
+105.0135 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+105.0135 	DATA 	RatingScale unnamed RatingScale: rating RT=1.370
+105.0135 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 1.37)]
+105.6628 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+105.6628 	EXP 	unnamed RatingScale: autoDraw = False
+105.6628 	EXP 	MEMORY IMAGE ../../stim/single/sunaagcpoejbuzyvddd.jpg: autoDraw = False
+105.6628 	EXP 	FIXATION CROSS: autoDraw = True
+105.8218 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+106.4477 	DATA 	Keypress: 3
+106.6650 	EXP 	FIXATION CROSS: autoDraw = False
+106.6650 	EXP 	unnamed RatingScale: flipVert = False
+106.6650 	EXP 	unnamed RatingScale: autoLog = True
+106.6650 	EXP 	unnamed RatingScale: autoDraw = True
+106.6650 	EXP 	MEMORY IMAGE ../../stim/single/sunanmoqeyprjjjfxjt.jpg: autoDraw = True
+106.6650 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+107.3947 	DATA 	Keypress: 1
+107.3952 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+107.3952 	DATA 	RatingScale unnamed RatingScale: rating RT=0.749
+107.3952 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 0.748)]
+108.6657 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+108.6657 	EXP 	unnamed RatingScale: autoDraw = False
+108.6657 	EXP 	MEMORY IMAGE ../../stim/single/sunanmoqeyprjjjfxjt.jpg: autoDraw = False
+108.6657 	EXP 	FIXATION CROSS: autoDraw = True
+108.8258 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+109.6660 	EXP 	FIXATION CROSS: autoDraw = False
+109.6660 	EXP 	unnamed RatingScale: flipVert = False
+109.6660 	EXP 	unnamed RatingScale: autoLog = True
+109.6660 	EXP 	unnamed RatingScale: autoDraw = True
+109.6660 	EXP 	MEMORY IMAGE ../../stim/single/00996960627fa.jpg: autoDraw = True
+109.6660 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+110.3129 	DATA 	Keypress: 1
+110.3133 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+110.3133 	DATA 	RatingScale unnamed RatingScale: rating RT=0.664
+110.3134 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 0.664)]
+111.6768 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+111.6768 	EXP 	unnamed RatingScale: autoDraw = False
+111.6768 	EXP 	MEMORY IMAGE ../../stim/single/00996960627fa.jpg: autoDraw = False
+111.6768 	EXP 	FIXATION CROSS: autoDraw = True
+111.8359 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+112.6831 	EXP 	FIXATION CROSS: autoDraw = False
+112.6831 	EXP 	unnamed RatingScale: flipVert = False
+112.6831 	EXP 	unnamed RatingScale: autoLog = True
+112.6831 	EXP 	unnamed RatingScale: autoDraw = True
+112.6831 	EXP 	MEMORY IMAGE ../../stim/single/sunabxsuqbleluwczoy.jpg: autoDraw = True
+112.6831 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+113.3857 	DATA 	Keypress: 1
+113.3860 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+113.3861 	DATA 	RatingScale unnamed RatingScale: rating RT=0.725
+113.3861 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 0.725)]
+114.6781 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+114.6781 	EXP 	unnamed RatingScale: autoDraw = False
+114.6781 	EXP 	MEMORY IMAGE ../../stim/single/sunabxsuqbleluwczoy.jpg: autoDraw = False
+114.6781 	EXP 	FIXATION CROSS: autoDraw = True
+114.8389 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+115.6837 	EXP 	FIXATION CROSS: autoDraw = False
+115.6837 	EXP 	unnamed RatingScale: flipVert = False
+115.6837 	EXP 	unnamed RatingScale: autoLog = True
+115.6837 	EXP 	unnamed RatingScale: autoDraw = True
+115.6837 	EXP 	MEMORY IMAGE ../../stim/single/sunacsdhbbsybcyxnel.jpg: autoDraw = True
+115.6837 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+116.5659 	DATA 	Keypress: 1
+116.5663 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+116.5663 	DATA 	RatingScale unnamed RatingScale: rating RT=0.904
+116.5663 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 0.904)]
+117.6786 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+117.6786 	EXP 	unnamed RatingScale: autoDraw = False
+117.6786 	EXP 	MEMORY IMAGE ../../stim/single/sunacsdhbbsybcyxnel.jpg: autoDraw = False
+117.6786 	EXP 	FIXATION CROSS: autoDraw = True
+117.8358 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+118.6846 	EXP 	FIXATION CROSS: autoDraw = False
+118.6846 	EXP 	unnamed RatingScale: flipVert = False
+118.6846 	EXP 	unnamed RatingScale: autoLog = True
+118.6846 	EXP 	unnamed RatingScale: autoDraw = True
+118.6846 	EXP 	MEMORY IMAGE ../../stim/single/00816941205fa.jpg: autoDraw = True
+118.6846 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+119.1532 	DATA 	Keypress: 1
+119.1537 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+119.1537 	DATA 	RatingScale unnamed RatingScale: rating RT=0.491
+119.1537 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 0.491)]
+120.6958 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+120.6958 	EXP 	unnamed RatingScale: autoDraw = False
+120.6958 	EXP 	MEMORY IMAGE ../../stim/single/00816941205fa.jpg: autoDraw = False
+120.6958 	EXP 	FIXATION CROSS: autoDraw = True
+120.8531 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+121.7017 	EXP 	FIXATION CROSS: autoDraw = False
+121.7017 	EXP 	unnamed RatingScale: flipVert = False
+121.7017 	EXP 	unnamed RatingScale: autoLog = True
+121.7017 	EXP 	unnamed RatingScale: autoDraw = True
+121.7017 	EXP 	MEMORY IMAGE ../../stim/single/00949960627fb.jpg: autoDraw = True
+121.7017 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+122.3550 	DATA 	Keypress: 1
+122.3554 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+122.3554 	DATA 	RatingScale unnamed RatingScale: rating RT=0.676
+122.3555 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 0.676)]
+123.7010 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+123.7010 	EXP 	unnamed RatingScale: autoDraw = False
+123.7010 	EXP 	MEMORY IMAGE ../../stim/single/00949960627fb.jpg: autoDraw = False
+123.7010 	EXP 	FIXATION CROSS: autoDraw = True
+123.8583 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+124.7026 	EXP 	FIXATION CROSS: autoDraw = False
+124.7026 	EXP 	unnamed RatingScale: flipVert = False
+124.7026 	EXP 	unnamed RatingScale: autoLog = True
+124.7026 	EXP 	unnamed RatingScale: autoDraw = True
+124.7026 	EXP 	MEMORY IMAGE ../../stim/single/sunaafjszryxyavjzln.jpg: autoDraw = True
+124.7026 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+125.3169 	DATA 	Keypress: 1
+125.3173 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+125.3173 	DATA 	RatingScale unnamed RatingScale: rating RT=0.632
+125.3174 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 0.632)]
+126.7026 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+126.7026 	EXP 	unnamed RatingScale: autoDraw = False
+126.7026 	EXP 	MEMORY IMAGE ../../stim/single/sunaafjszryxyavjzln.jpg: autoDraw = False
+126.7026 	EXP 	FIXATION CROSS: autoDraw = True
+126.8623 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+127.7034 	EXP 	FIXATION CROSS: autoDraw = False
+127.7034 	EXP 	unnamed RatingScale: flipVert = False
+127.7034 	EXP 	unnamed RatingScale: autoLog = True
+127.7034 	EXP 	unnamed RatingScale: autoDraw = True
+127.7034 	EXP 	MEMORY IMAGE ../../stim/single/suncnkvbhypnivcohyx.jpg: autoDraw = True
+127.7034 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+128.5507 	DATA 	Keypress: 1
+128.5511 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+128.5512 	DATA 	RatingScale unnamed RatingScale: rating RT=0.864
+128.5512 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 0.864)]
+129.7149 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+129.7149 	EXP 	unnamed RatingScale: autoDraw = False
+129.7149 	EXP 	MEMORY IMAGE ../../stim/single/suncnkvbhypnivcohyx.jpg: autoDraw = False
+129.7149 	EXP 	FIXATION CROSS: autoDraw = True
+129.8727 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+130.7210 	EXP 	FIXATION CROSS: autoDraw = False
+130.7210 	EXP 	unnamed RatingScale: flipVert = False
+130.7210 	EXP 	unnamed RatingScale: autoLog = True
+130.7210 	EXP 	unnamed RatingScale: autoDraw = True
+130.7210 	EXP 	MEMORY IMAGE ../../stim/single/00905960530fa.jpg: autoDraw = True
+130.7210 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+131.4009 	DATA 	Keypress: 1
+131.4013 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+131.4013 	DATA 	RatingScale unnamed RatingScale: rating RT=0.702
+131.4013 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 0.702)]
+132.7163 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+132.7163 	EXP 	unnamed RatingScale: autoDraw = False
+132.7163 	EXP 	MEMORY IMAGE ../../stim/single/00905960530fa.jpg: autoDraw = False
+132.7163 	EXP 	FIXATION CROSS: autoDraw = True
+132.8744 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+133.7212 	EXP 	FIXATION CROSS: autoDraw = False
+133.7212 	EXP 	unnamed RatingScale: flipVert = False
+133.7212 	EXP 	unnamed RatingScale: autoLog = True
+133.7212 	EXP 	unnamed RatingScale: autoDraw = True
+133.7212 	EXP 	MEMORY IMAGE ../../stim/single/00959960627fa.jpg: autoDraw = True
+133.7212 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+134.9528 	DATA 	Keypress: 1
+134.9532 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+134.9532 	DATA 	RatingScale unnamed RatingScale: rating RT=1.253
+134.9532 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 1.253)]
+135.7165 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+135.7165 	EXP 	unnamed RatingScale: autoDraw = False
+135.7165 	EXP 	MEMORY IMAGE ../../stim/single/00959960627fa.jpg: autoDraw = False
+135.7165 	EXP 	FIXATION CROSS: autoDraw = True
+135.8756 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+136.7220 	EXP 	FIXATION CROSS: autoDraw = False
+136.7220 	EXP 	unnamed RatingScale: flipVert = False
+136.7220 	EXP 	unnamed RatingScale: autoLog = True
+136.7220 	EXP 	unnamed RatingScale: autoDraw = True
+136.7220 	EXP 	MEMORY IMAGE ../../stim/single/00598940928fa.jpg: autoDraw = True
+136.7220 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+137.1738 	DATA 	Keypress: 1
+137.1743 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+137.1743 	DATA 	RatingScale unnamed RatingScale: rating RT=0.473
+137.1743 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 0.473)]
+138.7342 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+138.7342 	EXP 	unnamed RatingScale: autoDraw = False
+138.7342 	EXP 	MEMORY IMAGE ../../stim/single/00598940928fa.jpg: autoDraw = False
+138.7342 	EXP 	FIXATION CROSS: autoDraw = True
+138.8901 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+139.7396 	EXP 	FIXATION CROSS: autoDraw = False
+139.7396 	EXP 	unnamed RatingScale: flipVert = False
+139.7396 	EXP 	unnamed RatingScale: autoLog = True
+139.7396 	EXP 	unnamed RatingScale: autoDraw = True
+139.7396 	EXP 	MEMORY IMAGE ../../stim/single/00080931230fb.jpg: autoDraw = True
+139.7396 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+140.2082 	DATA 	Keypress: 1
+140.2087 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+140.2087 	DATA 	RatingScale unnamed RatingScale: rating RT=0.490
+140.2087 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 0.49)]
+141.7376 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+141.7376 	EXP 	unnamed RatingScale: autoDraw = False
+141.7376 	EXP 	MEMORY IMAGE ../../stim/single/00080931230fb.jpg: autoDraw = False
+141.7376 	EXP 	FIXATION CROSS: autoDraw = True
+141.8963 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+142.7409 	EXP 	FIXATION CROSS: autoDraw = False
+142.7409 	EXP 	unnamed RatingScale: flipVert = False
+142.7409 	EXP 	unnamed RatingScale: autoLog = True
+142.7409 	EXP 	unnamed RatingScale: autoDraw = True
+142.7409 	EXP 	MEMORY IMAGE ../../stim/single/sunasnqkkyhilqkxiqm.jpg: autoDraw = True
+142.7409 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+143.7932 	DATA 	Keypress: 1
+143.8089 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+143.8089 	DATA 	RatingScale unnamed RatingScale: rating RT=1.087
+143.8089 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 1.087)]
+144.7393 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+144.7393 	EXP 	unnamed RatingScale: autoDraw = False
+144.7393 	EXP 	MEMORY IMAGE ../../stim/single/sunasnqkkyhilqkxiqm.jpg: autoDraw = False
+144.7393 	EXP 	FIXATION CROSS: autoDraw = True
+144.8965 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+145.7411 	EXP 	FIXATION CROSS: autoDraw = False
+145.7411 	EXP 	unnamed RatingScale: flipVert = False
+145.7411 	EXP 	unnamed RatingScale: autoLog = True
+145.7411 	EXP 	unnamed RatingScale: autoDraw = True
+145.7411 	EXP 	MEMORY IMAGE ../../stim/single/00568940928fa.jpg: autoDraw = True
+145.7411 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+146.7944 	DATA 	Keypress: 1
+146.7949 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+146.7949 	DATA 	RatingScale unnamed RatingScale: rating RT=1.072
+146.7949 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 1.072)]
+147.7368 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+147.7368 	EXP 	unnamed RatingScale: autoDraw = False
+147.7368 	EXP 	MEMORY IMAGE ../../stim/single/00568940928fa.jpg: autoDraw = False
+147.7368 	EXP 	FIXATION CROSS: autoDraw = True
+147.8927 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+148.7417 	EXP 	FIXATION CROSS: autoDraw = False
+148.7417 	EXP 	unnamed RatingScale: flipVert = False
+148.7417 	EXP 	unnamed RatingScale: autoLog = True
+148.7417 	EXP 	unnamed RatingScale: autoDraw = True
+148.7417 	EXP 	MEMORY IMAGE ../../stim/single/00908960530fa.jpg: autoDraw = True
+148.7417 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+149.3442 	DATA 	Keypress: 1
+149.3447 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+149.3447 	DATA 	RatingScale unnamed RatingScale: rating RT=0.624
+149.3447 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 0.624)]
+150.7528 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+150.7528 	EXP 	unnamed RatingScale: autoDraw = False
+150.7528 	EXP 	MEMORY IMAGE ../../stim/single/00908960530fa.jpg: autoDraw = False
+150.7528 	EXP 	FIXATION CROSS: autoDraw = True
+150.9160 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+151.5379 	DATA 	Keypress: 3
+151.7591 	EXP 	FIXATION CROSS: autoDraw = False
+151.7591 	EXP 	unnamed RatingScale: flipVert = False
+151.7591 	EXP 	unnamed RatingScale: autoLog = True
+151.7591 	EXP 	unnamed RatingScale: autoDraw = True
+151.7591 	EXP 	MEMORY IMAGE ../../stim/single/00481940519fa.jpg: autoDraw = True
+151.7591 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+153.7570 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+153.7570 	EXP 	unnamed RatingScale: autoDraw = False
+153.7570 	EXP 	MEMORY IMAGE ../../stim/single/00481940519fa.jpg: autoDraw = False
+153.7570 	EXP 	FIXATION CROSS: autoDraw = True
+153.9154 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+154.7595 	EXP 	FIXATION CROSS: autoDraw = False
+154.7595 	EXP 	unnamed RatingScale: flipVert = False
+154.7595 	EXP 	unnamed RatingScale: autoLog = True
+154.7595 	EXP 	unnamed RatingScale: autoDraw = True
+154.7595 	EXP 	MEMORY IMAGE ../../stim/single/01000960627fa.jpg: autoDraw = True
+154.7595 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+156.4471 	DATA 	Keypress: 1
+156.4476 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+156.4477 	DATA 	RatingScale unnamed RatingScale: rating RT=1.706
+156.4477 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 1.706)]
+156.5400 	DATA 	Keypress: 3
+156.7719 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+156.7719 	EXP 	unnamed RatingScale: autoDraw = False
+156.7719 	EXP 	MEMORY IMAGE ../../stim/single/01000960627fa.jpg: autoDraw = False
+156.7719 	EXP 	FIXATION CROSS: autoDraw = True
+156.9298 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+157.7780 	EXP 	FIXATION CROSS: autoDraw = False
+157.7780 	EXP 	unnamed RatingScale: flipVert = False
+157.7780 	EXP 	unnamed RatingScale: autoLog = True
+157.7780 	EXP 	unnamed RatingScale: autoDraw = True
+157.7780 	EXP 	MEMORY IMAGE ../../stim/single/sunbagfpovqwbuexqdn.jpg: autoDraw = True
+157.7780 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+159.2086 	DATA 	Keypress: 1
+159.2090 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+159.2090 	DATA 	RatingScale unnamed RatingScale: rating RT=1.453
+159.2090 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 1.453)]
+159.7753 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+159.7753 	EXP 	unnamed RatingScale: autoDraw = False
+159.7753 	EXP 	MEMORY IMAGE ../../stim/single/sunbagfpovqwbuexqdn.jpg: autoDraw = False
+159.7753 	EXP 	FIXATION CROSS: autoDraw = True
+159.9357 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+160.7782 	EXP 	FIXATION CROSS: autoDraw = False
+160.7782 	EXP 	unnamed RatingScale: flipVert = False
+160.7782 	EXP 	unnamed RatingScale: autoLog = True
+160.7782 	EXP 	unnamed RatingScale: autoDraw = True
+160.7782 	EXP 	MEMORY IMAGE ../../stim/single/sunaeutbrtswvsozxyk.jpg: autoDraw = True
+160.7782 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+162.7899 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+162.7899 	EXP 	unnamed RatingScale: autoDraw = False
+162.7899 	EXP 	MEMORY IMAGE ../../stim/single/sunaeutbrtswvsozxyk.jpg: autoDraw = False
+162.7899 	EXP 	FIXATION CROSS: autoDraw = True
+162.9536 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+163.7957 	EXP 	FIXATION CROSS: autoDraw = False
+163.7957 	EXP 	unnamed RatingScale: flipVert = False
+163.7957 	EXP 	unnamed RatingScale: autoLog = True
+163.7957 	EXP 	unnamed RatingScale: autoDraw = True
+163.7957 	EXP 	MEMORY IMAGE ../../stim/single/sunanwjjyqqwzqrqagd.jpg: autoDraw = True
+163.7957 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+164.7988 	DATA 	Keypress: 1
+164.7992 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+164.7992 	DATA 	RatingScale unnamed RatingScale: rating RT=1.025
+164.7992 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 1.024)]
+165.7943 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+165.7943 	EXP 	unnamed RatingScale: autoDraw = False
+165.7943 	EXP 	MEMORY IMAGE ../../stim/single/sunanwjjyqqwzqrqagd.jpg: autoDraw = False
+165.7943 	EXP 	FIXATION CROSS: autoDraw = True
+165.9597 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+166.7956 	EXP 	FIXATION CROSS: autoDraw = False
+166.7956 	EXP 	unnamed RatingScale: flipVert = False
+166.7956 	EXP 	unnamed RatingScale: autoLog = True
+166.7956 	EXP 	unnamed RatingScale: autoDraw = True
+166.7956 	EXP 	MEMORY IMAGE ../../stim/single/sunbpvgllfdejxcpjqp.jpg: autoDraw = True
+166.7956 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+167.6623 	DATA 	Keypress: 1
+167.6627 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+167.6627 	DATA 	RatingScale unnamed RatingScale: rating RT=0.885
+167.6627 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 0.885)]
+168.8076 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+168.8076 	EXP 	unnamed RatingScale: autoDraw = False
+168.8076 	EXP 	MEMORY IMAGE ../../stim/single/sunbpvgllfdejxcpjqp.jpg: autoDraw = False
+168.8076 	EXP 	FIXATION CROSS: autoDraw = True
+168.9645 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+169.8300 	EXP 	FIXATION CROSS: autoDraw = False
+169.8300 	EXP 	unnamed RatingScale: flipVert = False
+169.8300 	EXP 	unnamed RatingScale: autoLog = True
+169.8300 	EXP 	unnamed RatingScale: autoDraw = True
+169.8300 	EXP 	MEMORY IMAGE ../../stim/single/00955960627fb.jpg: autoDraw = True
+169.8300 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+170.5103 	DATA 	Keypress: 1
+170.5107 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+170.5107 	DATA 	RatingScale unnamed RatingScale: rating RT=0.719
+170.5108 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 0.719)]
+171.3996 	DATA 	Keypress: 3
+171.8120 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+171.8120 	EXP 	unnamed RatingScale: autoDraw = False
+171.8120 	EXP 	MEMORY IMAGE ../../stim/single/00955960627fb.jpg: autoDraw = False
+171.8120 	EXP 	FIXATION CROSS: autoDraw = True
+171.9677 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+172.8145 	EXP 	FIXATION CROSS: autoDraw = False
+172.8145 	EXP 	unnamed RatingScale: flipVert = False
+172.8145 	EXP 	unnamed RatingScale: autoLog = True
+172.8145 	EXP 	unnamed RatingScale: autoDraw = True
+172.8145 	EXP 	MEMORY IMAGE ../../stim/single/00783941205fa.jpg: autoDraw = True
+172.8145 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+173.5292 	DATA 	Keypress: 1
+173.5443 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+173.5443 	DATA 	RatingScale unnamed RatingScale: rating RT=0.748
+173.5443 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 0.747)]
+174.8267 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+174.8267 	EXP 	unnamed RatingScale: autoDraw = False
+174.8267 	EXP 	MEMORY IMAGE ../../stim/single/00783941205fa.jpg: autoDraw = False
+174.8267 	EXP 	FIXATION CROSS: autoDraw = True
+174.9900 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+175.8310 	EXP 	FIXATION CROSS: autoDraw = False
+175.8310 	EXP 	unnamed RatingScale: flipVert = False
+175.8310 	EXP 	unnamed RatingScale: autoLog = True
+175.8310 	EXP 	unnamed RatingScale: autoDraw = True
+175.8310 	EXP 	MEMORY IMAGE ../../stim/single/sunauburywlkjszngcq.jpg: autoDraw = True
+175.8310 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+176.6948 	DATA 	Keypress: 1
+176.6952 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+176.6952 	DATA 	RatingScale unnamed RatingScale: rating RT=0.884
+176.6952 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 0.884)]
+177.8290 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+177.8290 	EXP 	unnamed RatingScale: autoDraw = False
+177.8290 	EXP 	MEMORY IMAGE ../../stim/single/sunauburywlkjszngcq.jpg: autoDraw = False
+177.8290 	EXP 	FIXATION CROSS: autoDraw = True
+177.9848 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+178.8328 	EXP 	FIXATION CROSS: autoDraw = False
+178.8328 	EXP 	unnamed RatingScale: flipVert = False
+178.8328 	EXP 	unnamed RatingScale: autoLog = True
+178.8328 	EXP 	unnamed RatingScale: autoDraw = True
+178.8328 	EXP 	MEMORY IMAGE ../../stim/single/00848940307fa.jpg: autoDraw = True
+178.8328 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+179.3167 	DATA 	Keypress: 1
+179.3174 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+179.3174 	DATA 	RatingScale unnamed RatingScale: rating RT=0.504
+179.3174 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 0.504)]
+180.7630 	DATA 	Keypress: 3
+180.8455 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+180.8455 	EXP 	unnamed RatingScale: autoDraw = False
+180.8455 	EXP 	MEMORY IMAGE ../../stim/single/00848940307fa.jpg: autoDraw = False
+180.8455 	EXP 	FIXATION CROSS: autoDraw = True
+181.0080 	EXP 	Created unnamed RatingScale = RatingScale(acceptKeys=['return'], acceptPreText=UNKNOWN, acceptSize=UNKNOWN, acceptText=UNKNOWN, autoLog=True, choices=False, depth=0, disappear=False, flipVert=False, high=4, kwargs=UNKNOWN, labels=list(...), leftKeys=['left'], lineColor='White', low=1, marker=ShapeStim(...), markerColor='Black', markerExpansion=UNKNOWN, markerStart=0, maxTime=2.0, minTime=0.0, mouseOnly=False, name='unnamed RatingScale', noMouse=True, pos=[0.0, -0.42], precision=1, respKeys=['1', '2', '3', '4'], rightKeys=['right'], scale=str(...), self=UNKNOWN, showAccept=False, showValue=True, singleClick=True, size=0.6, skipKeys=['tab'], stretch=1.0, textColor='LightGray', textFont='Helvetica Bold', textSize=0.12, tickHeight=1.0, tickMarks=3.0, win=Window(...))
+181.8499 	EXP 	FIXATION CROSS: autoDraw = False
+181.8499 	EXP 	unnamed RatingScale: flipVert = False
+181.8499 	EXP 	unnamed RatingScale: autoLog = True
+181.8499 	EXP 	unnamed RatingScale: autoDraw = True
+181.8499 	EXP 	MEMORY IMAGE ../../stim/single/sunbvzmgrdvaakxusbu.jpg: autoDraw = True
+181.8499 	EXP 	WIN FLIP : FIXATION OFF, SCALE AND MEMORY ON
+182.3686 	DATA 	Keypress: 1
+182.3690 	DATA 	RatingScale unnamed RatingScale: (key single-click) rating=1
+182.3690 	DATA 	RatingScale unnamed RatingScale: rating RT=0.539
+182.3690 	DATA 	RatingScale unnamed RatingScale: history=[(None, 0.0), (1, 0.539)]
+183.8445 	EXP 	WIN FLIP : SCALE AND MEMORY OFF, FIXATION ON
+183.8445 	EXP 	unnamed RatingScale: autoDraw = False
+183.8445 	EXP 	MEMORY IMAGE ../../stim/single/sunbvzmgrdvaakxusbu.jpg: autoDraw = False
+183.8445 	EXP 	FIXATION CROSS: autoDraw = True
+183.8445 	EXP 	FIXATION CROSS: autoDraw = False
+183.8445 	EXP 	WIN FLIP : FIXATION OFF
+183.9817 	EXP 	Created INSTRCUCTION TEXT = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=1.0, italic=False, name='INSTRCUCTION TEXT', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=array([1., 1., 1.]), text='Thank you for your participation!', units='deg', win=Window(...), wrapWidth=40)
+184.0000 	EXP 	INSTRCUCTION TEXT: autoDraw = True
+184.6889 	DATA 	Keypress: space
+185.9448 	EXP 	window1: mouseVisible = True
+195.4265 	DEBUG 	handleCurrentIndexChanged: inputFieldName=1. How engaging did you find this experiment?, selected=A little engaging, type: <type 'str'>
+209.3724 	DEBUG 	handleCurrentIndexChanged: inputFieldName=2. How tired do you feel?, selected=A little tired, type: <type 'str'>
+213.6643 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=L
+213.8242 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Lo
+213.9364 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Loc
+214.0643 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Loca
+214.2083 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locat
+214.3364 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locati
+214.3843 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locatio
+214.4725 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Location
+214.9522 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations
+215.9206 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations,
+216.3442 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, 
+217.3845 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, n
+217.4483 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, no
+217.5284 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not
+217.5922 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not 
+217.7204 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not s
+217.7848 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not su
+217.8725 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sur
+217.9685 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure
+218.0163 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure 
+218.1366 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure w
+218.2405 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure wh
+218.4005 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why
+219.4324 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why 
+219.6884 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why b
+219.7764 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why bu
+219.8562 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but
+220.0245 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but 
+220.4802 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but
+222.4643 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but 
+222.9682 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but f
+223.0561 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but fe
+223.1763 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but fel
+223.2563 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt
+223.3366 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt 
+223.4885 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt v
+224.0082 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt 
+224.8003 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt m
+224.8644 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt mo
+224.9044 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt mor
+225.0004 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more
+225.0642 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more 
+225.2563 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more v
+225.4402 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more vr
+225.7921 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more v
+225.9684 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more va
+226.0723 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more var
+226.3374 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more vari
+226.4564 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more varie
+226.6483 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variet
+226.8245 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety
+227.2083 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety 
+227.3684 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety i
+227.4488 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in
+227.5203 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in 
+227.7363 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in i
+227.8803 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in im
+228.0164 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in ima
+228.7524 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in im
+228.8882 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in i
+229.0322 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in 
+229.1764 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in
+229.5054 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in 
+229.6483 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in i
+229.7284 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in im
+229.7763 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in ima
+229.8964 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in imag
+229.9763 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in image
+230.0722 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images
+230.1441 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images 
+230.2323 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images o
+230.3218 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of
+230.4325 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of 
+230.6403 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of l
+230.8322 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of lo
+230.8643 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of loc
+231.0084 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of loca
+231.0889 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locat
+231.1602 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locati
+231.2245 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locatio
+231.3046 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of location
+231.3442 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations
+231.4404 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations 
+231.5523 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations m
+231.6080 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations ma
+231.7043 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations mad
+231.8642 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made
+231.9524 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made 
+232.0404 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made t
+232.1124 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made th
+232.2082 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made the
+232.2884 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them
+232.3845 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them 
+232.6162 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them e
+232.6730 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them ea
+232.7924 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them eas
+232.9123 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easi
+233.1283 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easie
+233.2570 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier
+233.4002 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier 
+233.5123 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier t
+233.5921 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to
+233.6568 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to 
+233.7443 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to d
+233.8482 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to di
+233.9362 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to dis
+234.0961 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to dist
+234.5763 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to disti
+234.6561 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to distin
+234.7523 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to disting
+234.9042 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to distingu
+234.9924 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to distingui
+235.1124 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to distinguis
+235.1522 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to distinguish
+235.3367 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to distinguish 
+235.6244 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to distinguish i
+235.6962 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to distinguish in
+235.7604 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to distinguish in 
+235.8961 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to distinguish in m
+236.0322 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to distinguish in my
+236.1442 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to distinguish in my 
+236.7601 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to distinguish in my e
+237.0722 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to distinguish in my 
+237.3684 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to distinguish in my p
+237.4641 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to distinguish in my pe
+237.5364 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to distinguish in my per
+237.6722 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to distinguish in my peri
+237.8802 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to distinguish in my perip
+237.9440 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to distinguish in my periph
+238.0642 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to distinguish in my periphe
+238.1281 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to distinguish in my peripher
+238.7764 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to distinguish in my periphera
+238.9361 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to distinguish in my peripheral
+239.0241 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to distinguish in my peripheral 
+239.1285 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to distinguish in my peripheral v
+239.2322 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to distinguish in my peripheral vi
+239.3040 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to distinguish in my peripheral vis
+239.4164 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to distinguish in my peripheral visi
+239.4483 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to distinguish in my peripheral visio
+239.5122 	DEBUG 	handleLineEditChange: inputFieldName=3. Did you find one category easier to remember? If so, which one and why?, type=<type 'str'>, value=Locations, not sure why but felt more variety in images of locations made them easier to distinguish in my peripheral vision
+246.4962 	DEBUG 	handleLineEditChange: inputFieldName=4. Did you find one side easier to attend to? If so, which one?, type=<type 'str'>, value=N
+246.6889 	DEBUG 	handleLineEditChange: inputFieldName=4. Did you find one side easier to attend to? If so, which one?, type=<type 'str'>, value=No
+255.7843 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=t
+255.9521 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tr
+256.1119 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tri
+256.1842 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=trie
+256.3683 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried
+256.4888 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried 
+256.6000 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried t
+256.6560 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to
+256.7530 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to 
+256.8643 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to c
+256.9683 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to co
+257.0401 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to com
+257.1361 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come
+257.2159 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come 
+257.4321 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come u
+257.5521 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up
+257.6562 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up 
+257.7762 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up w
+257.8963 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up wi
+257.9759 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up wit
+258.0641 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with
+258.1922 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with 
+258.3288 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a
+258.4402 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a 
+258.5762 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a s
+258.6562 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a si
+258.7201 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a sin
+258.7922 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a sing
+258.9120 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a singl
+258.9920 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single
+259.1600 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single 
+261.4964 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single w
+261.6080 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single wo
+261.7122 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single wor
+261.8640 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word
+261.9920 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word 
+262.0721 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word t
+262.1920 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to
+262.4562 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to 
+262.5681 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to d
+262.7362 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to de
+262.8080 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to des
+262.9762 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to desc
+263.1440 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to descr
+263.2401 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to descri
+263.3441 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describ
+263.4721 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe
+263.7601 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe 
+263.8809 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe t
+263.9682 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe th
+264.0479 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the
+264.1043 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the 
+264.2081 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the l
+264.3601 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the lo
+264.4000 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the loc
+264.5280 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the loca
+264.6163 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the locat
+264.6643 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the locati
+264.7200 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the locatio
+264.7681 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the location
+264.8482 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the locations
+265.3762 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the locations 
+265.4640 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the locations a
+265.5361 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the locations at
+265.6082 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the locations at 
+265.7201 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the locations at l
+265.7842 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the locations at le
+265.8560 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the locations at lea
+265.9683 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the locations at leas
+266.0642 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the locations at least
+266.1681 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the locations at least,
+266.2640 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the locations at least, 
+267.1121 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the locations at least,
+267.6129 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the locations at least
+267.6978 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the locations at leas
+267.7810 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the locations at lea
+267.8646 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the locations at le
+267.9486 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the locations at l
+268.0321 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the locations at 
+268.1157 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the locations at
+268.1993 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the locations a
+268.2829 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the locations 
+268.3672 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the locations
+268.4505 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the location
+268.5345 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the locatio
+268.6183 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the locati
+268.7020 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the locat
+268.8400 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the loca
+269.0161 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the loc
+269.1522 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the lo
+269.3039 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the l
+269.4882 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the 
+270.3840 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the p
+270.4561 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pi
+270.4962 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pic
+270.7126 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pict
+270.7920 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pictu
+270.8960 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pictur
+270.9602 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the picture
+271.0326 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pictures
+271.1361 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pictures,
+271.2484 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pictures, 
+271.4080 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pictures, n
+271.4800 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pictures, no
+271.5441 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pictures, not
+271.6640 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pictures, not 
+271.7844 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pictures, not s
+271.8486 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pictures, not su
+271.9360 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pictures, not sup
+271.9761 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pictures, not supe
+272.0240 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pictures, not super
+272.1122 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pictures, not super 
+272.2801 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pictures, not super h
+272.3518 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pictures, not super he
+272.4486 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pictures, not super hel
+272.6401 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pictures, not super help
+272.7760 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pictures, not super helpf
+272.9679 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pictures, not super helpfu
+273.1361 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pictures, not super helpful
+273.2494 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pictures, not super helpful 
+273.3598 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pictures, not super helpful t
+273.4078 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pictures, not super helpful th
+273.5119 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pictures, not super helpful tho
+273.5920 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pictures, not super helpful thou
+273.6562 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pictures, not super helpful thoug
+273.7522 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pictures, not super helpful though
+274.0163 	DEBUG 	handleLineEditChange: inputFieldName=5. What strategies did you use (if any) to help remember the attended images?, type=<type 'str'>, value=tried to come up with a single word to describe the pictures, not super helpful though.
