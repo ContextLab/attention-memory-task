@@ -1,6 +1,8 @@
 <h3>Getting Started</h3>
 
-To replicate our analysis, you can run the jupyter notebooks in this directory in sequential order. Note: before starting, you must unzip:
+To replicate our analysis, you can run the jupyter notebooks in this directory in sequential order. 
+
+Note: before starting, you must unzip:
 
 - `sustained_attention_experiment/data/group2/19_2019_Oct_15/eye_data/19_7.txt.zip`
 - `variable_attention_experiment/data/group2/10_2019_Nov_16/eye_data/10_7.zip` 
