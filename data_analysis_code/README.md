@@ -1,6 +1,6 @@
 <h3>Analyzing the Data</h3>
 
-To explore the behavioral data yourself, you can follow the same steps we took, outlined below. Note that before starting, you will need to unzip the following files:
+To explore the data yourself, and replicate our analyses, you can follow the steps outlined below. Note that before starting, you will need to unzip the following files:
 
 - `sustained_attention_experiment/data/group2/19_2019_Oct_15/eye_data/19_7.txt.zip`
 - `variable_attention_experiment/data/group2/10_2019_Nov_16/eye_data/10_7.zip` 
