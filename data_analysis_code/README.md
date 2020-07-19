@@ -1,4 +1,4 @@
-<h3>Analyzing the Data!</h3>
+<h3>Analyzing the Data</h3>
 
 To explore the behavioral data yourself, you can follow the same steps we took, outlined below. Note that before starting, you will need to unzip the following files:
 
