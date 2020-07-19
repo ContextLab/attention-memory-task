@@ -7,7 +7,7 @@ To explore the data yourself, and replicate our analyses, you can follow the ste
 - `variable_attention_experiment/data/group2/29_2020_Jan_13/eye_data/29_7.zip` 
 - `variable_attention_experiment/data/group2/9_2019_Nov_16/eye_data/9_7.zip`
 
-After unzipping, remove the `.zip` version of each file so only the unzipped version remains. Then, proceed to compile and analyze the data!  
+After unzipping, remove the `.zip` version of each file so only the unzipped version remains. Then, proceed to compile and analyze the data.  
 
 <h3>Compile Data</h3>
 
