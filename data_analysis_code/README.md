@@ -1,13 +1,13 @@
 <h3>Getting Started</h3>
 
-To explore the data yourself, and replicate our analyses, you can follow the steps outlined below. Note that before starting, you will need to unzip the following files:
+To replicate our analysis, you can run the jupyter notebooks in this directory in sequential order. Note: before starting, you must unzip:
 
 - `sustained_attention_experiment/data/group2/19_2019_Oct_15/eye_data/19_7.txt.zip`
 - `variable_attention_experiment/data/group2/10_2019_Nov_16/eye_data/10_7.zip` 
 - `variable_attention_experiment/data/group2/29_2020_Jan_13/eye_data/29_7.zip` 
 - `variable_attention_experiment/data/group2/9_2019_Nov_16/eye_data/9_7.zip`
 
-After unzipping, remove the `.zip` version of each file so only the unzipped version remains. Then, proceed to compile and analyze the data.  
+After unzipping, remove the `.zip` version of each file. Then, proceed!
 
 <h3>Compile Data</h3>
 
