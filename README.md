@@ -31,6 +31,10 @@ The run number indicates which run to display next. If the subject is just begin
 
 Note that at the time of data collection, our participants sat 60cm from the screen (the distance at whick the Eye Tribe eye tracker has 0.1 degrees visual angle root mean squared error) and our Psychopy monitor center was set to the original default settings (including the assumed 57cm viewing distance). Thus, to replicate the experiment exactly, you may either: 1.) use our exact code and place participants 60cm from the screen, using the default monitor settings, or, 2.) change the stimulus sizes in visual angle directly to match those in the paper (in the `attention_memory.py` files in `sustained_attention_experiment` and `variable_attention_experiemnt`).
 
+# Analyzing the data
+
+To replciate our analysis of the original dataset (or new data you have collected), you can follow the steps outlined in `data_analysis_code/Readme.md`.
+
 # Acknowledgements
 Thanks to Megan deBettencourt for providing the image processing script available in this repository (stimulus_generation_code/process_images.m) and recommending stimulus sets. 
 
