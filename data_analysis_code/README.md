@@ -8,6 +8,7 @@ Note: before starting, you must unzip:
 - `variable_attention_experiment/data/group2/10_2019_Nov_16/eye_data/10_7.zip` 
 - `variable_attention_experiment/data/group2/29_2020_Jan_13/eye_data/29_7.zip` 
 - `variable_attention_experiment/data/group2/9_2019_Nov_16/eye_data/9_7.zip`
+- `variable_attention_experiment/data/group2/8_2019_Nov_16/eye_data/8_7.zip`
 
 After unzipping, remove the `.zip` version of each file. Then, proceed!
 
