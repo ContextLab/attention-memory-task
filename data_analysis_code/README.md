@@ -1,4 +1,4 @@
-<h3>Analyzing the Data</h3>
+<h3>Getting Started</h3>
 
 To explore the data yourself, and replicate our analyses, you can follow the steps outlined below. Note that before starting, you will need to unzip the following files:
 
