@@ -23,4 +23,4 @@ Then, we ran the code in `analyze_behavioral_data` to generate statistics on par
 
 <h3>Gaze Data Analysis</h3>
 
-Next, we ran the code in `analyze_gaze_data` to analyze where participants were looking while completing the task. This code generates the violin plot displayed in Figure 2 of our manuscript. Similarly, `analyze_gaze_data_by_group` does this analysis for the two cohorts of participants in each experiment separately, and generates the corresponding figures provided in the Supplement of the manuscript.
+Next, we ran the code in `analyze_gaze_data` to analyze where participants were looking while completing the task. This code generates the violin plot displayed in Figure 3 of our manuscript. Similarly, `analyze_gaze_data_by_group` does this analysis for the two cohorts of participants in each experiment separately, and generates the corresponding figures provided in the Supplement of the manuscript.
