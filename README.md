@@ -35,7 +35,7 @@ Note that at the time of data collection, our participants sat 60cm from the scr
 
 To replciate our analysis of the original dataset (or new data you have collected), you can follow the steps outlined in `data_analysis_code/Readme.md`. 
 
-Note that two cohorts of participants were collected for each experiment. Minor tweaks were made to the experiment code between collection of the intial cohort and the replication cohort. You can find a thorough detailing of these tweaks in the Issues of this repository. 
+Note that two cohorts of participants were collected for each experiment. Minor tweaks were made to the experiment code between collection of the intial cohort and the replication cohort. You can find a thorough detailing of these tweaks in the Issues of this repository as well as any corresponding adjustments that were made in the data analysis as a result.
 
 # Acknowledgements
 Thanks to Megan deBettencourt for providing the image processing script available in this repository (stimulus_generation_code/process_images.m) and recommending stimulus sets. 
