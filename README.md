@@ -2,6 +2,8 @@
 
 This repository contains the [Psychopy](http://psychopy.org/) code, data, and analyses for the two psychology experiments reported in [our manuscript](https://psyarxiv.com/2ps6e), <i>Feature-based and location-based volitional covert attention are mediated by different mechanisms and affect memory at different timescales</i>, by Kirsten Ziman, Madeline R. Lee, Alejandro R. Martinez, and Jeremy R. Manning.
 
+The Master branch of the repository contains the data and analyss from the initial participant cohort (Sustained Attention Experiment, n=30; Variable Attention Experiment, n=30). The Updates branch of the repository contains the code and analysis for the initial and replication cohorts (Sustained Attention Experiment, n=60; Variable Attention Experiment, n=53)
+
 # Paradigm
 
 There are two versions of the experiment: a block design version (Sustained Attention Experiment), and a trial-wise cuing version (Variable Attention Experiment). Both begin with an initial practice task to orient the participant to the task instructions, then a Presentation block.
