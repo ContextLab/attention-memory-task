@@ -1,6 +1,6 @@
 # Overview
 
-This repository contains the [Psychopy](http://psychopy.org/) code, data, and analyses for the two psychology experiments reported in [our manuscript](https://psyarxiv.com/2ps6e), <i>Feature-based and location-based volitional covert attention are mediated by different mechanisms and affect memory at different timescales</i>, by Kirsten Ziman, Madeline R. Lee, Alejandro R. Martinez, and Jeremy R. Manning.
+This repository contains the [Psychopy](http://psychopy.org/) code, data, and analyses for the two psychology experiments reported in [our manuscript](https://psyarxiv.com/2ps6e), <i>Feature-based and location-based volitional covert attention affect memory at different timescales</i>, by Kirsten Ziman, Madeline R. Lee, Alejandro R. Martinez, Ethan D. Adner, and Jeremy R. Manning.
 
 The `Master` branch of the repository contains the data and analyss from the initial participant cohort (Sustained Attention Experiment, n=30; Variable Attention Experiment, n=30). The `Updates` branch of the repository contains the code and analysis for the initial and replication cohorts (Sustained Attention Experiment, n=60; Variable Attention Experiment, n=53)
 
