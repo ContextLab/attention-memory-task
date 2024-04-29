@@ -192,11 +192,37 @@ def parse_gaze_data(datadir):
     return pd.concat(data, ignore_index=True)
 
 
+# kz edited one line of code in this function
 def intersect_image(xs, ys):
-    im_len = 6.7 * (52.96 / 59.8)
+    #im_len = 6.7 * (52.96 / 59.8)
+    im_len = 6.7 * (59.8 / 52.96) +2
+    
+    # ^ I think this conversion factor should be flipped? 
+    # 52.96 / 59.8  -->  59.8 / 52.96
+    
+    # here is the way I see it:
+    
+    # image_length_in_cm  = 6.7 DVA  *  ( 59.8 cm / 52.96 DVA )
+    # the DVA on the top and bottom cancel out, leaving just cm
+    
+    # NOTE: I also add an additional 2 centimeters 
+    # BECAUSE: I want to detect any gazepoints within a bounding box of 1cm around the image 
+    # thus, I add two centimeters, one for each side 
+    # (e.g. the horizontal length is the original length plus 1 cm on the left and 1 cm on the right)
+    # also see visualization in jupyter notebook
+    
     y = (33.6 - im_len) / 2
-    x1 = (59.8 / 2) - 4.5 - im_len
-    x2 = (59.8 / 2) + 4.5
+    
+#     x1 = (59.8 / 2) - 4.5 - im_len
+#     x2 = (59.8 / 2) + 4.5
+    
+    # kz replaced with these lines (edits #2, #3)
+    x1 = (59.8 / 2) - 3.5 - im_len
+    x2 = (59.8 / 2) + 3.5
+    
+    # ^ in these lines, I now subtract 3.5 as opposed to 4.5
+    # since we are adding a 1cm bounding box around the image, the edge is now 1 cm closer to center
+    # thus the nearest edge we want to detect is 3.5 as opposed to 4.5 centimeters away
 
     xs = np.array(xs)
     ys = np.array(ys)
@@ -204,6 +230,7 @@ def intersect_image(xs, ys):
     return ((xs > x1) & (xs < x1 + im_len) & (ys > y) & (ys < y + im_len)).any(), ((xs > x2) & (xs < x2 + im_len) & (ys > y) & (ys < y + im_len)).any()
 
 
+# kz added six lines of code to this function
 def add_intersection(behavioral, gaze):
     subjs = behavioral['Subject'].unique()
     for subj in tqdm(subjs):
@@ -216,6 +243,17 @@ def add_intersection(behavioral, gaze):
                 behavioral.loc[i, 'Left intersection'], behavioral.loc[i, 'Right intersection']  = intersect_image(gz['x'], gz['y'])
                 behavioral.loc[i, 'Intersection detected'] = behavioral.loc[i, 'Left intersection'] or behavioral.loc[i, 'Right intersection']
                 behavioral.loc[i, 'Attended intersection'] = (behavioral.loc[i, 'Left intersection'] and behavioral.loc[i, 'Cued Location'] == '<') or (behavioral.loc[i, 'Right intersection'] and behavioral.loc[i, 'Cued Location'] == '>')
+    
+            # kz added the six lines below: store number of gaze datapoints in this trial to dataframe before returning 
+            behavioral.loc[i, 'gaze_datapoints']  = gz.shape[0]
+            behavioral.loc[i, 'unique_gaze_datapoints']  = gz.drop_duplicates().shape[0]
+            
+            gz_dropped = gz.drop_duplicates()
+            
+            behavioral.loc[i, 'first_second'] = gz_dropped[(gz_dropped['Time']>= start) & (gz_dropped['Time']< start+1)].shape[0]
+            behavioral.loc[i, 'second_second'] = gz_dropped[(gz_dropped['Time']>= start+1) & (gz_dropped['Time']< start+2)].shape[0]
+            behavioral.loc[i, 'third_second'] = gz_dropped[(gz_dropped['Time']>= start+2) & (gz_dropped['Time']<= end)].shape[0]
+            
     
     return behavioral
 
@@ -382,7 +420,7 @@ def add_cue_recency_info(df):
         df.loc[i, 'Distance to nearest same-category cue'], df.loc[i, 'Number of same-category cues'], df.loc[i, 'Recency-weighted number of same-category cues'] = nearest_cues(row, df)
     return df
 
-
+# kz edited out three lines and added one line to this function
 def load_data():
     download_data()
     
@@ -423,17 +461,26 @@ def load_data():
 
     sustained_behavioral = add_cue_recency_info(sustained_behavioral)
     variable_behavioral = add_cue_recency_info(variable_behavioral)
+    
+    # kz added these lines
+    sustained = sustained_behavioral[~sustained_behavioral['Intersection detected']]
+    variable = variable_behavioral[~variable_behavioral['Intersection detected']]
 
+    # kz commented the six lines below: let's just return the full data for now
+    
+    # sustained = sustained_behavioral[~sustained_behavioral['Attended intersection']]
+    # variable = variable_behavioral[~variable_behavioral['Attended intersection']]
 
-    sustained = sustained_behavioral[~sustained_behavioral['Attended intersection']]
-    variable = variable_behavioral[~variable_behavioral['Attended intersection']]
+    # with warnings.catch_warnings():
+       # warnings.simplefilter('ignore')
+       # sustained['Category-matched recent cue'] = sustained['Distance to nearest same-category cue'] > 0
+       # variable['Category-matched recent cue'] = variable['Distance to nearest same-category cue'] > 0
 
-    with warnings.catch_warnings():
-        warnings.simplefilter('ignore')
-        sustained['Category-matched recent cue'] = sustained['Distance to nearest same-category cue'] > 0
-        variable['Category-matched recent cue'] = variable['Distance to nearest same-category cue'] > 0
+    # kz edited the line below : let's just return the full data for now
+    
+    return sustained_gaze, variable_gaze, sustained_behavioral, variable_behavioral
 
-    return sustained, variable, sustained_gaze, variable_gaze, sustained_behavioral, variable_behavioral
+    #return sustained, variable, sustained_gaze, variable_gaze, sustained_behavioral, variable_behavioral
 
 
 def plot_colorbar(cmap, fname=None):
